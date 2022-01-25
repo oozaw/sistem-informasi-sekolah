@@ -27,12 +27,12 @@
                   <!-- small box -->
                   <div class="small-box bg-info">
                      <div class="inner">
-                        <h3>150</h3>
+                        <h3>15</h3>
 
-                        <p>New Orders</p>
+                        <p>Data Kelas</p>
                      </div>
                      <div class="icon">
-                        <i class="ion ion-bag"></i>
+                        <i class="fas fa-chalkboard"></i>
                      </div>
                      <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                   </div>
@@ -42,12 +42,12 @@
                   <!-- small box -->
                   <div class="small-box bg-success">
                      <div class="inner">
-                        <h3>53<sup style="font-size: 20px">%</sup></h3>
+                        <h3>320</h3>
 
-                        <p>Bounce Rate</p>
+                        <p>Data Siswa</p>
                      </div>
                      <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
+                        <i class="fas fa-users"></i>
                      </div>
                      <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                   </div>
@@ -57,12 +57,12 @@
                   <!-- small box -->
                   <div class="small-box bg-warning">
                      <div class="inner">
-                        <h3>44</h3>
+                        <h3>30</h3>
 
-                        <p>User Registrations</p>
+                        <p>Data Guru</p>
                      </div>
                      <div class="icon">
-                        <i class="ion ion-person-add"></i>
+                        <i class="fas fa-chalkboard-teacher"></i>
                      </div>
                      <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                   </div>
@@ -72,12 +72,72 @@
                   <!-- small box -->
                   <div class="small-box bg-danger">
                      <div class="inner">
-                        <h3>65</h3>
+                        <h3>8</h3>
 
-                        <p>Unique Visitors</p>
+                        <p>Data Staf Tata Usaha</p>
                      </div>
                      <div class="icon">
-                        <i class="ion ion-pie-graph"></i>
+                        <i class="fas fa-users-cog"></i>
+                     </div>
+                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                  </div>
+               </div>
+               <!-- ./col -->
+               <div class="col-lg-3 col-6">
+                  <!-- small box -->
+                  <div class="small-box bg-secondary">
+                     <div class="inner">
+                        <h3>8</h3>
+
+                        <p>Data Tenaga Kerja Lain</p>
+                     </div>
+                     <div class="icon">
+                        <i class="fas fa-user-friends"></i>
+                     </div>
+                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                  </div>
+               </div>
+               <!-- ./col -->
+               <div class="col-lg-3 col-6">
+                  <!-- small box -->
+                  <div class="small-box bg-maroon">
+                     <div class="inner">
+                        <h3>8</h3>
+
+                        <p>Surat Masuk</p>
+                     </div>
+                     <div class="icon">
+                        <i class="fas fa-inbox-in"></i>
+                     </div>
+                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                  </div>
+               </div>
+               <!-- ./col -->
+               <div class="col-lg-3 col-6">
+                  <!-- small box -->
+                  <div class="small-box bg-purple">
+                     <div class="inner">
+                        <h3>8</h3>
+
+                        <p>Surat Keluar</p>
+                     </div>
+                     <div class="icon">
+                        <i class="fas fa-inbox-out"></i>
+                     </div>
+                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                  </div>
+               </div>
+               <!-- ./col -->
+               <div class="col-lg-3 col-6">
+                  <!-- small box -->
+                  <div class="small-box bg-primary">
+                     <div class="inner">
+                        <h3>8</h3>
+
+                        <p>Surat Keluar</p>
+                     </div>
+                     <div class="icon">
+                        <i class="fas fa-users-cog"></i>
                      </div>
                      <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                   </div>
@@ -85,30 +145,6 @@
                <!-- ./col -->
             </div>
          </div>
-         <!-- Default box -->
-         <div class="card">
-            <div class="card-header">
-               <h3 class="card-title">Title</h3>
-
-               <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                     <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                     <i class="fas fa-times"></i>
-                  </button>
-               </div>
-            </div>
-            <div class="card-body">
-               Start creating your amazing application!
-            </div>
-            <!-- /.card-body -->
-            <div class="card-footer">
-               Footer
-            </div>
-            <!-- /.card-footer-->
-         </div>
-         <!-- /.card -->
 
       </section>
       <!-- /.content -->
