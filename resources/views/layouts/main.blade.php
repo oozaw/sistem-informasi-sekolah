@@ -4,7 +4,7 @@
 <head>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
-   <title>Dashboard</title>
+   <title>{{ $title }}</title>
 
    {{-- Icon --}}
    <link rel="icon" type="image/gif/png" href="img/smanel-logo.png">
@@ -18,6 +18,11 @@
    <link rel="stylesheet" href="/adminlte/plugins/ionicons/css/ionicons.min.css">
    <!-- Theme style -->
    <link rel="stylesheet" href="/adminlte/dist/css/adminlte.min.css">
+   <!-- DataTables -->
+   <link rel="stylesheet" href="/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+   <link rel="stylesheet" href="/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+   <link rel="stylesheet" href="/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -53,14 +58,8 @@
    </div>
    <!-- ./wrapper -->
 
-   <!-- jQuery -->
-   <script src="/adminlte/plugins/jquery/jquery.min.js"></script>
-   <!-- Bootstrap 4 -->
-   <script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-   <!-- AdminLTE App -->
-   <script src="/adminlte/dist/js/adminlte.min.js"></script>
-   <!-- AdminLTE for demo purposes -->
-   <script src="/adminlte/dist/js/demo.js"></script>
+   @yield('script')
+
 </body>
 
 </html>

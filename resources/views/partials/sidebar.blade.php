@@ -36,13 +36,13 @@
             <!-- Add icons to the links using the .nav-icon class
          with font-awesome or any other icon font library -->
             <li class="nav-item">
-               <a href="/" class="nav-link active">
+               <a href="/" class="nav-link {{ $part == 'dashboard' ? 'active' : '' }}">
                   <i class="nav-icon fas fa-home"></i>
                   <p>Dashboard</p>
                </a>
             </li>
-            <li class="nav-item">
-               <a href="#" class="nav-link">
+            <li class="nav-item {{ $part == 'kelas' || $part == 'siswa' ? 'menu-open' : '' }}">
+               <a href="#" class="nav-link {{ $part == 'kelas' || $part == 'siswa' ? 'active' : '' }}">
                   <i class="nav-icon fas fa-graduation-cap"></i>
                   <p>
                      Akademik
@@ -51,13 +51,13 @@
                </a>
                <ul class="nav nav-treeview">
                   <li class="nav-item">
-                     <a href="#" class="nav-link">
+                     <a href="/kelas" class="nav-link {{ $part == 'kelas' ? 'active' : '' }}">
                         <i class="fas fa-chalkboard nav-icon"></i>
                         <p>Data Kelas</p>
                      </a>
                   </li>
                   <li class="nav-item">
-                     <a href="#" class="nav-link">
+                     <a href="/siswa" class="nav-link {{ $part == 'siswa' ? 'active' : '' }}">
                         <i class="fas fa-users nav-icon"></i>
                         <p>Data Siswa</p>
                      </a>

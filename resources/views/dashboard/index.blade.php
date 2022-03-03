@@ -11,7 +11,6 @@
                </div>
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
-                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                      <li class="breadcrumb-item active">Dashboard</li>
                   </ol>
                </div>
@@ -34,7 +33,7 @@
                      <div class="icon">
                         <i class="fas fa-chalkboard"></i>
                      </div>
-                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                     <a href="/kelas" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                   </div>
                </div>
                <!-- ./col -->
@@ -49,7 +48,7 @@
                      <div class="icon">
                         <i class="fas fa-users"></i>
                      </div>
-                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                     <a href="/siswa" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                   </div>
                </div>
                <!-- ./col -->
@@ -150,4 +149,15 @@
       </section>
       <!-- /.content -->
    </div>
+@endsection
+
+@section('script')
+   <!-- jQuery -->
+   <script src="/adminlte/plugins/jquery/jquery.min.js"></script>
+   <!-- Bootstrap 4 -->
+   <script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+   <!-- AdminLTE App -->
+   <script src="/adminlte/dist/js/adminlte.min.js"></script>
+   <!-- AdminLTE for demo purposes -->
+   <script src="/adminlte/dist/js/demo.js"></script>
 @endsection
