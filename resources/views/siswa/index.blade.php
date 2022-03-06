@@ -41,38 +41,24 @@
                               </tr>
                            </thead>
                            <tbody>
-                              <tr>
-                                 <td>1</td>
-                                 <td>Arthur Boyle</td>
-                                 <td>Laki-laki</td>
-                                 <td>10 MIA 2</td>
-                                 <td>
-                                    <div class="d-inline-flex">
-                                       <button type="button" class="btn btn-success btn-sm mr-1">
-                                          <i class="fas fa-eye"></i> Detail</button>
-                                       <button type="button" class="btn btn-primary btn-sm mr-1">
-                                          <i class="fas fa-edit"></i> Edit</button>
-                                       <button type="button" class="btn btn-danger btn-sm mr-1">
-                                          <i class="fas fa-trash"></i> Hapus</button>
-                                    </div>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td>2</td>
-                                 <td>Fathur Arrozaq</td>
-                                 <td>Laki-laki</td>
-                                 <td>10 MIA 2</td>
-                                 <td>
-                                    <div class="d-inline-flex">
-                                       <button type="button" class="btn btn-success btn-sm mr-1">
-                                          <i class="fas fa-eye"></i> Detail</button>
-                                       <button type="button" class="btn btn-primary btn-sm mr-1">
-                                          <i class="fas fa-edit"></i> Edit</button>
-                                       <button type="button" class="btn btn-danger btn-sm mr-1">
-                                          <i class="fas fa-trash"></i> Hapus</button>
-                                    </div>
-                                 </td>
-                              </tr>
+                              @foreach ($siswa as $s)
+                                 <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $s->nama }}</td>
+                                    <td>{{ $s->gender }}</td>
+                                    <td>{{ $s->kelas->nama }}</td>
+                                    <td>
+                                       <div class="d-inline-flex">
+                                          <button type="button" class="btn btn-success btn-sm mr-1">
+                                             <i class="fas fa-eye"></i> Detail</button>
+                                          <button type="button" class="btn btn-primary btn-sm mr-1">
+                                             <i class="fas fa-edit"></i> Edit</button>
+                                          <button type="button" class="btn btn-danger btn-sm mr-1">
+                                             <i class="fas fa-trash"></i> Hapus</button>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              @endforeach
                            </tbody>
                         </table>
                      </div>

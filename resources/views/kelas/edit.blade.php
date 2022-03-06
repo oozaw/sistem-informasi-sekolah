@@ -24,20 +24,22 @@
          <div class="container-fluid">
             <div class="row">
                <div class="col">
-                  <div class="card card-success">
+                  <div class="card card-primary">
                      <div class="card-header">
                         <div class="d-inline-flex">
-                           <h4 class="m-0">Data Kelas Baru</h4>
+                           <h4 class="m-0">Edit Data Kelas</h4>
                         </div>
                      </div>
                      <!-- /.card-header -->
-                     <form method="POST" action="/kelas">
+                     <form method="POST" action="/kelas/{{ $kelas->id }}">
+                        @method('put')
                         @csrf
                         <div class="card-body pb-0">
                            <div class="form-group">
                               <label for="NamaKelas">Nama</label>
                               <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
-                                 name="nama" placeholder="Masukkan nama kelas" value="{{ old('nama') }}" autofocus>
+                                 name="nama" placeholder="Masukkan nama kelas" value="{{ old('nama', $kelas->nama) }}"
+                                 autofocus>
                               @error('nama')
                                  <div class="invalid-feedback">
                                     {{ $message }}
@@ -49,9 +51,9 @@
                               <select class="form-control @error('wali_kelas_id') is-invalid @enderror"
                                  name="wali_kelas_id">
                                  <option selected disabled hidden value="">-- Pilih wali kelas --</option>
-                                 <option value="2">Hubari Panji</option>
+                                 <option value="1">Hubari Panji</option>
                                  {{-- @foreach ($waliKelas as $wk)
-                                    @if (old('wali_kelas_id') == $wk->id)
+                                    @if (old('wali_kelas_id', $kelas->nama) == $wk->id)
                                     <option value="{{ $wk->id }}" selected>{{ $wk->nama }}</option>
                                     @else
                                        <option value="{{ $wk->id }}">{{ $wk->nama }}</option>
@@ -68,7 +70,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                           <button type="submit" class="btn btn-success">Tambah</button>
+                           <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                            <a href="/kelas" class="btn btn-secondary">Batal</a>
                         </div>
                      </form>

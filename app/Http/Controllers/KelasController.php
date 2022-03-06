@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelas;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class KelasController extends Controller
 {
@@ -15,7 +18,8 @@ class KelasController extends Controller
     {
         return view('kelas.index', [
             "title" => "Data Kelas",
-            "part" =>  "kelas"
+            "part" =>  "kelas",
+            "kelas" => Kelas::all()
         ]);
     }
 
@@ -40,51 +44,83 @@ class KelasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+           "nama" => "required|unique:kelas",
+           "wali_kelas_id" => "required"
+        ]);
+
+        Kelas::create($validatedData);
+
+        return redirect("/kelas")->with("success", "Kelas baru, $request->nama berhasil ditambahkan!");
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Kelas $kela
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Kelas $kela)
     {
-        //
+        return view('kelas.detail', [
+            "title" => "Detail Kelas",
+            "part" => "kelas",
+            "kelas" => $kela
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Kelas $kela
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Kelas $kela)
     {
-        //
+        // dd($kela);
+        return view('kelas.edit', [
+            "title" => "Edit Kelas",
+            "part" => "kelas",
+            "kelas" => $kela
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Kelas $kela
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Kelas $kela)
     {
-        //
+        $rules = [
+            "wali_kelas_id" => "required"
+        ];
+
+        if (Str::lower($request->nama) != Str::lower($kela->nama)) {
+            $rules["nama"] = "required|unique:kelas";
+        } else {
+            $rules["nama"] = "required";
+        }
+
+        $validatedData = $request->validate($rules);
+
+        Kelas::where('id', $kela->id)->update($validatedData);
+
+        return redirect('/kelas')->with('success', "Kelas $kela->nama berhasil diubah!");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Kelas $kela
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Kelas $kela)
     {
-        //
+        Kelas::destroy($kela->id);
+
+        return redirect('/kelas')->with('success', "Kelas $kela->nama berhasil dihapus!");
     }
 }

@@ -29,6 +29,12 @@
                         <div class="d-inline-flex">
                            <a href="/kelas/create" class="btn btn-success btn-sm mr-1">
                               <i class="fas fa-file-plus"></i> Tambah Kelas</a>
+                           @if (session()->has('success'))
+                              <div class="successAlert" hidden>{{ session('success') }}</div>
+                           @endif
+                           @if (session()->has('fail'))
+                              <div class="failAlert" hidden></div>
+                           @endif
                         </div>
                      </div>
                      <!-- /.card-header -->
@@ -44,38 +50,57 @@
                               </tr>
                            </thead>
                            <tbody>
-                              <tr>
-                                 <td>1</td>
-                                 <td>10 MIA 2</td>
-                                 <td>25</td>
-                                 <td>Gunawan Cahyadi</td>
-                                 <td>
-                                    <div class="d-inline-flex">
-                                       <a href="" class="btn btn-info btn-sm mr-1">
-                                          <i class="fas fa-eye"></i> Detail</a>
-                                       <a href="" class="btn btn-primary btn-sm mr-1">
-                                          <i class="fas fa-edit"></i> Edit</a>
-                                       <a href="" class="btn btn-danger btn-sm mr-1">
-                                          <i class="fas fa-trash"></i> Hapus</a>
-                                    </div>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td>2</td>
-                                 <td>11 MIA 2</td>
-                                 <td>30</td>
-                                 <td>Febrianto Kurniawane</td>
-                                 <td>
-                                    <div class="d-inline-flex">
-                                       <a href="" class="btn btn-info btn-sm mr-1">
-                                          <i class="fas fa-eye"></i> Detail</a>
-                                       <a href="" class="btn btn-primary btn-sm mr-1">
-                                          <i class="fas fa-edit"></i> Edit</a>
-                                       <a href="" class="btn btn-danger btn-sm mr-1">
-                                          <i class="fas fa-trash"></i> Hapus</a>
-                                    </div>
-                                 </td>
-                              </tr>
+                              @foreach ($kelas as $k)
+                                 <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $k->nama }}</td>
+                                    <td>25</td>
+                                    <td>Gunawan Cahyadi</td>
+                                    <td>
+                                       <div class="d-inline-flex">
+                                          <a href="/kelas/{{ $k->id }}" class="btn btn-info btn-sm mr-1">
+                                             <i class="fas fa-eye"></i> Detail</a>
+                                          <a href="/kelas/{{ $k->id }}/edit" class="btn btn-primary btn-sm mr-1">
+                                             <i class="fas fa-edit"></i> Edit</a>
+                                          <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
+                                             data-target="#modal-delete-{{ $k->id }}">
+                                             <i class="fas fa-trash"></i> Hapus</a>
+
+                                          <!-- Modal -->
+                                          <div class="modal fade" id="modal-delete-{{ $k->id }}"
+                                             style="display: none;" aria-hidden="true">
+                                             <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                   <div class="modal-header">
+                                                      <h4 class="modal-title">Hapus Data Kelas</h4>
+                                                      <button type="button" class="close" data-dismiss="modal"
+                                                         aria-label="Close">
+                                                         <span aria-hidden="true">×</span>
+                                                      </button>
+                                                   </div>
+                                                   <div class="modal-body">
+                                                      <p>Yakin hapus data kelas {{ $k->nama }}?</p>
+                                                   </div>
+                                                   <div class="modal-footer justify-content-between">
+                                                      <button type="button" class="btn btn-default"
+                                                         data-dismiss="modal">Batal</button>
+                                                      <form method="POST" action="/kelas/{{ $k->id }}">
+                                                         @method('delete')
+                                                         @csrf
+                                                         <button onclick="return true"
+                                                            class="btn btn-danger">Hapus</button>
+                                                      </form>
+                                                   </div>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                             </div>
+                                             <!-- /.modal-dialog -->
+                                          </div>
+                                          <!-- /.modal -->
+                                       </div>
+                                    </td>
+                                 </tr>
+                              @endforeach
                            </tbody>
                         </table>
                      </div>
@@ -86,6 +111,16 @@
                <!-- /.col -->
             </div>
             <!-- /.row -->
+
+            {{-- <div id="toastsContainerTopRight" class="toasts-top-right fixed">
+               <div class="toast bg-success mt-1 mr-1 fade show" role="alert" aria-live="assertive" aria-atomic="true">
+                  <div class="toast-header"><strong class="mr-auto">Toast
+                        Title</strong><small>Subtitle</small><button data-dismiss="toast" type="button"
+                        class="ml-2 mb-1 close" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                  <div class="toast-body">Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</div>
+               </div>
+            </div> --}}
+
          </div>
          <!-- /.container-fluid -->
       </section>
@@ -111,6 +146,10 @@
    <script src="/adminlte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
    <script src="/adminlte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
    <script src="/adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+   <!-- SweetAlert2 -->
+   <script src="/adminlte/plugins/sweetalert2/sweetalert2.min.js"></script>
+   <!-- Toastr -->
+   <script src="/adminlte/plugins/toastr/toastr.min.js"></script>
    <!-- AdminLTE App -->
    <script src="/adminlte/dist/js/adminlte.min.js"></script>
    <!-- AdminLTE for demo purposes -->
@@ -124,6 +163,41 @@
             "autoWidth": false,
             "buttons": ["excel", "pdf", "print"]
          }).buttons().container().appendTo('#table_kelas_wrapper .col-md-6:eq(0)');
+      });
+
+      $(function() {
+         if ($('.successAlert').length) {
+            $(document).Toasts('create', {
+               class: 'bg-success mt-1 mr-1',
+               title: 'Berhasil',
+               autohide: true,
+               delay: 5000,
+               body: $('.successAlert').text()
+            });
+         }
+
+         if ($('.warningAlert').length) {
+            $(document).Toasts('create', {
+               class: 'bg-warning',
+               title: 'Toast Title',
+               autohide: true,
+               delay: 5000,
+               subtitle: 'Subtitle',
+               body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+            });
+         }
+
+         if ($('.failAlert').length) {
+            $(document).Toasts('create', {
+               class: 'bg-danger',
+               title: 'Toast Title',
+               autohide: true,
+               delay: 5000,
+               subtitle: 'Subtitle',
+               body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+            });
+         }
+
       });
    </script>
 @endsection

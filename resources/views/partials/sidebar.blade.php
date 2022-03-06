@@ -13,7 +13,7 @@
             <img src="/img/profil-me.png" class="img-circle elevation-2" alt="User Image">
          </div>
          <div class="info">
-            <a href="#" class="d-block">Wahyu Purnomo Ady</a>
+            <a href="/profile" class="d-block">Wahyu Purnomo Ady</a>
          </div>
       </div>
 

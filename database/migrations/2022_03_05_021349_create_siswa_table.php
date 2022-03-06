@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class SiswaTable extends Migration
+class CreateSiswaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,7 +16,10 @@ class SiswaTable extends Migration
         Schema::create('siswa', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->
+            $table->string('gender');
+            $table->string('nisn')->unique();
+            $table->string('nis')->unique();
+            $table->foreignId('kelas_id');
             $table->timestamps();
         });
     }
