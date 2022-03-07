@@ -26,7 +26,7 @@
                   <!-- small box -->
                   <div class="small-box bg-info">
                      <div class="inner">
-                        <h3>15</h3>
+                        <h3>{{ $jumlah_kelas }}</h3>
 
                         <p>Kelas</p>
                      </div>
@@ -41,7 +41,7 @@
                   <!-- small box -->
                   <div class="small-box bg-success">
                      <div class="inner">
-                        <h3>320</h3>
+                        <h3>{{ $jumlah_siswa }}</h3>
 
                         <p>Siswa</p>
                      </div>

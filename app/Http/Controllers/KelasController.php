@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelas;
+use App\Models\Siswa;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -65,7 +66,8 @@ class KelasController extends Controller
         return view('kelas.detail', [
             "title" => "Detail Kelas",
             "part" => "kelas",
-            "kelas" => $kela
+            "kelas" => $kela,
+            "siswa" => Siswa::all()->where('kelas_id', $kela->id)
         ]);
     }
 

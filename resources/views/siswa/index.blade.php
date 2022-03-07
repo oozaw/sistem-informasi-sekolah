@@ -26,7 +26,16 @@
                <div class="col-12">
                   <div class="card">
                      <div class="card-header">
-                        <h3 class="card-title">DataTable with default features</h3>
+                        <div class="d-inline-flex">
+                           <a href="/kelas/create" class="btn btn-success btn-sm mr-1">
+                              <i class="fas fa-file-plus"></i> Tambah Siswa</a>
+                           @if (session()->has('success'))
+                              <div class="successAlert" hidden>{{ session('success') }}</div>
+                           @endif
+                           @if (session()->has('fail'))
+                              <div class="failAlert" hidden></div>
+                           @endif
+                        </div>
                      </div>
                      <!-- /.card-header -->
                      <div class="card-body">
@@ -49,12 +58,46 @@
                                     <td>{{ $s->kelas->nama }}</td>
                                     <td>
                                        <div class="d-inline-flex">
-                                          <button type="button" class="btn btn-success btn-sm mr-1">
-                                             <i class="fas fa-eye"></i> Detail</button>
-                                          <button type="button" class="btn btn-primary btn-sm mr-1">
-                                             <i class="fas fa-edit"></i> Edit</button>
-                                          <button type="button" class="btn btn-danger btn-sm mr-1">
-                                             <i class="fas fa-trash"></i> Hapus</button>
+                                          <a href="/siswa/{{ $s->id }}" class="btn btn-info btn-sm mr-1">
+                                             <i class="fas fa-eye"></i> Detail</a>
+                                          <a href="/siswa/{{ $s->id }}/edit" class="btn btn-primary btn-sm mr-1">
+                                             <i class="fas fa-edit"></i> Edit</a>
+                                          <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
+                                             data-target="#modal-delete-{{ $s->id }}">
+                                             <i class="fas fa-trash"></i> Hapus</a>
+
+                                          <!-- Modal -->
+                                          <div class="modal fade" id="modal-delete-{{ $s->id }}"
+                                             style="display: none;" aria-hidden="true">
+                                             <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                   <div class="modal-header">
+                                                      <h4 class="modal-title">Hapus Data Kelas</h4>
+                                                      <button type="button" class="close" data-dismiss="modal"
+                                                         aria-label="Close">
+                                                         <span aria-hidden="true">×</span>
+                                                      </button>
+                                                   </div>
+                                                   <div class="modal-body">
+                                                      <p>Yakin hapus data kelas {{ $s->nama }}?</p>
+                                                   </div>
+                                                   <div class="modal-footer justify-content-between">
+                                                      <button type="button" class="btn btn-default"
+                                                         data-dismiss="modal">Batal</button>
+                                                      <form method="POST" action="/siswa/{{ $s->id }}">
+                                                         @method('delete')
+                                                         @csrf
+                                                         <button onclick="return true"
+                                                            class="btn btn-danger">Hapus</button>
+                                                      </form>
+                                                   </div>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                             </div>
+                                             <!-- /.modal-dialog -->
+                                          </div>
+                                          <!-- /.modal -->
+
                                        </div>
                                     </td>
                                  </tr>
@@ -105,8 +148,40 @@
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            "buttons": ["excel", "pdf", "print"]
          }).buttons().container().appendTo('#data_siswa_wrapper .col-md-6:eq(0)');
+      });
+
+      $(function() {
+         if ($('.successAlert').length) {
+            $(document).Toasts('create', {
+               class: 'bg-success mt-1 mr-1',
+               title: 'Berhasil',
+               autohide: true,
+               delay: 5000,
+               body: $('.successAlert').text()
+            });
+         }
+         if ($('.warningAlert').length) {
+            $(document).Toasts('create', {
+               class: 'bg-warning',
+               title: 'Toast Title',
+               autohide: true,
+               delay: 5000,
+               subtitle: 'Subtitle',
+               body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+            });
+         }
+         if ($('.failAlert').length) {
+            $(document).Toasts('create', {
+               class: 'bg-danger',
+               title: 'Toast Title',
+               autohide: true,
+               delay: 5000,
+               subtitle: 'Subtitle',
+               body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+            });
+         }
       });
    </script>
 @endsection
