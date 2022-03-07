@@ -35,7 +35,7 @@
                         @csrf
                         <div class="card-body pb-0">
                            <div class="form-group">
-                              <label for="NamaKelas">Nama</label>
+                              <label for="nama">Nama</label>
                               <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
                                  name="nama" placeholder="Masukkan nama kelas" value="{{ old('nama') }}" autofocus>
                               @error('nama')

@@ -33,7 +33,7 @@
                               <div class="successAlert" hidden>{{ session('success') }}</div>
                            @endif
                            @if (session()->has('fail'))
-                              <div class="failAlert" hidden></div>
+                              <div class="failAlert" hidden>{{ session('fail') }}</div>
                            @endif
                         </div>
                      </div>
@@ -70,7 +70,7 @@
                                           <div class="modal fade" id="modal-delete-{{ $k->id }}"
                                              style="display: none;" aria-hidden="true">
                                              <div class="modal-dialog">
-                                                <div class="modal-content">
+                                                <div class="modal-content bg-warning">
                                                    <div class="modal-header">
                                                       <h4 class="modal-title">Hapus Data Kelas</h4>
                                                       <button type="button" class="close" data-dismiss="modal"
@@ -82,7 +82,7 @@
                                                       <p>Yakin hapus data kelas {{ $k->nama }}?</p>
                                                    </div>
                                                    <div class="modal-footer justify-content-between">
-                                                      <button type="button" class="btn btn-default"
+                                                      <button type="button" class="btn btn-outline-dark"
                                                          data-dismiss="modal">Batal</button>
                                                       <form method="POST" action="/kelas/{{ $k->id }}">
                                                          @method('delete')

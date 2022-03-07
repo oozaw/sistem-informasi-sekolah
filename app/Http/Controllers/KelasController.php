@@ -79,7 +79,6 @@ class KelasController extends Controller
      */
     public function edit(Kelas $kela)
     {
-        // dd($kela);
         return view('kelas.edit', [
             "title" => "Edit Kelas",
             "part" => "kelas",

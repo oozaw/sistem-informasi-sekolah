@@ -25,7 +25,7 @@ Route::get('/', [DashboardController::class, 'index']);
 Route::resource('kelas', KelasController::class);
 
 // Siswa
-Route::get('siswa', [SiswaController::class, 'index']);
+Route::resource('siswa', SiswaController::class);
 
 // User
 Route::get('/profile', [UserController::class, 'index']);
