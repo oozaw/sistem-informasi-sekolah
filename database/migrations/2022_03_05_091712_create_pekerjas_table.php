@@ -16,6 +16,13 @@ class CreatePekerjasTable extends Migration
         Schema::create('pekerja', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('nama');
+            $table->string('email');
+            $table->string('no_hp');
+            $table->string('nip')->unique()->nullable();
+            $table->string('jabatan');
+            $table->string('gender');
+            $table->string('tempat_tinggal');
         });
     }
 
@@ -26,6 +33,6 @@ class CreatePekerjasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pekerjas');
+        Schema::dropIfExists('pekerja');
     }
 }

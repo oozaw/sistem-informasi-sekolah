@@ -7,12 +7,12 @@
          <div class="container-fluid">
             <div class="row mb-2">
                <div class="col-sm-6">
-                  <h1>Data Siswa</h1>
+                  <h1>Data Pegawai</h1>
                </div>
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
-                     <li class="breadcrumb-item">Akademik</li>
-                     <li class="breadcrumb-item active">Data Siswa</li>
+                     <li class="breadcrumb-item">Kepegawaian</li>
+                     <li class="breadcrumb-item active">Data Pegawai</li>
                   </ol>
                </div>
             </div>
@@ -27,8 +27,8 @@
                   <div class="card">
                      <div class="card-header">
                         <div class="d-inline-flex">
-                           <a href="/siswa/create" class="btn btn-success btn-sm mr-1">
-                              <i class="fas fa-file-plus"></i> Tambah Siswa</a>
+                           <a href="/pekerja/create" class="btn btn-success btn-sm mr-1">
+                              <i class="fas fa-file-plus"></i> Tambah Data Pegawai</a>
                            @if (session()->has('success'))
                               <div class="successAlert" hidden>{{ session('success') }}</div>
                            @endif
@@ -39,37 +39,35 @@
                      </div>
                      <!-- /.card-header -->
                      <div class="card-body">
-                        <table id="data_siswa" class="table table-bordered table-striped">
+                        <table id="data_pegawai" class="table table-bordered table-striped">
                            <thead>
                               <tr>
                                  <th>No.</th>
                                  <th>Nama</th>
-                                 <th>NIS</th>
-                                 <th>Jenis Kelamin</th>
-                                 <th>Kelas</th>
+                                 <th>Jabatan</th>
+                                 <th>Tempat Tinggal</th>
                                  <th>Aksi</th>
                               </tr>
                            </thead>
                            <tbody>
-                              @foreach ($siswa as $s)
+                              @foreach ($pegawai as $p)
                                  <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $s->nama }}</td>
-                                    <td>{{ $s->nis }}</td>
-                                    <td>{{ $s->gender }}</td>
-                                    <td>{{ $s->kelas->nama }}</td>
+                                    <td>{{ $p->nama }}</td>
+                                    <td>{{ $p->jabatan }}</td>
+                                    <td>{{ $p->tempat_tinggal }}</td>
                                     <td>
                                        <div class="d-inline-flex">
-                                          <a href="/siswa/{{ $s->id }}" class="btn btn-info btn-sm mr-1">
+                                          <a href="/pekerja/{{ $p->id }}" class="btn btn-info btn-sm mr-1">
                                              <i class="fas fa-eye"></i> Detail</a>
-                                          <a href="/siswa/{{ $s->id }}/edit" class="btn btn-primary btn-sm mr-1">
+                                          <a href="/pekerja/{{ $p->id }}/edit" class="btn btn-primary btn-sm mr-1">
                                              <i class="fas fa-edit"></i> Edit</a>
                                           <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
-                                             data-target="#modal-delete-{{ $s->id }}">
+                                             data-target="#modal-delete-{{ $p->id }}">
                                              <i class="fas fa-trash"></i> Hapus</a>
 
                                           <!-- Modal -->
-                                          <div class="modal fade" id="modal-delete-{{ $s->id }}"
+                                          <div class="modal fade" id="modal-delete-{{ $p->id }}"
                                              style="display: none;" aria-hidden="true">
                                              <div class="modal-dialog">
                                                 <div class="modal-content bg-warning">
@@ -81,12 +79,12 @@
                                                       </button>
                                                    </div>
                                                    <div class="modal-body">
-                                                      <p>Yakin hapus data {{ $s->nama }}?</p>
+                                                      <p>Yakin hapus data {{ $p->nama }}?</p>
                                                    </div>
                                                    <div class="modal-footer justify-content-between">
                                                       <button type="button" class="btn btn-outline-dark"
                                                          data-dismiss="modal">Batal</button>
-                                                      <form method="POST" action="/siswa/{{ $s->id }}">
+                                                      <form method="POST" action="/pekerja/{{ $p->id }}">
                                                          @method('delete')
                                                          @csrf
                                                          <button onclick="return true"
@@ -146,12 +144,12 @@
    <!-- Page specific script -->
    <script>
       $(function() {
-         $("#data_siswa").DataTable({
+         $("#data_pegawai").DataTable({
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
             "buttons": ["excel", "pdf", "print"]
-         }).buttons().container().appendTo('#data_siswa_wrapper .col-md-6:eq(0)');
+         }).buttons().container().appendTo('#data_pegawai_wrapper .col-md-6:eq(0)');
       });
 
       $(function() {

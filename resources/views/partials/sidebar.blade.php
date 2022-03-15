@@ -64,8 +64,10 @@
                   </li>
                </ul>
             </li>
-            <li class="nav-item">
-               <a href="#" class="nav-link">
+            <li
+               class="nav-item {{ $part == 'guru' || $part == 'tu' || $part == 'others' || $part == 'kepegawaian' ? 'menu-open' : '' }}">
+               <a href="#"
+                  class="nav-link {{ $part == 'guru' || $part == 'tu' || $part == 'others' || $part == 'kepegawaian' ? 'active' : '' }}">
                   <i class="nav-icon fas fa-briefcase"></i>
                   <p>
                      Kepegawaian
@@ -74,21 +76,24 @@
                </a>
                <ul class="nav nav-treeview">
                   <li class="nav-item">
-                     <a href="#" class="nav-link">
+                     <a href="/guru"
+                        class="nav-link {{ $part == 'guru' ? 'active' : '' }} @if (isset($pekerja)) {{ $pekerja->jabatan == 'Guru' ? 'active' : '' }} @endif">
                         <i class="fas fa-chalkboard-teacher nav-icon"></i>
                         <p>Data Guru</p>
                      </a>
                   </li>
                   <li class="nav-item">
-                     <a href="#" class="nav-link">
+                     <a href="/tata-usaha"
+                        class="nav-link {{ $part == 'tu' ? 'active' : '' }} @if (isset($pekerja)) {{ $pekerja->jabatan == 'Staf Tata Usaha' ? 'active' : '' }} @endif">
                         <i class="fas fa-users-cog nav-icon"></i>
                         <p>Data Staf Tata Usaha</p>
                      </a>
                   </li>
                   <li class="nav-item">
-                     <a href="#" class="nav-link">
+                     <a href="#"
+                        class="nav-link {{ $part == 'lainnya' ? 'active' : '' }} @if (isset($pekerja)) {{ $pekerja->jabatan == 'Staf Lainnya' ? 'active' : '' }} @endif">
                         <i class="fas fa-user-friends nav-icon"></i>
-                        <p>Data Tenaga Kerja Lain</p>
+                        <p>Data Pegawai Lain</p>
                      </a>
                   </li>
                </ul>
@@ -135,7 +140,7 @@
                            <a href="" class="nav-link">
                               <i class="fas fa-money-check nav-icon"></i>
                               <p>
-                                 Uang Pangkal
+                                 Dana BOS
                               </p>
                            </a>
                         </li>

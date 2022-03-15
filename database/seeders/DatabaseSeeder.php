@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Kelas;
 use App\Models\Siswa;
+use App\Models\Pekerja;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,5 +20,7 @@ class DatabaseSeeder extends Seeder
         Siswa::factory(20)->create();
 
         Kelas::factory(4)->create();
+
+        Pekerja::factory(15)->create();
     }
 }

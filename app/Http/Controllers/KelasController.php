@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelas;
+use App\Models\Pekerja;
 use App\Models\Siswa;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -33,7 +34,8 @@ class KelasController extends Controller
     {
         return view('kelas.tambah', [
             "title" => "Tambah Kelas",
-            "part" => "kelas"
+            "part" => "kelas",
+            "wali_kelas" => Pekerja::all()->where('jabatan', 'Guru')
         ]);
     }
 
@@ -82,7 +84,8 @@ class KelasController extends Controller
         return view('kelas.edit', [
             "title" => "Edit Kelas",
             "part" => "kelas",
-            "kelas" => $kela
+            "kelas" => $kela,
+            "wali_kelas" => Pekerja::all()->where('jabatan', 'Guru')
         ]);
     }
 

@@ -54,12 +54,12 @@
                                  <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $k->nama }}</td>
-                                    <td>25</td>
-                                    <td>Gunawan Cahyadi</td>
+                                    <td>{{ $k->siswa->count() }}</td>
+                                    <td>{{ $k->wali_kelas->nama }}</td>
                                     <td>
                                        <div class="d-inline-flex">
                                           <a href="/kelas/{{ $k->id }}" class="btn btn-info btn-sm mr-1">
-                                             <i class="fas fa-eye"></i> Detail</a>
+                                             <i class="fas fa-eye"></i> Daftar Siswa</a>
                                           <a href="/kelas/{{ $k->id }}/edit" class="btn btn-primary btn-sm mr-1">
                                              <i class="fas fa-edit"></i> Edit</a>
                                           <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"

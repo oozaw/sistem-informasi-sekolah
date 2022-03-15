@@ -15,7 +15,7 @@ class KelasFactory extends Factory
     {
         return [
             "nama" => $this->faker->bothify('## ??? #'),
-            "wali_kelas_id" => mt_rand(1, 2)
+            "wali_kelas_id" => mt_rand(1, 15)
         ];
     }
 }

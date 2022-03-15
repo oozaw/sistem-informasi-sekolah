@@ -51,14 +51,13 @@
                               <select class="form-control @error('wali_kelas_id') is-invalid @enderror"
                                  name="wali_kelas_id">
                                  <option selected disabled hidden value="">-- Pilih wali kelas --</option>
-                                 <option value="1">Hubari Panji</option>
-                                 {{-- @foreach ($waliKelas as $wk)
-                                    @if (old('wali_kelas_id', $kelas->nama) == $wk->id)
-                                    <option value="{{ $wk->id }}" selected>{{ $wk->nama }}</option>
+                                 @foreach ($wali_kelas as $wk)
+                                    @if (old('wali_kelas_id', $kelas->wali_kelas_id) == $wk->id)
+                                       <option value="{{ $wk->id }}" selected>{{ $wk->nama }}</option>
                                     @else
                                        <option value="{{ $wk->id }}">{{ $wk->nama }}</option>
                                     @endif
-                                 @endforeach --}}
+                                 @endforeach
                               </select>
                               @error('wali_kelas_id')
                                  <div class="invalid-feedback">
