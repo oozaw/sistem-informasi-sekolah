@@ -33,6 +33,7 @@ Route::resource('siswa', SiswaController::class);
 Route::resource('pekerja', PekerjaController::class);
 Route::get('guru', [PekerjaController::class, 'index_guru']);
 Route::get('tata-usaha', [PekerjaController::class, 'index_tu']);
+Route::get('staf-lain', [PekerjaController::class, 'index_lain']);
 
 // User
 Route::get('/profile', [UserController::class, 'index']);

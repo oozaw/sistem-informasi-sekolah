@@ -65,9 +65,9 @@
                </ul>
             </li>
             <li
-               class="nav-item {{ $part == 'guru' || $part == 'tu' || $part == 'others' || $part == 'kepegawaian' ? 'menu-open' : '' }}">
+               class="nav-item {{ $part == 'guru' || $part == 'tu' || $part == 'lainnya' || $part == 'kepegawaian' ? 'menu-open' : '' }}">
                <a href="#"
-                  class="nav-link {{ $part == 'guru' || $part == 'tu' || $part == 'others' || $part == 'kepegawaian' ? 'active' : '' }}">
+                  class="nav-link {{ $part == 'guru' || $part == 'tu' || $part == 'lainnya' || $part == 'kepegawaian' ? 'active' : '' }}">
                   <i class="nav-icon fas fa-briefcase"></i>
                   <p>
                      Kepegawaian
@@ -90,7 +90,7 @@
                      </a>
                   </li>
                   <li class="nav-item">
-                     <a href="#"
+                     <a href="/staf-lain"
                         class="nav-link {{ $part == 'lainnya' ? 'active' : '' }} @if (isset($pekerja)) {{ $pekerja->jabatan == 'Staf Lainnya' ? 'active' : '' }} @endif">
                         <i class="fas fa-user-friends nav-icon"></i>
                         <p>Data Pegawai Lain</p>

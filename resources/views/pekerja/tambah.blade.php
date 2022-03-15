@@ -140,7 +140,7 @@
 
                         <div class="card-footer">
                            <button type="submit" class="btn btn-success">Tambah</button>
-                           <a href="/siswa" class="btn btn-secondary">Batal</a>
+                           <a href="/guru" class="btn btn-secondary">Batal</a>
                         </div>
                      </form>
                   </div>

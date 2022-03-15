@@ -38,6 +38,14 @@ class PekerjaController extends Controller
             "staf" => Pekerja::all()->where('jabatan', "Staf Tata Usaha")
         ]);
     }
+    
+    public function index_lain() {
+        return view('pekerja.pegawai-lain.index', [
+            "title" => "Data Staf Lain",
+            "part" => "lainnya",
+            "staf" => Pekerja::all()->where('jabatan', "Staf Lainnya")
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -91,7 +99,11 @@ class PekerjaController extends Controller
      */
     public function show(Pekerja $pekerja)
     {
-        //
+        return view('pekerja.detail', [
+            "title" => "Detail Pegawai",
+            "part" => "kepegawaian",
+            "pekerja" => $pekerja
+        ]);
     }
 
     /**

@@ -12,7 +12,7 @@
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
                      <li class="breadcrumb-item">Kepegawaian</li>
-                     <li class="breadcrumb-item active">Data Guru</li>
+                     <li class="breadcrumb-item active">Data Staf Lain</li>
                   </ol>
                </div>
             </div>
@@ -39,7 +39,7 @@
                      </div>
                      <!-- /.card-header -->
                      <div class="card-body">
-                        <table id="data_guru" class="table table-bordered table-striped">
+                        <table id="data_staf_lain" class="table table-bordered table-striped">
                            <thead>
                               <tr>
                                  <th>No.</th>
@@ -50,24 +50,24 @@
                               </tr>
                            </thead>
                            <tbody>
-                              @foreach ($guru as $g)
+                              @foreach ($staf as $s)
                                  <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $g->nama }}</td>
-                                    <td>{{ $g->jabatan }}</td>
-                                    <td>{{ $g->tempat_tinggal }}</td>
+                                    <td>{{ $s->nama }}</td>
+                                    <td>{{ $s->jabatan }}</td>
+                                    <td>{{ $s->tempat_tinggal }}</td>
                                     <td>
                                        <div class="d-inline-flex">
-                                          <a href="/pekerja/{{ $g->id }}" class="btn btn-info btn-sm mr-1">
+                                          <a href="/pekerja/{{ $s->id }}" class="btn btn-info btn-sm mr-1">
                                              <i class="fas fa-eye"></i> Detail</a>
-                                          <a href="/pekerja/{{ $g->id }}/edit" class="btn btn-primary btn-sm mr-1">
+                                          <a href="/pekerja/{{ $s->id }}/edit" class="btn btn-primary btn-sm mr-1">
                                              <i class="fas fa-edit"></i> Edit</a>
                                           <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
-                                             data-target="#modal-delete-{{ $g->id }}">
+                                             data-target="#modal-delete-{{ $s->id }}">
                                              <i class="fas fa-trash"></i> Hapus</a>
 
                                           <!-- Modal -->
-                                          <div class="modal fade" id="modal-delete-{{ $g->id }}"
+                                          <div class="modal fade" id="modal-delete-{{ $s->id }}"
                                              style="display: none;" aria-hidden="true">
                                              <div class="modal-dialog">
                                                 <div class="modal-content bg-warning">
@@ -79,12 +79,12 @@
                                                       </button>
                                                    </div>
                                                    <div class="modal-body">
-                                                      <p>Yakin hapus data {{ $g->nama }}?</p>
+                                                      <p>Yakin hapus data {{ $s->nama }}?</p>
                                                    </div>
                                                    <div class="modal-footer justify-content-between">
                                                       <button type="button" class="btn btn-outline-dark"
                                                          data-dismiss="modal">Batal</button>
-                                                      <form method="POST" action="/pekerja/{{ $g->id }}">
+                                                      <form method="POST" action="/pekerja/{{ $s->id }}">
                                                          @method('delete')
                                                          @csrf
                                                          <button onclick="return true"
@@ -144,12 +144,12 @@
    <!-- Page specific script -->
    <script>
       $(function() {
-         $("#data_guru").DataTable({
+         $("#data_staf_lain").DataTable({
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
             "buttons": ["excel", "pdf", "print"]
-         }).buttons().container().appendTo('#data_guru_wrapper .col-md-6:eq(0)');
+         }).buttons().container().appendTo('#data_staf_lain_wrapper .col-md-6:eq(0)');
       });
 
       $(function() {
