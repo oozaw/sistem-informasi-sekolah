@@ -56,7 +56,7 @@
                   <!-- small box -->
                   <div class="small-box bg-warning">
                      <div class="inner text-light">
-                        <h3>30</h3>
+                        <h3>{{ $jumlah_guru }}</h3>
 
                         <p>Guru</p>
                      </div>
@@ -72,7 +72,7 @@
                   <!-- small box -->
                   <div class="small-box bg-danger">
                      <div class="inner">
-                        <h3>8</h3>
+                        <h3>{{ $jumlah_tu }}</h3>
 
                         <p>Staf Tata Usaha</p>
                      </div>
@@ -87,9 +87,9 @@
                   <!-- small box -->
                   <div class="small-box bg-secondary">
                      <div class="inner">
-                        <h3>8</h3>
+                        <h3>{{ $jumlah_staf_lain }}</h3>
 
-                        <p>Tenaga Kerja Lain</p>
+                        <p>Staf Lain</p>
                      </div>
                      <div class="icon">
                         <i class="fas fa-user-friends"></i>
@@ -143,6 +143,70 @@
                   </div>
                </div>
                <!-- ./col -->
+               <div class="col-md-6">
+                  <div class="card card-success">
+                     <div class="card-header">
+                        <h3 class="card-title">Siswa Chart</h3>
+                        <div class="card-tools">
+                           <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                              <i class="fas fa-minus"></i>
+                           </button>
+                        </div>
+                     </div>
+                     <div class="card-data" style="display: none">
+                        <div id="laki-laki">{{ $jumlah_laki }}</div>
+                        <div id="perempuan">{{ $jumlah_perempuan }}</div>
+                     </div>
+                     <div class="card-body">
+                        <div class="chartjs-size-monitor">
+                           <div class="chartjs-size-monitor-expand">
+                              <div class=""></div>
+                           </div>
+                           <div class="chartjs-size-monitor-shrink">
+                              <div class=""></div>
+                           </div>
+                        </div>
+                        <canvas id="siswaChart"
+                           style="min-height: 350px; height: 350px; max-height: 350px; max-width: 100%; display: block; width: 422px;"
+                           width="844" height="500" class="chartjs-render-monitor"></canvas>
+                        <p class="text-center mt-3">Jumlah Keseluruhan Siswa: {{ $jumlah_siswa }}</p>
+                     </div>
+
+                  </div>
+               </div>
+               <div class="col-md-6">
+                  <div class="card card-warning">
+                     <div class="card-header">
+                        <h3 class="card-title">Pegawai Chart</h3>
+                        <div class="card-tools">
+                           <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                              <i class="fas fa-minus"></i>
+                           </button>
+                        </div>
+                     </div>
+                     <div class="card-data" style="display: none">
+                        <div id="guru">{{ $jumlah_guru }}</div>
+                        <div id="tu">{{ $jumlah_tu }}</div>
+                        <div id="staf-lain">{{ $jumlah_staf_lain }}</div>
+                     </div>
+                     <div class="card-body">
+                        <div class="chartjs-size-monitor">
+                           <div class="chartjs-size-monitor-expand">
+                              <div class=""></div>
+                           </div>
+                           <div class="chartjs-size-monitor-shrink">
+                              <div class=""></div>
+                           </div>
+                        </div>
+                        <canvas id="pegawaiChart"
+                           style="min-height: 350px; height: 350px; max-height: 350px; max-width: 100%; display: block; width: 422px;"
+                           width="844" height="500" class="chartjs-render-monitor"></canvas>
+                        <p class="text-center mt-3">Jumlah Keseluruhan Pegawai:
+                           {{ $jumlah_guru + $jumlah_tu + $jumlah_staf_lain }}</p>
+                     </div>
+
+                  </div>
+               </div>
             </div>
          </div>
 
@@ -156,8 +220,73 @@
    <script src="/adminlte/plugins/jquery/jquery.min.js"></script>
    <!-- Bootstrap 4 -->
    <script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+   <!-- Chart JS -->
+   <script src="/adminlte/plugins/chart.js/Chart.min.js"></script>
    <!-- AdminLTE App -->
    <script src="/adminlte/dist/js/adminlte.min.js"></script>
    <!-- AdminLTE for demo purposes -->
    <script src="/adminlte/dist/js/demo.js"></script>
+   <script>
+      $(function() {
+         /* ChartJS
+          * -------
+          * Here we will create a few charts using ChartJS
+          */
+
+         //-------------
+         //- SISWA DONUT CHART -
+         //-------------
+         // Get context with jQuery - using jQuery's .get() method.
+         var siswaChartCanvas = $('#siswaChart').get(0).getContext('2d')
+         var donutData = {
+            labels: [
+               "Laki-laki",
+               "Perempuan"
+            ],
+            datasets: [{
+               data: [$("#laki-laki").text(), $("#perempuan").text()],
+               backgroundColor: ['#093eeb', '#09de33'],
+            }]
+         }
+         var donutOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+         }
+         //Create pie or douhnut chart
+         // You can switch between pie and douhnut using the method below.
+         new Chart(siswaChartCanvas, {
+            type: 'doughnut',
+            data: donutData,
+            options: donutOptions
+         })
+
+         //-------------
+         //- PEGAWAI DONUT CHART -
+         //-------------
+         // Get context with jQuery - using jQuery's .get() method.
+         var pegawaiChartCanvas = $('#pegawaiChart').get(0).getContext('2d')
+         var donutData = {
+            labels: [
+               "Guru",
+               "Staf Tata Usaha",
+               "Staf Lain"
+            ],
+            datasets: [{
+               data: [$("#guru").text(), $("#tu").text(), $("#staf-lain").text()],
+               backgroundColor: ['#d96d0f', '#5411ab', '#bf1111'],
+            }]
+         }
+         var donutOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+         }
+         //Create pie or douhnut chart
+         // You can switch between pie and douhnut using the method below.
+         new Chart(pegawaiChartCanvas, {
+            type: 'doughnut',
+            data: donutData,
+            options: donutOptions
+         })
+      })
+   </script>
 @endsection

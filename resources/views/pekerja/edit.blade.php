@@ -148,7 +148,7 @@
                            @elseif ($pekerja->jabatan == 'Staf Tata Usaha')
                               /tata-usaha
                            @else
-                           /staf-lainnya @endif"
+                           /staf-lain @endif"
                               class="btn btn-secondary">Batal</a>
                         </div>
                      </form>

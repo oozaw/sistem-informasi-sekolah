@@ -149,7 +149,31 @@
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
-            "buttons": ["excel", "pdf", "print"]
+            "buttons": [{
+                  extend: 'copy',
+                  exportOptions: {
+                     columns: [0, 1, 2, 3]
+                  }
+               },
+               {
+                  extend: 'excel',
+                  exportOptions: {
+                     columns: [0, 1, 2, 3]
+                  }
+               },
+               {
+                  extend: 'pdf',
+                  exportOptions: {
+                     columns: [0, 1, 2, 3]
+                  }
+               },
+               {
+                  extend: 'print',
+                  exportOptions: {
+                     columns: [0, 1, 2, 3]
+                  }
+               }
+            ]
          }).buttons().container().appendTo('#data_tu_wrapper .col-md-6:eq(0)');
       });
 
