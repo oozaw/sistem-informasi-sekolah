@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Pekerja;
 use Illuminate\Http\Request;
-use App\Http\Requests\StorePekerjaRequest;
-use App\Http\Requests\UpdatePekerjaRequest;
 
 class PekerjaController extends Controller
 {

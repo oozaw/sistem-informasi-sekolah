@@ -63,7 +63,7 @@
                      <div class="icon">
                         <i class="fas fa-chalkboard-teacher"></i>
                      </div>
-                     <a href="#" class="small-box-footer" style="color: #FFFFFF !important;">More info <i
+                     <a href="/guru" class="small-box-footer" style="color: #FFFFFF !important;">More info <i
                            class="fas fa-arrow-circle-right"></i></a>
                   </div>
                </div>
@@ -79,7 +79,7 @@
                      <div class="icon">
                         <i class="fas fa-users-cog"></i>
                      </div>
-                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                     <a href="/tata-usaha" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                   </div>
                </div>
                <!-- ./col -->
@@ -94,7 +94,7 @@
                      <div class="icon">
                         <i class="fas fa-user-friends"></i>
                      </div>
-                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                     <a href="/staf-lain" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                   </div>
                </div>
                <!-- ./col -->
@@ -117,14 +117,15 @@
                   <!-- small box -->
                   <div class="small-box bg-purple">
                      <div class="inner">
-                        <h3>8</h3>
+                        <h3>{{ $jumlah_surat_keluar }}</h3>
 
                         <p>Surat Keluar</p>
                      </div>
                      <div class="icon">
                         <i class="fas fa-inbox-out"></i>
                      </div>
-                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                     <a href="/surat-keluar" class="small-box-footer">More info <i
+                           class="fas fa-arrow-circle-right"></i></a>
                   </div>
                </div>
                <!-- ./col -->

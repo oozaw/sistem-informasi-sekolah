@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Kelas;
 use App\Models\Siswa;
 use App\Models\Pekerja;
+use App\Models\SuratKeluar;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,5 +23,7 @@ class DatabaseSeeder extends Seeder
         Kelas::factory(4)->create();
 
         Pekerja::factory(15)->create();
+
+        SuratKeluar::factory(20)->create();
     }
 }

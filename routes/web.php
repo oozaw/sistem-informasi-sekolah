@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\PekerjaController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\SuratKeluarController;
 use App\Http\Controllers\UserController;
 use App\Models\Pekerja;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,9 @@ Route::resource('pekerja', PekerjaController::class);
 Route::get('guru', [PekerjaController::class, 'index_guru']);
 Route::get('tata-usaha', [PekerjaController::class, 'index_tu']);
 Route::get('staf-lain', [PekerjaController::class, 'index_lain']);
+
+// Surat Keluar
+Route::resource('surat-keluar', SuratKeluarController::class);
 
 // User
 Route::get('/profile', [UserController::class, 'index']);

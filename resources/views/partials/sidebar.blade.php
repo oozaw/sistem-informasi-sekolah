@@ -98,8 +98,10 @@
                   </li>
                </ul>
             </li>
-            <li class="nav-item">
-               <a href="/" class="nav-link">
+            <li
+               class="nav-item {{ $part == 'surat-masuk' ||$part == 'surat-keluar' ||$part == 'keuangan' ||$part == 'komite' ||$part == 'bos'? 'menu-open': '' }}">
+               <a href="#"
+                  class="nav-link {{ $part == 'surat-masuk' ||$part == 'surat-keluar' ||$part == 'keuangan' ||$part == 'komite' ||$part == 'bos'? 'active': '' }}">
                   <i class="nav-icon fas fa-paste"></i>
                   <p>
                      Tata Usaha
@@ -108,19 +110,19 @@
                </a>
                <ul class="nav nav-treeview">
                   <li class="nav-item">
-                     <a href="" class="nav-link">
+                     <a href="/surat-masuk" class="nav-link {{ $part == 'surat-masuk' ? 'active' : '' }}">
                         <i class="fas fa-inbox-in nav-icon"></i>
                         <p>Surat Masuk</p>
                      </a>
                   </li>
                   <li class="nav-item">
-                     <a href="" class="nav-link">
+                     <a href="/surat-keluar" class="nav-link {{ $part == 'surat-keluar' ? 'active' : '' }}">
                         <i class="fas fa-inbox-out nav-icon"></i>
                         <p>Surat Keluar</p>
                      </a>
                   </li>
-                  <li class="nav-item">
-                     <a href="" class="nav-link">
+                  <li class="nav-item {{ $part == 'komite' || $part == 'bos' ? 'menu-open' : '' }}">
+                     <a href="" class="nav-link {{ $part == 'komite' || $part == 'bos' ? 'active' : '' }}">
                         <i class="fas fa-calculator nav-icon"></i>
                         <p>
                            Keuangan
@@ -129,7 +131,7 @@
                      </a>
                      <ul class="nav nav-treeview">
                         <li class="nav-item">
-                           <a href="" class="nav-link">
+                           <a href="" class="nav-link {{ $part == 'komite' ? 'active' : '' }}">
                               <i class="fas fa-money-check-alt nav-icon"></i>
                               <p>
                                  Komite
@@ -137,7 +139,7 @@
                            </a>
                         </li>
                         <li class="nav-item">
-                           <a href="" class="nav-link">
+                           <a href="" class="nav-link {{ $part == 'bos' ? 'active' : '' }}">
                               <i class="fas fa-money-check nav-icon"></i>
                               <p>
                                  Dana BOS
