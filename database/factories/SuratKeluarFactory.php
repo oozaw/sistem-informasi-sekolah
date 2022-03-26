@@ -14,7 +14,7 @@ class SuratKeluarFactory extends Factory
     public function definition()
     {
         return [
-            "judul" => $this->faker->words(3, true),
+            "tujuan" => $this->faker->words(2, true),
             "no_surat" => $this->faker->numerify("###/###.##/SMAN.5.Mrg/II-2022"),
             "tgl_keluar" => $this->faker->dateTime(),
             "keterangan" => $this->faker->sentence()

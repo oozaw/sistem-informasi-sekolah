@@ -43,9 +43,9 @@
                            <thead>
                               <tr>
                                  <th>No.</th>
-                                 <th>Judul</th>
+                                 <th>Tujuan</th>
                                  <th>No. Surat</th>
-                                 <th>Tanggal</th>
+                                 <th>Tanggal Keluar</th>
                                  <th>Keterangan</th>
                                  <th>Aksi</th>
                               </tr>
@@ -54,7 +54,7 @@
                               @foreach ($surat_keluar as $sk)
                                  <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $sk->judul }}</td>
+                                    <td>{{ $sk->tujuan }}</td>
                                     <td>{{ $sk->no_surat }}</td>
                                     <td>{{ $sk->tgl_keluar }}</td>
                                     <td>{{ $sk->keterangan }}</td>
