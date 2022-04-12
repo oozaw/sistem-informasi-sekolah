@@ -89,7 +89,7 @@
                            </div>
                            <div class="form-group">
                               <label>Kelas</label>
-                              <select class="form-control @error('kelas') is-invalid @enderror" name="kelas_id">
+                              <select class="form-control @error('kelas_id') is-invalid @enderror" name="kelas_id">
                                  <option selected disabled hidden value="">-- Pilih kelas --</option>
                                  @foreach ($kelas as $k)
                                     @if (old('kelas_id', $siswa->kelas->id) == $k->id)

@@ -81,11 +81,16 @@ class KelasController extends Controller
      */
     public function edit(Kelas $kela)
     {
+        $selected_wali_kelas = Kelas::all()->where('id', $kela->id)->pluck('wali_kelas_id');
+        $wali_kelas_not_available = Kelas::all()->whereNotNull('wali_kelas_id')->whereNotIn('wali_kelas_id', $selected_wali_kelas)->pluck('wali_kelas_id');
+        $wali_kelas_available = Pekerja::all()->where('jabatan', 'Guru')->whereNotIn('id', $wali_kelas_not_available)->all();
+        // dd($wali_kelas_not_available, $wali_kelas_available);
+        
         return view('kelas.edit', [
             "title" => "Edit Kelas",
             "part" => "kelas",
             "kelas" => $kela,
-            "wali_kelas" => Pekerja::all()->where('jabatan', 'Guru')
+            "wali_kelas" => $wali_kelas_available
         ]);
     }
 

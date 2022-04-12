@@ -109,7 +109,8 @@
                      <div class="icon">
                         <i class="fas fa-inbox-in"></i>
                      </div>
-                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                     <a href="/surat-masuk" class="small-box-footer">More info <i
+                           class="fas fa-arrow-circle-right"></i></a>
                   </div>
                </div>
                <!-- ./col -->

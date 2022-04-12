@@ -52,7 +52,8 @@
                         <!-- /.row -->
                         <div class="d-flex justify-content-center mt-3 mb-2">
                            <div class="col-6">
-                              <a href="#" class="btn btn-warning btn-block"><b>Edit Profil</b></a>
+                              <a href="/siswa/{{ $siswa->id }}/edit" class="btn btn-warning btn-block"><b>Edit
+                                    Profil</b></a>
                            </div>
                         </div>
                      </div>
