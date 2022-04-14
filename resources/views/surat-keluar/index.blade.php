@@ -27,7 +27,7 @@
                   <div class="card">
                      <div class="card-header">
                         <div class="d-inline-flex">
-                           <a href="/siswa/create" class="btn btn-success btn-sm mr-1">
+                           <a href="/surat-keluar/create" class="btn btn-success btn-sm mr-1">
                               <i class="fas fa-file-plus"></i> Tambah Surat Keluar</a>
                            @if (session()->has('success'))
                               <div class="successAlert" hidden>{{ session('success') }}</div>
@@ -82,7 +82,7 @@
                                                       </button>
                                                    </div>
                                                    <div class="modal-body">
-                                                      <p>Yakin hapus data {{ $sk->nama }}?</p>
+                                                      <p>Yakin hapus data {{ $sk->tujuan }}?</p>
                                                    </div>
                                                    <div class="modal-footer justify-content-between">
                                                       <button type="button" class="btn btn-outline-dark"

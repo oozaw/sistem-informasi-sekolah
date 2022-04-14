@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SuratKeluar;
+use App\Rules\Test;
 use Illuminate\Http\Request;
 
 class SuratKeluarController extends Controller
@@ -61,7 +62,11 @@ class SuratKeluarController extends Controller
      */
     public function edit(SuratKeluar $suratKeluar)
     {
-        //
+        return view('surat-keluar.edit', [
+            "title" => "Edit Surat Keluar",
+            "part" => "surat-keluar",
+            "surat" => $suratKeluar
+        ]);
     }
 
     /**
@@ -73,7 +78,9 @@ class SuratKeluarController extends Controller
      */
     public function update(Request $request, SuratKeluar $suratKeluar)
     {
-        //
+        $request->validate([
+            'nama' => ['accepted', new Test]
+        ]);
     }
 
     /**
@@ -84,6 +91,8 @@ class SuratKeluarController extends Controller
      */
     public function destroy(SuratKeluar $suratKeluar)
     {
-        //
+        SuratKeluar::destroy($suratKeluar->id);
+
+        return redirect('/surat-keluar')->with('success', "Data surat $suratKeluar->tujuan berhasil dihapus!");
     }
 }

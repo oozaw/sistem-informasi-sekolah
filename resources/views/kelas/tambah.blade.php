@@ -12,7 +12,8 @@
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
                      <li class="breadcrumb-item">Akademik</li>
-                     <li class="breadcrumb-item active">Data Kelas</li>
+                     <li class="breadcrumb-item">Data Kelas</li>
+                     <li class="breadcrumb-item active">Tambah Data Kelas</li>
                   </ol>
                </div>
             </div>

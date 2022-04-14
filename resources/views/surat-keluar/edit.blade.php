@@ -7,13 +7,12 @@
          <div class="container-fluid">
             <div class="row mb-2">
                <div class="col-sm-6">
-                  <h1>{{ $title }}</h1>
+                  <h1>Edit Surat Keluar</h1>
                </div>
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
-                     <li class="breadcrumb-item">Akademik</li>
-                     <li class="breadcrumb-item">Data Kelas</li>
-                     <li class="breadcrumb-item active">Edit Data Kelas</li>
+                     <li class="breadcrumb-item">Tata Usaha</li>
+                     <li class="breadcrumb-item active">Surat Keluar</li>
                   </ol>
                </div>
             </div>
@@ -28,39 +27,53 @@
                   <div class="card card-primary">
                      <div class="card-header">
                         <div class="d-inline-flex">
-                           <h4 class="m-0">Data Kelas {{ $kelas->nama }}</h4>
+                           <h4 class="m-0">Data Surat {{ $surat->tujuan }}</h4>
                         </div>
                      </div>
                      <!-- /.card-header -->
-                     <form method="POST" action="/kelas/{{ $kelas->id }}">
+                     <form method="POST" action="/surat-keluar/{{ $surat->id }}">
                         @method('put')
                         @csrf
                         <div class="card-body pb-0">
                            <div class="form-group">
-                              <label for="NamaKelas">Nama</label>
-                              <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
-                                 name="nama" placeholder="Masukkan nama kelas" value="{{ old('nama', $kelas->nama) }}"
-                                 autofocus>
-                              @error('nama')
+                              <label for="tujuan">Tujuan</label>
+                              <input type="text" class="form-control @error('tujuan') is-invalid @enderror" id="tujuan"
+                                 name="tujuan" placeholder="Masukkan tujuan surat"
+                                 value="{{ old('tujuan', $surat->tujuan) }}" autofocus>
+                              @error('tujuan')
                                  <div class="invalid-feedback">
                                     {{ $message }}
                                  </div>
                               @enderror
                            </div>
                            <div class="form-group">
-                              <label>Wali Kelas</label>
-                              <select class="form-control @error('wali_kelas_id') is-invalid @enderror"
-                                 name="wali_kelas_id">
-                                 <option selected disabled hidden value="">-- Pilih wali kelas --</option>
-                                 @foreach ($wali_kelas as $wk)
-                                    @if (old('wali_kelas_id', $kelas->wali_kelas_id) == $wk->id)
-                                       <option value="{{ $wk->id }}" selected>{{ $wk->nama }}</option>
-                                    @else
-                                       <option value="{{ $wk->id }}">{{ $wk->nama }}</option>
-                                    @endif
-                                 @endforeach
-                              </select>
-                              @error('wali_kelas_id')
+                              <label for="no_surat">No Surat</label>
+                              <input type="text" class="form-control @error('no_surat') is-invalid @enderror" id="no_surat"
+                                 name="no_surat" placeholder="Masukkan No Surat"
+                                 value="{{ old('no_surat', $surat->no_surat) }}">
+                              @error('no_surat')
+                                 <div class="invalid-feedback">
+                                    {{ $message }}
+                                 </div>
+                              @enderror
+                           </div>
+                           <div class="form-group">
+                              <label for="tgl_keluar">Tanggal Keluar</label>
+                              <input type="text" class="form-control @error('tgl_keluar') is-invalid @enderror"
+                                 id="tgl_keluar" name="tgl_keluar" placeholder="Masukkan Tanggal Keluar"
+                                 value="{{ old('tgl_keluar', $surat->tgl_keluar) }}">
+                              @error('tgl_keluar')
+                                 <div class="invalid-feedback">
+                                    {{ $message }}
+                                 </div>
+                              @enderror
+                           </div>
+                           <div class="form-group">
+                              <label for="keterangan">Keterangan</label>
+                              <input type="text" class="form-control @error('keterangan') is-invalid @enderror"
+                                 id="keterangan" name="keterangan" placeholder="Masukkan Tanggal Keluar"
+                                 value="{{ old('keterangan', $surat->keterangan) }}">
+                              @error('keterangan')
                                  <div class="invalid-feedback">
                                     {{ $message }}
                                  </div>
@@ -71,7 +84,7 @@
 
                         <div class="card-footer">
                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                           <a href="/kelas" class="btn btn-secondary">Batal</a>
+                           <a href="/surat-keluar" class="btn btn-secondary">Batal</a>
                         </div>
                      </form>
                   </div>
@@ -103,9 +116,5 @@
       $(function() {
          bsCustomFileInput.init();
       });
-
-      function cekWaliKelas() {
-
-      }
    </script>
 @endsection
