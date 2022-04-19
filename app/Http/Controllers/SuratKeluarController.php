@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\SuratKeluar;
-use App\Rules\Test;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\ArrayObject;
 use Illuminate\Http\Request;
 
 class SuratKeluarController extends Controller
@@ -29,7 +30,10 @@ class SuratKeluarController extends Controller
      */
     public function create()
     {
-        //
+        return view('surat-keluar.tambah', [
+            "title" => "Tambah Surat Keluar",
+            "part" => "surat-keluar"
+        ]);
     }
 
     /**
@@ -40,7 +44,28 @@ class SuratKeluarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $file_ext = $request->file('file_surat')->getClientOriginalExtension();
+        $nama_file = "$request->nomor-$request->kode_tujuan-$request->instansi_asal-$request->bulan-$request->tahun.$file_ext";
+        
+        $validatedData = $request->validate([
+            "tujuan" => "required",
+            "nomor" => "required",
+            "kode_tujuan" => "required",
+            "instansi_asal" => "required",
+            "bulan" => "required",
+            "tahun" => "required",
+            "tgl_keluar" => "required",
+            "keterangan" => "nullable",
+            "file_surat" => "required|file|max:1000"
+        ]);
+        
+        if ($request->file("file_surat")) {
+            $validatedData['file_surat'] = $request->file('file_surat')->storeAs('surat-keluar', $nama_file);
+        }
+
+        SuratKeluar::create($validatedData);
+
+        return redirect('/surat-keluar')->with('success', "Surat Keluar baru telah berhasil ditambahkan!");
     }
 
     /**
@@ -78,9 +103,7 @@ class SuratKeluarController extends Controller
      */
     public function update(Request $request, SuratKeluar $suratKeluar)
     {
-        $request->validate([
-            'nama' => ['accepted', new Test]
-        ]);
+        
     }
 
     /**

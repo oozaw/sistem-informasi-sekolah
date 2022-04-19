@@ -55,7 +55,7 @@
                                  <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $sk->tujuan }}</td>
-                                    <td>{{ $sk->no_surat }}</td>
+                                    <td>{{ "$sk->nomor/$sk->kode_tujuan/$sk->instansi_asal/$sk->bulan-$sk->tahun" }}</td>
                                     <td>{{ $sk->tgl_keluar }}</td>
                                     <td>{{ $sk->keterangan }}</td>
                                     <td>

@@ -15,9 +15,14 @@ class SuratKeluarFactory extends Factory
     {
         return [
             "tujuan" => $this->faker->words(2, true),
-            "no_surat" => $this->faker->numerify("###/###.##/SMAN.5.Mrg/II-2022"),
+            "nomor" => $this->faker->numerify('###'),
+            "kode_tujuan" => $this->faker->numerify("###.#"),
+            "instansi_asal" => "SMAN.5.Mrg",
+            "bulan" => "II",
+            "tahun" => "2021",
             "tgl_keluar" => $this->faker->dateTime(),
-            "keterangan" => $this->faker->sentence()
+            "keterangan" => $this->faker->sentence(),
+            "file_surat" => $this->faker->sentence()
         ];
     }
 }
