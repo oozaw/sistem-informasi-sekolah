@@ -74,7 +74,11 @@ class SuratMasukController extends Controller
      */
     public function show(SuratMasuk $suratMasuk)
     {
-        //
+        return view("surat-masuk.detail", [
+            "title" => "Detail Surat",
+            "part" => "surat-masuk",
+            "sm" => $suratMasuk
+        ]);
     }
 
     /**
