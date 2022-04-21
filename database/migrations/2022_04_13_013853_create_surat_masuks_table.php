@@ -13,9 +13,18 @@ class CreateSuratMasuksTable extends Migration
      */
     public function up()
     {
-        Schema::create('surat_masuks', function (Blueprint $table) {
+        Schema::create('surat_masuk', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string("asal");
+            $table->string("nomor");
+            $table->string("kode_tujuan");
+            $table->string("instansi_asal");
+            $table->string("bulan");
+            $table->string("tahun");
+            $table->date("tgl_masuk");
+            $table->string("keterangan")->nullable();
+            $table->string("file_surat")->unique();
         });
     }
 

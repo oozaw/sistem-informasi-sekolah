@@ -14,7 +14,15 @@ class SuratMasukFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "asal" => $this->faker->words(2, true),
+            "nomor" => $this->faker->numerify('###'),
+            "kode_tujuan" => "SMAN.5.Mrg",
+            "instansi_asal" => $this->faker->numerify("SMAN.#.Mrg"),
+            "bulan" => "II",
+            "tahun" => "2022",
+            "tgl_masuk" => $this->faker->dateTime(),
+            "keterangan" => $this->faker->sentence(),
+            "file_surat" => $this->faker->sentence()
         ];
     }
 }

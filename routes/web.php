@@ -5,6 +5,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\PekerjaController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\SuratKeluarController;
+use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\UserController;
 use App\Models\Pekerja;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,9 @@ Route::get('staf-lain', [PekerjaController::class, 'index_lain']);
 
 // Surat Keluar
 Route::resource('surat-keluar', SuratKeluarController::class);
+
+// Surat Masuk
+Route::resource('surat-masuk', SuratMasukController::class);
 
 // User
 Route::get('/profile', [UserController::class, 'index']);

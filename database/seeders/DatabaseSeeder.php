@@ -6,6 +6,7 @@ use App\Models\Kelas;
 use App\Models\Siswa;
 use App\Models\Pekerja;
 use App\Models\SuratKeluar;
+use App\Models\SuratMasuk;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -25,5 +26,7 @@ class DatabaseSeeder extends Seeder
         Pekerja::factory(15)->create();
 
         SuratKeluar::factory(20)->create();
+
+        SuratMasuk::factory(20)->create();
     }
 }

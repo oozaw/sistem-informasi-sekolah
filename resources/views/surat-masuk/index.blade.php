@@ -7,12 +7,12 @@
          <div class="container-fluid">
             <div class="row mb-2">
                <div class="col-sm-6">
-                  <h1>Surat Keluar</h1>
+                  <h1>Surat Masuk</h1>
                </div>
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
                      <li class="breadcrumb-item">Tata Usaha</li>
-                     <li class="breadcrumb-item active">Surat Keluar</li>
+                     <li class="breadcrumb-item active">Surat Masuk</li>
                   </ol>
                </div>
             </div>
@@ -27,8 +27,8 @@
                   <div class="card">
                      <div class="card-header">
                         <div class="d-inline-flex">
-                           <a href="/surat-keluar/create" class="btn btn-success btn-sm mr-1">
-                              <i class="fas fa-file-plus"></i> Tambah Surat Keluar</a>
+                           <a href="/surat-masuk/create" class="btn btn-success btn-sm mr-1">
+                              <i class="fas fa-file-plus"></i> Tambah Surat Masuk</a>
                            @if (session()->has('success'))
                               <div class="successAlert" hidden>{{ session('success') }}</div>
                            @endif
@@ -39,38 +39,38 @@
                      </div>
                      <!-- /.card-header -->
                      <div class="card-body">
-                        <table id="data_surat_keluar" class="table table-bordered table-striped">
+                        <table id="data_surat_masuk" class="table table-bordered table-striped">
                            <thead>
                               <tr>
                                  <th>No.</th>
-                                 <th>Tujuan</th>
+                                 <th>Asal</th>
                                  <th>No. Surat</th>
-                                 <th>Tanggal Keluar</th>
+                                 <th>Tanggal Masuk</th>
                                  <th>Keterangan</th>
                                  <th>Aksi</th>
                               </tr>
                            </thead>
                            <tbody>
-                              @foreach ($surat_keluar as $sk)
+                              @foreach ($surat_masuk as $sm)
                                  <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $sk->tujuan }}</td>
-                                    <td>{{ "$sk->nomor/$sk->kode_tujuan/$sk->instansi_asal/$sk->bulan-$sk->tahun" }}</td>
-                                    <td>{{ $sk->tgl_keluar }}</td>
-                                    <td>{{ $sk->keterangan }}</td>
+                                    <td>{{ $sm->asal }}</td>
+                                    <td>{{ "$sm->nomor/$sm->kode_tujuan/$sm->instansi_asal/$sm->bulan-$sm->tahun" }}</td>
+                                    <td>{{ $sm->tgl_masuk }}</td>
+                                    <td>{{ $sm->keterangan }}</td>
                                     <td>
                                        <div class="d-inline-flex">
-                                          <a href="/surat-keluar/{{ $sk->id }}" class="btn btn-info btn-sm mr-1">
+                                          <a href="/surat-masuk/{{ $sm->id }}" class="btn btn-info btn-sm mr-1">
                                              <i class="fas fa-eye"></i> Detail</a>
-                                          <a href="/surat-keluar/{{ $sk->id }}/edit"
+                                          <a href="/surat-masuk/{{ $sm->id }}/edit"
                                              class="btn btn-primary btn-sm mr-1">
                                              <i class="fas fa-edit"></i> Edit</a>
                                           <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
-                                             data-target="#modal-delete-{{ $sk->id }}">
+                                             data-target="#modal-delete-{{ $sm->id }}">
                                              <i class="fas fa-trash"></i> Hapus</a>
 
                                           <!-- Modal -->
-                                          <div class="modal fade" id="modal-delete-{{ $sk->id }}"
+                                          <div class="modal fade" id="modal-delete-{{ $sm->id }}"
                                              style="display: none;" aria-hidden="true">
                                              <div class="modal-dialog">
                                                 <div class="modal-content bg-warning">
@@ -82,12 +82,12 @@
                                                       </button>
                                                    </div>
                                                    <div class="modal-body">
-                                                      <p>Yakin hapus data {{ $sk->tujuan }}?</p>
+                                                      <p>Yakin hapus data {{ $sm->tujuan }}?</p>
                                                    </div>
                                                    <div class="modal-footer justify-content-between">
                                                       <button type="button" class="btn btn-outline-dark"
                                                          data-dismiss="modal">Batal</button>
-                                                      <form method="POST" action="/surat-keluar/{{ $sk->id }}">
+                                                      <form method="POST" action="/surat-masuk/{{ $sm->id }}">
                                                          @method('delete')
                                                          @csrf
                                                          <button onclick="return true"
@@ -147,7 +147,7 @@
    <!-- Page specific script -->
    <script>
       $(function() {
-         $("#data_surat_keluar").DataTable({
+         $("#data_surat_masuk").DataTable({
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
@@ -176,7 +176,7 @@
                   }
                }
             ]
-         }).buttons().container().appendTo('#data_surat_keluar_wrapper .col-md-6:eq(0)');
+         }).buttons().container().appendTo('#data_surat_masuk_wrapper .col-md-6:eq(0)');
       });
 
       $(function() {

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\SuratKeluar;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Casts\ArrayObject;
 use Illuminate\Http\Request;
 
 class SuratKeluarController extends Controller
@@ -65,7 +64,7 @@ class SuratKeluarController extends Controller
 
         SuratKeluar::create($validatedData);
 
-        return redirect('/surat-keluar')->with('success', "Surat Keluar baru telah berhasil ditambahkan!");
+        return redirect('/surat-keluar')->with('success', "Data Surat Keluar baru telah berhasil ditambahkan!");
     }
 
     /**
