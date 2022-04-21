@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SuratKeluar;
 use Carbon\Carbon;
+use App\Models\SuratKeluar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SuratKeluarController extends Controller
 {
@@ -106,7 +107,35 @@ class SuratKeluarController extends Controller
      */
     public function update(Request $request, SuratKeluar $suratKeluar)
     {
+        $rules = [
+            "tujuan" => "required",
+            "nomor" => "required",
+            "kode_tujuan" => "required",
+            "instansi_asal" => "required",
+            "bulan" => "required",
+            "tahun" => "required",
+            "tgl_keluar" => "required",
+            "keterangan" => "nullable",
+            "file_surat" => "max:1000"
+        ];
         
+        if ($request->option_file == "yes") {
+            $rules["file_surat"] = "required|mimes:pdf|file|max:1000";
+        }
+        
+        $validatedData = $request->validate($rules);
+        
+        $file_ext = $request->file('file_surat')->getClientOriginalExtension();
+        $nama_file = "$request->nomor-$request->kode_tujuan-$request->instansi_asal-$request->bulan-$request->tahun.$file_ext";
+        
+        if ($request->file("file_surat")) {
+            Storage::delete($nama_file);
+            $validatedData['file_surat'] = $request->file('file_surat')->storeAs('surat-keluar', $nama_file);
+        }
+        
+        SuratKeluar::where("id", $suratKeluar->id)->update($validatedData);
+
+        return redirect("/surat-keluar")->with("success", "Data surat ke $suratKeluar->tujuan berhasil diperbarui!");
     }
 
     /**
@@ -119,6 +148,6 @@ class SuratKeluarController extends Controller
     {
         SuratKeluar::destroy($suratKeluar->id);
 
-        return redirect('/surat-keluar')->with('success', "Data surat $suratKeluar->tujuan berhasil dihapus!");
+        return redirect('/surat-keluar')->with('success', "Data surat ke $suratKeluar->tujuan berhasil dihapus!");
     }
 }

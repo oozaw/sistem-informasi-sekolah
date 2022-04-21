@@ -54,7 +54,7 @@
                                           </button>
                                        </div>
                                        <div class="modal-body">
-                                          <p>Yakin hapus data {{ $sk->tujuan }}?</p>
+                                          <p>Yakin hapus data surat ke {{ $sk->tujuan }}?</p>
                                        </div>
                                        <div class="modal-footer justify-content-between">
                                           <button type="button" class="btn btn-outline-dark"

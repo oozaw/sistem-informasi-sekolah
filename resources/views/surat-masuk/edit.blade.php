@@ -72,8 +72,6 @@
                                  </div>
                                  <div class="form-group col-md-2 mb-0">
                                     <select class="form-control" name="bulan" id="bulan" required>
-                                       <option value="" disabled hidden>-- Pilih bulan --
-                                       </option>
                                        @if (old('bulan', $surat->bulan) == 'I')
                                           <option value="I" selected>Januari</option>
                                           <option value="II">Februari</option>

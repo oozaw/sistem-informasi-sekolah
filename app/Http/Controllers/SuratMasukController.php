@@ -128,7 +128,7 @@ class SuratMasukController extends Controller
         $nama_file = "$request->nomor-$request->kode_tujuan-$request->instansi_asal-$request->bulan-$request->tahun.$file_ext";
         
         if ($request->file("file_surat")) {
-            Storage::delete("surat-masuk/$nama_file");
+            Storage::delete($nama_file);
             $validatedData['file_surat'] = $request->file('file_surat')->storeAs('surat-masuk', $nama_file);
         }
         

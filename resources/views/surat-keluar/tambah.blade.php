@@ -71,22 +71,179 @@
                                     <h5 class="mx-1 pt-1 mb-0 text-secondary"><strong>/</strong></h5>
                                  </div>
                                  <div class="form-group col-md-2 mb-0">
-                                    {{-- <input type="text" class="form-control" name="bulan" id="bulan" placeholder="Bulan"> --}}
                                     <select class="form-control" name="bulan" id="bulan" required>
-                                       <option value="" selected disabled hidden>-- Pilih bulan --
-                                       </option>
-                                       <option value="I">Januari</option>
-                                       <option value="II">Februari</option>
-                                       <option value="III">Maret</option>
-                                       <option value="IV">April</option>
-                                       <option value="V">Mei</option>
-                                       <option value="VI">Juni</option>
-                                       <option value="VII">Juli</option>
-                                       <option value="VIII">Agustus</option>
-                                       <option value="IX">September</option>
-                                       <option value="X">Oktober</option>
-                                       <option value="XI">November</option>
-                                       <option value="XII">Desember</option>
+                                       @if (old('bulan') == 'I')
+                                          <option value="I" selected>Januari</option>
+                                          <option value="II">Februari</option>
+                                          <option value="III">Maret</option>
+                                          <option value="IV">April</option>
+                                          <option value="V">Mei</option>
+                                          <option value="VI">Juni</option>
+                                          <option value="VII">Juli</option>
+                                          <option value="VIII">Agustus</option>
+                                          <option value="IX">September</option>
+                                          <option value="X">Oktober</option>
+                                          <option value="XI">November</option>
+                                          <option value="XII">Desember</option>
+                                       @elseif (old('bulan') == 'II')
+                                          <option value="I">Januari</option>
+                                          <option value="II" selected>Februari</option>
+                                          <option value="III">Maret</option>
+                                          <option value="IV">April</option>
+                                          <option value="V">Mei</option>
+                                          <option value="VI">Juni</option>
+                                          <option value="VII">Juli</option>
+                                          <option value="VIII">Agustus</option>
+                                          <option value="IX">September</option>
+                                          <option value="X">Oktober</option>
+                                          <option value="XI">November</option>
+                                          <option value="XII">Desember</option>
+                                       @elseif (old('bulan') == 'III')
+                                          <option value="I">Januari</option>
+                                          <option value="II">Februari</option>
+                                          <option value="III" selected>Maret</option>
+                                          <option value="IV">April</option>
+                                          <option value="V">Mei</option>
+                                          <option value="VI">Juni</option>
+                                          <option value="VII">Juli</option>
+                                          <option value="VIII">Agustus</option>
+                                          <option value="IX">September</option>
+                                          <option value="X">Oktober</option>
+                                          <option value="XI">November</option>
+                                          <option value="XII">Desember</option>
+                                       @elseif (old('bulan') == 'IV')
+                                          <option value="I">Januari</option>
+                                          <option value="II">Februari</option>
+                                          <option value="III">Maret</option>
+                                          <option value="IV" selected>April</option>
+                                          <option value="V">Mei</option>
+                                          <option value="VI">Juni</option>
+                                          <option value="VII">Juli</option>
+                                          <option value="VIII">Agustus</option>
+                                          <option value="IX">September</option>
+                                          <option value="X">Oktober</option>
+                                          <option value="XI">November</option>
+                                          <option value="XII">Desember</option>
+                                       @elseif (old('bulan') == 'V')
+                                          <option value="I">Januari</option>
+                                          <option value="II">Februari</option>
+                                          <option value="III">Maret</option>
+                                          <option value="IV">April</option>
+                                          <option value="V" selected>Mei</option>
+                                          <option value="VI">Juni</option>
+                                          <option value="VII">Juli</option>
+                                          <option value="VIII">Agustus</option>
+                                          <option value="IX">September</option>
+                                          <option value="X">Oktober</option>
+                                          <option value="XI">November</option>
+                                          <option value="XII">Desember</option>
+                                       @elseif (old('bulan') == 'VI')
+                                          <option value="I">Januari</option>
+                                          <option value="II">Februari</option>
+                                          <option value="III">Maret</option>
+                                          <option value="IV">April</option>
+                                          <option value="V">Mei</option>
+                                          <option value="VI" selected>Juni</option>
+                                          <option value="VII">Juli</option>
+                                          <option value="VIII">Agustus</option>
+                                          <option value="IX">September</option>
+                                          <option value="X">Oktober</option>
+                                          <option value="XI">November</option>
+                                          <option value="XII">Desember</option>
+                                       @elseif (old('bulan') == 'VII')
+                                          <option value="I">Januari</option>
+                                          <option value="II">Februari</option>
+                                          <option value="III">Maret</option>
+                                          <option value="IV">April</option>
+                                          <option value="V">Mei</option>
+                                          <option value="VI">Juni</option>
+                                          <option value="VII" selected>Juli</option>
+                                          <option value="VIII">Agustus</option>
+                                          <option value="IX">September</option>
+                                          <option value="X">Oktober</option>
+                                          <option value="XI">November</option>
+                                          <option value="XII">Desember</option>
+                                       @elseif (old('bulan') == 'VIII')
+                                          <option value="I">Januari</option>
+                                          <option value="II">Februari</option>
+                                          <option value="III">Maret</option>
+                                          <option value="IV">April</option>
+                                          <option value="V">Mei</option>
+                                          <option value="VI">Juni</option>
+                                          <option value="VII">Juli</option>
+                                          <option value="VIII" selected>Agustus</option>
+                                          <option value="IX">September</option>
+                                          <option value="X">Oktober</option>
+                                          <option value="XI">November</option>
+                                          <option value="XII">Desember</option>
+                                       @elseif (old('bulan') == 'IX')
+                                          <option value="I">Januari</option>
+                                          <option value="II">Februari</option>
+                                          <option value="III">Maret</option>
+                                          <option value="IV">April</option>
+                                          <option value="V">Mei</option>
+                                          <option value="VI">Juni</option>
+                                          <option value="VII">Juli</option>
+                                          <option value="VIII">Agustus</option>
+                                          <option value="IX" selected>September</option>
+                                          <option value="X">Oktober</option>
+                                          <option value="XI">November</option>
+                                          <option value="XII">Desember</option>
+                                       @elseif (old('bulan') == 'X')
+                                          <option value="I">Januari</option>
+                                          <option value="II">Februari</option>
+                                          <option value="III">Maret</option>
+                                          <option value="IV">April</option>
+                                          <option value="V">Mei</option>
+                                          <option value="VI">Juni</option>
+                                          <option value="VII">Juli</option>
+                                          <option value="VIII">Agustus</option>
+                                          <option value="IX">September</option>
+                                          <option value="X" selected>Oktober</option>
+                                          <option value="XI">November</option>
+                                          <option value="XII">Desember</option>
+                                       @elseif (old('bulan') == 'XI')
+                                          <option value="I">Januari</option>
+                                          <option value="II">Februari</option>
+                                          <option value="III">Maret</option>
+                                          <option value="IV">April</option>
+                                          <option value="V">Mei</option>
+                                          <option value="VI">Juni</option>
+                                          <option value="VII">Juli</option>
+                                          <option value="VIII">Agustus</option>
+                                          <option value="IX">September</option>
+                                          <option value="X">Oktober</option>
+                                          <option value="XI" selected>November</option>
+                                          <option value="XII">Desember</option>
+                                       @elseif (old('bulan') == 'XII')
+                                          <option value="I">Januari</option>
+                                          <option value="II">Februari</option>
+                                          <option value="III">Maret</option>
+                                          <option value="IV">April</option>
+                                          <option value="V">Mei</option>
+                                          <option value="VI">Juni</option>
+                                          <option value="VII">Juli</option>
+                                          <option value="VIII">Agustus</option>
+                                          <option value="IX">September</option>
+                                          <option value="X">Oktober</option>
+                                          <option value="XI">November</option>
+                                          <option value="XII" selected>Desember</option>
+                                       @else
+                                          <option value="" selected disabled hidden>-- Pilih bulan --
+                                          </option>
+                                          <option value="I">Januari</option>
+                                          <option value="II">Februari</option>
+                                          <option value="III">Maret</option>
+                                          <option value="IV">April</option>
+                                          <option value="V">Mei</option>
+                                          <option value="VI">Juni</option>
+                                          <option value="VII">Juli</option>
+                                          <option value="VIII">Agustus</option>
+                                          <option value="IX">September</option>
+                                          <option value="X">Oktober</option>
+                                          <option value="XI">November</option>
+                                          <option value="XII">Desember</option>
+                                       @endif
                                     </select>
                                  </div>
                                  <div class="form-group mb-0">
@@ -106,7 +263,7 @@
                            <div class="form-group">
                               <label for="tgl_keluar">Tanggal Keluar</label>
                               <input type="date" class="form-control @error('tgl_keluar') is-invalid @enderror"
-                                 id="tgl_keluar" name="tgl_keluar" placeholder="Masukkan Tanggal Keluar"
+                                 id="tgl_keluar" name="tgl_keluar" placeholder="Masukkan tanggal keluar"
                                  value="{{ old('tgl_keluar') }}" required>
                               @error('tgl_keluar')
                                  <div class="invalid-feedback">
