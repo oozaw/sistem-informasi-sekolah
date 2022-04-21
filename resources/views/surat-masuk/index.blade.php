@@ -82,7 +82,7 @@
                                                       </button>
                                                    </div>
                                                    <div class="modal-body">
-                                                      <p>Yakin hapus data {{ $sm->tujuan }}?</p>
+                                                      <p>Yakin hapus data surat dari {{ $sm->asal }}?</p>
                                                    </div>
                                                    <div class="modal-footer justify-content-between">
                                                       <button type="button" class="btn btn-outline-dark"

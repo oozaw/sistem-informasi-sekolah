@@ -31,7 +31,7 @@
                         </div>
                      </div>
                      <!-- /.card-header -->
-                     <form method="POST" action="/surat-keluar/{{ $surat->id }}">
+                     <form method="POST" action="/surat-keluar/{{ $surat->id }}" enctype="multipart/form-data">
                         @method('put')
                         @csrf
                         <div class="card-body pb-0">
@@ -102,7 +102,7 @@
                            <div class="form-group">
                               <label for="keterangan">Keterangan</label>
                               <input type="text" class="form-control @error('keterangan') is-invalid @enderror"
-                                 id="keterangan" name="keterangan" placeholder="Masukkan Tanggal Keluar"
+                                 id="keterangan" name="keterangan" placeholder="Masukkan keterangan"
                                  value="{{ old('keterangan', $surat->keterangan) }}">
                               @error('keterangan')
                                  <div class="invalid-feedback">
