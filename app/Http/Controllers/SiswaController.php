@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kelas;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SiswaController extends Controller
 {
@@ -44,13 +45,26 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
+        
         $validatedData = $request->validate([
             "nama" => "required",
             "nis" => "required|unique:siswa|numeric",
             "nisn" => "required|unique:siswa|numeric",
             "gender" => "required",
-            "kelas_id" => "required"
+            "no_telp" => "nullable|numeric|digits_between:12,14",
+            "tempat_tinggal" => "required",
+            "kelas_id" => "required",
+            "foto_profil" => "nullable|image|max:10000"
         ]);
+        
+        if ($request->file("foto_profil")) {
+            $file_ext = $request->file('foto_profil')->getClientOriginalExtension();
+            $validatedData["foto_profil"] = $request->file("foto_profil")->storeAs("profil-siswa", "$request->nama.$file_ext");
+        }
+
+        if (!($request->no_telp)) {
+            $validatedData["no_telp"] = "-";
+        }
 
         Siswa::create($validatedData);
 
@@ -100,13 +114,21 @@ class SiswaController extends Controller
         $rules = [
             "nama" => "required",
             "kelas_id" => "required",
-            "gender" => "required"
+            "gender" => "required",
+            "tempat_tinggal" => "required",
+            "foto_profil" => "nullable|image|max:10000"
         ];
 
         if ($request->nisn != $siswa->nisn) {
             $rules["nisn"] = "required|unique:siswa";
         } else {
             $rules["nisn"] = "required"; 
+        }
+
+        if ($request->no_telp != $siswa->no_telp) {
+            $rules["no_telp"] = "nullable|unique:siswa";
+        } else {
+            $rules["no_telp"] = "nullable"; 
         }
 
         if ($request->nis != $siswa->nis) {
@@ -116,6 +138,17 @@ class SiswaController extends Controller
         }
 
         $validatedData = $request->validate($rules);
+
+        if (!($request->no_telp)) {
+            $validatedData["no_telp"] = "-";
+        }
+        
+        if ($request->file("foto_profil")) {
+            $file_ext = $request->file('foto_profil')->getClientOriginalExtension();
+            Storage::delete("$request->nama.$file_ext");
+            $validatedData["foto_profil"] = $request->file("foto_profil")->storeAs("profil-siswa", "$request->nama.$file_ext");
+        }
+
 
         Siswa::where("id", $siswa->id)->update($validatedData);
 

@@ -18,7 +18,10 @@ class SiswaFactory extends Factory
             "gender" => $this->faker->randomElement(['Laki-laki', 'Perempuan']),
             "nisn" => $this->faker->randomNumber(9, true),
             "nis" => $this->faker->randomNumber(6, true),
-            "kelas_id" => mt_rand(1, 4) 
+            "no_telp" => $this->faker->phoneNumber(),
+            "tempat_tinggal" => $this->faker->address(),
+            "kelas_id" => mt_rand(1, 4),
+            "foto_profil" => ""
         ];
     }
 }

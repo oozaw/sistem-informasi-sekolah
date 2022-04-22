@@ -19,7 +19,10 @@ class CreateSiswaTable extends Migration
             $table->string('gender');
             $table->string('nisn')->unique();
             $table->string('nis')->unique();
+            $table->string('no_telp')->unique()->nullable();
+            $table->string('tempat_tinggal');
             $table->foreignId('kelas_id');
+            $table->string('foto_profil')->nullable();
             $table->timestamps();
         });
     }

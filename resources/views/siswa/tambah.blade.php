@@ -32,7 +32,7 @@
                         </div>
                      </div>
                      <!-- /.card-header -->
-                     <form method="POST" action="/siswa">
+                     <form method="POST" action="/siswa" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body pb-0">
                            <div class="form-group">
@@ -87,8 +87,18 @@
                               @enderror
                            </div>
                            <div class="form-group">
+                              <label for="no_telp">Nomor Telepon</label>
+                              <input type="text" class="form-control @error('no_telp') is-invalid @enderror" id="no_telp"
+                                 name="no_telp" placeholder="Masukkan nomor telepon siswa" value="{{ old('no_telp') }}">
+                              @error('no_telp')
+                                 <div class="invalid-feedback">
+                                    {{ $message }}
+                                 </div>
+                              @enderror
+                           </div>
+                           <div class="form-group">
                               <label>Kelas</label>
-                              <select class="form-control @error('kelas') is-invalid @enderror" name="kelas_id">
+                              <select class="form-control @error('kelas_id') is-invalid @enderror" name="kelas_id">
                                  <option selected disabled hidden value="">-- Pilih kelas --</option>
                                  @foreach ($kelas as $k)
                                     @if (old('kelas_id') == $k->id)
@@ -99,6 +109,29 @@
                                  @endforeach
                               </select>
                               @error('kelas_id')
+                                 <div class="invalid-feedback">
+                                    {{ $message }}
+                                 </div>
+                              @enderror
+                           </div>
+                           <div class="form-group">
+                              <label for="tempat_tinggal">Tempat Tinggal</label>
+                              <input type="text" class="form-control @error('tempat_tinggal') is-invalid @enderror"
+                                 id="tempat_tinggal" name="tempat_tinggal" placeholder="Masukkan tempat tinggal siswa"
+                                 value="{{ old('tempat_tinggal') }}">
+                              @error('tempat_tinggal')
+                                 <div class="invalid-feedback">
+                                    {{ $message }}
+                                 </div>
+                              @enderror
+                           </div>
+                           <label for="foto_profil">Foto Profil</label>
+                           <div class="custom-file mb-2">
+                              <input type="file" class="custom-file-input @error('foto_profil') is-invalid @enderror"
+                                 id="foto_profil" name="foto_profil">
+                              <label class="custom-file-label" for="foto_profil" data-browse="Pilih file">Unggah foto
+                                 profil</label>
+                              @error('foto_profil')
                                  <div class="invalid-feedback">
                                     {{ $message }}
                                  </div>
