@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pekerja;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PekerjaController extends Controller
 {
@@ -69,17 +70,26 @@ class PekerjaController extends Controller
     {
         $validatedData = $request->validate([
             "nama" => "required",
-            "email" => "required|email",
+            "email" => "required|email|unique:pekerja",
             "nip" => "unique:pekerja|nullable|numeric",
             "no_hp" => "required|unique:pekerja|numeric",
             "jabatan" => "required",
             "gender" => "required",
-            "tempat_tinggal" => "required"
+            "tempat_tinggal" => "required",
+            "foto_profil" => "nullable|image|max:10000"
         ]);
+
+        if ($request->file("foto_profil")) {
+            $file_ext = $request->file('foto_profil')->getClientOriginalExtension();
+            $validatedData["foto_profil"] = $request->file("foto_profil")->storeAs("profil-pekerja", "$request->nama.$file_ext");
+        }
+
+        if (!($request->nip)) {
+            $validatedData["nip"] = "-";
+        }
 
         Pekerja::create($validatedData);
 
-        // return redirect('/guru')->with('success', "Data pegawai baru, $request->nama berhasil ditambahkan!");
         if ($request->jabatan == "Guru") {
             return redirect('/guru')->with('success', "Data pegawai baru, $request->nama berhasil ditambahkan!");
         } elseif ($request->jabatan == "Staf Tata Usaha") {
@@ -130,16 +140,22 @@ class PekerjaController extends Controller
     {
         $rules = [
             "nama" => "required",
-            "email" => "required",
             "jabatan" => "required", 
             "gender" => "required",
-            "tempat_tinggal" => "required"
+            "tempat_tinggal" => "required",
+            "foto_profil" => "nullable|mimes:jpg,png,gif,bmp,webp,svg|max:10000"
         ];
 
         if ($request->nip != $pekerja->nip) {
-            $rules['nip'] = "required|unique:pekerja";
+            $rules['nip'] = "nullable|unique:pekerja|numeric";
         } else {
-            $rulse['nip'] = "required";
+            $rulse['nip'] = "nullable|numeric";
+        }
+        
+        if ($request->email != $pekerja->email) {
+            $rules['email'] = "required|email|unique:pekerja";
+        } else {
+            $rulse['email'] = "required";
         }
         
         if ($request->no_hp != $pekerja->no_hp) {
@@ -149,6 +165,16 @@ class PekerjaController extends Controller
         }
 
         $validatedData = $request->validate($rules);
+
+        if (!($request->nip)) {
+            $validatedData["nip"] = "-";
+        }
+
+        if ($request->file("foto_profil")) {
+            $file_ext = $request->file('foto_profil')->getClientOriginalExtension();
+            Storage::delete("$request->nama.$file_ext");
+            $validatedData["foto_profil"] = $request->file("foto_profil")->storeAs("profil-pekerja", "$request->nama.$file_ext");
+        }
 
         Pekerja::where('id', $pekerja->id)->update($validatedData);
         

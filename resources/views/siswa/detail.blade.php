@@ -34,7 +34,7 @@
                         @if ($siswa->foto_profil)
                            <img class="img-circle elevation-2"
                               style="width: 90px; height: 90px; object-fit: cover; object-position: center"
-                              src="/storage/{{ $siswa->foto_profil }}" alt="Foto proril siswa">
+                              src="/storage/{{ $siswa->foto_profil }}" alt="Foto profil siswa">
                         @else
                            <div class="img-circle bg-secondary elevation-1">
                               <i class="fas fa-user-circle fa-6x"></i>
@@ -109,7 +109,7 @@
                         <strong><i class="fas fa-book mr-1"></i> Nama</strong>
                         <p class="text-muted">{{ $siswa->nama }}</p>
                         <hr>
-                        <strong><i class="far fa-file-alt mr-1"></i> Jenis Kelamin</strong>
+                        <strong><i class="far fa-venus-mars"></i> Jenis Kelamin</strong>
                         <p class="text-muted">{{ $siswa->gender }}</p>
                         <hr>
                         <strong><i class="far fa-file-alt mr-1"></i> NIS</strong>
@@ -118,7 +118,7 @@
                         <strong><i class="far fa-file-alt mr-1"></i> NISN</strong>
                         <p class="text-muted">{{ $siswa->nisn }}</p>
                         <hr>
-                        <strong><i class="far fa-file-alt mr-1"></i> No. Telepon</strong>
+                        <strong><i class="fas fa-phone-alt mr-1"></i> No. Telepon</strong>
                         <p class="text-muted">{{ $siswa->no_telp }}</p>
                         <hr>
                         <strong><i class="fas fa-map-marker-alt mr-1"></i> Tempat Tinggal</strong>

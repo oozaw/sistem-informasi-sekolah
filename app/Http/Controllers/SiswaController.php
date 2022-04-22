@@ -149,7 +149,6 @@ class SiswaController extends Controller
             $validatedData["foto_profil"] = $request->file("foto_profil")->storeAs("profil-siswa", "$request->nama.$file_ext");
         }
 
-
         Siswa::where("id", $siswa->id)->update($validatedData);
 
         return redirect('/siswa')->with("success", "Data $siswa->nama berhasil diperbarui!");

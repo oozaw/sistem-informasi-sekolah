@@ -32,7 +32,15 @@
                         <h3 class="widget-user-username">{{ $pekerja->nama }}</h3>
                      </div>
                      <div class="widget-user-image">
-                        <img class="img-circle elevation-2" src="/img/profil-me.png" alt="User Avatar">
+                        @if ($pekerja->foto_profil)
+                           <img class="img-circle elevation-2"
+                              style="width: 90px; height: 90px; object-fit: cover; object-position: center"
+                              src="/storage/{{ $pekerja->foto_profil }}" alt="Foto profil pekerja">
+                        @else
+                           <div class="img-circle bg-secondary elevation-1">
+                              <i class="fas fa-user-circle fa-6x"></i>
+                           </div>
+                        @endif
                      </div>
                      <div class="card-footer">
                         <div class="row justify-content-center">
@@ -48,11 +56,44 @@
                            </div>
                         </div>
                         <!-- /.row -->
-                        <div class="d-flex justify-content-center mt-3 mb-2">
-                           <div class="col-6">
-                              <a href="/pekerja/{{ $pekerja->id }}/edit" class="btn btn-warning btn-block"><b>Edit
-                                    Data</b></a>
+                        <div class="d-flex justify-content-center mb-2 mt-0">
+                           <a href="/pekerja" class="btn btn-secondary btn-sm mr-1">
+                              <i class="fas fa-long-arrow-left"></i> Kembali</a>
+                           <a href="/pekerja/{{ $pekerja->id }}/edit" class="btn btn-primary btn-sm mr-1">
+                              <i class="fas fa-edit"></i> Edit Profil</a>
+                           <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
+                              data-target="#modal-delete-{{ $pekerja->id }}">
+                              <i class="fas fa-trash"></i> Hapus</a>
+                           <!-- Modal -->
+                           <div class="modal fade" id="modal-delete-{{ $pekerja->id }}" style="display: none;"
+                              aria-hidden="true">
+                              <div class="modal-dialog">
+                                 <div class="modal-content bg-warning">
+                                    <div class="modal-header">
+                                       <h4 class="modal-title">Hapus Data Surat</h4>
+                                       <button type="button" class="close" data-dismiss="modal"
+                                          aria-label="Close">
+                                          <span aria-hidden="true">×</span>
+                                       </button>
+                                    </div>
+                                    <div class="modal-body">
+                                       <p>Yakin hapus data surat dari {{ $pekerja->nama }}?</p>
+                                    </div>
+                                    <div class="modal-footer justify-content-between">
+                                       <button type="button" class="btn btn-outline-dark"
+                                          data-dismiss="modal">Batal</button>
+                                       <form method="POST" action="/pekerja/{{ $pekerja->id }}">
+                                          @method('delete')
+                                          @csrf
+                                          <button onclick="return true" class="btn btn-danger">Hapus</button>
+                                       </form>
+                                    </div>
+                                 </div>
+                                 <!-- /.modal-content -->
+                              </div>
+                              <!-- /.modal-dialog -->
                            </div>
+                           <!-- /.modal -->
                         </div>
                      </div>
                      <!-- /.widget-user -->
@@ -69,10 +110,16 @@
                         <strong><i class="fas fa-book mr-1"></i> Nama</strong>
                         <p class="text-muted">{{ $pekerja->nama }}</p>
                         <hr>
+                        <strong><i class="far fa-venus-mars"></i> Jenis Kelamin</strong>
+                        <p class="text-muted">{{ $pekerja->gender }}</p>
+                        <hr>
+                        <strong><i class="far fa-envelope mr-1"></i> Email</strong>
+                        <p class="text-muted">{{ $pekerja->email }}</p>
+                        <hr>
                         <strong><i class="far fa-file-alt mr-1"></i> NIP</strong>
                         <p class="text-muted">{{ $pekerja->nip }}</p>
                         <hr>
-                        <strong><i class="far fa-file-alt mr-1"></i> No. Handphone</strong>
+                        <strong><i class="fas fa-phone-alt mr-1"></i> No. Telepon</strong>
                         <p class="text-muted">{{ $pekerja->no_hp }}</p>
                         <hr>
                         <strong><i class="fas fa-map-marker-alt mr-1"></i> Tempat Tinggal</strong>

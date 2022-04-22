@@ -17,12 +17,13 @@ class CreatePekerjasTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('nama');
-            $table->string('email');
-            $table->string('no_hp');
+            $table->string('email')->unique();
+            $table->string('no_hp')->unique();
             $table->string('nip')->unique()->nullable();
             $table->string('jabatan');
             $table->string('gender');
             $table->string('tempat_tinggal');
+            $table->string('foto_profil')->nullable();
         });
     }
 

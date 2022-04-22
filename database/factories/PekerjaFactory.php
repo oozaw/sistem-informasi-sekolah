@@ -20,7 +20,8 @@ class PekerjaFactory extends Factory
             "nip" => $this->faker->randomNumber(9, true),
             "jabatan" => $this->faker->randomElement(['Guru', 'Staf Tata Usaha', 'Staf Lainnya']),
             "gender" => $this->faker->randomElement(['Laki-laki', 'Perempuan']),
-            "tempat_tinggal" => $this->faker->address()
+            "tempat_tinggal" => $this->faker->address(),
+            "foto_profil" => ""
         ];
     }
 }

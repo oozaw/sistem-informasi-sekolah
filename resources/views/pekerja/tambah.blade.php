@@ -32,7 +32,7 @@
                         </div>
                      </div>
                      <!-- /.card-header -->
-                     <form method="POST" action="/pekerja">
+                     <form method="POST" action="/pekerja" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body pb-0">
                            <div class="form-group">
@@ -40,6 +40,27 @@
                               <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
                                  name="nama" placeholder="Masukkan nama" value="{{ old('nama') }}" autofocus required>
                               @error('nama')
+                                 <div class="invalid-feedback">
+                                    {{ $message }}
+                                 </div>
+                              @enderror
+                           </div>
+                           <div class="form-group">
+                              <label for="gender">Jenis Kelamin</label>
+                              <select class="form-control @error('gender') is-invalid @enderror" name="gender">
+                                 <option selected disabled hidden value="">-- Pilih jenis kelamin --</option>
+                                 @if (old('gender') == 'Laki-laki')
+                                    <option value="Laki-laki" selected>Laki-laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                 @elseif (old('gender') == 'Perempuan')
+                                    <option value="Laki-laki">Laki-laki</option>
+                                    <option value="Perempuan" selected>Perempuan</option>
+                                 @else
+                                    <option value="Laki-laki">Laki-laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                 @endif
+                              </select>
+                              @error('gender')
                                  <div class="invalid-feedback">
                                     {{ $message }}
                                  </div>
@@ -66,7 +87,7 @@
                               @enderror
                            </div>
                            <div class="form-group">
-                              <label for="no_hp">No. HP</label>
+                              <label for="no_hp">No. Telepon</label>
                               <input type="text" class="form-control @error('no_hp') is-invalid @enderror" id="no_hp"
                                  name="no_hp" placeholder="Masukkan no HP" value="{{ old('no_hp') }}" required>
                               @error('no_hp')
@@ -104,32 +125,23 @@
                               @enderror
                            </div>
                            <div class="form-group">
-                              <label>Jenis Kelamin</label>
-                              <select class="form-control @error('gender') is-invalid @enderror" name="gender" required>
-                                 <option selected disabled hidden value="">-- Pilih jenis kelamin --</option>
-                                 @if (old('gender') == 'Laki-laki')
-                                    <option value="Laki-laki" selected>Laki-laki</option>
-                                    <option value="Perempuan">Perempuan</option>
-                                 @elseif (old('gender') == 'Perempuan')
-                                    <option value="Laki-laki">Laki-laki</option>
-                                    <option value="Perempuan" selected>Perempuan</option>
-                                 @else
-                                    <option value="Laki-laki">Laki-laki</option>
-                                    <option value="Perempuan">Perempuan</option>
-                                 @endif
-                              </select>
-                              @error('gender')
-                                 <div class="invalid-feedback">
-                                    {{ $message }}
-                                 </div>
-                              @enderror
-                           </div>
-                           <div class="form-group">
                               <label for="tempat_tinggal">Tempat Tinggal</label>
                               <input type="text" class="form-control @error('tempat_tinggal') is-invalid @enderror"
                                  id="tempat_tinggal" name="tempat_tinggal" placeholder="Masukkan tempat tinggal"
                                  value="{{ old('tempat_tinggal') }}" required>
                               @error('tempat_tinggal')
+                                 <div class="invalid-feedback">
+                                    {{ $message }}
+                                 </div>
+                              @enderror
+                           </div>
+                           <label for="foto_profil">Foto Profil</label>
+                           <div class="custom-file mb-2">
+                              <input type="file" class="custom-file-input @error('foto_profil') is-invalid @enderror"
+                                 id="foto_profil" name="foto_profil">
+                              <label class="custom-file-label" for="foto_profil" data-browse="Pilih file">Unggah foto
+                                 profil</label>
+                              @error('foto_profil')
                                  <div class="invalid-feedback">
                                     {{ $message }}
                                  </div>
