@@ -151,7 +151,7 @@ class SiswaController extends Controller
 
         Siswa::where("id", $siswa->id)->update($validatedData);
 
-        return redirect('/siswa')->with("success", "Data $siswa->nama berhasil diperbarui!");
+        return redirect("/siswa/$siswa->id")->with("success", "Data $siswa->nama berhasil diperbarui!");
     }
 
     /**

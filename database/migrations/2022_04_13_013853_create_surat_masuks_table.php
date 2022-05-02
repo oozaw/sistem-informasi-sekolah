@@ -22,7 +22,7 @@ class CreateSuratMasuksTable extends Migration
             $table->string("instansi_asal");
             $table->string("bulan");
             $table->string("tahun");
-            $table->date("tgl_masuk");
+            $table->string("tgl_masuk");
             $table->string("keterangan")->nullable();
             $table->string("file_surat")->unique();
         });

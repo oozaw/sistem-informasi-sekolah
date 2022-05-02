@@ -41,8 +41,32 @@
                   <p>Dashboard</p>
                </a>
             </li>
-            <li class="nav-item {{ $part == 'kelas' || $part == 'siswa' ? 'menu-open' : '' }}">
-               <a href="#" class="nav-link {{ $part == 'kelas' || $part == 'siswa' ? 'active' : '' }}">
+            <li class="nav-item {{ $part == 'pengguna' ? 'menu-open' : '' }}">
+               <a href="#" class="nav-link {{ $part == 'pengguna' ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-tools"></i>
+                  <p>
+                     Administrator
+                     <i class="fas fa-angle-left right"></i>
+                  </p>
+               </a>
+               <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                     <a href="/pengguna" class="nav-link {{ $part == 'pengguna' ? 'active' : '' }}">
+                        <i class="nav-icon fad fa-users"></i>
+                        <p>Data Pengguna</p>
+                     </a>
+                  </li>
+                  {{-- <li class="nav-item">
+                     <a href="/siswa" class="nav-link {{ $part == 'siswa' ? 'active' : '' }}">
+                        <i class="fas fa-users nav-icon"></i>
+                        <p>Data Siswa</p>
+                     </a>
+                  </li> --}}
+               </ul>
+            </li>
+            <li class="nav-item {{ $part == 'kelas' || $part == 'siswa' || $part == 'prestasi' ? 'menu-open' : '' }}">
+               <a href="#"
+                  class="nav-link {{ $part == 'kelas' || $part == 'siswa' || $part == 'prestasi' ? 'active' : '' }}">
                   <i class="nav-icon fas fa-graduation-cap"></i>
                   <p>
                      Akademik
@@ -60,6 +84,12 @@
                      <a href="/siswa" class="nav-link {{ $part == 'siswa' ? 'active' : '' }}">
                         <i class="fas fa-users nav-icon"></i>
                         <p>Data Siswa</p>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a href="/prestasi" class="nav-link {{ $part == 'prestasi' ? 'active' : '' }}">
+                        <i class="fas fa-award nav-icon"></i>
+                        <p>Data Prestasi</p>
                      </a>
                   </li>
                </ul>

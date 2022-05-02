@@ -20,7 +20,7 @@ class SuratMasukFactory extends Factory
             "instansi_asal" => $this->faker->numerify("SMAN.#.Mrg"),
             "bulan" => "II",
             "tahun" => "2022",
-            "tgl_masuk" => $this->faker->dateTime(),
+            "tgl_masuk" => $this->faker->date('d M Y'),
             "keterangan" => $this->faker->sentence(),
             "file_surat" => $this->faker->sentence()
         ];

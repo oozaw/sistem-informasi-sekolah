@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\PekerjaController;
+use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\SuratKeluarController;
 use App\Http\Controllers\SuratMasukController;
@@ -42,6 +43,9 @@ Route::resource('surat-keluar', SuratKeluarController::class);
 
 // Surat Masuk
 Route::resource('surat-masuk', SuratMasukController::class);
+
+// Prestasi
+Route::resource('prestasi', PrestasiController::class);
 
 // User
 Route::get('/profile', [UserController::class, 'index']);

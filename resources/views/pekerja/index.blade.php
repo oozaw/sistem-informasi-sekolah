@@ -79,7 +79,7 @@
                                                       </button>
                                                    </div>
                                                    <div class="modal-body">
-                                                      <p>Yakin hapus data {{ $p->nama }}?</p>
+                                                      <p>Yakin hapus data pegawai {{ $p->nama }}?</p>
                                                    </div>
                                                    <div class="modal-footer justify-content-between">
                                                       <button type="button" class="btn btn-outline-dark"

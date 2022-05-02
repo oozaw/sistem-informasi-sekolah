@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SuratMasuk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 class SuratMasukController extends Controller
@@ -43,9 +44,6 @@ class SuratMasukController extends Controller
      */
     public function store(Request $request)
     {
-        $file_ext = $request->file('file_surat')->getClientOriginalExtension();
-        $nama_file = "$request->nomor-$request->kode_tujuan-$request->instansi_asal-$request->bulan-$request->tahun.$file_ext";
-        
         $validatedData = $request->validate([
             "asal" => "required",
             "nomor" => "required",
@@ -57,8 +55,13 @@ class SuratMasukController extends Controller
             "keterangan" => "nullable",
             "file_surat" => "required|mimes:pdf|file|max:1000"
         ]);
+
+        $carbon = new Carbon($request->tgl_masuk);
+        $validatedData["tgl_masuk"] = $carbon->format('d M Y');
         
         if ($request->file("file_surat")) {
+            $file_ext = $request->file('file_surat')->getClientOriginalExtension();
+            $nama_file = "$request->nomor-$request->kode_tujuan-$request->instansi_asal-$request->bulan-$request->tahun.$file_ext";
             $validatedData['file_surat'] = $request->file('file_surat')->storeAs('surat-masuk', $nama_file);
         }
 
@@ -123,18 +126,20 @@ class SuratMasukController extends Controller
         }
         
         $validatedData = $request->validate($rules);
-        
-        $file_ext = $request->file('file_surat')->getClientOriginalExtension();
-        $nama_file = "$request->nomor-$request->kode_tujuan-$request->instansi_asal-$request->bulan-$request->tahun.$file_ext";
+
+        $carbon = new Carbon($request->tgl_masuk);
+        $validatedData["tgl_masuk"] = $carbon->format('d M Y');
         
         if ($request->file("file_surat")) {
+            $file_ext = $request->file('file_surat')->getClientOriginalExtension();
+            $nama_file = "$request->nomor-$request->kode_tujuan-$request->instansi_asal-$request->bulan-$request->tahun.$file_ext";
             Storage::delete($nama_file);
             $validatedData['file_surat'] = $request->file('file_surat')->storeAs('surat-masuk', $nama_file);
         }
         
         SuratMasuk::where("id", $suratMasuk->id)->update($validatedData);
 
-        return redirect("/surat-masuk")->with("success", "Data surat dari $suratMasuk->asal berhasil diperbarui!");
+        return redirect("/surat-masuk/$suratMasuk->id")->with("success", "Data surat dari $suratMasuk->asal berhasil diperbarui!");
     }
 
     /**

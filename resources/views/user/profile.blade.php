@@ -11,12 +11,12 @@
                </div>
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
-                     <li class="breadcrumb-item">Akademik</li>
                      <li class="breadcrumb-item active">Profil</li>
                   </ol>
                </div>
             </div>
-         </div><!-- /.container-fluid -->
+         </div>
+         <!-- /.container-fluid -->
       </section>
 
       <!-- Main content -->
@@ -40,14 +40,14 @@
                            </div>
                         </div>
                         <div class="row justify-content-center">
-                           <div class="col-6">
+                           <div class="col-8">
                               <p class="text-muted text-center">
                                  wahyuady17@gmail.com
                               </p>
                            </div>
                         </div>
                         <!-- /.row -->
-                        <div class="d-flex justify-content-center mt-3 mb-2">
+                        <div class="d-flex justify-content-center mt-1 mb-2">
                            <div class="col-6">
                               <a href="#" class="btn btn-warning btn-block"><b>Edit Profil</b></a>
                            </div>
@@ -64,17 +64,20 @@
                      </div>
                      <!-- /.card-header -->
                      <div class="card-body pb-1">
+                        <strong><i class="fas fa-user-edit mr-1"></i> Tipe Pengguna</strong>
+                        <p class="text-muted">Administrator</p>
+                        <hr>
+                        <strong><i class="fas fa-hashtag mr-1"></i> Username</strong>
+                        <p class="text-muted">wahyuady17</p>
+                        <hr>
                         <strong><i class="fas fa-book mr-1"></i> Nama</strong>
                         <p class="text-muted">Wahyu Purnomo Ady</p>
                         <hr>
-                        <strong><i class="far fa-file-alt mr-1"></i> NIP</strong>
-                        <p class="text-muted">23179273417001</p>
+                        <strong><i class="far fa-envelope mr-1"></i> Email</strong>
+                        <p class="text-muted">wahyuady17@gmail.com</p>
                         <hr>
-                        <strong><i class="far fa-file-alt mr-1"></i> No. Handphone</strong>
+                        <strong><i class="fas fa-phone-alt mr-1"></i> No. Telepon</strong>
                         <p class="text-muted">08332321374</p>
-                        <hr>
-                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Tempat Tinggal</strong>
-                        <p class="text-muted">Malibu, California</p>
                      </div>
                      <!-- /.card-body -->
                   </div>

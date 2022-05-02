@@ -7,17 +7,16 @@
          <div class="container-fluid">
             <div class="row mb-2">
                <div class="col-sm-6">
-                  <h1>Data Pegawai</h1>
+                  <h1>Data Prestasi</h1>
                </div>
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
-                     <li class="breadcrumb-item">Kepegawaian</li>
-                     <li class="breadcrumb-item active">Data Staf Tata Usaha</li>
+                     <li class="breadcrumb-item">Akademik</li>
+                     <li class="breadcrumb-item active">Data Prestasi</li>
                   </ol>
                </div>
             </div>
-         </div>
-         <!-- /.container-fluid -->
+         </div><!-- /.container-fluid -->
       </section>
 
       <!-- Main content -->
@@ -28,8 +27,8 @@
                   <div class="card">
                      <div class="card-header">
                         <div class="d-inline-flex">
-                           <a href="/pekerja/create" class="btn btn-success btn-sm mr-1">
-                              <i class="fas fa-file-plus"></i> Tambah Data Pegawai</a>
+                           <a href="/prestasi/create" class="btn btn-success btn-sm mr-1">
+                              <i class="fas fa-file-plus"></i> Tambah Data Prestasi</a>
                            @if (session()->has('success'))
                               <div class="successAlert" hidden>{{ session('success') }}</div>
                            @endif
@@ -40,52 +39,54 @@
                      </div>
                      <!-- /.card-header -->
                      <div class="card-body">
-                        <table id="data_tu" class="table table-bordered table-striped">
+                        <table id="data_prestasi" class="table table-bordered table-striped">
                            <thead>
                               <tr>
                                  <th>No.</th>
-                                 <th>Nama</th>
-                                 <th>Jabatan</th>
-                                 <th>Tempat Tinggal</th>
+                                 <th>Nama Perlombaan</th>
+                                 <th>Capaian</th>
+                                 <th>Tingkat</th>
+                                 <th>Tahun</th>
                                  <th>Aksi</th>
                               </tr>
                            </thead>
                            <tbody>
-                              @foreach ($staf as $s)
+                              @foreach ($prestasi as $p)
                                  <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $s->nama }}</td>
-                                    <td>{{ $s->jabatan }}</td>
-                                    <td>{{ $s->tempat_tinggal }}</td>
+                                    <td>{{ $p->nama }}</td>
+                                    <td>{{ $p->capaian }}</td>
+                                    <td>{{ $p->tingkat }}</td>
+                                    <td>{{ $p->tahun }}</td>
                                     <td>
                                        <div class="d-inline-flex">
-                                          <a href="/pekerja/{{ $s->id }}" class="btn btn-info btn-sm mr-1">
+                                          <a href="/prestasi/{{ $p->id }}" class="btn btn-info btn-sm mr-1">
                                              <i class="fas fa-eye"></i> Detail</a>
-                                          <a href="/pekerja/{{ $s->id }}/edit" class="btn btn-primary btn-sm mr-1">
+                                          <a href="/prestasi/{{ $p->id }}/edit" class="btn btn-primary btn-sm mr-1">
                                              <i class="fas fa-edit"></i> Edit</a>
                                           <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
-                                             data-target="#modal-delete-{{ $s->id }}">
+                                             data-target="#modal-delete-{{ $p->id }}">
                                              <i class="fas fa-trash"></i> Hapus</a>
 
                                           <!-- Modal -->
-                                          <div class="modal fade" id="modal-delete-{{ $s->id }}"
+                                          <div class="modal fade" id="modal-delete-{{ $p->id }}"
                                              style="display: none;" aria-hidden="true">
                                              <div class="modal-dialog">
                                                 <div class="modal-content bg-warning">
                                                    <div class="modal-header">
-                                                      <h4 class="modal-title">Hapus Data Tata Usaha</h4>
+                                                      <h4 class="modal-title">Hapus Data Prestasi</h4>
                                                       <button type="button" class="close" data-dismiss="modal"
                                                          aria-label="Close">
                                                          <span aria-hidden="true">×</span>
                                                       </button>
                                                    </div>
                                                    <div class="modal-body">
-                                                      <p>Yakin hapus data {{ $s->nama }}?</p>
+                                                      <p>Yakin hapus data {{ $p->nama }}?</p>
                                                    </div>
                                                    <div class="modal-footer justify-content-between">
                                                       <button type="button" class="btn btn-outline-dark"
                                                          data-dismiss="modal">Batal</button>
-                                                      <form method="POST" action="/pekerja/{{ $s->id }}">
+                                                      <form method="POST" action="/prestasi/{{ $p->id }}">
                                                          @method('delete')
                                                          @csrf
                                                          <button onclick="return true"
@@ -145,36 +146,36 @@
    <!-- Page specific script -->
    <script>
       $(function() {
-         $("#data_tu").DataTable({
+         $("#data_prestasi").DataTable({
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
             "buttons": [{
                   extend: 'copy',
                   exportOptions: {
-                     columns: [0, 1, 2, 3]
+                     columns: [0, 1, 2, 3, 4]
                   }
                },
                {
                   extend: 'excel',
                   exportOptions: {
-                     columns: [0, 1, 2, 3]
+                     columns: [0, 1, 2, 3, 4]
                   }
                },
                {
                   extend: 'pdf',
                   exportOptions: {
-                     columns: [0, 1, 2, 3]
+                     columns: [0, 1, 2, 3, 4]
                   }
                },
                {
                   extend: 'print',
                   exportOptions: {
-                     columns: [0, 1, 2, 3]
+                     columns: [0, 1, 2, 3, 4]
                   }
                }
             ]
-         }).buttons().container().appendTo('#data_tu_wrapper .col-md-6:eq(0)');
+         }).buttons().container().appendTo('#data_prestasi_wrapper .col-md-6:eq(0)');
       });
 
       $(function() {
