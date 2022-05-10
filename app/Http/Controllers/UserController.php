@@ -12,4 +12,11 @@ class UserController extends Controller
             "part" => ""
         ]);
     }
+
+    function login() {
+        return view('user.login', [
+            "title" => "Login",
+            "part" => ""
+        ]);
+    }
 }

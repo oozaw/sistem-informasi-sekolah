@@ -12,7 +12,7 @@
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
                      <li class="breadcrumb-item">Akademik</li>
-                     <li class="breadcrumb-item">Data Prestas</li>
+                     <li class="breadcrumb-item">Data Prestasi</li>
                      <li class="breadcrumb-item active">Tambah Data Prestasi</li>
                   </ol>
                </div>
@@ -40,6 +40,27 @@
                               <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
                                  name="nama" placeholder="Masukkan nama lomba" value="{{ old('nama') }}" autofocus>
                               @error('nama')
+                                 <div class="invalid-feedback">
+                                    {{ $message }}
+                                 </div>
+                              @enderror
+                           </div>
+                           <div class="form-group">
+                              <label>Jenis Perlombaan</label>
+                              <select class="form-control @error('jenis') is-invalid @enderror" name="jenis">
+                                 <option selected disabled hidden value="">-- Pilih jenis lomba --</option>
+                                 @if (old('jenis') == 'Individu')
+                                    <option value="Individu" selected>Individu</option>
+                                    <option value="Kelompok">Kelompok</option>
+                                 @elseif (old('jenis') == 'Kelompok')
+                                    <option value="Individu">Individu</option>
+                                    <option value="Kelompok" selected>Kelompok</option>
+                                 @else
+                                    <option value="Individu">Individu</option>
+                                    <option value="Kelompok">Kelompok</option>
+                                 @endif
+                              </select>
+                              @error('jenis')
                                  <div class="invalid-feedback">
                                     {{ $message }}
                                  </div>
@@ -145,5 +166,9 @@
       $(function() {
          bsCustomFileInput.init();
       });
+
+      function cekJenisLomba() {
+         let
+      }
    </script>
 @endsection

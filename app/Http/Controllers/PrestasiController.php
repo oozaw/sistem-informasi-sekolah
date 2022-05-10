@@ -3,18 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Prestasi;
+use App\Models\Siswa;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 
-class PrestasiController extends Controller
-{
+class PrestasiController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         return view('prestasi.index', [
             "title" => "Data Prestasi",
             "part" => "prestasi",
@@ -27,11 +26,11 @@ class PrestasiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         return view('prestasi.tambah', [
             "title" => "Tambah Data Prestasi",
-            "part" => "prestasi"
+            "part" => "prestasi",
+            "siswa" => Siswa::all()
         ]);
     }
 
@@ -41,24 +40,24 @@ class PrestasiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $validatedData = $request->validate([
             "nama" => "required",
+            "jenis" => "required",
             "tingkat" => "required",
             "capaian" => "required",
             "tanggal" => "required",
             "bidang" => "required",
-            "piagam" => "required|mimes:pdf|file|max:1000"
+            "piagam" => "mimes:pdf|file|max:1000"
         ]);
-        
+
         $carbon = new Carbon($request->tanggal);
         $validatedData["tanggal"] = $carbon->format('d M Y');
         $validatedData["tahun"] = $carbon->year;
-        
+
         if ($request->file("piagam")) {
             $file_ext = $request->file('piagam')->getClientOriginalExtension();
-            $nama_file = "$request->nama-$request->tahun-$request->capaian-$request->tingkat.$file_ext";
+            $nama_file = "$request->nama-$carbon->year-$request->capaian-$request->tingkat.$file_ext";
             $validatedData['piagam'] = $request->file('piagam')->storeAs('prestasi', $nama_file);
         }
 
@@ -73,9 +72,12 @@ class PrestasiController extends Controller
      * @param  \App\Models\Prestasi  $prestasi
      * @return \Illuminate\Http\Response
      */
-    public function show(Prestasi $prestasi)
-    {
-        //
+    public function show(Prestasi $prestasi) {
+        return view('prestasi.detail', [
+            "title" => "Detail Prestasi",
+            "part" => "prestasi",
+            "prestasi" => $prestasi
+        ]);
     }
 
     /**
@@ -84,8 +86,7 @@ class PrestasiController extends Controller
      * @param  \App\Models\Prestasi  $prestasi
      * @return \Illuminate\Http\Response
      */
-    public function edit(Prestasi $prestasi)
-    {
+    public function edit(Prestasi $prestasi) {
         //
     }
 
@@ -96,8 +97,7 @@ class PrestasiController extends Controller
      * @param  \App\Models\Prestasi  $prestasi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Prestasi $prestasi)
-    {
+    public function update(Request $request, Prestasi $prestasi) {
         //
     }
 
@@ -107,8 +107,7 @@ class PrestasiController extends Controller
      * @param  \App\Models\Prestasi  $prestasi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Prestasi $prestasi)
-    {
+    public function destroy(Prestasi $prestasi) {
         //
     }
 }

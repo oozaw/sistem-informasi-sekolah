@@ -49,3 +49,4 @@ Route::resource('prestasi', PrestasiController::class);
 
 // User
 Route::get('/profile', [UserController::class, 'index']);
+Route::get('/login', [UserController::class, 'login']);
