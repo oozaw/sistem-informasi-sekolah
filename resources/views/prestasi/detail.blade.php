@@ -11,7 +11,8 @@
                </div>
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
-                     <li class="breadcrumb-item">Prestasi</li>
+                     <li class="breadcrumb-item">Akademik</li>
+                     <li class="breadcrumb-item">Data Prestasi</li>
                      <li class="breadcrumb-item active">Detail Prestasi</li>
                   </ol>
                </div>
@@ -114,13 +115,19 @@
                                  </tr>
                                  <tr>
                                     <th>Piagam</th>
-                                    <th></th>
-                                    <th></th>
+                                    <th>:</th>
+                                    <td class="text-warning">
+                                       @if ($prestasi->piagam == null)
+                                          <b>Belum diupload</b>
+                                       @endif
+                                    </td>
                                  </tr>
                               </tbody>
                            </table>
-                           <iframe class="col-md-12" height="800" src="/storage/{{ $prestasi->piagam }}"
-                              frameborder="0"></iframe>
+                           @if ($prestasi->piagam != null)
+                              <iframe class="col-md-12" height="800" src="/storage/{{ $prestasi->piagam }}"
+                                 frameborder="0"></iframe>
+                           @endif
                         </div>
                      </div>
                      <!-- /.card-body -->
