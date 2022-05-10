@@ -242,9 +242,9 @@
                            </div>
                            <div class="form-group">
                               <label for="tgl_keluar">Tanggal Keluar</label>
-                              <input type="text" class="form-control @error('tgl_keluar') is-invalid @enderror"
+                              <input type="date" class="form-control @error('tgl_keluar') is-invalid @enderror"
                                  id="tgl_keluar" name="tgl_keluar" placeholder="Masukkan tanggal keluar"
-                                 value="{{ old('tgl_keluar', $surat->tgl_keluar) }}">
+                                 value="{{ old('tgl_keluar', $tanggal) }}">
                               @error('tgl_keluar')
                                  <div class="invalid-feedback">
                                     {{ $message }}
