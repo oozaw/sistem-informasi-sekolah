@@ -7,15 +7,13 @@ use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class SiswaController extends Controller
-{
+class SiswaController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         return view('siswa.index', [
             'title' => "Data Siswa",
             'part' => "siswa",
@@ -28,8 +26,7 @@ class SiswaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         return view('siswa.tambah', [
             "title" => "Tambah Siswa",
             "part" => "siswa",
@@ -43,9 +40,8 @@ class SiswaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        
+    public function store(Request $request) {
+
         $validatedData = $request->validate([
             "nama" => "required",
             "nis" => "required|unique:siswa|numeric",
@@ -56,7 +52,7 @@ class SiswaController extends Controller
             "kelas_id" => "required",
             "foto_profil" => "nullable|image|max:10000"
         ]);
-        
+
         if ($request->file("foto_profil")) {
             $file_ext = $request->file('foto_profil')->getClientOriginalExtension();
             $validatedData["foto_profil"] = $request->file("foto_profil")->storeAs("profil-siswa", "$request->nama.$file_ext");
@@ -77,8 +73,16 @@ class SiswaController extends Controller
      * @param  \App\Models\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function show(Siswa $siswa)
-    {
+    public function show(Siswa $siswa) {
+        // $test = Siswa::where('id', '8')->get();
+        // // $test = Perwakilan::where('siswa_id', '1')->first();
+        // // dd($test->flatMap->prestasi);
+        // foreach ($test->flatMap->prestasi as $t) {
+        //     dd(
+        //         $t->nama
+        //     );
+        // }
+
         return view('siswa.detail', [
             "title" => "Detail Siswa",
             "part" => "siswa",
@@ -92,8 +96,7 @@ class SiswaController extends Controller
      * @param  \App\Models\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function edit(Siswa $siswa)
-    {
+    public function edit(Siswa $siswa) {
         return view('siswa.edit', [
             "title" => "Edit Data Siswa",
             "part" => "siswa",
@@ -109,8 +112,7 @@ class SiswaController extends Controller
      * @param  \App\Models\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Siswa $siswa)
-    {
+    public function update(Request $request, Siswa $siswa) {
         $rules = [
             "nama" => "required",
             "kelas_id" => "required",
@@ -122,13 +124,13 @@ class SiswaController extends Controller
         if ($request->nisn != $siswa->nisn) {
             $rules["nisn"] = "required|unique:siswa";
         } else {
-            $rules["nisn"] = "required"; 
+            $rules["nisn"] = "required";
         }
 
         if ($request->no_telp != $siswa->no_telp) {
             $rules["no_telp"] = "nullable|unique:siswa";
         } else {
-            $rules["no_telp"] = "nullable"; 
+            $rules["no_telp"] = "nullable";
         }
 
         if ($request->nis != $siswa->nis) {
@@ -142,7 +144,7 @@ class SiswaController extends Controller
         if (!($request->no_telp)) {
             $validatedData["no_telp"] = "-";
         }
-        
+
         if ($request->file("foto_profil")) {
             $file_ext = $request->file('foto_profil')->getClientOriginalExtension();
             Storage::delete("$request->nama.$file_ext");
@@ -160,8 +162,7 @@ class SiswaController extends Controller
      * @param  \App\Models\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Siswa $siswa)
-    {
+    public function destroy(Siswa $siswa) {
         Siswa::destroy($siswa->id);
 
         return redirect("/siswa")->with("success", "Data $siswa->nama berhasil dihapus!");

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Perwakilan;
 use App\Models\Siswa;
 use App\Models\Prestasi;
 use Illuminate\Http\Request;
@@ -142,6 +143,8 @@ class PrestasiController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Prestasi $prestasi) {
-        //
+        Prestasi::destroy($prestasi->id);
+
+        return redirect('/prestasi')->with('success', "Data prestasi $prestasi->nama berhasil dihapus!");
     }
 }

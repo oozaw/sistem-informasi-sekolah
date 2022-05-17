@@ -16,6 +16,6 @@ class Siswa extends Model {
     }
 
     public function prestasi() {
-        return $this->belongsToMany(Prestasi::class, 'perwakilan_prestasi')->withTimestamps();
+        return $this->belongsToMany(Prestasi::class, 'perwakilan_prestasi')->using(Perwakilan::class)->withTimestamps();
     }
 }
