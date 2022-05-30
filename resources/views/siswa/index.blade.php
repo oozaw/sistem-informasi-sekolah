@@ -28,7 +28,7 @@
                      <div class="card-header">
                         <div class="d-inline-flex">
                            <a href="/siswa/create" class="btn btn-success btn-sm mr-1">
-                              <i class="fas fa-file-plus"></i> Tambah Siswa</a>
+                              <i class="fas fa-file-plus"></i> Tambah Data Siswa</a>
                            @if (session()->has('success'))
                               <div class="successAlert" hidden>{{ session('success') }}</div>
                            @endif

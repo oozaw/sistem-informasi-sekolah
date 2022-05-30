@@ -87,16 +87,6 @@
                               @enderror
                            </div>
                            <div class="form-group">
-                              <label for="no_telp">Nomor Telepon</label>
-                              <input type="text" class="form-control @error('no_telp') is-invalid @enderror" id="no_telp"
-                                 name="no_telp" placeholder="Masukkan nomor telepon siswa" value="{{ old('no_telp') }}">
-                              @error('no_telp')
-                                 <div class="invalid-feedback">
-                                    {{ $message }}
-                                 </div>
-                              @enderror
-                           </div>
-                           <div class="form-group">
                               <label>Kelas</label>
                               <select class="form-control @error('kelas_id') is-invalid @enderror" name="kelas_id">
                                  <option selected disabled hidden value="">-- Pilih kelas --</option>
@@ -109,6 +99,30 @@
                                  @endforeach
                               </select>
                               @error('kelas_id')
+                                 <div class="invalid-feedback">
+                                    {{ $message }}
+                                 </div>
+                              @enderror
+                           </div>
+                           <div class="form-group row mt-4 mb-3">
+                              <label for="option_prestasi" class="col-form-label pr-0 mx-2 mr-3">Tambah Prestasi?</label>
+                              <div class="col-2 pl-0 mr-3">
+                                 <select class="form-control" name="option_prestasi" id="option_prestasi"
+                                    onchange="cekPrestasi()" required>
+                                    <option value="no" selected>Tidak</option>
+                                    <option value="yes">Ya</option>
+                                 </select>
+                              </div>
+                              <label id="label_jumlah_prestasi" for="jumlah_prestasi" class="col-form-label pr-0 mx-2 mr-3"
+                                 hidden>Jumlah</label>
+                              <div id="jumlah_prestasi_area" class="col-2 pl-0 mr-3"></div>
+                           </div>
+                           <div class="form-group" id="tambah_prestasi_form"></div>
+                           <div class="form-group">
+                              <label for="no_telp">Nomor Telepon</label>
+                              <input type="text" class="form-control @error('no_telp') is-invalid @enderror" id="no_telp"
+                                 name="no_telp" placeholder="Masukkan nomor telepon siswa" value="{{ old('no_telp') }}">
+                              @error('no_telp')
                                  <div class="invalid-feedback">
                                     {{ $message }}
                                  </div>
@@ -174,5 +188,54 @@
       $(function() {
          bsCustomFileInput.init();
       });
+
+      function cekPrestasi() {
+         let optionTambah = document.querySelector("#option_prestasi").value;
+         let area = document.querySelector("#jumlah_prestasi_area");
+         let label = document.querySelector("#label_jumlah_prestasi");
+         let prestasiForm = document.querySelector("#tambah_prestasi_form");
+
+         if (optionTambah == "yes") {
+            label.removeAttribute("hidden");
+            area.innerHTML =
+               '<input type="number" class="form-control" id="jumlah_prestasi" name="jumlah_prestasi"placeholder="Jumlah prestasi" value="1" min="1" oninput="cekJumlahPrestasi()">';
+            prestasiForm.innerHTML =
+               '<label for="prestasi1">Prestasi 1</label><select class="form-control" name="prestasi1" id="prestasi1" required><option value="" selected disabled hidden>-- Pilih prestasi --</option>' +
+               @foreach ($prestasi as $p)
+                  '<option value="{{ $p->id }}">{{ $p->capaian }} {{ $p->nama }} {{ $p->tahun }}</option>' +
+               @endforeach
+            '</select>';
+         } else {
+            label.setAttribute("hidden", true);
+            area.innerHTML = "";
+            prestasiForm.innerHTML = "";
+         }
+      }
+
+      function cekJumlahPrestasi() {
+         let jumlahPrestasi = document.querySelector("#jumlah_prestasi").value;
+         let prestasiForm = document.querySelector("#tambah_prestasi_form");
+         let form = '';
+         let kelas = '';
+
+         for (index = 1; index <= jumlahPrestasi; index++) {
+            if (index != 1) {
+               kelas = "class=mt-3";
+            }
+
+            form = form +
+               '<label for="prestasi' + index + '"' + kelas +
+               '>Prestasi ' + index +
+               '</label><select class="form-control" name="prestasi' + index +
+               '" id="prestasi' + index +
+               '" required><option value="" selected disabled hidden>-- Pilih prestasi --</option>' +
+               @foreach ($prestasi as $p)
+                  '<option value="{{ $p->id }}">{{ $p->capaian }} {{ $p->nama }} {{ $p->tahun }}</option>' +
+               @endforeach
+            '</select>';
+         }
+
+         prestasiForm.innerHTML = form;
+      }
    </script>
 @endsection

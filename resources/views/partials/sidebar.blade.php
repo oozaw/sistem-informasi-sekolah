@@ -88,7 +88,7 @@
                   </li>
                   <li class="nav-item">
                      <a href="/prestasi" class="nav-link {{ $part == 'prestasi' ? 'active' : '' }}">
-                        <i class="fas fa-award nav-icon"></i>
+                        <i class="fas fa-medal nav-icon"></i>
                         <p>Data Prestasi</p>
                      </a>
                   </li>
@@ -129,9 +129,9 @@
                </ul>
             </li>
             <li
-               class="nav-item {{ $part == 'surat-masuk' ||$part == 'surat-keluar' ||$part == 'keuangan' ||$part == 'komite' ||$part == 'bos'? 'menu-open': '' }}">
+               class="nav-item {{ $part == 'surat-masuk' || $part == 'surat-keluar' || $part == 'keuangan' || $part == 'komite' || $part == 'bos' ? 'menu-open' : '' }}">
                <a href="#"
-                  class="nav-link {{ $part == 'surat-masuk' ||$part == 'surat-keluar' ||$part == 'keuangan' ||$part == 'komite' ||$part == 'bos'? 'active': '' }}">
+                  class="nav-link {{ $part == 'surat-masuk' || $part == 'surat-keluar' || $part == 'keuangan' || $part == 'komite' || $part == 'bos' ? 'active' : '' }}">
                   <i class="nav-icon fas fa-paste"></i>
                   <p>
                      Tata Usaha

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 use App\Models\Siswa;
+use App\Models\Prestasi;
+use App\Models\Perwakilan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -30,7 +32,8 @@ class SiswaController extends Controller {
         return view('siswa.tambah', [
             "title" => "Tambah Siswa",
             "part" => "siswa",
-            "kelas" => Kelas::all()
+            "kelas" => Kelas::all(),
+            "prestasi" => Prestasi::all()
         ]);
     }
 
@@ -42,7 +45,7 @@ class SiswaController extends Controller {
      */
     public function store(Request $request) {
 
-        $validatedData = $request->validate([
+        $validatedDataSiswa = $request->validate([
             "nama" => "required",
             "nis" => "required|unique:siswa|numeric",
             "nisn" => "required|unique:siswa|numeric",
@@ -62,7 +65,19 @@ class SiswaController extends Controller {
             $validatedData["no_telp"] = "-";
         }
 
-        Siswa::create($validatedData);
+        $siswa = Siswa::create($validatedDataSiswa);
+
+        $idSiswa = $siswa->id;
+
+        // tambah prestasi siswa baru ke tabel perwakilan
+        if ($request->option_prestasi == 'yes') {
+            $dataPrestasi = ['siswa_id' => $idSiswa];
+            for ($i = 1; $i <= $request->jumlah_prestasi; $i++) {
+                $prestasi = "prestasi$i";
+                $dataPrestasi['prestasi_id'] = $request->$prestasi;
+                Perwakilan::create($dataPrestasi);
+            }
+        }
 
         return redirect('/siswa')->with("success", "Data siswa baru, $request->nama berhasil ditambahkan!");
     }
@@ -74,19 +89,13 @@ class SiswaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Siswa $siswa) {
-        // $test = Siswa::where('id', '8')->get();
-        // // $test = Perwakilan::where('siswa_id', '1')->first();
-        // // dd($test->flatMap->prestasi);
-        // foreach ($test->flatMap->prestasi as $t) {
-        //     dd(
-        //         $t->nama
-        //     );
-        // }
+        $prestasi = Siswa::where('id', $siswa->id)->get()->flatMap->prestasi;
 
         return view('siswa.detail', [
             "title" => "Detail Siswa",
             "part" => "siswa",
-            "siswa" => $siswa
+            "siswa" => $siswa,
+            "prestasi" => $prestasi
         ]);
     }
 
@@ -97,11 +106,17 @@ class SiswaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Siswa $siswa) {
+        $prestasiSiswa = Perwakilan::where('siswa_id', $siswa->id)->get();
+        $jumlahPrestasi = count($prestasiSiswa);
+
         return view('siswa.edit', [
             "title" => "Edit Data Siswa",
             "part" => "siswa",
             "siswa" => $siswa,
-            "kelas" => Kelas::all()
+            "kelas" => Kelas::all(),
+            "prestasi" => Prestasi::all(),
+            "prestasiSiswa" => $prestasiSiswa,
+            "jumlahPrestasi" => $jumlahPrestasi
         ]);
     }
 
@@ -152,6 +167,31 @@ class SiswaController extends Controller {
         }
 
         Siswa::where("id", $siswa->id)->update($validatedData);
+
+        $prestasiSiswa = Perwakilan::where('siswa_id', $siswa->id)->get();
+        $jumlahPrestasi = count($prestasiSiswa);
+        $dataPrestasi = ['siswa_id' => $siswa->id];
+
+        // untuk prestasi yang sudah ada sebelumnya
+        for ($i = 1; $i <= $jumlahPrestasi; $i++) {
+            $prestasi = "prestasi$i";
+            if ($request->$prestasi == "kosong") {
+                Perwakilan::destroy($prestasiSiswa[$i - 1]->id);
+            } else {
+                $dataPrestasi['prestasi_id'] = $request->$prestasi;
+                Perwakilan::where("id", $prestasiSiswa[$i - 1]->id)->update($dataPrestasi);
+            }
+        }
+
+        // untuk prestasi baru
+        if ($request->option_prestasi == 'yes') {
+            for ($i = 1; $i <= $request->jumlah_prestasi; $i++) {
+                $counterPrestasiTotal = $i + $jumlahPrestasi;
+                $prestasi = "prestasi$counterPrestasiTotal";
+                $dataPrestasi['prestasi_id'] = $request->$prestasi;
+                Perwakilan::create($dataPrestasi);
+            }
+        }
 
         return redirect("/siswa/$siswa->id")->with("success", "Data $siswa->nama berhasil diperbarui!");
     }

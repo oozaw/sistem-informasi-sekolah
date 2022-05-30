@@ -117,6 +117,42 @@
                                  </div>
                               @enderror
                            </div>
+                           <div class="form-group" id="prestasi_form">
+                              @foreach ($prestasiSiswa as $ps)
+                                 <label for="prestasi{{ $loop->iteration }}"
+                                    class="{{ $loop->iteration != 1 ? 'mt-3' : '' }}">Prestasi
+                                    {{ $loop->iteration }}</label><select class="form-control"
+                                    name="prestasi{{ $loop->iteration }}" id="prestasi{{ $loop->iteration }}"
+                                    required>
+                                    <option value="kosong">-- Tidak ada --</option>
+                                    @foreach ($prestasi as $p)
+                                       @if ($p->id == $ps->prestasi_id)
+                                          <option value="{{ $p->id }}" selected>{{ $p->capaian }}
+                                             {{ $p->nama }}
+                                             {{ $p->tahun }}</option>
+                                       @else
+                                          <option value="{{ $p->id }}">{{ $p->capaian }}
+                                             {{ $p->nama }}
+                                             {{ $p->tahun }}</option>
+                                       @endif
+                                    @endforeach
+                                 </select>
+                              @endforeach
+                           </div>
+                           <div class="form-group row mt-4 mb-3">
+                              <label for="option_prestasi" class="col-form-label pr-0 mx-2 mr-3">Tambah Prestasi?</label>
+                              <div class="col-2 pl-0 mr-3">
+                                 <select class="form-control" name="option_prestasi" id="option_prestasi"
+                                    onchange="cekPrestasi()" required>
+                                    <option value="no" selected>Tidak</option>
+                                    <option value="yes">Ya</option>
+                                 </select>
+                              </div>
+                              <label id="label_jumlah_prestasi" for="jumlah_prestasi" class="col-form-label pr-0 mx-2 mr-3"
+                                 hidden>Jumlah</label>
+                              <div id="jumlah_prestasi_area" class="col-2 pl-0 mr-3"></div>
+                           </div>
+                           <div class="form-group" id="tambah_prestasi_form"></div>
                            <div class="form-group">
                               <label for="tempat_tinggal">Tempat Tinggal</label>
                               <input type="text" class="form-control @error('tempat_tinggal') is-invalid @enderror"
@@ -177,5 +213,60 @@
       $(function() {
          bsCustomFileInput.init();
       });
+
+      function cekPrestasi() {
+         let optionTambah = document.querySelector("#option_prestasi").value;
+         let area = document.querySelector("#jumlah_prestasi_area");
+         let label = document.querySelector("#label_jumlah_prestasi");
+         let prestasiForm = document.querySelector("#tambah_prestasi_form");
+         let jumlahPrestasi = {{ $jumlahPrestasi }};
+
+         if (optionTambah == "yes") {
+            label.removeAttribute("hidden");
+            area.innerHTML =
+               '<input type="number" class="form-control" id="jumlah_prestasi" name="jumlah_prestasi"placeholder="Jumlah prestasi" value="1" min="1" oninput="cekjumlahTambahPrestasi()">';
+            prestasiForm.innerHTML =
+               '<label for="prestasi' + (jumlahPrestasi + 1) +
+               '">Prestasi ' + (jumlahPrestasi + 1) +
+               '</label><select class="form-control" name="prestasi' + (jumlahPrestasi + 1) + '" id="prestasi' + (
+                  jumlahPrestasi + 1) +
+               '" required><option value="" selected disabled hidden>-- Pilih prestasi --</option>' +
+               @foreach ($prestasi as $p)
+                  '<option value="{{ $p->id }}">{{ $p->capaian }} {{ $p->nama }} {{ $p->tahun }}</option>' +
+               @endforeach
+            '</select>';
+         } else {
+            label.setAttribute("hidden", true);
+            area.innerHTML = "";
+            prestasiForm.innerHTML = "";
+         }
+      }
+
+      function cekjumlahTambahPrestasi() {
+         let jumlahPrestasi = {{ $jumlahPrestasi }};
+         let jumlahTambahPrestasi = document.querySelector("#jumlah_prestasi").value;
+         let prestasiForm = document.querySelector("#tambah_prestasi_form");
+         let form = '';
+         let kelas = '';
+
+         for (index = 1; index <= jumlahTambahPrestasi; index++) {
+            if (index != 1) {
+               kelas = "class=mt-3";
+            }
+
+            form = form +
+               '<label for="prestasi' + (jumlahPrestasi + index) + '"' + kelas +
+               '>Prestasi ' + (jumlahPrestasi + index) +
+               '</label><select class="form-control" name="prestasi' + (jumlahPrestasi + index) +
+               '" id="prestasi' + (jumlahPrestasi + index) +
+               '" required><option value="" selected disabled hidden>-- Pilih prestasi --</option>' +
+               @foreach ($prestasi as $p)
+                  '<option value="{{ $p->id }}">{{ $p->capaian }} {{ $p->nama }} {{ $p->tahun }}</option>' +
+               @endforeach
+            '</select>';
+         }
+
+         prestasiForm.innerHTML = form;
+      }
    </script>
 @endsection

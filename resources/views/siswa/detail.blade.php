@@ -126,6 +126,16 @@
                         <strong><i class="far fa-file-alt mr-1"></i> NISN</strong>
                         <p class="text-muted">{{ $siswa->nisn }}</p>
                         <hr>
+                        <strong><i class="fas fa-medal mr-1"></i> Prestasi</strong>
+                        @if ($prestasi == '')
+                           <p class="text-muted">-</p>
+                        @else
+                           @foreach ($prestasi as $p)
+                              <p class="text-muted mb-0">{{ $p->capaian }} - {{ $p->nama }} {{ $p->tahun }}
+                              </p>
+                           @endforeach
+                        @endif
+                        <hr>
                         <strong><i class="fas fa-phone-alt mr-1"></i> No. Telepon</strong>
                         <p class="text-muted">{{ $siswa->no_telp }}</p>
                         <hr>
