@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KelasController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PekerjaController;
 use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\SiswaController;
@@ -24,29 +25,32 @@ use phpDocumentor\Reflection\Types\Resource_;
 */
 
 // Dashboard
-Route::get('/', [DashboardController::class, 'index']);
+Route::get('/dashboard', [DashboardController::class, 'index']);
 
 // Kelas
-Route::resource('kelas', KelasController::class);
+Route::resource('/kelas', KelasController::class);
 
 // Siswa
-Route::resource('siswa', SiswaController::class);
+Route::resource('/siswa', SiswaController::class);
 
 // Pekerja
-Route::resource('pekerja', PekerjaController::class);
-Route::get('guru', [PekerjaController::class, 'index_guru']);
-Route::get('tata-usaha', [PekerjaController::class, 'index_tu']);
-Route::get('staf-lain', [PekerjaController::class, 'index_lain']);
+Route::resource('/pekerja', PekerjaController::class);
+Route::get('/guru', [PekerjaController::class, 'index_guru']);
+Route::get('/tata-usaha', [PekerjaController::class, 'index_tu']);
+Route::get('/staf-lain', [PekerjaController::class, 'index_lain']);
 
 // Surat Keluar
-Route::resource('surat-keluar', SuratKeluarController::class);
+Route::resource('/surat-keluar', SuratKeluarController::class);
 
 // Surat Masuk
-Route::resource('surat-masuk', SuratMasukController::class);
+Route::resource('/surat-masuk', SuratMasukController::class);
 
 // Prestasi
-Route::resource('prestasi', PrestasiController::class);
+Route::resource('/prestasi', PrestasiController::class);
 
 // User
 Route::get('/profile', [UserController::class, 'index']);
-Route::get('/login', [UserController::class, 'login']);
+
+// Login
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/login', [LoginController::class, 'authenticate']);

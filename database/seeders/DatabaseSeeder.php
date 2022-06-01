@@ -2,13 +2,14 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use App\Models\Kelas;
 use App\Models\Siswa;
 use App\Models\Pekerja;
-use App\Models\Perwakilan;
 use App\Models\Prestasi;
-use App\Models\SuratKeluar;
+use App\Models\Perwakilan;
 use App\Models\SuratMasuk;
+use App\Models\SuratKeluar;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder {
@@ -18,7 +19,12 @@ class DatabaseSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        // \App\Models\User::factory(10)->create();
+        // User::factory(10)->create();
+        User::create([
+            'username' => 'wahyuady',
+            'password' => bcrypt('password'),
+            'role' => '1'
+        ]);
         Siswa::factory(20)->create();
         Kelas::create([
             "nama" => "12 MIA 2",

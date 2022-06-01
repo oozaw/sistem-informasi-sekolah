@@ -20,55 +20,69 @@
    <link rel="stylesheet" href="/adminlte/dist/css/adminlte.min.css">
 </head>
 
-<body class="hold-transition login-page">
-   <div class="login-box">
-      <!-- /.login-logo -->
-      <div class="card card-outline card-primary">
-         <div class="card-header text-center">
-            <a href="/adminlte/index2.html" class="h1">My<b>SMANEL</b></a>
-         </div>
-         <div class="card-body">
-            <p class="login-box-msg">Sign in to start your session</p>
-
-            <form action="/adminlte/index3.html" method="post">
-               <div class="input-group mb-3">
-                  <input type="email" class="form-control" placeholder="Email">
-                  <div class="input-group-append">
-                     <div class="input-group-text">
-                        <span class="fas fa-envelope"></span>
-                     </div>
-                  </div>
-               </div>
-               <div class="input-group mb-3">
-                  <input type="password" class="form-control" placeholder="Password">
-                  <div class="input-group-append">
-                     <div class="input-group-text">
-                        <span class="fas fa-lock"></span>
-                     </div>
-                  </div>
-               </div>
-               <div class="row">
-                  <div class="col-8">
-                     <div class="icheck-primary">
-                        <input type="checkbox" id="remember">
-                        <label for="remember">
-                           Remember Me
-                        </label>
-                     </div>
-                  </div>
-                  <!-- /.col -->
-                  <div class="col-4">
-                     <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                  </div>
-                  <!-- /.col -->
-               </div>
-            </form>
-         </div>
-         <!-- /.card-body -->
+<body>
+   @if (session()->has('loginError'))
+      <div class="failAlert" hidden>{{ session('loginError') }}</div>
+   @endif
+   <div class="hold-transition login-page"
+      style="background-image: url('{{ asset('/img/background-login.jpg') }}'); background-size: cover; background-attachment: fixed;">
+      <div class="mb-4">
+         <img src="/img/smanel-logo.png" alt="" class="" style="height: 130px; width: 115px">
       </div>
-      <!-- /.card -->
+      <div class="login-box mb-5">
+         <!-- /.login-logo -->
+         <div class="card card-outline card-warning">
+            <div class="card-header text-center">
+               <a href="/adminlte/index2.html" class="h1">My<b>SMANEL</b></a>
+            </div>
+            <div class="card-body">
+               <p class="login-box-msg">Silahkan login terlebih dahulu</p>
+
+               <form action="/login" method="post">
+                  @csrf
+                  <div class="input-group mb-3">
+                     <input type="text" id="username" name="username"
+                        class="form-control @error('username') is-invalid @enderror" placeholder=" Username" required
+                        autofocus value="{{ old('username') }}">
+                     <div class="input-group-append">
+                        <div class="input-group-text">
+                           <span class="fas fa-envelope"></span>
+                        </div>
+                     </div>
+                     @error('username')
+                        <div class="invalid-feedback">
+                           {{ $message }}
+                        </div>
+                     @enderror
+                  </div>
+                  <div class="input-group mb-3">
+                     <input type="password" id="password" name="password"
+                        class="form-control @error('password') is-invalid @enderror" placeholder=" Password" required>
+                     <div class="input-group-append">
+                        <div class="input-group-text">
+                           <span class="fas fa-lock"></span>
+                        </div>
+                     </div>
+                     @error('password')
+                        <div class="invalid-feedback">
+                           {{ $message }}
+                        </div>
+                     @enderror
+                  </div>
+                  <div class="row">
+                     <div class="col-5 align-content-center ml-auto">
+                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                     </div>
+                     <!-- /.col -->
+                  </div>
+               </form>
+            </div>
+            <!-- /.card-body -->
+         </div>
+         <!-- /.card -->
+      </div>
+      <!-- /.login-box -->
    </div>
-   <!-- /.login-box -->
 
    <!-- jQuery -->
    <script src="/adminlte/plugins/jquery/jquery.min.js"></script>
@@ -76,6 +90,39 @@
    <script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
    <!-- AdminLTE App -->
    <script src="/adminlte/dist/js/adminlte.min.js"></script>
+   {{-- Page spesific script --}}
+   <script>
+      $(function() {
+         if ($('.successAlert').length) {
+            $(document).Toasts('create', {
+               class: 'bg-success mt-1 mr-1',
+               title: 'Berhasil',
+               autohide: true,
+               delay: 5000,
+               body: $('.successAlert').text()
+            });
+         }
+         if ($('.warningAlert').length) {
+            $(document).Toasts('create', {
+               class: 'bg-warning',
+               title: 'Toast Title',
+               autohide: true,
+               delay: 5000,
+               subtitle: 'Subtitle',
+               body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+            });
+         }
+         if ($('.failAlert').length) {
+            $(document).Toasts('create', {
+               class: 'bg-danger',
+               title: 'Gagal',
+               autohide: true,
+               delay: 5000,
+               body: $('.failAlert').text()
+            });
+         }
+      });
+   </script>
 </body>
 
 </html>
