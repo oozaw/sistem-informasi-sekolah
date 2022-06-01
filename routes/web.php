@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\LoginController;
@@ -50,6 +51,9 @@ Route::resource('/prestasi', PrestasiController::class);
 
 // User
 Route::get('/profile', [UserController::class, 'index']);
+
+// Admin
+Route::resource('/pengguna', AdminUserController::class)->middleware('user.activity');
 
 // Login
 Route::get('/login', [LoginController::class, 'index'])->name('login');

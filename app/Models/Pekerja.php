@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pekerja extends Model
-{
+class Pekerja extends Model {
     use HasFactory;
 
     protected $table = "pekerja";
@@ -14,5 +13,9 @@ class Pekerja extends Model
 
     public function kelas() {
         return $this->hasOne(Kelas::class, 'wali_kelas_id');
+    }
+
+    public function user() {
+        return $this->hasOne(User::class, 'pegawai_id');
     }
 }
