@@ -25,7 +25,7 @@
          <div class="container-fluid">
             <div class="row">
                <div class="col">
-                  <div class="card card-success">
+                  <div class="card card-primary">
                      <div class="card-header">
                         <div class="d-inline-flex">
                            <h4 class="m-0">Data {{ $pengguna->username }}</h4>
@@ -119,7 +119,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                           <button type="submit" class="btn btn-success">Simpan Perubahan</button>
+                           <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                            <a href="/pengguna" class="btn btn-secondary">Batal</a>
                         </div>
                      </form>
