@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Pekerja;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminUserController extends Controller {
     /**
@@ -51,6 +53,7 @@ class AdminUserController extends Controller {
         ]);
 
         $validatedData['password'] = bcrypt($validatedData['password']);
+        $validatedData['last_seen'] = (new \DateTime())->format("Y-m-d H:i:s");
 
         User::create($validatedData);
 
@@ -64,7 +67,12 @@ class AdminUserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(User $user) {
-        //
+        return view('admin.user.detail', [
+            'title' => 'Detail Pengguna',
+            'part' => 'pengguna',
+            'pengguna' => $user,
+            'profil' => Pekerja::where('id', $user->pegawai_id)->first()
+        ]);
     }
 
     /**
@@ -74,7 +82,16 @@ class AdminUserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user) {
-        //
+        $selected_pegawai = User::all()->where('id', $user->id)->pluck('pegawai_id');
+        $pegawai_not_available = User::all()->whereNotNull('pegawai_id')->whereNotIn('pegawai_id', $selected_pegawai)->pluck('pegawai_id');
+        $pegawai_available = Pekerja::all()->whereNotIn('id', $pegawai_not_available)->all();
+
+        return view('admin.user.edit', [
+            'title' => "Edit Data Pengguna",
+            'part' => "pengguna",
+            'pengguna' => $user,
+            'pegawai' => $pegawai_available
+        ]);
     }
 
     /**
@@ -85,7 +102,33 @@ class AdminUserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user) {
-        //
+        $rules = ['role' => 'required'];
+
+        if ($request->username != $user->username) {
+            $rules['username'] = 'required|unique:users';
+        } else {
+            $rules['username'] = 'required';
+        }
+
+        if ($request->pegawai_id != $user->pegawai_id) {
+            $rules['pegawai_id'] = 'required|unique:users';
+        } else {
+            $rules['pegawai_id'] = 'required';
+        }
+
+        if ($request->password) {
+            $rules['password'] = 'required|min:6';
+        }
+
+        $validatedData = $request->validate($rules);
+
+        if ($request->password) {
+            $validatedData['password'] = bcrypt($validatedData['password']);
+        }
+
+        User::where('id', $user->id)->update($validatedData);
+
+        return redirect("/pengguna/$user->id")->with('success', "Data $user->username berhasil diperbarui!");
     }
 
     /**
@@ -95,6 +138,8 @@ class AdminUserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user) {
-        //
+        User::destroy($user->id);
+
+        return redirect('/pengguna')->with('success', "Data $user->username berhasil dihapus!");
     }
 }

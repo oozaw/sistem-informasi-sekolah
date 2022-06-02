@@ -155,7 +155,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                           <button type="submit" class="btn btn-success">Tambah</button>
+                           <button type="submit" class="btn btn-success">Simpan Perubahan</button>
                            <a href="@if ($pekerja->jabatan == 'Guru') /guru
                            @elseif ($pekerja->jabatan == 'Staf Tata Usaha')
                               /tata-usaha

@@ -113,7 +113,7 @@ class KelasController extends Controller {
 
         Kelas::where('id', $kela->id)->update($validatedData);
 
-        return redirect('/kelas')->with('success', "Kelas $kela->nama berhasil diubah!");
+        return redirect('/kelas')->with('success', "Kelas $kela->nama berhasil diperbarui!");
     }
 
     /**

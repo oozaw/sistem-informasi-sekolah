@@ -53,7 +53,11 @@ Route::resource('/prestasi', PrestasiController::class);
 Route::get('/profile', [UserController::class, 'index']);
 
 // Admin
-Route::resource('/pengguna', AdminUserController::class)->middleware('user.activity');
+Route::resource('/pengguna', AdminUserController::class)->except(['show', 'edit', 'update', 'destroy']);
+Route::get('/pengguna/{user}', [AdminUserController::class, 'show'])->name('pengguna.show');
+Route::get('/pengguna/{user}/edit', [AdminUserController::class, 'edit'])->name('pengguna.edit');
+Route::put('/pengguna/{user}', [AdminUserController::class, 'update'])->name('pengguna.update');
+Route::delete('/pengguna/{user}', [AdminUserController::class, 'destroy'])->name('pengguna.delete');
 
 // Login
 Route::get('/login', [LoginController::class, 'index'])->name('login');

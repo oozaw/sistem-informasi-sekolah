@@ -146,6 +146,10 @@ class SuratKeluarController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(SuratKeluar $suratKeluar) {
+        if ($suratKeluar->file_surat) {
+            Storage::delete($suratKeluar->file_surat);
+        }
+
         SuratKeluar::destroy($suratKeluar->id);
 
         return redirect('/surat-keluar')->with('success', "Data surat ke $suratKeluar->tujuan berhasil dihapus!");

@@ -6,6 +6,14 @@
       <section class="content-header">
          <div class="container-fluid">
             <div class="row mb-2">
+               <div class="d-inline-flex">
+                  @if (session()->has('success'))
+                     <div class="successAlert" hidden>{{ session('success') }}</div>
+                  @endif
+                  @if (session()->has('fail'))
+                     <div class="failAlert" hidden>{{ session('fail') }}</div>
+                  @endif
+               </div>
                <div class="col-sm-6">
                   <h1>Data Pengguna</h1>
                </div>
@@ -66,9 +74,9 @@
                                     </td>
                                     <td>
                                        @if (Cache::has('user-is-online-' . $p->id))
-                                          <span class="text-success">Online</span>
+                                          <span class="btn btn-success btn-xs d-block col-8 m-auto">Online</span>
                                        @else
-                                          <span class="text-secondary">Offline</span>
+                                          <span class="btn btn-secondary btn-xs d-block col-8 m-auto">Offline</span>
                                        @endif
                                     </td>
                                     <td>{{ \Carbon\Carbon::parse($p->last_seen)->diffForHumans() }}</td>
@@ -76,7 +84,8 @@
                                        <div class="d-inline-flex">
                                           <a href="/pengguna/{{ $p->id }}" class="btn btn-info btn-sm mr-1">
                                              <i class="fas fa-eye"></i> Detail</a>
-                                          <a href="/pengguna/{{ $p->id }}/edit" class="btn btn-primary btn-sm mr-1">
+                                          <a href="/pengguna/{{ $p->id }}/edit"
+                                             class="btn btn-primary btn-sm mr-1">
                                              <i class="fas fa-edit"></i> Edit</a>
                                           <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
                                              data-target="#modal-delete-{{ $p->id }}">

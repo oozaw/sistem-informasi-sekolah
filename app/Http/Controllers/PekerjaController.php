@@ -6,15 +6,13 @@ use App\Models\Pekerja;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class PekerjaController extends Controller
-{
+class PekerjaController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         return view('pekerja.index', [
             "title" => "Data Tenaga Kerja",
             "part" => "kepegawaian",
@@ -29,7 +27,7 @@ class PekerjaController extends Controller
             "guru" => Pekerja::all()->where('jabatan', "Guru")
         ]);
     }
-    
+
     public function index_tu() {
         return view('pekerja.tata-usaha.index', [
             "title" => "Data Staf Tata Usaha",
@@ -37,7 +35,7 @@ class PekerjaController extends Controller
             "staf" => Pekerja::all()->where('jabatan', "Staf Tata Usaha")
         ]);
     }
-    
+
     public function index_lain() {
         return view('pekerja.pegawai-lain.index', [
             "title" => "Data Staf Lain",
@@ -51,8 +49,7 @@ class PekerjaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         return view('pekerja.tambah', [
             "title" => "Tambah Data Tenaga Kerja",
             "part" => "kepegawaian",
@@ -66,8 +63,7 @@ class PekerjaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $validatedData = $request->validate([
             "nama" => "required",
             "email" => "required|email|unique:pekerja",
@@ -105,8 +101,7 @@ class PekerjaController extends Controller
      * @param  \App\Models\Pekerja  $pekerja
      * @return \Illuminate\Http\Response
      */
-    public function show(Pekerja $pekerja)
-    {
+    public function show(Pekerja $pekerja) {
         return view('pekerja.detail', [
             "title" => "Detail Pegawai",
             "part" => "kepegawaian",
@@ -120,8 +115,7 @@ class PekerjaController extends Controller
      * @param  \App\Models\Pekerja  $pekerja
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pekerja $pekerja)
-    {
+    public function edit(Pekerja $pekerja) {
         return view('pekerja.edit', [
             'title' => "Edit Data Pegawai",
             "part" => "kepegawaian",
@@ -136,11 +130,10 @@ class PekerjaController extends Controller
      * @param  \App\Models\Pekerja  $pekerja
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pekerja $pekerja)
-    {
+    public function update(Request $request, Pekerja $pekerja) {
         $rules = [
             "nama" => "required",
-            "jabatan" => "required", 
+            "jabatan" => "required",
             "gender" => "required",
             "tempat_tinggal" => "required",
             "foto_profil" => "nullable|mimes:jpg,png,gif,bmp,webp,svg|max:10000"
@@ -151,13 +144,13 @@ class PekerjaController extends Controller
         } else {
             $rulse['nip'] = "nullable|numeric";
         }
-        
+
         if ($request->email != $pekerja->email) {
             $rules['email'] = "required|email|unique:pekerja";
         } else {
             $rulse['email'] = "required";
         }
-        
+
         if ($request->no_hp != $pekerja->no_hp) {
             $rules['no_hp'] = "required|unique:pekerja";
         } else {
@@ -177,14 +170,16 @@ class PekerjaController extends Controller
         }
 
         Pekerja::where('id', $pekerja->id)->update($validatedData);
-        
-        if ($request->jabatan == "Guru") { 
-            return redirect('/guru')->with("success", "Data $request->nama berhasil diperbarui!");
-        } elseif ($request->jabatan == "Staf Tata Usaha") {
-            return redirect('/tata-usaha')->with("success", "Data $request->nama berhasil diperbarui!");
-        } else {
-            return redirect('/pegawai-lain')->with("success", "Data $request->nama berhasil diperbarui!");            
-        }
+
+        return redirect("/pekerja/$pekerja->id")->with("success", "Data $request->nama berhasil diperbarui!");
+
+        // if ($request->jabatan == "Guru") { 
+        //     return redirect('/guru')->with("success", "Data $request->nama berhasil diperbarui!");
+        // } elseif ($request->jabatan == "Staf Tata Usaha") {
+        //     return redirect('/tata-usaha')->with("success", "Data $request->nama berhasil diperbarui!");
+        // } else {
+        //     return redirect('/pegawai-lain')->with("success", "Data $request->nama berhasil diperbarui!");            
+        // }
     }
 
     /**
@@ -193,16 +188,19 @@ class PekerjaController extends Controller
      * @param  \App\Models\Pekerja  $pekerja
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pekerja $pekerja)
-    {
+    public function destroy(Pekerja $pekerja) {
+        if ($pekerja->foto_profil) {
+            Storage::delete($pekerja->foto_profil);
+        }
+
         Pekerja::destroy($pekerja->id);
 
-        if ($pekerja->jabatan == "Guru") { 
+        if ($pekerja->jabatan == "Guru") {
             return redirect('/guru')->with("success", "Data $pekerja->nama berhasil dihapus!");
         } elseif ($pekerja->jabatan == "Staf Tata Usaha") {
             return redirect('/tata-usaha')->with("success", "Data $pekerja->nama berhasil dihapus!");
         } else {
-            return redirect('/pegawai-lain')->with("success", "Data $pekerja->nama berhasil dihapus!");            
+            return redirect('/pegawai-lain')->with("success", "Data $pekerja->nama berhasil dihapus!");
         }
     }
 }

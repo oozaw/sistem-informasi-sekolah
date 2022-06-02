@@ -13,7 +13,7 @@
                   <ol class="breadcrumb float-sm-right">
                      <li class="breadcrumb-item">Administrator</li>
                      <li class="breadcrumb-item">Data Pengguna</li>
-                     <li class="breadcrumb-item active">Tambah Data Pengguna</li>
+                     <li class="breadcrumb-item active">Edit Data Pengguna</li>
                   </ol>
                </div>
             </div>
@@ -28,18 +28,19 @@
                   <div class="card card-success">
                      <div class="card-header">
                         <div class="d-inline-flex">
-                           <h4 class="m-0">Data Pengguna Baru</h4>
+                           <h4 class="m-0">Data {{ $pengguna->username }}</h4>
                         </div>
                      </div>
                      <!-- /.card-header -->
-                     <form method="POST" action="/pengguna">
+                     <form method="POST" action="/pengguna/{{ $pengguna->id }}">
+                        @method('put')
                         @csrf
                         <div class="card-body pb-0">
                            <div class="form-group">
                               <label for="username">Username</label>
                               <input type="text" class="form-control @error('username') is-invalid @enderror" id="username"
-                                 name="username" placeholder="Masukkan username" value="{{ old('username') }}" required
-                                 autofocus>
+                                 name="username" placeholder="Masukkan username"
+                                 value="{{ old('username', $pengguna->username) }}" required autofocus>
                               @error('username')
                                  <div class="invalid-feedback">
                                     {{ $message }}
@@ -50,15 +51,15 @@
                               <label for="role">Role</label>
                               <select class="form-control @error('role') is-invalid @enderror" name="role" required>
                                  <option selected disabled hidden value="">-- Pilih role pengguna --</option>
-                                 @if (old('role') == '1')
+                                 @if (old('role', $pengguna->role) == '1')
                                     <option value="1" selected>Admin</option>
                                     <option value="2">Guru</option>
                                     <option value="3">Tata Usaha</option>
-                                 @elseif (old('role') == '2')
+                                 @elseif (old('role', $pengguna->role) == '2')
                                     <option value="1">Admin</option>
                                     <option value="2" selected>Guru</option>
                                     <option value="3">Tata Usaha</option>
-                                 @elseif (old('role') == '3')
+                                 @elseif (old('role', $pengguna->role) == '3')
                                     <option value="1">Admin</option>
                                     <option value="2">Guru</option>
                                     <option value="3" selected>Tata Usaha</option>
@@ -80,7 +81,7 @@
                                  required>
                                  <option selected disabled hidden value="">-- Pilih pegawai --</option>
                                  @foreach ($pegawai as $p)
-                                    @if (old('pegawai_id') == $p->id)
+                                    @if (old('pegawai_id', $pengguna->pegawai_id) == $p->id)
                                        <option value="{{ $p->id }}" selected>{{ $p->nama }}</option>
                                     @else
                                        <option value="{{ $p->id }}">{{ $p->nama }}</option>
@@ -93,10 +94,21 @@
                                  </div>
                               @enderror
                            </div>
-                           <div class="form-group">
+                           <div class="form-group row mt-4 mb-3">
+                              <label for="option_reset_password" class="col-form-label pr-0 mx-2 mr-3">Reset
+                                 Password?</label>
+                              <div class="col-2 pl-0 mr-3">
+                                 <select class="form-control" name="option_reset_password" id="option_reset_password"
+                                    onchange="cekResetPassword()" required>
+                                    <option value="no" selected>Tidak</option>
+                                    <option value="yes">Ya</option>
+                                 </select>
+                              </div>
+                           </div>
+                           <div class="form-group" id="reset_password_form" hidden>
                               <label for="password">Password</label>
                               <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                 id="password" name="password" placeholder="Masukkan password pengguna" required autofocus>
+                                 id="password" name="password" placeholder="Masukkan password pengguna" autofocus>
                               @error('password')
                                  <div class="invalid-feedback">
                                     {{ $message }}
@@ -107,7 +119,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                           <button type="submit" class="btn btn-success">Tambah</button>
+                           <button type="submit" class="btn btn-success">Simpan Perubahan</button>
                            <a href="/pengguna" class="btn btn-secondary">Batal</a>
                         </div>
                      </form>
@@ -140,5 +152,19 @@
       $(function() {
          bsCustomFileInput.init();
       });
+
+      function cekResetPassword() {
+         let optionReset = document.querySelector("#option_reset_password").value;
+         let passwordForm = document.querySelector("#reset_password_form");
+         let input = document.querySelector("#password");
+
+         if (optionReset == 'yes') {
+            passwordForm.removeAttribute("hidden");
+            input.setAttribute("required", true);
+         } else {
+            input.removeAttribute("required");
+            passwordForm.setAttribute("hidden", true);
+         }
+      }
    </script>
 @endsection

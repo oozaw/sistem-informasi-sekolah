@@ -143,6 +143,10 @@ class PrestasiController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Prestasi $prestasi) {
+        if ($prestasi->piagam) {
+            Storage::delete($prestasi->piagam);
+        }
+
         Prestasi::destroy($prestasi->id);
 
         return redirect('/prestasi')->with('success', "Data prestasi $prestasi->nama berhasil dihapus!");

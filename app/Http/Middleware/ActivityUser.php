@@ -20,7 +20,7 @@ class ActivityUser {
     public function handle(Request $request, Closure $next) {
         if (Auth::check()) {
             $expiresAt = Carbon::now()->addMinutes(5);
-            Cache::pull('user-is-online-' . Auth::user()->id, true, $expiresAt);
+            Cache::put('user-is-online-' . Auth::user()->id, true, $expiresAt);
 
             User::where('id', Auth::user()->id)->update(['last_seen' => (new \DateTime())->format("Y-m-d H:i:s")]);
         }

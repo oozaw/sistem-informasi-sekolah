@@ -203,6 +203,10 @@ class SiswaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Siswa $siswa) {
+        if ($siswa->foto_profil) {
+            Storage::delete($siswa->foto_profil);
+        }
+
         Siswa::destroy($siswa->id);
 
         return redirect("/siswa")->with("success", "Data $siswa->nama berhasil dihapus!");
