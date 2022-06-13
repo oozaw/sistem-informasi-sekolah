@@ -37,9 +37,12 @@
          </div>
       </li>
       <li class="nav-item">
-         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-            <i class="fas fa-expand-arrows-alt"></i>
-         </a>
+         <form action="/logout" method="POST">
+            @csrf
+            <button type="submit" class="btn bg-transparent nav-link">
+               <span>Logout <i class="ml-1 fas fa-sign-out"></i></span>
+            </button>
+         </form>
       </li>
    </ul>
 </nav>

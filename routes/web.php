@@ -59,6 +59,7 @@ Route::get('/pengguna/{user}/edit', [AdminUserController::class, 'edit'])->name(
 Route::put('/pengguna/{user}', [AdminUserController::class, 'update'])->name('pengguna.update');
 Route::delete('/pengguna/{user}', [AdminUserController::class, 'destroy'])->name('pengguna.delete');
 
-// Login
+// Login/logout
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
