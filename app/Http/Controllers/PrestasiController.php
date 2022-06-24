@@ -50,7 +50,7 @@ class PrestasiController extends Controller {
             "capaian" => "required",
             "tanggal" => "required",
             "bidang" => "required",
-            "piagam" => "mimes:pdf|file|max:1000"
+            "piagam" => "mimes:pdf|file|max:10000"
         ]);
 
         $carbon = new Carbon($request->tanggal);
@@ -115,7 +115,7 @@ class PrestasiController extends Controller {
             "capaian" => "required",
             "tanggal" => "required",
             "bidang" => "required",
-            "piagam" => "mimes:pdf|file|max:1000"
+            "piagam" => "mimes:pdf|file|max:10000"
         ];
 
         $validatedData = $request->validate($rules);

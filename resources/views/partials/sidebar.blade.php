@@ -13,7 +13,7 @@
             <img src="/img/profil-me.png" class="img-circle elevation-2" alt="User Image">
          </div>
          <div class="info">
-            <a href="/profile" class="d-block">Wahyu Purnomo Ady</a>
+            <a href="/profile" class="d-block">Admin</a>
          </div>
       </div>
 
@@ -168,14 +168,14 @@
                               </p>
                            </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                            <a href="" class="nav-link {{ $part == 'bos' ? 'active' : '' }}">
                               <i class="fas fa-money-check nav-icon"></i>
                               <p>
                                  Dana BOS
                               </p>
                            </a>
-                        </li>
+                        </li> --}}
                      </ul>
                   </li>
                </ul>

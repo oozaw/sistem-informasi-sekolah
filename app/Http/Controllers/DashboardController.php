@@ -6,6 +6,7 @@ use App\Models\Kelas;
 use App\Models\Pekerja;
 use App\Models\Siswa;
 use App\Models\SuratKeluar;
+use App\Models\SuratMasuk;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller {
@@ -20,7 +21,8 @@ class DashboardController extends Controller {
             "jumlah_guru" => Pekerja::all()->where('jabatan', "Guru")->count(),
             "jumlah_tu" => Pekerja::all()->where('jabatan', "Staf Tata Usaha")->count(),
             "jumlah_staf_lain" => Pekerja::all()->where('jabatan', "Staf Lainnya")->count(),
-            "jumlah_surat_keluar" => SuratKeluar::all()->count()
+            "jumlah_surat_keluar" => SuratKeluar::all()->count(),
+            "jumlah_surat_masuk" => SuratMasuk::all()->count()
         ]);
     }
 }

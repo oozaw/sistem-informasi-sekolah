@@ -42,18 +42,18 @@ class SuratMasukController extends Controller {
     public function store(Request $request) {
         $validatedData = $request->validate([
             "asal" => "required",
-            "nomor" => "required",
+            "nomor" => "required|unique:surat_masuk",
             "kode_tujuan" => "required",
             "instansi_asal" => "required",
             "bulan" => "required",
             "tahun" => "required",
             "tgl_masuk" => "required",
             "keterangan" => "nullable",
-            "file_surat" => "required|mimes:pdf|file|max:1000"
+            "file_surat" => "required|mimes:pdf|file|max:10000"
         ]);
 
         $carbon = new Carbon($request->tgl_masuk);
-        $validatedData["tgl_masuk"] = $carbon->format('d M Y');
+        $validatedData["tgl_masuk"] = $carbon->isoFormat('D MMMM Y');
 
         if ($request->file("file_surat")) {
             $file_ext = $request->file('file_surat')->getClientOriginalExtension();
@@ -108,7 +108,6 @@ class SuratMasukController extends Controller {
     public function update(Request $request, SuratMasuk $suratMasuk) {
         $rules = [
             "asal" => "required",
-            "nomor" => "required",
             "kode_tujuan" => "required",
             "instansi_asal" => "required",
             "bulan" => "required",
@@ -118,14 +117,20 @@ class SuratMasukController extends Controller {
             "file_surat" => "max:1000"
         ];
 
+        if ($request->nomor != $suratMasuk->nomor) {
+            $rules['nomor'] = "required|unique:surat_masuk";
+        } else {
+            $rules['nomor'] = "required";
+        }
+
         if ($request->option_file == "yes") {
-            $rules["file_surat"] = "required|mimes:pdf|file|max:1000";
+            $rules["file_surat"] = "required|mimes:pdf|file|max:10000";
         }
 
         $validatedData = $request->validate($rules);
 
         $carbon = new Carbon($request->tgl_masuk);
-        $validatedData["tgl_masuk"] = $carbon->format('d M Y');
+        $validatedData["tgl_masuk"] = $carbon->isoFormat('D MMMM Y');
 
         if ($request->file("file_surat")) {
             $file_ext = $request->file('file_surat')->getClientOriginalExtension();

@@ -29,6 +29,8 @@
                         <div class="d-inline-flex">
                            <a href="/surat-keluar/create" class="btn btn-success btn-sm mr-1">
                               <i class="fas fa-file-plus"></i> Tambah Surat Keluar</a>
+                           <a href="/surat-keluar-new" class="btn btn-sm mr-1 bg-gradient-purple">
+                              <i class="fas fa-file-plus"></i> Buat Surat Baru</a>
                            @if (session()->has('success'))
                               <div class="successAlert" hidden>{{ session('success') }}</div>
                            @endif

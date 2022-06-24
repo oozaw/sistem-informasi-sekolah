@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KelasController;
+use App\Http\Controllers\KomiteController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PekerjaController;
 use App\Http\Controllers\PrestasiController;
@@ -42,6 +43,8 @@ Route::get('/staf-lain', [PekerjaController::class, 'index_lain']);
 
 // Surat Keluar
 Route::resource('/surat-keluar', SuratKeluarController::class);
+Route::post('/surat-keluar-preview', [SuratKeluarController::class, 'generateSuratPDF'])->name('surat-keluar.preview');
+Route::get('/surat-keluar-new', [SuratKeluarController::class, 'createNewSurat'])->name('surat-keluar.new');
 
 // Surat Masuk
 Route::resource('/surat-masuk', SuratMasukController::class);

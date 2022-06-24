@@ -37,9 +37,9 @@
                         <div class="card-body pb-0">
                            <div class="form-group">
                               <label for="tujuan">Instansi/Organisasi Tujuan</label>
-                              <input type="text" class="form-control @error('tujuan') is-invalid @enderror" id="tujuan"
-                                 name="tujuan" placeholder="Masukkan tujuan surat" value="{{ old('tujuan') }}" autofocus
-                                 required>
+                              <input type="text" class="form-control @error('tujuan') is-invalid @enderror"
+                                 id="tujuan" name="tujuan" placeholder="Masukkan tujuan surat"
+                                 value="{{ old('tujuan') }}" autofocus required>
                               @error('tujuan')
                                  <div class="invalid-feedback">
                                     {{ $message }}
@@ -50,28 +50,46 @@
                               <label for="no_surat">No Surat</label>
                               <div class="form-row mb-0">
                                  <div class="form-group col-md-2 mb-0">
-                                    <input type="text" class="form-control" name="nomor" id="nomor" placeholder="Nomor"
-                                       value="{{ old('nomor') }}" required>
+                                    <input type="text" class="form-control @error('nomor') is-invalid @enderror"
+                                       name="nomor" id="nomor" placeholder="Nomor" value="{{ old('nomor') }}"
+                                       required>
+                                    @error('nomor')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
                                  </div>
                                  <div class="form-group mb mb-0">
                                     <h5 class="mx-1 pt-1 mb-0 text-secondary"><strong>/</strong></h5>
                                  </div>
                                  <div class="form-group col-md-2 mb-0">
-                                    <input type="text" class="form-control" name="kode_tujuan" id="kode_tujuan"
-                                       placeholder="Kode Tujuan" value="{{ old('kode_tujuan') }}" required>
+                                    <input type="text" class="form-control @error('kode_tujuan') is-invalid @enderror"
+                                       name="kode_tujuan" id="kode_tujuan" placeholder="Kode Tujuan"
+                                       value="{{ old('kode_tujuan') }}" required>
+                                    @error('kode_tujuan')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
                                  </div>
                                  <div class="form-group mb-0">
                                     <h5 class="mx-1 pt-1 mb-0 text-secondary"><strong>/</strong></h5>
                                  </div>
                                  <div class="form-group col-md-2 mb-0">
-                                    <input type="text" class="form-control" name="instansi_asal" id="instansi_asal"
-                                       value="SMAN.5.Mrg" readonly>
+                                    <input type="text" class="form-control @error('instansi_asal') is-invalid @enderror"
+                                       name="instansi_asal" id="instansi_asal" value="SMAN.5.Mrg" readonly required>
+                                    @error('instansi_asal')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
                                  </div>
                                  <div class="form-group mb-0">
                                     <h5 class="mx-1 pt-1 mb-0 text-secondary"><strong>/</strong></h5>
                                  </div>
                                  <div class="form-group col-md-2 mb-0">
-                                    <select class="form-control" name="bulan" id="bulan" required>
+                                    <select class="form-control @error('bulan') is-invalid @enderror" name="bulan"
+                                       id="bulan" required>
                                        @if (old('bulan') == 'I')
                                           <option value="I" selected>Januari</option>
                                           <option value="II">Februari</option>
@@ -245,20 +263,26 @@
                                           <option value="XII">Desember</option>
                                        @endif
                                     </select>
+                                    @error('bulan')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
                                  </div>
                                  <div class="form-group mb-0">
                                     <h5 class="mx-1 pt-1 mb-0 text-secondary"><strong>-</strong></h5>
                                  </div>
                                  <div class="form-group col-md-2 mb-0">
-                                    <input type="text" class="form-control" name="tahun" id="tahun" placeholder="Tahun"
-                                       value="{{ old('tahun') }}" required>
+                                    <input type="text" class="form-control @error('tahun') is-invalid @enderror"
+                                       name="tahun" id="tahun" placeholder="Tahun" value="{{ old('tahun') }}"
+                                       required>
+                                    @error('tahun')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
                                  </div>
                               </div>
-                              @error('no_surat')
-                                 <div class="invalid-feedback">
-                                    {{ $message }}
-                                 </div>
-                              @enderror
                            </div>
                            <div class="form-group">
                               <label for="tgl_keluar">Tanggal Keluar</label>
@@ -286,7 +310,8 @@
                            <div class="custom-file mb-2">
                               <input type="file" class="custom-file-input @error('file_surat') is-invalid @enderror"
                                  id="file_surat" name="file_surat" required>
-                              <label class="custom-file-label" for="file_surat" data-browse="Pilih file">Unggah file surat
+                              <label class="custom-file-label" for="file_surat" data-browse="Pilih file">Unggah file
+                                 surat
                                  (*.pdf)</label>
                               @error('file_surat')
                                  <div class="invalid-feedback">

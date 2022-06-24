@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\SuratKeluar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SuratKeluarController extends Controller {
     /**
@@ -42,18 +43,18 @@ class SuratKeluarController extends Controller {
     public function store(Request $request) {
         $validatedData = $request->validate([
             "tujuan" => "required",
-            "nomor" => "required",
+            "nomor" => "required|unique:surat_keluar",
             "kode_tujuan" => "required",
             "instansi_asal" => "required",
             "bulan" => "required",
             "tahun" => "required",
             "tgl_keluar" => "required",
             "keterangan" => "nullable",
-            "file_surat" => "required|mimes:pdf|file|max:1000"
+            "file_surat" => "required|mimes:pdf|file|max:10000"
         ]);
 
         $carbon = new Carbon($request->tgl_keluar);
-        $validatedData["tgl_keluar"] = $carbon->format('d M Y');
+        $validatedData["tgl_keluar"] = $carbon->isoFormat('D MMMM Y');
 
         if ($request->file("file_surat")) {
             $file_ext = $request->file('file_surat')->getClientOriginalExtension();
@@ -108,7 +109,6 @@ class SuratKeluarController extends Controller {
     public function update(Request $request, SuratKeluar $suratKeluar) {
         $rules = [
             "tujuan" => "required",
-            "nomor" => "required",
             "kode_tujuan" => "required",
             "instansi_asal" => "required",
             "bulan" => "required",
@@ -118,14 +118,20 @@ class SuratKeluarController extends Controller {
             "file_surat" => "max:1000"
         ];
 
+        if ($request->nomor != $suratKeluar->nomor) {
+            $rules['nomor'] = "required|unique:surat_keluar";
+        } else {
+            $rules['nomor'] = "required";
+        }
+
         if ($request->option_file == "yes") {
-            $rules["file_surat"] = "required|mimes:pdf|file|max:1000";
+            $rules["file_surat"] = "required|mimes:pdf|file|max:10000";
         }
 
         $validatedData = $request->validate($rules);
 
         $carbon = new Carbon($request->tgl_keluar);
-        $validatedData["tgl_keluar"] = $carbon->format('d M Y');
+        $validatedData["tgl_keluar"] = $carbon->isoFormat('D MMMM Y');
 
         if ($request->file("file_surat")) {
             $file_ext = $request->file('file_surat')->getClientOriginalExtension();
@@ -153,5 +159,47 @@ class SuratKeluarController extends Controller {
         SuratKeluar::destroy($suratKeluar->id);
 
         return redirect('/surat-keluar')->with('success', "Data surat ke $suratKeluar->tujuan berhasil dihapus!");
+    }
+
+    public function createNewSurat() {
+        // dd(PDF::loadView('surat-keluar.surat')->setPaper('A4', 'portrait')->output());
+        return view('surat-keluar.create', [
+            "title" => "Buat Surat Baru",
+            "part" => "surat-keluar",
+            // "pdf" => PDF::loadView('surat-keluar.surat')->setPaper('A4', 'portrait')
+        ]);
+    }
+
+    public function generateSuratPDF(Request $request) {
+        $validatedData = $request->validate([
+            "individu_tujuan" => "required",
+            "tujuan" => "required",
+            "lampiran" => "nullable",
+            "perihal" => "required",
+            "nomor" => "required|unique:surat_keluar",
+            "kode_tujuan" => "required",
+            "instansi_asal" => "required",
+            "bulan" => "required",
+            "tahun" => "required",
+            "tgl_keluar" => "required",
+            "keterangan" => "nullable",
+            "isi_surat" => "required"
+        ]);
+
+        $carbon = new Carbon($request->tgl_keluar);
+        $validatedData["tgl_keluar"] = $carbon->isoformat('dddd, D MMMM Y');
+
+        if (!$request->lampiran) {
+            $validatedData['lampiran'] = '-';
+        }
+
+        $data =  [
+            "title" => "Surat Baru",
+            "part" => "surat-keluar",
+        ];
+        $data = array_merge($data, $validatedData);
+
+        $pdf = PDF::loadView('surat-keluar.surat', $data)->setPaper('A4', 'portrait');
+        return $pdf->stream('test.pdf');
     }
 }

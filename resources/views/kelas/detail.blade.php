@@ -35,6 +35,7 @@
                               <tr>
                                  <th>No.</th>
                                  <th>Nama</th>
+                                 <th>NIS</th>
                                  <th>Jenis Kelamin</th>
                                  <th>Kelas</th>
                                  <th>Aksi</th>
@@ -45,6 +46,7 @@
                                  <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $s->nama }}</td>
+                                    <td>{{ $s->nis }}</td>
                                     <td>{{ $s->gender }}</td>
                                     <td>{{ $s->kelas->nama }}</td>
                                     <td>
@@ -139,7 +141,31 @@
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
-            "buttons": ["excel", "pdf", "print"]
+            "buttons": [{
+                  extend: 'copy',
+                  exportOptions: {
+                     columns: [0, 1, 2, 3, 4]
+                  }
+               },
+               {
+                  extend: 'excel',
+                  exportOptions: {
+                     columns: [0, 1, 2, 3, 4]
+                  }
+               },
+               {
+                  extend: 'pdf',
+                  exportOptions: {
+                     columns: [0, 1, 2, 3, 4]
+                  }
+               },
+               {
+                  extend: 'print',
+                  exportOptions: {
+                     columns: [0, 1, 2, 3, 4]
+                  }
+               }
+            ]
          }).buttons().container().appendTo('#data_siswa_wrapper .col-md-6:eq(0)');
       });
 

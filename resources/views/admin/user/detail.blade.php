@@ -40,7 +40,7 @@
                         <h3 class="widget-user-username">{{ $pengguna->username }}</h3>
                      </div>
                      <div class="widget-user-image">
-                        @if ($profil->foto_profil)
+                        @if ($profil && $profil->foto_profil)
                            <img class="img-circle elevation-2"
                               style="width: 90px; height: 90px; object-fit: cover; object-position: center"
                               src="/storage/{{ $profil->foto_profil }}" alt="Foto profil pekerja">
@@ -94,8 +94,7 @@
                                  <div class="modal-content bg-warning">
                                     <div class="modal-header">
                                        <h4 class="modal-title">Hapus Data Pengguna</h4>
-                                       <button type="button" class="close" data-dismiss="modal"
-                                          aria-label="Close">
+                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">×</span>
                                        </button>
                                     </div>
@@ -134,22 +133,22 @@
                         <p class="text-muted">{{ $pengguna->username }}</p>
                         <hr>
                         <strong><i class="fas fa-book mr-1"></i> Nama</strong>
-                        <p class="text-muted">{{ $profil->nama }}</p>
+                        <p class="text-muted">{{ $pengguna->role == '1' ? 'Admin' : $profil->nama }}</p>
                         <hr>
                         <strong><i class="far fa-venus-mars"></i> Jenis Kelamin</strong>
-                        <p class="text-muted">{{ $profil->gender }}</p>
+                        <p class="text-muted">{{ $pengguna->role == '1' ? '-' : $profil->gender }}</p>
                         <hr>
                         <strong><i class="far fa-envelope mr-1"></i> Email</strong>
-                        <p class="text-muted">{{ $profil->email }}</p>
+                        <p class="text-muted">{{ $pengguna->role == '1' ? '-' : $profil->email }}</p>
                         <hr>
                         <strong><i class="far fa-file-alt mr-1"></i> NIP</strong>
-                        <p class="text-muted">{{ $profil->nip }}</p>
+                        <p class="text-muted">{{ $pengguna->role == '1' ? '-' : $profil->nip }}</p>
                         <hr>
                         <strong><i class="fas fa-phone-alt mr-1"></i> No. Telepon</strong>
-                        <p class="text-muted">{{ $profil->no_hp }}</p>
+                        <p class="text-muted">{{ $pengguna->role == '1' ? '-' : $profil->no_hp }}</p>
                         <hr>
                         <strong><i class="fas fa-map-marker-alt mr-1"></i> Tempat Tinggal</strong>
-                        <p class="text-muted">{{ $profil->tempat_tinggal }}</p>
+                        <p class="text-muted">{{ $pengguna->role == '1' ? '-' : $profil->tempat_tinggal }}</p>
                      </div>
                      <!-- /.card-body -->
                   </div>

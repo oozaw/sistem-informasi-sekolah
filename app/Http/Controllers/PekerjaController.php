@@ -91,7 +91,7 @@ class PekerjaController extends Controller {
         } elseif ($request->jabatan == "Staf Tata Usaha") {
             return redirect('/tata-usaha')->with('success', "Data pegawai baru, $request->nama berhasil ditambahkan!");
         } elseif ($request->jabatan == "Staf Lainnya") {
-            return redirect('/pegawai-lain')->with('success', "Data pegawai baru, $request->nama berhasil ditambahkan!");
+            return redirect('/staf-lain')->with('success', "Data pegawai baru, $request->nama berhasil ditambahkan!");
         }
     }
 

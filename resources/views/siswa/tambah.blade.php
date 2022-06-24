@@ -120,8 +120,9 @@
                            <div class="form-group" id="tambah_prestasi_form"></div>
                            <div class="form-group">
                               <label for="no_telp">Nomor Telepon</label>
-                              <input type="text" class="form-control @error('no_telp') is-invalid @enderror" id="no_telp"
-                                 name="no_telp" placeholder="Masukkan nomor telepon siswa" value="{{ old('no_telp') }}">
+                              <input type="text" class="form-control @error('no_telp') is-invalid @enderror"
+                                 id="no_telp" name="no_telp" placeholder="Masukkan nomor telepon siswa"
+                                 value="{{ old('no_telp') }}">
                               @error('no_telp')
                                  <div class="invalid-feedback">
                                     {{ $message }}
@@ -202,7 +203,7 @@
             prestasiForm.innerHTML =
                '<label for="prestasi1">Prestasi 1</label><select class="form-control" name="prestasi1" id="prestasi1" required><option value="" selected disabled hidden>-- Pilih prestasi --</option>' +
                @foreach ($prestasi as $p)
-                  '<option value="{{ $p->id }}">{{ $p->capaian }} {{ $p->nama }} {{ $p->tahun }}</option>' +
+                  '<option value="{{ $p->id }}">{{ $p->capaian }} {{ $p->nama }} tingkat {{ $p->tingkat }} {{ $p->tahun }}</option>' +
                @endforeach
             '</select>';
          } else {
@@ -230,7 +231,7 @@
                '" id="prestasi' + index +
                '" required><option value="" selected disabled hidden>-- Pilih prestasi --</option>' +
                @foreach ($prestasi as $p)
-                  '<option value="{{ $p->id }}">{{ $p->capaian }} {{ $p->nama }} {{ $p->tahun }}</option>' +
+                  '<option value="{{ $p->id }}">{{ $p->capaian }} {{ $p->nama }} tingkat {{ $p->tingkat }} {{ $p->tahun }}</option>' +
                @endforeach
             '</select>';
          }

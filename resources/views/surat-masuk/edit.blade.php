@@ -36,7 +36,7 @@
                         @csrf
                         <div class="card-body pb-0">
                            <div class="form-group">
-                              <label for="asal">Pengirim</label>
+                              <label for="asal">Instansi/Organisasi Pengirim</label>
                               <input type="text" class="form-control @error('asal') is-invalid @enderror" id="asal"
                                  name="asal" placeholder="Masukkan pengirim surat"
                                  value="{{ old('asal', $surat->asal) }}" autofocus>
@@ -50,28 +50,47 @@
                               <label for="nomor">No Surat</label>
                               <div class="form-row mb-0">
                                  <div class="form-group col-md-2 mb-0">
-                                    <input type="text" class="form-control" name="nomor" id="nomor" placeholder="Nomor"
+                                    <input type="text" class="form-control @error('nomor') is-invalid @enderror"
+                                       name="nomor" id="nomor" placeholder="Nomor"
                                        value="{{ old('nomor', $surat->nomor) }}">
+                                    @error('nomor')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
                                  </div>
                                  <div class="form-group mb-0">
                                     <h5 class="mx-1 pt-1 mb-0 text-secondary"><strong>/</strong></h5>
                                  </div>
                                  <div class="form-group col-md-2 mb-0">
-                                    <input type="text" class="form-control" name="kode_tujuan" id="kode_tujuan"
-                                       placeholder="Kode Tujuan" value="SMAN.5.Mrg" readonly>
+                                    <input type="text" class="form-control @error('kode_tujuan') is-invalid @enderror"
+                                       name="kode_tujuan" id="kode_tujuan" placeholder="Kode Tujuan" value="SMAN.5.Mrg"
+                                       readonly>
+                                    @error('kode_tujuan')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
                                  </div>
                                  <div class="form-group mb-0">
                                     <h5 class="mx-1 pt-1 mb-0 text-secondary"><strong>/</strong></h5>
                                  </div>
                                  <div class="form-group col-md-2 mb-0">
-                                    <input type="text" class="form-control" name="instansi_asal" id="instansi_asal"
+                                    <input type="text" class="form-control @error('instansi_asal') is-invalid @enderror"
+                                       name="instansi_asal" id="instansi_asal"
                                        value="{{ old('instansi_asal', $surat->instansi_asal) }}">
+                                    @error('instansi_asal')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
                                  </div>
                                  <div class="form-group mb-0">
                                     <h5 class="mx-1 pt-1 mb-0 text-secondary"><strong>/</strong></h5>
                                  </div>
                                  <div class="form-group col-md-2 mb-0">
-                                    <select class="form-control" name="bulan" id="bulan" required>
+                                    <select class="form-control @error('bulan') is-invalid @enderror" name="bulan"
+                                       id="bulan" required>
                                        @if (old('bulan', $surat->bulan) == 'I')
                                           <option value="I" selected>Januari</option>
                                           <option value="II">Februari</option>
@@ -230,13 +249,24 @@
                                           <option value="XII" selected>Desember</option>
                                        @endif
                                     </select>
+                                    @error('bulan')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
                                  </div>
                                  <div class="form-group mb-0">
                                     <h5 class="mx-1 pt-1 mb-0 text-secondary"><strong>/</strong></h5>
                                  </div>
                                  <div class="form-group col-md-2 mb-0">
-                                    <input type="text" class="form-control" name="tahun" id="tahun" placeholder="Tahun"
+                                    <input type="text" class="form-control @error('tahun') is-invalid @enderror"
+                                       name="tahun" id="tahun" placeholder="Tahun"
                                        value="{{ old('tahun', $surat->tahun) }}">
+                                    @error('tahun')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
                                  </div>
                               </div>
                            </div>
@@ -282,8 +312,9 @@
                            hidden @enderror>
                               <label for="file_surat">File Surat</label>
                               <div class="custom-file mb-2">
-                                 <input type="file" class="custom-file-input @error('file_surat') is-invalid @enderror"
-                                    id="file_surat" name="file_surat">
+                                 <input type="file"
+                                    class="custom-file-input @error('file_surat') is-invalid @enderror" id="file_surat"
+                                    name="file_surat">
                                  <label class="custom-file-label" for="file_surat" data-browse="Pilih file">Unggah file
                                     surat
                                     (*.pdf)</label>

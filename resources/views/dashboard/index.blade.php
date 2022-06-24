@@ -102,7 +102,7 @@
                   <!-- small box -->
                   <div class="small-box bg-maroon">
                      <div class="inner">
-                        <h3>8</h3>
+                        <h3>{{ $jumlah_surat_masuk }}</h3>
 
                         <p>Surat Masuk</p>
                      </div>
