@@ -37,9 +37,9 @@
                         <div class="card-body pb-0">
                            <div class="form-group">
                               <label for="username">Username</label>
-                              <input type="text" class="form-control @error('username') is-invalid @enderror" id="username"
-                                 name="username" placeholder="Masukkan username" value="{{ old('username') }}" required
-                                 autofocus>
+                              <input type="text" class="form-control @error('username') is-invalid @enderror"
+                                 id="username" name="username" placeholder="Masukkan username"
+                                 value="{{ old('username') }}" required autofocus>
                               @error('username')
                                  <div class="invalid-feedback">
                                     {{ $message }}
@@ -96,7 +96,8 @@
                            <div class="form-group">
                               <label for="password">Password</label>
                               <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                 id="password" name="password" placeholder="Masukkan password pengguna" required autofocus>
+                                 id="password" name="password" placeholder="Masukkan password pengguna" required
+                                 autofocus>
                               @error('password')
                                  <div class="invalid-feedback">
                                     {{ $message }}
@@ -108,7 +109,7 @@
 
                         <div class="card-footer">
                            <button type="submit" class="btn btn-success">Tambah</button>
-                           <a href="/pengguna" class="btn btn-secondary">Batal</a>
+                           <a href="{{ URL::previous() }}" class="btn btn-secondary">Batal</a>
                         </div>
                      </form>
                   </div>

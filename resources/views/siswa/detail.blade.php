@@ -78,8 +78,7 @@
                                  <div class="modal-content bg-warning">
                                     <div class="modal-header">
                                        <h4 class="modal-title">Hapus Data Siswa</h4>
-                                       <button type="button" class="close" data-dismiss="modal"
-                                          aria-label="Close">
+                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">×</span>
                                        </button>
                                     </div>
@@ -139,7 +138,7 @@
                         <strong><i class="fas fa-phone-alt mr-1"></i> No. Telepon</strong>
                         <p class="text-muted">{{ $siswa->no_telp }}</p>
                         <hr>
-                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Tempat Tinggal</strong>
+                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Alamat</strong>
                         <p class="text-muted">{{ $siswa->tempat_tinggal }}</p>
                      </div>
                      <!-- /.card-body -->

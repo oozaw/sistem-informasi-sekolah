@@ -71,7 +71,7 @@
 
                         <div class="card-footer">
                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                           <a href="/kelas" class="btn btn-secondary">Batal</a>
+                           <a href="{{ URL::previous() }}" class="btn btn-secondary">Batal</a>
                         </div>
                      </form>
                   </div>

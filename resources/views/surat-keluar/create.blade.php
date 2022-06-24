@@ -366,7 +366,7 @@
 
                         <div class="card-footer">
                            <button type="submit" class="btn btn-success">Preview</button>
-                           <a href="/surat-keluar" class="btn btn-secondary">Batal</a>
+                           <a href="{{ URL::previous() }}" class="btn btn-secondary">Batal</a>
                            <a href="/untuk-print/download" class="btn bg-gradient-purple" id="print_button"
                               hidden>Print</a>
                         </div>

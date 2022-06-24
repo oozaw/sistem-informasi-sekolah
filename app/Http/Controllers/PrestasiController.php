@@ -54,7 +54,7 @@ class PrestasiController extends Controller {
         ]);
 
         $carbon = new Carbon($request->tanggal);
-        $validatedData["tanggal"] = $carbon->format('d M Y');
+        $validatedData["tanggal"] = $carbon->isoFormat('D MMMM Y');
         $validatedData["tahun"] = $carbon->year;
 
         if ($request->file("piagam")) {
@@ -121,7 +121,7 @@ class PrestasiController extends Controller {
         $validatedData = $request->validate($rules);
 
         $carbon = new Carbon($request->tanggal);
-        $validatedData["tanggal"] = $carbon->format('d M Y');
+        $validatedData["tanggal"] = $carbon->isoFormat('D MMMM Y');
         $validatedData["tahun"] = $carbon->year;
 
         if ($request->file("piagam")) {

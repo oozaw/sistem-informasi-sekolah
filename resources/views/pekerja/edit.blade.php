@@ -70,9 +70,9 @@
                            </div>
                            <div class="form-group">
                               <label for="email">Email</label>
-                              <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
-                                 name="email" placeholder="Masukkan email" value="{{ old('email', $pekerja->email) }}"
-                                 required>
+                              <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                 id="email" name="email" placeholder="Masukkan email"
+                                 value="{{ old('email', $pekerja->email) }}" required>
                               @error('email')
                                  <div class="invalid-feedback">
                                     {{ $message }}
@@ -91,9 +91,9 @@
                            </div>
                            <div class="form-group">
                               <label for="no_hp">No. Telepon</label>
-                              <input type="text" class="form-control @error('no_hp') is-invalid @enderror" id="no_hp"
-                                 name="no_hp" placeholder="Masukkan no HP" value="{{ old('no_hp', $pekerja->no_hp) }}"
-                                 required>
+                              <input type="text" class="form-control @error('no_hp') is-invalid @enderror"
+                                 id="no_hp" name="no_hp" placeholder="Masukkan no HP"
+                                 value="{{ old('no_hp', $pekerja->no_hp) }}" required>
                               @error('no_hp')
                                  <div class="invalid-feedback">
                                     {{ $message }}
@@ -156,12 +156,7 @@
 
                         <div class="card-footer">
                            <button type="submit" class="btn btn-success">Simpan Perubahan</button>
-                           <a href="@if ($pekerja->jabatan == 'Guru') /guru
-                           @elseif ($pekerja->jabatan == 'Staf Tata Usaha')
-                              /tata-usaha
-                           @else
-                           /staf-lain @endif"
-                              class="btn btn-secondary">Batal</a>
+                           <a href="{{ URL::previous() }}" class="btn btn-secondary">Batal</a>
                         </div>
                      </form>
                   </div>

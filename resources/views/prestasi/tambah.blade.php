@@ -35,87 +35,109 @@
                      <form method="POST" action="/prestasi" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body pb-0">
-                           <div class="form-group">
-                              <label for="nama">Nama Perlombaan</label>
-                              <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
-                                 name="nama" placeholder="Masukkan nama lomba" value="{{ old('nama') }}" autofocus>
-                              @error('nama')
-                                 <div class="invalid-feedback">
-                                    {{ $message }}
+                           <div class="row">
+                              <div class="col-sm-6">
+                                 <div class="form-group">
+                                    <label for="nama">Nama Perlombaan</label>
+                                    <input type="text" class="form-control @error('nama') is-invalid @enderror"
+                                       id="nama" name="nama" placeholder="Masukkan nama lomba"
+                                       value="{{ old('nama') }}" autofocus>
+                                    @error('nama')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
                                  </div>
-                              @enderror
+                              </div>
+                              <div class="col-sm-6">
+                                 <div class="form-group">
+                                    <label>Jenis Perlombaan</label>
+                                    <select class="form-control @error('jenis') is-invalid @enderror" name="jenis">
+                                       <option selected disabled hidden value="">-- Pilih jenis lomba --</option>
+                                       @if (old('jenis') == 'Individu')
+                                          <option value="Individu" selected>Individu</option>
+                                          <option value="Kelompok">Kelompok</option>
+                                       @elseif (old('jenis') == 'Kelompok')
+                                          <option value="Individu">Individu</option>
+                                          <option value="Kelompok" selected>Kelompok</option>
+                                       @else
+                                          <option value="Individu">Individu</option>
+                                          <option value="Kelompok">Kelompok</option>
+                                       @endif
+                                    </select>
+                                    @error('jenis')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
+                                 </div>
+                              </div>
                            </div>
-                           <div class="form-group">
-                              <label>Jenis Perlombaan</label>
-                              <select class="form-control @error('jenis') is-invalid @enderror" name="jenis">
-                                 <option selected disabled hidden value="">-- Pilih jenis lomba --</option>
-                                 @if (old('jenis') == 'Individu')
-                                    <option value="Individu" selected>Individu</option>
-                                    <option value="Kelompok">Kelompok</option>
-                                 @elseif (old('jenis') == 'Kelompok')
-                                    <option value="Individu">Individu</option>
-                                    <option value="Kelompok" selected>Kelompok</option>
-                                 @else
-                                    <option value="Individu">Individu</option>
-                                    <option value="Kelompok">Kelompok</option>
-                                 @endif
-                              </select>
-                              @error('jenis')
-                                 <div class="invalid-feedback">
-                                    {{ $message }}
+                           <div class="row">
+                              <div class="col-sm-6">
+                                 <div class="form-group">
+                                    <label for="tingkat">Tingkat Perlombaan</label>
+                                    <input type="text" class="form-control @error('tingkat') is-invalid @enderror"
+                                       id="tingkat" name="tingkat" placeholder="Masukkan tingkat lomba"
+                                       value="{{ old('tingkat') }}">
+                                    @error('tingkat')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
                                  </div>
-                              @enderror
+                              </div>
+                              <div class="col-sm-6">
+                                 <div class="form-group">
+                                    <label for="capaian">Capaian</label>
+                                    <input type="text" class="form-control @error('capaian') is-invalid @enderror"
+                                       id="capaian" name="capaian" placeholder="Masukkan capaian prestasi"
+                                       value="{{ old('capaian') }}">
+                                    @error('capaian')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
+                                 </div>
+                              </div>
                            </div>
-                           <div class="form-group">
-                              <label for="tingkat">Tingkat Perlombaan</label>
-                              <input type="text" class="form-control @error('tingkat') is-invalid @enderror" id="tingkat"
-                                 name="tingkat" placeholder="Masukkan tingkat lomba" value="{{ old('tingkat') }}">
-                              @error('tingkat')
-                                 <div class="invalid-feedback">
-                                    {{ $message }}
+                           <div class="row">
+                              <div class="col-sm-6">
+                                 <div class="form-group">
+                                    <label for="tanggal">Tanggal Pelaksanaan</label>
+                                    <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
+                                       id="tanggal" name="tanggal" placeholder="Masukkan tanggal pelaksanaan"
+                                       value="{{ old('tanggal') }}">
+                                    @error('tanggal')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
                                  </div>
-                              @enderror
-                           </div>
-                           <div class="form-group">
-                              <label for="capaian">Capaian</label>
-                              <input type="text" class="form-control @error('capaian') is-invalid @enderror" id="capaian"
-                                 name="capaian" placeholder="Masukkan capaian prestasi" value="{{ old('capaian') }}">
-                              @error('capaian')
-                                 <div class="invalid-feedback">
-                                    {{ $message }}
+                              </div>
+                              <div class="col-sm-6">
+                                 <div class="form-group">
+                                    <label>Bidang</label>
+                                    <select class="form-control @error('bidang') is-invalid @enderror" name="bidang">
+                                       <option selected disabled hidden value="">-- Pilih bidang prestasi --</option>
+                                       @if (old('bidang') == 'Akademik')
+                                          <option value="Akademik" selected>Akademik</option>
+                                          <option value="Non-Akademik">Non-Akademik</option>
+                                       @elseif (old('bidang') == 'Non-Akademik')
+                                          <option value="Akademik">Akademik</option>
+                                          <option value="Non-Akademik" selected>Non-Akademik</option>
+                                       @else
+                                          <option value="Akademik">Akademik</option>
+                                          <option value="Non-Akademik">Non-Akademik</option>
+                                       @endif
+                                    </select>
+                                    @error('bidang')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
                                  </div>
-                              @enderror
-                           </div>
-                           <div class="form-group">
-                              <label for="tanggal">Tanggal Pelaksanaan</label>
-                              <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal"
-                                 name="tanggal" placeholder="Masukkan tanggal pelaksanaan" value="{{ old('tanggal') }}">
-                              @error('tanggal')
-                                 <div class="invalid-feedback">
-                                    {{ $message }}
-                                 </div>
-                              @enderror
-                           </div>
-                           <div class="form-group">
-                              <label>Bidang</label>
-                              <select class="form-control @error('bidang') is-invalid @enderror" name="bidang">
-                                 <option selected disabled hidden value="">-- Pilih bidang prestasi --</option>
-                                 @if (old('bidang') == 'Akademik')
-                                    <option value="Akademik" selected>Akademik</option>
-                                    <option value="Non-Akademik">Non-Akademik</option>
-                                 @elseif (old('bidang') == 'Non-Akademik')
-                                    <option value="Akademik">Akademik</option>
-                                    <option value="Non-Akademik" selected>Non-Akademik</option>
-                                 @else
-                                    <option value="Akademik">Akademik</option>
-                                    <option value="Non-Akademik">Non-Akademik</option>
-                                 @endif
-                              </select>
-                              @error('bidang')
-                                 <div class="invalid-feedback">
-                                    {{ $message }}
-                                 </div>
-                              @enderror
+                              </div>
                            </div>
                            <label for="piagam">File Piagam</label>
                            <div class="custom-file mb-2">
@@ -134,7 +156,7 @@
 
                         <div class="card-footer">
                            <button type="submit" class="btn btn-success">Tambah</button>
-                           <a href="/prestasi" class="btn btn-secondary">Batal</a>
+                           <a href="{{ URL::previous() }}" class="btn btn-secondary">Batal</a>
                         </div>
                      </form>
                   </div>

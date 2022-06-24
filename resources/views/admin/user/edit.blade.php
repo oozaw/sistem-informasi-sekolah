@@ -38,8 +38,8 @@
                         <div class="card-body pb-0">
                            <div class="form-group">
                               <label for="username">Username</label>
-                              <input type="text" class="form-control @error('username') is-invalid @enderror" id="username"
-                                 name="username" placeholder="Masukkan username"
+                              <input type="text" class="form-control @error('username') is-invalid @enderror"
+                                 id="username" name="username" placeholder="Masukkan username"
                                  value="{{ old('username', $pengguna->username) }}" required autofocus>
                               @error('username')
                                  <div class="invalid-feedback">
@@ -120,7 +120,7 @@
 
                         <div class="card-footer">
                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                           <a href="/pengguna" class="btn btn-secondary">Batal</a>
+                           <a href="{{ URL::previous() }}" class="btn btn-secondary">Batal</a>
                         </div>
                      </form>
                   </div>

@@ -45,6 +45,7 @@
                                  <th>No.</th>
                                  <th>Nama</th>
                                  <th>NIS</th>
+                                 <th>NISN</th>
                                  <th>Jenis Kelamin</th>
                                  <th>Kelas</th>
                                  <th>Aksi</th>
@@ -56,6 +57,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $s->nama }}</td>
                                     <td>{{ $s->nis }}</td>
+                                    <td>{{ $s->nisn }}</td>
                                     <td>{{ $s->gender }}</td>
                                     <td>{{ $s->kelas->nama }}</td>
                                     <td>

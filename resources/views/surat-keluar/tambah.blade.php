@@ -324,7 +324,7 @@
 
                         <div class="card-footer">
                            <button type="submit" class="btn btn-success">Tambah</button>
-                           <a href="/surat-keluar" class="btn btn-secondary">Batal</a>
+                           <a href="{{ URL::previous() }}" class="btn btn-secondary">Batal</a>
                         </div>
                      </form>
                   </div>
