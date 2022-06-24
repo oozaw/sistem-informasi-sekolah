@@ -35,76 +35,108 @@
                      <form method="POST" action="/siswa" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body pb-0">
-                           <div class="form-group">
-                              <label for="nama">Nama</label>
-                              <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
-                                 name="nama" placeholder="Masukkan nama siswa" value="{{ old('nama') }}" autofocus>
-                              @error('nama')
-                                 <div class="invalid-feedback">
-                                    {{ $message }}
+                           <div class="row">
+                              <div class="col-sm-6">
+                                 <div class="form-group">
+                                    <label for="nama">Nama</label>
+                                    <input type="text" class="form-control @error('nama') is-invalid @enderror"
+                                       id="nama" name="nama" placeholder="Masukkan nama siswa"
+                                       value="{{ old('nama') }}" autofocus>
+                                    @error('nama')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
                                  </div>
-                              @enderror
-                           </div>
-                           <div class="form-group">
-                              <label for="nis">NIS</label>
-                              <input type="text" class="form-control @error('nis') is-invalid @enderror" id="nis"
-                                 name="nis" placeholder="Masukkan nis siswa" value="{{ old('nis') }}">
-                              @error('nis')
-                                 <div class="invalid-feedback">
-                                    {{ $message }}
+                              </div>
+                              <div class="col-sm-6">
+                                 <div class="form-group">
+                                    <label>Jenis Kelamin</label>
+                                    <select class="form-control @error('gender') is-invalid @enderror" name="gender">
+                                       <option selected disabled hidden value="">-- Pilih jenis kelamin --</option>
+                                       @if (old('gender') == 'Laki-laki')
+                                          <option value="Laki-laki" selected>Laki-laki</option>
+                                          <option value="Perempuan">Perempuan</option>
+                                       @elseif (old('gender') == 'Perempuan')
+                                          <option value="Laki-laki">Laki-laki</option>
+                                          <option value="Perempuan" selected>Perempuan</option>
+                                       @else
+                                          <option value="Laki-laki">Laki-laki</option>
+                                          <option value="Perempuan">Perempuan</option>
+                                       @endif
+                                    </select>
+                                    @error('gender')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
                                  </div>
-                              @enderror
+                              </div>
                            </div>
-                           <div class="form-group">
-                              <label for="nisn">NISN</label>
-                              <input type="text" class="form-control @error('nisn') is-invalid @enderror" id="nisn"
-                                 name="nisn" placeholder="Masukkan nisn siswa" value="{{ old('nisn') }}">
-                              @error('nisn')
-                                 <div class="invalid-feedback">
-                                    {{ $message }}
+                           <div class="row">
+                              <div class="col-sm-6">
+                                 <div class="form-group">
+                                    <label for="nis">NIS</label>
+                                    <input type="text" class="form-control @error('nis') is-invalid @enderror"
+                                       id="nis" name="nis" placeholder="Masukkan nis siswa"
+                                       value="{{ old('nis') }}">
+                                    @error('nis')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
                                  </div>
-                              @enderror
-                           </div>
-                           <div class="form-group">
-                              <label>Jenis Kelamin</label>
-                              <select class="form-control @error('gender') is-invalid @enderror" name="gender">
-                                 <option selected disabled hidden value="">-- Pilih jenis kelamin --</option>
-                                 @if (old('gender') == 'Laki-laki')
-                                    <option value="Laki-laki" selected>Laki-laki</option>
-                                    <option value="Perempuan">Perempuan</option>
-                                 @elseif (old('gender') == 'Perempuan')
-                                    <option value="Laki-laki">Laki-laki</option>
-                                    <option value="Perempuan" selected>Perempuan</option>
-                                 @else
-                                    <option value="Laki-laki">Laki-laki</option>
-                                    <option value="Perempuan">Perempuan</option>
-                                 @endif
-                              </select>
-                              @error('gender')
-                                 <div class="invalid-feedback">
-                                    {{ $message }}
+                              </div>
+                              <div class="col-sm-6">
+                                 <div class="form-group">
+                                    <label for="nisn">NISN</label>
+                                    <input type="text" class="form-control @error('nisn') is-invalid @enderror"
+                                       id="nisn" name="nisn" placeholder="Masukkan nisn siswa"
+                                       value="{{ old('nisn') }}">
+                                    @error('nisn')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
                                  </div>
-                              @enderror
+                              </div>
                            </div>
-                           <div class="form-group">
-                              <label>Kelas</label>
-                              <select class="form-control @error('kelas_id') is-invalid @enderror" name="kelas_id">
-                                 <option selected disabled hidden value="">-- Pilih kelas --</option>
-                                 @foreach ($kelas as $k)
-                                    @if (old('kelas_id') == $k->id)
-                                       <option value="{{ $k->id }}" selected>{{ $k->nama }}</option>
-                                    @else
-                                       <option value="{{ $k->id }}">{{ $k->nama }}</option>
-                                    @endif
-                                 @endforeach
-                              </select>
-                              @error('kelas_id')
-                                 <div class="invalid-feedback">
-                                    {{ $message }}
+                           <div class="row">
+                              <div class="col-sm-6">
+                                 <div class="form-group">
+                                    <label>Kelas</label>
+                                    <select class="form-control @error('kelas_id') is-invalid @enderror" name="kelas_id">
+                                       <option selected disabled hidden value="">-- Pilih kelas --</option>
+                                       @foreach ($kelas as $k)
+                                          @if (old('kelas_id') == $k->id)
+                                             <option value="{{ $k->id }}" selected>{{ $k->nama }}</option>
+                                          @else
+                                             <option value="{{ $k->id }}">{{ $k->nama }}</option>
+                                          @endif
+                                       @endforeach
+                                    </select>
+                                    @error('kelas_id')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
                                  </div>
-                              @enderror
+                              </div>
+                              <div class="col-sm-6">
+                                 <div class="form-group">
+                                    <label for="no_telp">Nomor Telepon</label>
+                                    <input type="text" class="form-control @error('no_telp') is-invalid @enderror"
+                                       id="no_telp" name="no_telp" placeholder="Masukkan nomor telepon siswa"
+                                       value="{{ old('no_telp') }}">
+                                    @error('no_telp')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
+                                 </div>
+                              </div>
                            </div>
-                           <div class="form-group row mt-4 mb-3">
+                           <div class="form-group row mb-3">
                               <label for="option_prestasi" class="col-form-label pr-0 mx-2 mr-3">Tambah Prestasi?</label>
                               <div class="col-2 pl-0 mr-3">
                                  <select class="form-control" name="option_prestasi" id="option_prestasi"
@@ -119,20 +151,9 @@
                            </div>
                            <div class="form-group" id="tambah_prestasi_form"></div>
                            <div class="form-group">
-                              <label for="no_telp">Nomor Telepon</label>
-                              <input type="text" class="form-control @error('no_telp') is-invalid @enderror"
-                                 id="no_telp" name="no_telp" placeholder="Masukkan nomor telepon siswa"
-                                 value="{{ old('no_telp') }}">
-                              @error('no_telp')
-                                 <div class="invalid-feedback">
-                                    {{ $message }}
-                                 </div>
-                              @enderror
-                           </div>
-                           <div class="form-group">
-                              <label for="tempat_tinggal">Tempat Tinggal</label>
+                              <label for="tempat_tinggal">Alamat</label>
                               <input type="text" class="form-control @error('tempat_tinggal') is-invalid @enderror"
-                                 id="tempat_tinggal" name="tempat_tinggal" placeholder="Masukkan tempat tinggal siswa"
+                                 id="tempat_tinggal" name="tempat_tinggal" placeholder="Masukkan alamat siswa"
                                  value="{{ old('tempat_tinggal') }}">
                               @error('tempat_tinggal')
                                  <div class="invalid-feedback">
