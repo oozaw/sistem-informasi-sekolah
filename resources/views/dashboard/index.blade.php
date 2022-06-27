@@ -169,11 +169,10 @@
                            </div>
                         </div>
                         <canvas id="siswaChart"
-                           style="min-height: 350px; height: 350px; max-height: 350px; max-width: 100%; display: block; width: 422px;"
+                           style="min-height: 200px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 422px;"
                            width="844" height="500" class="chartjs-render-monitor"></canvas>
                         <p class="text-center mt-3">Jumlah Keseluruhan Siswa: {{ $jumlah_siswa }}</p>
                      </div>
-
                   </div>
                </div>
                <div class="col-md-6">
@@ -201,12 +200,11 @@
                            </div>
                         </div>
                         <canvas id="pegawaiChart"
-                           style="min-height: 350px; height: 350px; max-height: 350px; max-width: 100%; display: block; width: 422px;"
+                           style="min-height: 200px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 422px;"
                            width="844" height="500" class="chartjs-render-monitor"></canvas>
                         <p class="text-center mt-3">Jumlah Keseluruhan Pegawai:
                            {{ $jumlah_guru + $jumlah_tu + $jumlah_staf_lain }}</p>
                      </div>
-
                   </div>
                </div>
             </div>

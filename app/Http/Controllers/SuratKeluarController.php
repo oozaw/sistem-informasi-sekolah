@@ -7,6 +7,7 @@ use App\Models\SuratKeluar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Validator;
 
 class SuratKeluarController extends Controller {
     /**
@@ -162,16 +163,14 @@ class SuratKeluarController extends Controller {
     }
 
     public function createNewSurat() {
-        // dd(PDF::loadView('surat-keluar.surat')->setPaper('A4', 'portrait')->output());
         return view('surat-keluar.create', [
             "title" => "Buat Surat Baru",
             "part" => "surat-keluar",
-            // "pdf" => PDF::loadView('surat-keluar.surat')->setPaper('A4', 'portrait')
         ]);
     }
 
-    public function generateSuratPDF(Request $request) {
-        $validatedData = $request->validate([
+    public function suratPreview(Request $request) {
+        $validator = Validator::make($request->all(), [
             "individu_tujuan" => "required",
             "tujuan" => "required",
             "lampiran" => "nullable",
@@ -186,20 +185,59 @@ class SuratKeluarController extends Controller {
             "isi_surat" => "required"
         ]);
 
+        if ($validator->fails()) {
+            return response()->json([
+                "status" => 0,
+                "error" => $validator->errors()->toArray(),
+                "message" => "gagal generate"
+            ]);
+        } else {
+            $validatedData = $validator->validated();
+
+            $carbon = new Carbon($request->tgl_keluar);
+            $validatedData["tgl_keluar"] = $carbon->isoformat('D MMMM Y');
+            $validatedData["tgl_hari"] = $carbon->isoformat('dddd, D MMMM Y');
+
+            if (!$request->lampiran) {
+                $validatedData['lampiran'] = '-';
+            }
+
+            $data = [
+                "title" => "Surat Baru",
+                "part" => "surat-keluar",
+            ];
+            $data = array_merge($data, $validatedData);
+
+            return view('surat-keluar.layouts.surat', $data);
+        }
+    }
+
+    public function generatePDF(Request $request) {
+        $validatedData = $request->all();
+
         $carbon = new Carbon($request->tgl_keluar);
-        $validatedData["tgl_keluar"] = $carbon->isoformat('dddd, D MMMM Y');
+        $validatedData["tgl_keluar"] = $carbon->isoformat('D MMMM Y');
+        $validatedData["tgl_hari"] = $carbon->isoformat('dddd, D MMMM Y');
 
         if (!$request->lampiran) {
             $validatedData['lampiran'] = '-';
         }
 
-        $data =  [
+        $data = [
             "title" => "Surat Baru",
             "part" => "surat-keluar",
         ];
         $data = array_merge($data, $validatedData);
 
-        $pdf = PDF::loadView('surat-keluar.surat', $data)->setPaper('A4', 'portrait');
-        return $pdf->stream('test.pdf');
+        $pdf = PDF::loadView('surat-keluar.layouts.suratPDF', $data)->setPaper('A4', 'portrait');
+        $content = $pdf->download()->getOriginalContent();
+        $nama_file = "$request->nomor-$request->kode_tujuan-$request->instansi_asal-$request->bulan-$request->tahun.pdf";
+        $path = "/storage/surat_keluar/$nama_file";
+        Storage::put($path, $content);
+        $validatedData['file_surat'] = $path;
+
+        SuratKeluar::create($validatedData);
+
+        return $pdf->stream($nama_file);
     }
 }

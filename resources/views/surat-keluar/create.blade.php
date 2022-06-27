@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('head')
+   <meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
+
 @section('container')
    <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -32,8 +36,7 @@
                         </div>
                      </div>
                      <!-- /.card-header -->
-                     <form method="post" action="/surat-keluar-preview" onsubmit="previewSurat()"
-                        enctype="multipart/form-data">
+                     <form method="POST" action="/surat-keluar-generate" id="main_form" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body pb-0">
                            <div class="row">
@@ -44,7 +47,9 @@
                                        class="form-control @error('individu_tujuan') is-invalid @enderror"
                                        id="individu_tujuan" name="individu_tujuan"
                                        placeholder="Masukkan individu tujuan surat" value="{{ old('individu_tujuan') }}"
-                                       autofocus required>
+                                       autofocus>
+                                    <span><small class="text-danger error-text individu_tujuan_error ml-1"
+                                          hidden></small></span>
                                     @error('individu_tujuan')
                                        <div class="invalid-feedback">
                                           {{ $message }}
@@ -57,7 +62,8 @@
                                     <label for="tujuan">Instansi/Organisasi Tujuan</label>
                                     <input type="text" class="form-control @error('tujuan') is-invalid @enderror"
                                        id="tujuan" name="tujuan" placeholder="Masukkan tujuan surat"
-                                       value="{{ old('tujuan') }}" required>
+                                       value="{{ old('tujuan') }}">
+                                    <span><small class="text-danger error-text tujuan_error ml-1" hidden></small></span>
                                     @error('tujuan')
                                        <div class="invalid-feedback">
                                           {{ $message }}
@@ -73,6 +79,7 @@
                                     <input type="text" class="form-control @error('lampiran') is-invalid @enderror"
                                        id="lampiran" name="lampiran" placeholder="Masukkan lampiran surat"
                                        value="{{ old('lampiran') }}">
+                                    <span><small class="text-danger error-text lampiran_error ml-1" hidden></small></span>
                                     @error('lampiran')
                                        <div class="invalid-feedback">
                                           {{ $message }}
@@ -85,7 +92,8 @@
                                     <label for="perihal">Perihal</label>
                                     <input type="text" class="form-control @error('perihal') is-invalid @enderror"
                                        id="perihal" name="perihal" placeholder="Masukkan perihal"
-                                       value="{{ old('perihal') }}" required>
+                                       value="{{ old('perihal') }}">
+                                    <span><small class="text-danger error-text perihal_error ml-1" hidden></small></span>
                                     @error('perihal')
                                        <div class="invalid-feedback">
                                           {{ $message }}
@@ -98,28 +106,50 @@
                               <label for="no_surat">No Surat</label>
                               <div class="form-row mb-0">
                                  <div class="form-group col-md-2 mb-0">
-                                    <input type="text" class="form-control" name="nomor" id="nomor"
-                                       placeholder="Nomor" value="{{ old('nomor') }}" required>
+                                    <input type="text" class="form-control @error('nomor') is-invalid @enderror"
+                                       name="nomor" id="nomor" placeholder="Nomor" value="{{ old('nomor') }}">
+                                    <span><small class="text-danger error-text nomor_error ml-1" hidden></small></span>
+                                    @error('nomor')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
                                  </div>
                                  <div class="form-group mb mb-0">
                                     <h5 class="mx-1 pt-1 mb-0 text-secondary"><strong>/</strong></h5>
                                  </div>
                                  <div class="form-group col-md-2 mb-0">
-                                    <input type="text" class="form-control" name="kode_tujuan" id="kode_tujuan"
-                                       placeholder="Kode Tujuan" value="{{ old('kode_tujuan') }}" required>
+                                    <input type="text" class="form-control @error('kode_tujuan') is-invalid @enderror"
+                                       name="kode_tujuan" id="kode_tujuan" placeholder="Kode Tujuan"
+                                       value="{{ old('kode_tujuan') }}">
+                                    <span><small class="text-danger error-text kode_tujuan_error ml-1"
+                                          hidden></small></span>
+                                    @error('kode_tujuan')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
                                  </div>
                                  <div class="form-group mb-0">
                                     <h5 class="mx-1 pt-1 mb-0 text-secondary"><strong>/</strong></h5>
                                  </div>
                                  <div class="form-group col-md-2 mb-0">
-                                    <input type="text" class="form-control" name="instansi_asal" id="instansi_asal"
-                                       value="SMAN.5.Mrg" readonly>
+                                    <input type="text" class="form-control @error('instansi_asal') is-invalid @enderror"
+                                       name="instansi_asal" id="instansi_asal" value="SMAN.5.Mrg" readonly>
+                                    <span><small class="text-danger error-text instansi_asal_error ml-1"
+                                          hidden></small></span>
+                                    @error('instansi_asal')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
                                  </div>
                                  <div class="form-group mb-0">
                                     <h5 class="mx-1 pt-1 mb-0 text-secondary"><strong>/</strong></h5>
                                  </div>
                                  <div class="form-group col-md-2 mb-0">
-                                    <select class="form-control" name="bulan" id="bulan" required>
+                                    <select class="form-control @error('bulan') is-invalid @enderror" name="bulan"
+                                       id="bulan">
                                        @if (old('bulan') == 'I')
                                           <option value="I" selected>Januari</option>
                                           <option value="II">Februari</option>
@@ -293,20 +323,27 @@
                                           <option value="XII">Desember</option>
                                        @endif
                                     </select>
+                                    <span><small class="text-danger error-text bulan_error ml-1" hidden></small></span>
+                                    @error('bulan')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
                                  </div>
                                  <div class="form-group mb-0">
                                     <h5 class="mx-1 pt-1 mb-0 text-secondary"><strong>-</strong></h5>
                                  </div>
                                  <div class="form-group col-md-2 mb-0">
-                                    <input type="text" class="form-control" name="tahun" id="tahun"
-                                       placeholder="Tahun" value="{{ old('tahun') }}" required>
+                                    <input type="text" class="form-control @error('tahun') is-invalid @enderror"
+                                       name="tahun" id="tahun" placeholder="Tahun" value="{{ old('tahun') }}">
+                                    <span><small class="text-danger error-text tahun_error ml-1" hidden></small></span>
+                                    @error('tahun')
+                                       <div class="invalid-feedback">
+                                          {{ $message }}
+                                       </div>
+                                    @enderror
                                  </div>
                               </div>
-                              @error('no_surat')
-                                 <div class="invalid-feedback">
-                                    {{ $message }}
-                                 </div>
-                              @enderror
                            </div>
                            <div class="row">
                               <div class="col-sm-6">
@@ -314,7 +351,9 @@
                                     <label for="tgl_keluar">Tanggal Keluar</label>
                                     <input type="date" class="form-control @error('tgl_keluar') is-invalid @enderror"
                                        id="tgl_keluar" name="tgl_keluar" placeholder="Masukkan tanggal keluar"
-                                       value="{{ old('tgl_keluar') }}" required>
+                                       value="{{ old('tgl_keluar') }}">
+                                    <span><small class="text-danger error-text tgl_keluar_error ml-1"
+                                          hidden></small></span>
                                     @error('tgl_keluar')
                                        <div class="invalid-feedback">
                                           {{ $message }}
@@ -328,6 +367,8 @@
                                     <input type="text" class="form-control @error('keterangan') is-invalid @enderror"
                                        id="keterangan" name="keterangan" placeholder="Masukkan keterangan"
                                        value="{{ old('keterangan') }}">
+                                    <span><small class="text-danger error-text keterangan_error ml-1"
+                                          hidden></small></span>
                                     @error('keterangan')
                                        <div class="invalid-feedback">
                                           {{ $message }}
@@ -338,41 +379,29 @@
                            </div>
                            <div class="form-group">
                               <label for="isi_surat">Isi Surat</label>
-                              {{-- <input type="text" name="old_isi_surat" id="old_isi_surat" hidden
-                                 value="{!! old('isi_surat') !!}"> --}}
-                              <textarea name="isi_surat" id="isi_surat" class="form-control @error('isi_surat') is-invalid @enderror" required>
-                                 {!! old('isi_surat') !!}
-                              </textarea>
+                              <textarea name="isi_surat" id="isi_surat" class="form-control @error('isi_surat') is-invalid @enderror">{!! old('isi_surat') !!}</textarea>
+                              <span><small class="text-danger error-text isi_surat_error ml-1" hidden></small></span>
                               @error('isi_surat')
                                  <div class="invalid-feedback">
                                     {{ $message }}
                                  </div>
                               @enderror
                            </div>
-                           {{-- <label for="file_surat">File Surat</label>
-                           <div class="custom-file mb-2">
-                              <input type="file" class="custom-file-input @error('file_surat') is-invalid @enderror"
-                                 id="file_surat" name="file_surat" required>
-                              <label class="custom-file-label" for="file_surat" data-browse="Pilih file">Unggah file surat
-                                 (*.pdf)</label>
-                              @error('file_surat')
-                                 <div class="invalid-feedback">
-                                    {{ $message }}
-                                 </div>
-                              @enderror
-                           </div> --}}
                         </div>
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                           <button type="submit" class="btn btn-success">Preview</button>
+                           <a href="/surat-keluar-generate" class="btn bg-gradient-purple"
+                              id="print_button">Pratinjau</a>
                            <a href="{{ URL::previous() }}" class="btn btn-secondary">Batal</a>
-                           <a href="/untuk-print/download" class="btn bg-gradient-purple" id="print_button"
-                              hidden>Print</a>
+                           <button class="btn btn-success" type="submit" id="preview_submit" hidden>Simpan dan
+                              Unduh</button>
                         </div>
                      </form>
-                     <hr class="mt-0">
-                     <div id="iframe"></div>
+                     <hr class="mt-0" id="pembatas_preview" hidden>
+                     <div id="preview" class="card mx-auto mb-3"
+                        style="width: 210mm; height: 297mm; line-height: 1.2rem" hidden>
+                     </div>
                   </div>
                   <!-- /.card -->
                </div>
@@ -389,6 +418,7 @@
 @section('script')
    <!-- jQuery -->
    <script src="/adminlte/plugins/jquery/jquery.min.js"></script>
+   <script src="/jquery/jquery-3.6.0.min.js"></script>
    <!-- Bootstrap 4 -->
    <script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
    <!-- bs-custom-file-input -->
@@ -401,22 +431,69 @@
    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/ckeditor.js"></script> --}}
    <script src="/ckeditor/build/ckeditor.js"></script>
    <script>
+      $(document).ready(function() {
+         $('#print_button').on('click', function(e) {
+            e.preventDefault();
+            $.ajaxSetup({
+               headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               }
+            });
+
+            $.ajax({
+               url: "{{ url('surat-keluar-preview') }}",
+               method: "post",
+               data: {
+                  individu_tujuan: $("#individu_tujuan").val(),
+                  tujuan: $("#tujuan").val(),
+                  lampiran: $("#lampiran").val(),
+                  perihal: $("#perihal").val(),
+                  nomor: $("#nomor").val(),
+                  kode_tujuan: $("#kode_tujuan").val(),
+                  instansi_asal: $("#instansi_asal").val(),
+                  bulan: $("#bulan").val(),
+                  tahun: $("#tahun").val(),
+                  tgl_keluar: $("#tgl_keluar").val(),
+                  keterangan: $("#keterangan").val(),
+                  isi_surat: isiSuratEditor.getData()
+               },
+               beforeSend: function() {
+                  $("#preview").text('');
+                  $(document).find('small.error-text').text('');
+                  $("input.form-control").removeClass("is-invalid");
+                  $("select.form-control").removeClass("is-invalid");
+               },
+               success: function(result) {
+                  if (result.status == 0) {
+                     $.each(result.error, function(prefix, val) {
+                        $("input#" + prefix).addClass("is-invalid");
+                        $("select#" + prefix).addClass("is-invalid");
+                        $("small." + prefix + "_error").text(val[0]).prop("hidden", false);
+                     });
+                  } else {
+                     $("#preview").append(result);
+                     $("#preview").prop('hidden', false);
+                     $("#pembatas_preview").prop('hidden', false);
+                     $("#preview_submit").prop('hidden', false);
+                  }
+               }
+            });
+         });
+
+      });
+
       $(function() {
          bsCustomFileInput.init();
       });
 
+      let isiSuratEditor;
       ClassicEditor
          .create(document.querySelector('#isi_surat'))
+         .then(newEditor => {
+            isiSuratEditor = newEditor;
+         })
          .catch(error => {
             console.error(error);
          });
-
-      function previewSurat() {
-         let iframe = document.querySelector("#iframe");
-         let print = document.querySelector("#print_button");
-
-         print.removeAttribute("hidden");
-         iframe.innerHTML = '<iframe class="px-3 pb-3" height="800" src="" frameborder="0"></iframe>';
-      }
    </script>
 @endsection

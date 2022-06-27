@@ -43,8 +43,9 @@ Route::get('/staf-lain', [PekerjaController::class, 'index_lain']);
 
 // Surat Keluar
 Route::resource('/surat-keluar', SuratKeluarController::class);
-Route::post('/surat-keluar-preview', [SuratKeluarController::class, 'generateSuratPDF'])->name('surat-keluar.preview');
 Route::get('/surat-keluar-new', [SuratKeluarController::class, 'createNewSurat'])->name('surat-keluar.new');
+Route::post('/surat-keluar-preview', [SuratKeluarController::class, 'suratPreview'])->name('surat-keluar.preview');
+Route::post('/surat-keluar-generate', [SuratKeluarController::class, 'generatePDF'])->name('surat-keluar.generate');
 
 // Surat Masuk
 Route::resource('/surat-masuk', SuratMasukController::class);

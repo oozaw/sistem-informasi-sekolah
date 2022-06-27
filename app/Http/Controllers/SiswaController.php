@@ -58,11 +58,11 @@ class SiswaController extends Controller {
 
         if ($request->file("foto_profil")) {
             $file_ext = $request->file('foto_profil')->getClientOriginalExtension();
-            $validatedData["foto_profil"] = $request->file("foto_profil")->storeAs("profil-siswa", "$request->nama.$file_ext");
+            $validatedDataSiswa["foto_profil"] = $request->file("foto_profil")->storeAs("profil-siswa", "$request->nama.$file_ext");
         }
 
         if (!($request->no_telp)) {
-            $validatedData["no_telp"] = "-";
+            $validatedDataSiswa["no_telp"] = "-";
         }
 
         $siswa = Siswa::create($validatedDataSiswa);

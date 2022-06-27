@@ -155,25 +155,25 @@
             "buttons": [{
                   extend: 'copy',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
+                     columns: [0, 1, 2, 3, 4, 5]
                   }
                },
                {
                   extend: 'excel',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
+                     columns: [0, 1, 2, 3, 4, 5]
                   }
                },
                {
                   extend: 'pdf',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
+                     columns: [0, 1, 2, 3, 4, 5]
                   }
                },
                {
                   extend: 'print',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
+                     columns: [0, 1, 2, 3, 4, 5]
                   }
                }
             ]
