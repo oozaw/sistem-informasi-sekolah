@@ -232,7 +232,7 @@ class SuratKeluarController extends Controller {
         $pdf = PDF::loadView('surat-keluar.layouts.suratPDF', $data)->setPaper('A4', 'portrait');
         $content = $pdf->download()->getOriginalContent();
         $nama_file = "$request->nomor-$request->kode_tujuan-$request->instansi_asal-$request->bulan-$request->tahun.pdf";
-        $path = "/storage/surat_keluar/$nama_file";
+        $path = "/surat-keluar/$nama_file";
         Storage::put($path, $content);
         $validatedData['file_surat'] = $path;
 
