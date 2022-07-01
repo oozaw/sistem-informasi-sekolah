@@ -54,6 +54,7 @@ Route::resource('/surat-masuk', SuratMasukController::class);
 
 // Prestasi
 Route::resource('/prestasi', PrestasiController::class);
+Route::post('/prestasi-impor', [PrestasiController::class, 'import'])->name('prestasi.impor');
 
 // User
 Route::get('/profile', [UserController::class, 'index']);

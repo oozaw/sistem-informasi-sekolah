@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Perwakilan;
 use App\Models\Siswa;
 use App\Models\Prestasi;
+use App\Imports\PrestasiImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class PrestasiController extends Controller {
     /**
@@ -52,6 +54,8 @@ class PrestasiController extends Controller {
             "bidang" => "required",
             "piagam" => "mimes:pdf|file|max:10000"
         ]);
+
+        dd($request);
 
         $carbon = new Carbon($request->tanggal);
         $validatedData["tanggal"] = $carbon->isoFormat('D MMMM Y');
@@ -150,5 +154,21 @@ class PrestasiController extends Controller {
         Prestasi::destroy($prestasi->id);
 
         return redirect('/prestasi')->with('success', "Data prestasi $prestasi->nama berhasil dihapus!");
+    }
+
+    public function import(Request $request) {
+        $validator = Validator::make($request->all(), [
+            "file_impor" => "required|mimes:csv,xls,xlsx"
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/prestasi')->with('fail', "Impor gagal, " . $validator->errors()->get('file_impor')[0]);
+        } else {
+            $file = $request->file("file_impor");
+
+            Excel::import(new PrestasiImport, $file);
+
+            return redirect('/prestasi')->with('success', "Data prestasi telah berhasil diimpor!");
+        }
     }
 }

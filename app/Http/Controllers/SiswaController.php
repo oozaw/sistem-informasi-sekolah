@@ -240,13 +240,13 @@ class SiswaController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            return redirect('/siswa')->with('fail', $validator->errors()->get('file_impor')[0]);
+            return redirect('/siswa')->with('fail', "Impor gagal, " . $validator->errors()->get('file_impor')[0]);
         } else {
             $file = $request->file("file_impor");
 
             Excel::import(new SiswaImport, $file);
 
-            return redirect('/siswa')->with('success', "Impor data siswa berhasil!");
+            return redirect('/siswa')->with('success', "Data siswa telah berhasil diimpor!");
         }
     }
 }
