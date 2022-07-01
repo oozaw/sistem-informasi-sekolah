@@ -34,6 +34,8 @@ Route::resource('/kelas', KelasController::class);
 
 // Siswa
 Route::resource('/siswa', SiswaController::class);
+Route::post('/siswa-impor', [SiswaController::class, 'import'])->name('siswa.impor');
+Route::get('/siswa-format-download', [SiswaController::class, 'downloadFormat'])->name('siswa.download.format');
 
 // Pekerja
 Route::resource('/pekerja', PekerjaController::class);

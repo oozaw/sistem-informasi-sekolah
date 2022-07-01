@@ -6,8 +6,12 @@ use App\Models\Kelas;
 use App\Models\Siswa;
 use App\Models\Prestasi;
 use App\Models\Perwakilan;
+use App\Imports\SiswaImport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use Illuminate\Support\Facades\Validator;
 
 class SiswaController extends Controller {
     /**
@@ -210,5 +214,39 @@ class SiswaController extends Controller {
         Siswa::destroy($siswa->id);
 
         return redirect("/siswa")->with("success", "Data $siswa->nama berhasil dihapus!");
+    }
+
+    public function downloadFormat() {
+        $spreadsheet = IOFactory::load(public_path('/template/Template Impor Data Siswa.xlsx'));
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        $kelas = Kelas::all();
+        $counter = 5;
+        foreach ($kelas as $k) {
+            $worksheet->setCellValue("J$counter", $counter - 4);
+            $worksheet->setCellValue("K$counter", $k->nama);
+            $counter++;
+        }
+
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save('template/Impor Data Siswa.xlsx');
+
+        return response()->download(public_path('/template/Impor Data Siswa.xlsx'));
+    }
+
+    public function import(Request $request) {
+        $validator = Validator::make($request->all(), [
+            "file_impor" => "required|mimes:csv,xls,xlsx"
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/siswa')->with('fail', $validator->errors()->get('file_impor')[0]);
+        } else {
+            $file = $request->file("file_impor");
+
+            Excel::import(new SiswaImport, $file);
+
+            return redirect('/siswa')->with('success', "Impor data siswa berhasil!");
+        }
     }
 }

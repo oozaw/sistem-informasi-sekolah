@@ -36,7 +36,8 @@
                         </div>
                      </div>
                      <!-- /.card-header -->
-                     <form method="POST" action="/surat-keluar-generate" id="main_form" enctype="multipart/form-data">
+                     <form method="POST" action="/surat-keluar-generate" id="main_form" target="_blank"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="card-body pb-0">
                            <div class="row">

@@ -29,6 +29,9 @@
                         <div class="d-inline-flex">
                            <a href="/siswa/create" class="btn btn-success btn-sm mr-1">
                               <i class="fas fa-file-plus"></i> Tambah Data Siswa</a>
+                           <a href="" class="btn bg-gradient-purple btn-sm mr-1" data-toggle="modal"
+                              data-target="#modal-impor">
+                              <i class="fas fa-file-upload"></i> Impor Data Siswa</a>
                            @if (session()->has('success'))
                               <div class="successAlert" hidden>{{ session('success') }}</div>
                            @endif
@@ -70,7 +73,7 @@
                                              data-target="#modal-delete-{{ $s->id }}">
                                              <i class="fas fa-trash"></i> Hapus</a>
 
-                                          <!-- Modal -->
+                                          <!-- Modal Delete-->
                                           <div class="modal fade" id="modal-delete-{{ $s->id }}"
                                              style="display: none;" aria-hidden="true">
                                              <div class="modal-dialog">
@@ -100,7 +103,7 @@
                                              </div>
                                              <!-- /.modal-dialog -->
                                           </div>
-                                          <!-- /.modal -->
+                                          <!-- /.modal delete -->
 
                                        </div>
                                     </td>
@@ -108,6 +111,55 @@
                               @endforeach
                            </tbody>
                         </table>
+
+                        <!-- Modal Impor-->
+                        <div class="modal fade" id="modal-impor" style="display: none;" aria-hidden="true">
+                           <div class="modal-dialog modal-lg">
+                              <div class="modal-content">
+                                 <div class="modal-header">
+                                    <h4 class="modal-title">Impor Data Siswa</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                       <span aria-hidden="true">×</span>
+                                    </button>
+                                 </div>
+                                 <div class="modal-body">
+                                    <div class="alert alert-danger">
+                                       <h5><i class="fas fa-info-circle mr-1"></i> Petunjuk!</h5>
+                                       <span>
+                                          1. Unduh terlebih dahulu format file excel. <br>
+                                          2. Masukkan data siswa ke dalam file excel tersebut. <br>
+                                          3. Unggah file excel berisikan data siswa melalui unggah file di bawah.
+                                       </span>
+                                       <a href="/siswa-format-download" target="_blank"
+                                          class="btn btn-block btn-success col-4 mt-2 text-decoration-none align-content-end">
+                                          <i class="fas fa-file-download mr-1"></i> Unduh Format File Excel</a>
+                                    </div>
+                                    <form method="POST" action="/siswa-impor" enctype="multipart/form-data">
+                                       <div class="custom-file mb-2">
+                                          <input type="file" class="custom-file-input" id="file_impor"
+                                             name="file_impor">
+                                          <label for="file_impor" class="custom-file-label" data-browse="Pilih file">
+                                             Pilih file data siswa (*.xlsx)</label>
+                                          <span class="text-orange ml-1">
+                                             <small>
+                                                *File harus berupa spreadsheet hasil unduhan format file di atas
+                                             </small>
+                                          </span>
+                                       </div>
+                                 </div>
+                                 <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Batal</button>
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary">Unggah</button>
+                                    </form>
+                                 </div>
+                              </div>
+                              <!-- /.modal-content -->
+
+                           </div>
+                           <!-- /.modal-dialog -->
+                        </div>
+                        <!-- /.modal impor -->
                      </div>
                      <!-- /.card-body -->
                   </div>
@@ -128,6 +180,8 @@
    <script src="/adminlte/plugins/jquery/jquery.min.js"></script>
    <!-- Bootstrap 4 -->
    <script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+   <!-- bs-custom-file-input -->
+   <script src="/adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
    <!-- DataTables  & Plugins -->
    <script src="/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
    <script src="/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -147,6 +201,10 @@
    <script src="/adminlte/dist/js/demo.js"></script>
    <!-- Page specific script -->
    <script>
+      $(function() {
+         bsCustomFileInput.init();
+      });
+
       $(function() {
          $("#data_siswa").DataTable({
             "responsive": true,
@@ -190,24 +248,14 @@
                body: $('.successAlert').text()
             });
          }
-         if ($('.warningAlert').length) {
-            $(document).Toasts('create', {
-               class: 'bg-warning',
-               title: 'Toast Title',
-               autohide: true,
-               delay: 5000,
-               subtitle: 'Subtitle',
-               body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-            });
-         }
+         
          if ($('.failAlert').length) {
             $(document).Toasts('create', {
-               class: 'bg-danger',
-               title: 'Toast Title',
+               class: 'bg-danger mt-1 mr-1',
+               title: 'Gagal',
                autohide: true,
-               delay: 5000,
-               subtitle: 'Subtitle',
-               body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+               delay: 10000,
+               body: $('.failAlert').text()
             });
          }
       });

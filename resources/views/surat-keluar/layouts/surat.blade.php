@@ -71,7 +71,7 @@
       </tr>
       <tr>
          <td>
-            <table border="0" style="width: 100%; margin-bottom: 0.5cm">
+            <table border="0" style="width: 100%; margin-bottom: 1cm">
                <tbody>
                   <tr>
                      <td width="140"><span style="font-size: medium;">Kepada Yth</span>
