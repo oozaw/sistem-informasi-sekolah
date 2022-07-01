@@ -50,6 +50,7 @@
                                  <th>Capaian</th>
                                  <th>Tingkat</th>
                                  <th>Tahun</th>
+                                 <th hidden>Link Piagam</th>
                                  <th>Aksi</th>
                               </tr>
                            </thead>
@@ -61,6 +62,13 @@
                                     <td>{{ $p->capaian }}</td>
                                     <td>{{ $p->tingkat }}</td>
                                     <td>{{ $p->tahun }}</td>
+                                    <td hidden>
+                                       @if ($p->piagam)
+                                          {{ url("/$p->piagam") }}
+                                       @else
+                                          Belum diupload
+                                       @endif
+                                    </td>
                                     <td>
                                        <div class="d-inline-flex">
                                           <a href="/prestasi/{{ $p->id }}" class="btn btn-info btn-sm mr-1">
@@ -211,25 +219,25 @@
             "buttons": [{
                   extend: 'copy',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
+                     columns: [0, 1, 2, 3, 4, 5]
                   }
                },
                {
                   extend: 'excel',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
+                     columns: [0, 1, 2, 3, 4, 5]
                   }
                },
                {
                   extend: 'pdf',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
+                     columns: [0, 1, 2, 3, 4, 5]
                   }
                },
                {
                   extend: 'print',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
+                     columns: [0, 1, 2, 3, 4, 5]
                   }
                }
             ]

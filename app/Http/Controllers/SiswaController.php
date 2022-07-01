@@ -62,7 +62,7 @@ class SiswaController extends Controller {
 
         if ($request->file("foto_profil")) {
             $file_ext = $request->file('foto_profil')->getClientOriginalExtension();
-            $validatedDataSiswa["foto_profil"] = $request->file("foto_profil")->storeAs("profil-siswa", "$request->nama.$file_ext");
+            $validatedDataSiswa["foto_profil"] = $request->file("foto_profil")->storeAs("profil-siswa", "$request->nisn.$file_ext");
         }
 
         if (!($request->no_telp)) {
@@ -166,8 +166,8 @@ class SiswaController extends Controller {
 
         if ($request->file("foto_profil")) {
             $file_ext = $request->file('foto_profil')->getClientOriginalExtension();
-            Storage::delete("$request->nama.$file_ext");
-            $validatedData["foto_profil"] = $request->file("foto_profil")->storeAs("profil-siswa", "$request->nama.$file_ext");
+            Storage::delete("$request->nisn.$file_ext");
+            $validatedData["foto_profil"] = $request->file("foto_profil")->storeAs("profil-siswa", "$request->nisn.$file_ext");
         }
 
         Siswa::where("id", $siswa->id)->update($validatedData);

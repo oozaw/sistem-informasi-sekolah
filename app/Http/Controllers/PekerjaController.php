@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pekerja;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Imports\PekerjaImport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class PekerjaController extends Controller {
     /**
@@ -76,7 +80,8 @@ class PekerjaController extends Controller {
 
         if ($request->file("foto_profil")) {
             $file_ext = $request->file('foto_profil')->getClientOriginalExtension();
-            $validatedData["foto_profil"] = $request->file("foto_profil")->storeAs("profil-pekerja", "$request->nama.$file_ext");
+            $nama_file = Str::slug($request->nama);
+            $validatedData["foto_profil"] = $request->file("foto_profil")->storeAs("profil-pekerja", "$nama_file.$file_ext");
         }
 
         if (!($request->nip)) {
@@ -164,21 +169,14 @@ class PekerjaController extends Controller {
 
         if ($request->file("foto_profil")) {
             $file_ext = $request->file('foto_profil')->getClientOriginalExtension();
-            Storage::delete("$request->nama.$file_ext");
-            $validatedData["foto_profil"] = $request->file("foto_profil")->storeAs("profil-pekerja", "$request->nama.$file_ext");
+            $nama_file = Str::slug($request->nama);
+            Storage::delete($request->foto_profil);
+            $validatedData["foto_profil"] = $request->file("foto_profil")->storeAs("profil-pekerja", "$nama_file.$file_ext");
         }
 
         Pekerja::where('id', $pekerja->id)->update($validatedData);
 
         return redirect("/pekerja/$pekerja->id")->with("success", "Data $request->nama berhasil diperbarui!");
-
-        // if ($request->jabatan == "Guru") { 
-        //     return redirect('/guru')->with("success", "Data $request->nama berhasil diperbarui!");
-        // } elseif ($request->jabatan == "Staf Tata Usaha") {
-        //     return redirect('/tata-usaha')->with("success", "Data $request->nama berhasil diperbarui!");
-        // } else {
-        //     return redirect('/pegawai-lain')->with("success", "Data $request->nama berhasil diperbarui!");            
-        // }
     }
 
     /**
@@ -200,6 +198,22 @@ class PekerjaController extends Controller {
             return redirect('/tata-usaha')->with("success", "Data $pekerja->nama berhasil dihapus!");
         } else {
             return redirect('/pegawai-lain')->with("success", "Data $pekerja->nama berhasil dihapus!");
+        }
+    }
+
+    public function import(Request $request) {
+        $validator = Validator::make($request->all(), [
+            "file_impor" => "required|mimes:csv,xls,xlsx"
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/pekerja')->with('fail', "Impor gagal, " . $validator->errors()->get('file_impor')[0]);
+        } else {
+            $file = $request->file("file_impor");
+
+            Excel::import(new PekerjaImport, $file);
+
+            return redirect('/pekerja')->with('success', "Data pegawai telah berhasil diimpor!");
         }
     }
 }

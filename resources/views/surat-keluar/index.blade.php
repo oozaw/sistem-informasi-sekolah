@@ -49,7 +49,7 @@
                                  <th>No. Surat</th>
                                  <th>Tanggal Keluar</th>
                                  <th>Keterangan</th>
-                                 <th hidden>Link</th>
+                                 <th hidden>Link File</th>
                                  <th>Aksi</th>
                               </tr>
                            </thead>

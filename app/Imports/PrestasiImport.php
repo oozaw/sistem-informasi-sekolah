@@ -22,7 +22,7 @@ class PrestasiImport implements ToModel, WithStartRow {
      * @return \Illuminate\Database\Eloquent\Model|null
      */
     public function model(array $row) {
-        if (!isset($row[0])) {
+        if (!isset($row[1])) {
             return null;
         }
 

@@ -65,12 +65,7 @@
                         </div>
                         <!-- /.row -->
                         <div class="d-flex justify-content-center mb-2 mt-0">
-                           <a href="@if ($pekerja->jabatan == 'Guru') /guru
-                              @elseif ($pekerja->jabatan == 'Staf Tata Usaha')
-                              /tata-usaha
-                              @else
-                              /staf-lain @endif"
-                              class="btn btn-secondary btn-sm mr-1">
+                           <a href="{{ URL::previous() }}" class="btn btn-secondary btn-sm mr-1">
                               <i class="fas fa-long-arrow-left"></i> Kembali</a>
                            <a href="/pekerja/{{ $pekerja->id }}/edit" class="btn btn-primary btn-sm mr-1">
                               <i class="fas fa-edit"></i> Edit Profil</a>
@@ -84,8 +79,7 @@
                                  <div class="modal-content bg-warning">
                                     <div class="modal-header">
                                        <h4 class="modal-title">Hapus Data Pegawai</h4>
-                                       <button type="button" class="close" data-dismiss="modal"
-                                          aria-label="Close">
+                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">×</span>
                                        </button>
                                     </div>

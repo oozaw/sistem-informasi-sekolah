@@ -42,7 +42,7 @@
                      <div class="card-body">
                         <div class="row">
                            <div class="d-inline-flex mb-3 ml-2">
-                              <a href="/surat-keluar" class="btn btn-secondary btn-sm mr-1">
+                              <a href="{{ URL::previous() }}" class="btn btn-secondary btn-sm mr-1">
                                  <i class="fas fa-long-arrow-left"></i> Kembali</a>
                               <a href="/surat-keluar/{{ $sk->id }}/edit" class="btn btn-primary btn-sm mr-1">
                                  <i class="fas fa-edit"></i> Edit</a>
@@ -56,8 +56,7 @@
                                     <div class="modal-content bg-warning">
                                        <div class="modal-header">
                                           <h4 class="modal-title">Hapus Data Surat</h4>
-                                          <button type="button" class="close" data-dismiss="modal"
-                                             aria-label="Close">
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                              <span aria-hidden="true">×</span>
                                           </button>
                                        </div>

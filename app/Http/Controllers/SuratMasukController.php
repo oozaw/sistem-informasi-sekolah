@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SuratMasuk;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -57,7 +58,8 @@ class SuratMasukController extends Controller {
 
         if ($request->file("file_surat")) {
             $file_ext = $request->file('file_surat')->getClientOriginalExtension();
-            $nama_file = "$request->nomor-$request->kode_tujuan-$request->instansi_asal-$request->bulan-$request->tahun.$file_ext";
+            $nama =  Str::slug("$request->nomor-$request->kode_tujuan-$request->instansi_asal-$request->bulan-$request->tahun");
+            $nama_file = "$nama.$file_ext";
             $validatedData['file_surat'] = $request->file('file_surat')->storeAs('surat-masuk', $nama_file);
         }
 
@@ -134,8 +136,9 @@ class SuratMasukController extends Controller {
 
         if ($request->file("file_surat")) {
             $file_ext = $request->file('file_surat')->getClientOriginalExtension();
-            $nama_file = "$request->nomor-$request->kode_tujuan-$request->instansi_asal-$request->bulan-$request->tahun.$file_ext";
-            Storage::delete($nama_file);
+            $nama =  Str::slug("$request->nomor-$request->kode_tujuan-$request->instansi_asal-$request->bulan-$request->tahun");
+            $nama_file = "$nama.$file_ext";
+            Storage::delete($suratMasuk->file_surat);
             $validatedData['file_surat'] = $request->file('file_surat')->storeAs('surat-masuk', $nama_file);
         }
 

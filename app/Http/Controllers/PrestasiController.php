@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Siswa;
 use App\Models\Prestasi;
-use App\Imports\PrestasiImport;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Imports\PrestasiImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -63,7 +64,8 @@ class PrestasiController extends Controller {
 
         if ($request->file("piagam")) {
             $file_ext = $request->file('piagam')->getClientOriginalExtension();
-            $nama_file = "$request->nama-$carbon->year-$request->capaian-$request->tingkat.$file_ext";
+            $nama_without_space = Str::slug("$request->nama-$carbon->year-$request->capaian-$request->tingkat");
+            $nama_file = "$nama_without_space.$file_ext";
             $validatedData['piagam'] = $request->file('piagam')->storeAs('prestasi', $nama_file);
         }
 
@@ -130,8 +132,9 @@ class PrestasiController extends Controller {
 
         if ($request->file("piagam")) {
             $file_ext = $request->file('piagam')->getClientOriginalExtension();
-            $nama_file = "$request->nama-$carbon->year-$request->capaian-$request->tingkat.$file_ext";
-            Storage::delete($nama_file);
+            $nama_without_space = Str::slug("$request->nama-$carbon->year-$request->capaian-$request->tingkat");
+            $nama_file = "$nama_without_space.$file_ext";
+            Storage::delete($prestasi->piagam);
             $validatedData['piagam'] = $request->file('piagam')->storeAs('prestasi', $nama_file);
         }
 
