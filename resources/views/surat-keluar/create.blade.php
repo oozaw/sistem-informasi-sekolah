@@ -392,9 +392,9 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
+                           <a href="{{ URL::previous() }}" class="btn btn-secondary">Batal</a>
                            <a href="/surat-keluar-generate" class="btn bg-gradient-purple"
                               id="print_button">Pratinjau</a>
-                           <a href="{{ URL::previous() }}" class="btn btn-secondary">Batal</a>
                            <button class="btn btn-success" type="submit" id="preview_submit" hidden>Simpan dan
                               Unduh</button>
                         </div>

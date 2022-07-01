@@ -47,10 +47,12 @@
                               <tr>
                                  <th>No.</th>
                                  <th>Nama</th>
+                                 <th>Kelas</th>
+                                 <th>Jenis Kelamin</th>
                                  <th>NIS</th>
                                  <th>NISN</th>
-                                 <th>Jenis Kelamin</th>
-                                 <th>Kelas</th>
+                                 <th hidden>No. Telepon</th>
+                                 <th hidden>Alamat</th>
                                  <th>Aksi</th>
                               </tr>
                            </thead>
@@ -59,10 +61,12 @@
                                  <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $s->nama }}</td>
+                                    <td>{{ $s->kelas->nama }}</td>
+                                    <td>{{ $s->gender }}</td>
                                     <td>{{ $s->nis }}</td>
                                     <td>{{ $s->nisn }}</td>
-                                    <td>{{ $s->gender }}</td>
-                                    <td>{{ $s->kelas->nama }}</td>
+                                    <td hidden>{{ $s->no_telp }}</td>
+                                    <td hidden>{{ $s->tempat_tinggal }}</td>
                                     <td>
                                        <div class="d-inline-flex">
                                           <a href="/siswa/{{ $s->id }}" class="btn btn-info btn-sm mr-1">
@@ -213,25 +217,25 @@
             "buttons": [{
                   extend: 'copy',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4, 5]
+                     columns: [0, 1, 2, 3, 4, 5, 6, 7]
                   }
                },
                {
                   extend: 'excel',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4, 5]
+                     columns: [0, 1, 2, 3, 4, 5, 6, 7]
                   }
                },
                {
                   extend: 'pdf',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4, 5]
+                     columns: [0, 1, 2, 3, 4, 5, 6, 7]
                   }
                },
                {
                   extend: 'print',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4, 5]
+                     columns: [0, 1, 2, 3, 4, 5, 6, 7]
                   }
                }
             ]
@@ -248,7 +252,7 @@
                body: $('.successAlert').text()
             });
          }
-         
+
          if ($('.failAlert').length) {
             $(document).Toasts('create', {
                class: 'bg-danger mt-1 mr-1',

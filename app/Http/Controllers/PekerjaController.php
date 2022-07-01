@@ -15,7 +15,7 @@ class PekerjaController extends Controller {
     public function index() {
         return view('pekerja.index', [
             "title" => "Data Tenaga Kerja",
-            "part" => "kepegawaian",
+            "part" => "pegawai",
             "pegawai" => Pekerja::all()
         ]);
     }
@@ -52,8 +52,7 @@ class PekerjaController extends Controller {
     public function create() {
         return view('pekerja.tambah', [
             "title" => "Tambah Data Tenaga Kerja",
-            "part" => "kepegawaian",
-            "guru" => Pekerja::all()->where('jabatan', "Guru")
+            "part" => "pegawai",
         ]);
     }
 

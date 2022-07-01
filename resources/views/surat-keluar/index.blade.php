@@ -49,6 +49,7 @@
                                  <th>No. Surat</th>
                                  <th>Tanggal Keluar</th>
                                  <th>Keterangan</th>
+                                 <th hidden>Link</th>
                                  <th>Aksi</th>
                               </tr>
                            </thead>
@@ -60,6 +61,7 @@
                                     <td>{{ "$sk->nomor/$sk->kode_tujuan/$sk->instansi_asal/$sk->bulan-$sk->tahun" }}</td>
                                     <td>{{ $sk->tgl_keluar }}</td>
                                     <td>{{ $sk->keterangan }}</td>
+                                    <td hidden>{{ url("/$sk->file_surat") }}</td>
                                     <td>
                                        <div class="d-inline-flex">
                                           <a href="/surat-keluar/{{ $sk->id }}" class="btn btn-info btn-sm mr-1">
@@ -156,25 +158,25 @@
             "buttons": [{
                   extend: 'copy',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
+                     columns: [0, 1, 2, 3, 4, 5]
                   }
                },
                {
                   extend: 'excel',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
+                     columns: [0, 1, 2, 3, 4, 5]
                   }
                },
                {
                   extend: 'pdf',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
+                     columns: [0, 1, 2, 3, 4, 5]
                   }
                },
                {
                   extend: 'print',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
+                     columns: [0, 1, 2, 3, 4, 5]
                   }
                }
             ]

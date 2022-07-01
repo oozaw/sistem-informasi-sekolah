@@ -48,6 +48,7 @@
                                  <th>No. Surat</th>
                                  <th>Tanggal Masuk</th>
                                  <th>Keterangan</th>
+                                 <th hidden>Link</th>
                                  <th>Aksi</th>
                               </tr>
                            </thead>
@@ -59,6 +60,7 @@
                                     <td>{{ "$sm->nomor/$sm->kode_tujuan/$sm->instansi_asal/$sm->bulan-$sm->tahun" }}</td>
                                     <td>{{ $sm->tgl_masuk }}</td>
                                     <td>{{ $sm->keterangan }}</td>
+                                    <td hidden>{{ url("/$sm->file_surat") }}</td>
                                     <td>
                                        <div class="d-inline-flex">
                                           <a href="/surat-masuk/{{ $sm->id }}" class="btn btn-info btn-sm mr-1">

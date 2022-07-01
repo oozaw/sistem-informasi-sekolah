@@ -46,6 +46,10 @@
                                  <th>No.</th>
                                  <th>Nama</th>
                                  <th>Jabatan</th>
+                                 <th>NIP</th>
+                                 <th hidden>Jenis Kelamin</th>
+                                 <th hidden>No. Telepon</th>
+                                 <th hidden>Email</th>
                                  <th>Tempat Tinggal</th>
                                  <th>Aksi</th>
                               </tr>
@@ -56,6 +60,10 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $s->nama }}</td>
                                     <td>{{ $s->jabatan }}</td>
+                                    <td>{{ $s->nip }}</td>
+                                    <td hidden>{{ $s->gender }}</td>
+                                    <td hidden>{{ $s->no_hp }}</td>
+                                    <td hidden>{{ $s->email }}</td>
                                     <td>{{ $s->tempat_tinggal }}</td>
                                     <td>
                                        <div class="d-inline-flex">
@@ -152,25 +160,25 @@
             "buttons": [{
                   extend: 'copy',
                   exportOptions: {
-                     columns: [0, 1, 2, 3]
+                     columns: [0, 1, 2, 3, 4, 5, 6, 7]
                   }
                },
                {
                   extend: 'excel',
                   exportOptions: {
-                     columns: [0, 1, 2, 3]
+                     columns: [0, 1, 2, 3, 4, 5, 6, 7]
                   }
                },
                {
                   extend: 'pdf',
                   exportOptions: {
-                     columns: [0, 1, 2, 3]
+                     columns: [0, 1, 2, 3, 4, 5, 6, 7]
                   }
                },
                {
                   extend: 'print',
                   exportOptions: {
-                     columns: [0, 1, 2, 3]
+                     columns: [0, 1, 2, 3, 4, 5, 6, 7]
                   }
                }
             ]
