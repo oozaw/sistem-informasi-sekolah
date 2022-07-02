@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pekerja;
 use Carbon\Carbon;
 use App\Models\SuratKeluar;
 use Illuminate\Support\Str;
@@ -208,6 +209,7 @@ class SuratKeluarController extends Controller {
             $data = [
                 "title" => "Surat Baru",
                 "part" => "surat-keluar",
+                "kepsek" => Pekerja::where('jabatan', 'Kepala Sekolah')->first()
             ];
             $data = array_merge($data, $validatedData);
 
@@ -229,6 +231,7 @@ class SuratKeluarController extends Controller {
         $data = [
             "title" => "Surat Baru",
             "part" => "surat-keluar",
+            "kepsek" => Pekerja::where('jabatan', 'Kepala Sekolah')->first()
         ];
         $data = array_merge($data, $validatedData);
 

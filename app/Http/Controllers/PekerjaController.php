@@ -24,7 +24,7 @@ class PekerjaController extends Controller {
         ]);
     }
 
-    public function index_guru() {
+    public function indexGuru() {
         return view('pekerja.guru.index', [
             "title" => "Data Guru",
             "part" => "guru",
@@ -32,7 +32,7 @@ class PekerjaController extends Controller {
         ]);
     }
 
-    public function index_tu() {
+    public function indexTu() {
         return view('pekerja.tata-usaha.index', [
             "title" => "Data Staf Tata Usaha",
             "part" => "tu",
@@ -40,7 +40,7 @@ class PekerjaController extends Controller {
         ]);
     }
 
-    public function index_lain() {
+    public function indexLain() {
         return view('pekerja.pegawai-lain.index', [
             "title" => "Data Staf Lain",
             "part" => "lainnya",
@@ -113,6 +113,14 @@ class PekerjaController extends Controller {
         ]);
     }
 
+    public function showKepsek() {
+        return view('pekerja.kepsek.detail', [
+            "title" => "Profil Kepala Sekolah",
+            "part" => "kepsek",
+            "kepsek" => Pekerja::where('jabatan', 'Kepala Sekolah')->first()
+        ]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -124,6 +132,14 @@ class PekerjaController extends Controller {
             'title' => "Edit Data Pegawai",
             "part" => "kepegawaian",
             "pekerja" => $pekerja,
+        ]);
+    }
+
+    public function editKepsek() {
+        return view('pekerja.kepsek.edit', [
+            "title" => "Edit Data Kepala Sekolah",
+            "part" => "kepsek",
+            "kepsek" => Pekerja::where('jabatan', 'Kepala Sekolah')->first()
         ]);
     }
 
@@ -176,7 +192,11 @@ class PekerjaController extends Controller {
 
         Pekerja::where('id', $pekerja->id)->update($validatedData);
 
-        return redirect("/pekerja/$pekerja->id")->with("success", "Data $request->nama berhasil diperbarui!");
+        if ($request->jabatan == 'Kepala Sekolah') {
+            return redirect("/kepala-sekolah")->with("success", "Data Kepala Sekolah berhasil diperbarui!");
+        } else {
+            return redirect("/pekerja/$pekerja->id")->with("success", "Data $request->nama berhasil diperbarui!");
+        }
     }
 
     /**

@@ -127,10 +127,10 @@
                {{-- <span style="font-size: medium;">Mengetahui</span> --}}
                <span style="font-size: medium;">Kepala Sekolah, </span>
                <div align="left" style="margin-top: 80px">
-                  <span style="font-size: medium"><b> HENANG PRIYANTO, S.Pd., M.Pd.</b></span>
-                  <hr style="margin-top: 0px; margin-bottom: 1px; height: 1px; background-color: black" width="250px"
+                  <span style="font-size: medium"><b> {{ $kepsek->nama }}</b></span>
+                  <hr style="margin-top: 0px; margin-bottom: 1px; height: 1px; background-color: black" width="220px"
                      align="left">
-                  <span style="font-size: medium"><b> NIP. 198302102005011005</b></span>
+                  <span style="font-size: medium"><b> NIP. {{ $kepsek->nip }}</b></span>
                </div>
          </td>
       </tr>

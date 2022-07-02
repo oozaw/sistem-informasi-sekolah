@@ -41,8 +41,8 @@
                   <p>Dashboard</p>
                </a>
             </li>
-            <li class="nav-item {{ $part == 'pengguna' ? 'menu-open' : '' }}">
-               <a href="#" class="nav-link {{ $part == 'pengguna' ? 'active' : '' }}">
+            <li class="nav-item {{ $part == 'pengguna' || $part == 'kepsek' ? 'menu-open' : '' }}">
+               <a href="#" class="nav-link {{ $part == 'pengguna' || $part == 'kepsek' ? 'active' : '' }}">
                   <i class="nav-icon fas fa-tools"></i>
                   <p>
                      Administrator
@@ -56,12 +56,12 @@
                         <p>Data Pengguna</p>
                      </a>
                   </li>
-                  {{-- <li class="nav-item">
-                     <a href="/siswa" class="nav-link {{ $part == 'siswa' ? 'active' : '' }}">
-                        <i class="fas fa-users nav-icon"></i>
-                        <p>Data Siswa</p>
+                  <li class="nav-item">
+                     <a href="/kepala-sekolah" class="nav-link {{ $part == 'kepsek' ? 'active' : '' }}">
+                        <i class="fas fa-user-crown nav-icon"></i>
+                        <p>Data Kepala Sekolah</p>
                      </a>
-                  </li> --}}
+                  </li>
                </ul>
             </li>
             <li class="nav-item {{ $part == 'kelas' || $part == 'siswa' || $part == 'prestasi' ? 'menu-open' : '' }}">

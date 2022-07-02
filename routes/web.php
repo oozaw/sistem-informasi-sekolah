@@ -39,10 +39,14 @@ Route::get('/siswa-format-download', [SiswaController::class, 'downloadFormat'])
 
 // Pekerja
 Route::resource('/pekerja', PekerjaController::class);
-Route::get('/guru', [PekerjaController::class, 'index_guru'])->name('pekerja.guru.index');
-Route::get('/tata-usaha', [PekerjaController::class, 'index_tu'])->name('pekerja.tata-usaha.index');
-Route::get('/staf-lain', [PekerjaController::class, 'index_lain'])->name('pekerja.staf-lain.index');
+Route::get('/guru', [PekerjaController::class, 'indexGuru'])->name('pekerja.guru.index');
+Route::get('/tata-usaha', [PekerjaController::class, 'indexTu'])->name('pekerja.tata-usaha.index');
+Route::get('/staf-lain', [PekerjaController::class, 'indexLain'])->name('pekerja.staf-lain.index');
 Route::post('/pekerja-impor', [PekerjaController::class, 'import'])->name('pekerja.impor');
+//    Kepala Sekolah
+Route::get('/kepala-sekolah', [PekerjaController::class, 'showKepsek'])->name('pekerja.kepsek.detail');
+Route::get('/kepala-sekolah-edit', [PekerjaController::class, 'editKepsek'])->name('pekerja.kepsek.edit');
+
 
 // Surat Keluar
 Route::resource('/surat-keluar', SuratKeluarController::class);

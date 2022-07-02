@@ -129,7 +129,7 @@
                      </div>
                      <!-- /.card-header -->
                      <div class="card-body pb-1">
-                        <strong><i class="fas fa-book mr-1"></i> Username</strong>
+                        <strong><i class="fas fa-hashtag mr-1"></i> Username</strong>
                         <p class="text-muted">{{ $pengguna->username }}</p>
                         <hr>
                         <strong><i class="fas fa-book mr-1"></i> Nama</strong>

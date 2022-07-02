@@ -129,7 +129,7 @@
                         <strong><i class="fas fa-phone-alt mr-1"></i> No. Telepon</strong>
                         <p class="text-muted">{{ $pekerja->no_hp }}</p>
                         <hr>
-                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Tempat Tinggal</strong>
+                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Alamat</strong>
                         <p class="text-muted">{{ $pekerja->tempat_tinggal }}</p>
                      </div>
                      <!-- /.card-body -->
