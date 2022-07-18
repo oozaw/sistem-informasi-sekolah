@@ -158,31 +158,12 @@
                      </a>
                   </li>
                   <li class="nav-item {{ $part == 'komite' || $part == 'bos' ? 'menu-open' : '' }}">
-                     <a href="" class="nav-link {{ $part == 'komite' || $part == 'bos' ? 'active' : '' }}">
-                        <i class="fas fa-calculator nav-icon"></i>
+                     <a href="/komite" class="nav-link {{ $part == 'komite' ? 'active' : '' }}">
+                        <i class="fas fa-money-check-alt nav-icon"></i>
                         <p>
-                           Keuangan
-                           <i class="fas fa-angle-left right"></i>
+                           Komite
                         </p>
                      </a>
-                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                           <a href="" class="nav-link {{ $part == 'komite' ? 'active' : '' }}">
-                              <i class="fas fa-money-check-alt nav-icon"></i>
-                              <p>
-                                 Komite
-                              </p>
-                           </a>
-                        </li>
-                        {{-- <li class="nav-item">
-                           <a href="" class="nav-link {{ $part == 'bos' ? 'active' : '' }}">
-                              <i class="fas fa-money-check nav-icon"></i>
-                              <p>
-                                 Dana BOS
-                              </p>
-                           </a>
-                        </li> --}}
-                     </ul>
                   </li>
                </ul>
             </li>

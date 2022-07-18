@@ -61,6 +61,10 @@ Route::resource('/surat-masuk', SuratMasukController::class);
 Route::resource('/prestasi', PrestasiController::class);
 Route::post('/prestasi-impor', [PrestasiController::class, 'import'])->name('prestasi.impor');
 
+// Komite
+Route::resource('/komite', KomiteController::class);
+Route::post('/komite-update', [KomiteController::class, 'update'])->name('komite.update');
+
 // User
 Route::get('/profile', [UserController::class, 'index']);
 

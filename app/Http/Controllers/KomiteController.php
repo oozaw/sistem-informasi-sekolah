@@ -2,19 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelas;
 use App\Models\Komite;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class KomiteController extends Controller
-{
+class KomiteController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index() {
+        $tgl = new Carbon();
+        $tgl->month <= 6 ? $semester = 1 : $semester = 2;
+        $semester == 1 ? $bln_awal = 1 : $bln_awal = 7;
+
+        return view('komite.index', [
+            "title" => "Pembayaran Komite Siswa",
+            "part" => "komite",
+            "tgl" => $tgl,
+            "kelas" => Kelas::all(),
+            "semester" => $semester,
+            "bln_awal" => $bln_awal,
+            "komite" => Komite::all()
+        ]);
     }
 
     /**
@@ -22,8 +34,7 @@ class KomiteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -33,8 +44,7 @@ class KomiteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
@@ -44,8 +54,7 @@ class KomiteController extends Controller
      * @param  \App\Models\Komite  $komite
      * @return \Illuminate\Http\Response
      */
-    public function show(Komite $komite)
-    {
+    public function show(Komite $komite) {
         //
     }
 
@@ -55,8 +64,7 @@ class KomiteController extends Controller
      * @param  \App\Models\Komite  $komite
      * @return \Illuminate\Http\Response
      */
-    public function edit(Komite $komite)
-    {
+    public function edit(Komite $komite) {
         //
     }
 
@@ -67,8 +75,7 @@ class KomiteController extends Controller
      * @param  \App\Models\Komite  $komite
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Komite $komite)
-    {
+    public function update(Request $request, Komite $komite) {
         //
     }
 
@@ -78,9 +85,7 @@ class KomiteController extends Controller
      * @param  \App\Models\Komite  $komite
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Komite $komite)
-    {
+    public function destroy(Komite $komite) {
         //
     }
-
 }

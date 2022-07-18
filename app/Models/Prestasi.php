@@ -12,6 +12,6 @@ class Prestasi extends Model {
     protected $guarded = ['id'];
 
     public function siswa() {
-        return $this->belongsToMany(Prestasi::class, 'perwakilan_prestasi')->using(Perwakilan::class)->withTimestamps();
+        return $this->belongsToMany(Siswa::class, 'perwakilan_prestasi')->using(Perwakilan::class)->withTimestamps();
     }
 }

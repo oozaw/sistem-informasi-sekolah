@@ -7,6 +7,7 @@ use App\Models\Siswa;
 use App\Models\Prestasi;
 use App\Models\Perwakilan;
 use App\Imports\SiswaImport;
+use App\Models\Komite;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
@@ -82,6 +83,24 @@ class SiswaController extends Controller {
                 Perwakilan::create($dataPrestasi);
             }
         }
+
+        // tambah data siswa ke komite
+        $dataKomite = [
+            'siswa_id' => $idSiswa,
+            '1' => 'Belum Lunas',
+            '2' => 'Belum Lunas',
+            '3' => 'Belum Lunas',
+            '4' => 'Belum Lunas',
+            '5' => 'Belum Lunas',
+            '6' => 'Belum Lunas',
+            '7' => 'Belum Lunas',
+            '8' => 'Belum Lunas',
+            '9' => 'Belum Lunas',
+            '10' => 'Belum Lunas',
+            '11' => 'Belum Lunas',
+            '12' => 'Belum Lunas',
+        ];
+        Komite::create($dataKomite);
 
         return redirect('/siswa')->with("success", "Data siswa baru, $request->nama berhasil ditambahkan!");
     }

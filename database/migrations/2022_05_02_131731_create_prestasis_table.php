@@ -31,6 +31,6 @@ class CreatePrestasisTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::dropIfExists('prestasis');
+        Schema::dropIfExists('prestasi');
     }
 }

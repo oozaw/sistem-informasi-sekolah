@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration {
             $table->string('password');
             $table->string('role');
             $table->string('last_seen')->nullable();
-            $table->string('pegawai_id')->nullable();
+            $table->foreignId('pegawai_id')->unique()->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

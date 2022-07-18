@@ -4,7 +4,7 @@
 <head>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
-   <title>{{ $title }}</title>
+   <title>{{ $title }} | SIM-SMANEL</title>
 
    {{-- Icon --}}
    <link rel="icon" type="image/gif/png" href="/img/smanel-logo.png">
