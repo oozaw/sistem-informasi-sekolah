@@ -394,8 +394,8 @@
                         <div class="card-footer">
                            <a href="{{ URL::previous() }}" class="btn btn-secondary">Batal</a>
                            <a href="/surat-keluar-generate" class="btn bg-gradient-purple"
-                              id="print_button">Pratinjau</a>
-                           <button class="btn btn-success" type="submit" id="preview_submit" hidden>Simpan dan
+                              id="preview_submit">Pratinjau</a>
+                           <button class="btn btn-success" type="submit" id="print_button" hidden>Simpan dan
                               Unduh</button>
                         </div>
                      </form>
@@ -433,7 +433,7 @@
    <script src="/ckeditor/build/ckeditor.js"></script>
    <script>
       $(document).ready(function() {
-         $('#print_button').on('click', function(e) {
+         $('#preview_submit').on('click', function(e) {
             e.preventDefault();
             $.ajaxSetup({
                headers: {
@@ -475,7 +475,7 @@
                      $("#preview").append(result);
                      $("#preview").prop('hidden', false);
                      $("#pembatas_preview").prop('hidden', false);
-                     $("#preview_submit").prop('hidden', false);
+                     $("#print_button").prop('hidden', false);
                   }
                }
             });

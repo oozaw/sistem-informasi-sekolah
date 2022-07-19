@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 use App\Models\Komite;
+use App\Models\Siswa;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -87,5 +88,23 @@ class KomiteController extends Controller {
      */
     public function destroy(Komite $komite) {
         //
+    }
+
+    public function getDataKomite(Request $request) {
+        $siswa = Siswa::where('kelas_id', $request->kelas)->pluck('id')->toArray();
+        $komite = Komite::whereIn('siswa_id', $siswa)->get();
+        $request->semester == 'Ganjil' ? $bln_awal = 1 : $bln_awal = 7;
+
+        if ($komite->count() == 0) {
+            return view('komite.partials.empty');
+        } else {
+            $data = [
+                "semester" => $request->semester,
+                "komite" => $komite,
+                "bln_awal" => $bln_awal
+            ];
+
+            return view('komite.partials.data', $data);
+        }
     }
 }

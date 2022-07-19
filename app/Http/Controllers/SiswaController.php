@@ -21,6 +21,9 @@ class SiswaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
+        // $existId = Komite::all()->pluck('siswa_id')->toArray();
+        // $idToCreate = Siswa::whereNotIn('id', $existId)->get();
+        // dd($idToCreate);
         return view('siswa.index', [
             'title' => "Data Siswa",
             'part' => "siswa",
@@ -231,6 +234,7 @@ class SiswaController extends Controller {
         }
 
         Siswa::destroy($siswa->id);
+        Komite::where('siswa_id', $siswa->id)->delete();
 
         return redirect("/siswa")->with("success", "Data $siswa->nama berhasil dihapus!");
     }
@@ -254,6 +258,8 @@ class SiswaController extends Controller {
     }
 
     public function import(Request $request) {
+        $existId = Siswa::all()->pluck('id');
+
         $validator = Validator::make($request->all(), [
             "file_impor" => "required|mimes:csv,xls,xlsx"
         ]);
@@ -264,6 +270,28 @@ class SiswaController extends Controller {
             $file = $request->file("file_impor");
 
             Excel::import(new SiswaImport, $file);
+
+            // tambah data ke komite
+            $existId = Komite::all()->pluck('siswa_id')->toArray();
+            $idToCreate = Siswa::whereNotIn('id', $existId)->get();
+            foreach ($idToCreate as $i) {
+                $dataKomite = [
+                    'siswa_id' => $i->id,
+                    '1' => 'Belum Lunas',
+                    '2' => 'Belum Lunas',
+                    '3' => 'Belum Lunas',
+                    '4' => 'Belum Lunas',
+                    '5' => 'Belum Lunas',
+                    '6' => 'Belum Lunas',
+                    '7' => 'Belum Lunas',
+                    '8' => 'Belum Lunas',
+                    '9' => 'Belum Lunas',
+                    '10' => 'Belum Lunas',
+                    '11' => 'Belum Lunas',
+                    '12' => 'Belum Lunas',
+                ];
+                Komite::create($dataKomite);
+            }
 
             return redirect('/siswa')->with('success', "Data siswa telah berhasil diimpor!");
         }
