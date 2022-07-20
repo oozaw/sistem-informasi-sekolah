@@ -73,11 +73,13 @@ class KomiteController extends Controller {
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Komite  $komite
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Komite $komite) {
-        //
+    public function update(Request $request) {
+        $semester = $request->semester;
+        $kelas_id = $request->kelas;
+
+        // for ($i = )
     }
 
     /**

@@ -68,5 +68,5 @@
          </tbody>
       </table>
    </div>
-   <a href="/komite-simpan" class="d-block col-auto btn btn-primary ml-auto mr-3">Simpan</a>
+   <a href="" id="button_simpan" class="d-block col-auto btn btn-primary ml-auto mr-3">Simpan</a>
 </div>

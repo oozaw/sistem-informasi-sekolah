@@ -37,12 +37,8 @@
                               <i class="fas fa-file-download"></i> Ekspor Excel Data Pembayaran</a>
                            {{-- <a href="/komite" class="btn btn-success btn-sm mr-1">
                               <i class="fas fa-file-plus"></i> Input Data Siswa Bebas Komite</a> --}}
-                           @if (session()->has('success'))
-                              <div class="successAlert" hidden>{{ session('success') }}</div>
-                           @endif
-                           @if (session()->has('fail'))
-                              <div class="failAlert" hidden>{{ session('fail') }}</div>
-                           @endif
+                           <div id="alert">
+                           </div>
                         </div>
                      </div>
                      <!-- /.card-header -->
@@ -50,16 +46,14 @@
                         <div class="form-group row mb-3">
                            <label for="semester" class="col-form-label pr-0 mx-2 mr-3">Semester</label>
                            <div class="col-2 pl-0 mr-3">
-                              <select class="form-control get-data" name="semester" id="semester" onchange="getKomite()"
-                                 required>
+                              <select class="form-control get-data" name="semester" id="semester" required>
                                  <option value="Ganjil" {{ $tgl->month <= 6 ? 'selected' : '' }}>Ganjil</option>
                                  <option value="Genap" {{ $tgl->month > 6 ? 'selected' : '' }}>Genap</option>
                               </select>
                            </div>
                            <label for="kelas" class="col-form-label pr-0 mx-2 mr-3">Kelas</label>
                            <div class="col-2 pl-0 mr-3">
-                              <select class="form-control get-data" name="kelas" id="kelas" onchange="getKomite()"
-                                 required>
+                              <select class="form-control get-data" name="kelas" id="kelas" required>
                                  <option value="" selected hidden disabled>-- Pilih Kelas --</option>
                                  @foreach ($kelas as $k)
                                     <option value="{{ $k->id }}">{{ $k->nama }}</option>
@@ -212,6 +206,37 @@
                success: function(result) {
                   $("#data").append(result);
                   warnaStatus();
+               }
+            });
+         });
+
+         $("#button_simpan").on('click', function(e) {
+            var bln_awal = "";
+            if ($("#semester").val() == "Ganjil") {
+               bln_awal = 1;
+            } else {
+               bln_awal = 7;
+            }
+
+            e.preventDefault();
+            $.ajaxSetup({
+               headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               }
+            });
+
+            $.ajax({
+               url: "{{ url('komite-update') }}",
+               method: 'post',
+               data: {
+                  semester: $("#semester").val(),
+                  kelas: $("#kelas").val()
+               },
+               beforeSend: function() {
+                  $("#alert").text('');
+               },
+               success: function(result) {
+                  $("#alert").append(result);
                }
             });
          });
