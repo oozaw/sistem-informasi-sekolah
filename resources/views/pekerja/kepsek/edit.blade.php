@@ -43,6 +43,9 @@
                                     <input type="text" class="form-control @error('nama') is-invalid @enderror"
                                        id="nama" name="nama" placeholder="Masukkan nama"
                                        value="{{ old('nama', $kepsek->nama) }}" autofocus required>
+                                    <span class="text-orange"><small>
+                                          *Nama Kepala Sekolah harus berupa huruf kapital!
+                                       </small></span>
                                     @error('nama')
                                        <div class="invalid-feedback">
                                           {{ $message }}
