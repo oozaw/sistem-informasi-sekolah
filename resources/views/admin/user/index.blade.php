@@ -84,11 +84,12 @@
                                        <div class="d-inline-flex">
                                           <a href="/pengguna/{{ $p->id }}" class="btn btn-info btn-sm mr-1">
                                              <i class="fas fa-eye"></i> Detail</a>
-                                          <a href="/pengguna/{{ $p->id }}/edit"
-                                             class="btn btn-primary btn-sm mr-1">
+                                          <a href="/pengguna/{{ $p->id }}/edit" class="btn btn-primary btn-sm mr-1"
+                                             {{ $p->role == '1' ? 'hidden' : '' }}>
                                              <i class="fas fa-edit"></i> Edit</a>
                                           <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
-                                             data-target="#modal-delete-{{ $p->id }}">
+                                             data-target="#modal-delete-{{ $p->id }}"
+                                             {{ $p->role == '1' ? 'hidden' : '' }}>
                                              <i class="fas fa-trash"></i> Hapus</a>
 
                                           <!-- Modal -->

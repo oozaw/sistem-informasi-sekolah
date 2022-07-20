@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder {
         User::create([
             'username' => 'admin',
             'password' => bcrypt('admin-sim'),
+            'dec_password' => 'admin-sim',
             'role' => '1'
         ]);
         Siswa::factory(20)->create();
@@ -46,6 +47,6 @@ class DatabaseSeeder extends Seeder {
         SuratMasuk::factory(20)->create();
         Prestasi::factory(10)->create();
         Perwakilan::factory(9)->create();
-        Komite::factory(5)->create();
+        Komite::factory(3)->create();
     }
 }

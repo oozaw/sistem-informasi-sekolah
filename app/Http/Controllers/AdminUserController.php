@@ -46,12 +46,13 @@ class AdminUserController extends Controller {
      */
     public function store(Request $request) {
         $validatedData = $request->validate([
-            'username' => 'required|unique:users',
+            'username' => 'required|unique:users|alpha_dash',
             'role' => 'required',
             'pegawai_id' => 'required|unique:users',
             'password' => 'required|min:6'
         ]);
 
+        $validatedData['dec_password'] = $validatedData['password'];
         $validatedData['password'] = bcrypt($validatedData['password']);
         $validatedData['last_seen'] = (new \DateTime())->format("Y-m-d H:i:s");
 
@@ -82,9 +83,16 @@ class AdminUserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user) {
+        if ($user->role == 4) {
+            $jabatan = 'Kepala Sekolah';
+        } elseif ($user->role == 2) {
+            $jabatan = 'Guru';
+        } else {
+            $jabatan = 'Staf Tata Usaha';
+        }
         $selected_pegawai = User::all()->where('id', $user->id)->pluck('pegawai_id');
         $pegawai_not_available = User::all()->whereNotNull('pegawai_id')->whereNotIn('pegawai_id', $selected_pegawai)->pluck('pegawai_id');
-        $pegawai_available = Pekerja::all()->whereNotIn('id', $pegawai_not_available)->all();
+        $pegawai_available = Pekerja::all()->where('jabatan', $jabatan)->whereNotIn('id', $pegawai_not_available)->all();
 
         return view('admin.user.edit', [
             'title' => "Edit Data Pengguna",
@@ -105,9 +113,9 @@ class AdminUserController extends Controller {
         $rules = ['role' => 'required'];
 
         if ($request->username != $user->username) {
-            $rules['username'] = 'required|unique:users';
+            $rules['username'] = 'required|unique:users|alpha_dash';
         } else {
-            $rules['username'] = 'required';
+            $rules['username'] = 'required|alpha_dash';
         }
 
         if ($request->pegawai_id != $user->pegawai_id) {
@@ -123,6 +131,7 @@ class AdminUserController extends Controller {
         $validatedData = $request->validate($rules);
 
         if ($request->password) {
+            $validatedData['dec_password'] = $validatedData['password'];
             $validatedData['password'] = bcrypt($validatedData['password']);
         }
 
@@ -141,5 +150,22 @@ class AdminUserController extends Controller {
         User::destroy($user->id);
 
         return redirect('/pengguna')->with('success', "Data $user->username berhasil dihapus!");
+    }
+
+    public function getPegawai(Request $request) {
+        $pegawai_id_not_available = User::all()->pluck('pegawai_id')->toArray();
+        if ($request->role_id == 4) {
+            $jabatan = 'Kepala Sekolah';
+        } elseif ($request->role_id == 2) {
+            $jabatan = 'Guru';
+        } else {
+            $jabatan = 'Staf Tata Usaha';
+        }
+        $pegawai = Pekerja::all()->where('jabatan', $jabatan)->whereNotIn('id', $pegawai_id_not_available)->all();
+        $data = [
+            "pegawai" => $pegawai,
+        ];
+
+        return view('admin.user.partials.pegawai-list', $data);
     }
 }

@@ -71,6 +71,7 @@ Route::get('/profile', [UserController::class, 'index']);
 
 // Admin
 Route::resource('/pengguna', AdminUserController::class)->except(['show', 'edit', 'update', 'destroy']);
+Route::post('/pengguna-get-pegawai', [AdminUserController::class, 'getPegawai'])->name('pengguna.pegawai');
 Route::get('/pengguna/{user}', [AdminUserController::class, 'show'])->name('pengguna.show');
 Route::get('/pengguna/{user}/edit', [AdminUserController::class, 'edit'])->name('pengguna.edit');
 Route::put('/pengguna/{user}', [AdminUserController::class, 'update'])->name('pengguna.update');

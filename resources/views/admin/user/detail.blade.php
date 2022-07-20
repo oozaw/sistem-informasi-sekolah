@@ -58,6 +58,8 @@
                                     {{ 'Admin' }}
                                  @elseif ($pengguna->role == 2)
                                     {{ 'Guru' }}
+                                 @elseif ($pengguna->role == 4)
+                                    {{ 'Kepala Sekolah' }}
                                  @else
                                     {{ 'Tata Usaha' }}
                                  @endif
@@ -82,10 +84,12 @@
                         <div class="d-flex justify-content-center mb-2 mt-0">
                            <a href="/pengguna" class="btn btn-secondary btn-sm mr-1">
                               <i class="fas fa-long-arrow-left"></i> Kembali</a>
-                           <a href="/pengguna/{{ $pengguna->id }}/edit" class="btn btn-primary btn-sm mr-1">
+                           <a href="/pengguna/{{ $pengguna->id }}/edit" class="btn btn-primary btn-sm mr-1"
+                              {{ $pengguna->role == '1' ? 'hidden' : '' }}>
                               <i class="fas fa-edit"></i> Edit Profil</a>
                            <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
-                              data-target="#modal-delete-{{ $pengguna->id }}">
+                              data-target="#modal-delete-{{ $pengguna->id }}"
+                              {{ $pengguna->role == '1' ? 'hidden' : '' }}>
                               <i class="fas fa-trash"></i> Hapus</a>
                            <!-- Modal -->
                            <div class="modal fade" id="modal-delete-{{ $pengguna->id }}" style="display: none;"
@@ -134,6 +138,9 @@
                         <hr>
                         <strong><i class="fas fa-book mr-1"></i> Nama</strong>
                         <p class="text-muted">{{ $pengguna->role == '1' ? 'Admin' : $profil->nama }}</p>
+                        <hr>
+                        <strong><i class="fas fa-key"></i> Password</strong>
+                        <p class="text-muted">{{ $pengguna->dec_password }}</p>
                         <hr>
                         <strong><i class="far fa-venus-mars"></i> Jenis Kelamin</strong>
                         <p class="text-muted">{{ $pengguna->role == '1' ? '-' : $profil->gender }}</p>

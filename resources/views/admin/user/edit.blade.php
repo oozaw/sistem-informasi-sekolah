@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('head')
+   <meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
+
 @section('container')
    <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -49,24 +53,25 @@
                            </div>
                            <div class="form-group">
                               <label for="role">Role</label>
-                              <select class="form-control @error('role') is-invalid @enderror" name="role" required>
+                              <select class="form-control @error('role') is-invalid @enderror" name="role"
+                                 id="role" required>
                                  <option selected disabled hidden value="">-- Pilih role pengguna --</option>
-                                 @if (old('role', $pengguna->role) == '1')
-                                    <option value="1" selected>Admin</option>
-                                    <option value="2">Guru</option>
-                                    <option value="3">Tata Usaha</option>
-                                 @elseif (old('role', $pengguna->role) == '2')
-                                    <option value="1">Admin</option>
+                                 @if (old('role', $pengguna->role) == '2')
                                     <option value="2" selected>Guru</option>
                                     <option value="3">Tata Usaha</option>
+                                    <option value="4">Kepala Sekolah</option>
                                  @elseif (old('role', $pengguna->role) == '3')
-                                    <option value="1">Admin</option>
                                     <option value="2">Guru</option>
                                     <option value="3" selected>Tata Usaha</option>
-                                 @else
-                                    <option value="1">Admin</option>
+                                    <option value="4">Kepala Sekolah</option>
+                                 @elseif (old('role', $pengguna->role) == '4')
                                     <option value="2">Guru</option>
                                     <option value="3">Tata Usaha</option>
+                                    <option value="4" selected>Kepala Sekolah</option>
+                                 @else
+                                    <option value="2">Guru</option>
+                                    <option value="3">Tata Usaha</option>
+                                    <option value="4">Kepala Sekolah</option>
                                  @endif
                               </select>
                               @error('role')
@@ -78,7 +83,7 @@
                            <div class="form-group">
                               <label for="pegawai_id">Pegawai</label>
                               <select class="form-control @error('pegawai_id') is-invalid @enderror" name="pegawai_id"
-                                 required>
+                                 id="pegawai" required>
                                  <option selected disabled hidden value="">-- Pilih pegawai --</option>
                                  @foreach ($pegawai as $p)
                                     @if (old('pegawai_id', $pengguna->pegawai_id) == $p->id)
@@ -149,6 +154,31 @@
    <script src="/adminlte/dist/js/demo.js"></script>
    <!-- Page specific script -->
    <script>
+      $(document).ready(function() {
+         $('#role').on('change', function(e) {
+            e.preventDefault();
+            $.ajaxSetup({
+               headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               }
+            });
+
+            $.ajax({
+               url: "{{ url('pengguna-get-pegawai') }}",
+               method: "post",
+               data: {
+                  role_id: $("#role").val()
+               },
+               beforeSend: function() {
+                  $("#pegawai").text('');
+               },
+               success: function(result) {
+                  $("#pegawai").append(result);
+               }
+            });
+         });
+      });
+
       $(function() {
          bsCustomFileInput.init();
       });
