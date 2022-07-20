@@ -138,6 +138,7 @@
                               <a href="/komite-simpan" class="d-block col-auto btn btn-primary ml-auto mr-3">Simpan</a>
                            </div> --}}
                         </div>
+                        <div id="loader"></div>
                      </div>
                      <!-- /.card-body -->
                   </div>
@@ -240,6 +241,17 @@
                }
             });
          });
+      });
+
+      $(document).on({
+         ajaxStart: function() {
+            $("body").removeClass("loading");
+            $("#loader").addClass('overlay');
+         },
+         ajaxStop: function() {
+            $("body").addClass("loading");
+            $("#loader").removeClass('overlay');
+         }
       });
 
       function warnaStatus() {
