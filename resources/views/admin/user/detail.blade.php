@@ -70,9 +70,9 @@
                            <div class="col-6">
                               <p class="text-muted text-center">
                                  @if (Cache::has('user-is-online-' . $pengguna->id))
-                                    <span class="btn btn-success btn-xs d-block col-6 m-auto">Online</span>
+                                    <span class="box bg-green btn-xs d-block text-center col-6 m-auto">Online</span>
                                  @else
-                                    <span class="btn btn-secondary btn-xs d-block col-6 m-auto">Offline</span>
+                                    <span class="box bg-gray btn-xs d-block text-center col-6 m-auto">Offline</span>
                                  @endif
                                  <small>
                                     {{ \Carbon\Carbon::parse($pengguna->last_seen)->diffForHumans() }}
@@ -82,7 +82,7 @@
                         </div>
                         <!-- /.row -->
                         <div class="d-flex justify-content-center mb-2 mt-0">
-                           <a href="/pengguna" class="btn btn-secondary btn-sm mr-1">
+                           <a href="{{ URL::previous() }}" class="btn btn-secondary btn-sm mr-1">
                               <i class="fas fa-long-arrow-left"></i> Kembali</a>
                            <a href="/pengguna/{{ $pengguna->id }}/edit" class="btn btn-primary btn-sm mr-1"
                               {{ $pengguna->role == '1' ? 'hidden' : '' }}>
@@ -140,7 +140,7 @@
                         <p class="text-muted">{{ $pengguna->role == '1' ? 'Admin' : $profil->nama }}</p>
                         <hr>
                         <strong><i class="fas fa-key"></i> Password</strong>
-                        <p class="text-muted">{{ $pengguna->dec_password }}</p>
+                        <p class="text-muted">{{ decrypt($pengguna->dec_password) }}</p>
                         <hr>
                         <strong><i class="far fa-venus-mars"></i> Jenis Kelamin</strong>
                         <p class="text-muted">{{ $pengguna->role == '1' ? '-' : $profil->gender }}</p>

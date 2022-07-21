@@ -126,7 +126,7 @@
                         <p class="text-muted">{{ $siswa->nisn }}</p>
                         <hr>
                         <strong><i class="fas fa-medal mr-1"></i> Prestasi</strong>
-                        @if ($prestasi == '')
+                        @if ($prestasi->count() == 0)
                            <p class="text-muted">-</p>
                         @else
                            @foreach ($prestasi as $p)

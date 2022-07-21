@@ -41,8 +41,10 @@
                   <p>Dashboard</p>
                </a>
             </li>
-            <li class="nav-item {{ $part == 'pengguna' || $part == 'kepsek' ? 'menu-open' : '' }}">
-               <a href="#" class="nav-link {{ $part == 'pengguna' || $part == 'kepsek' ? 'active' : '' }}">
+            <li
+               class="nav-item {{ $part == 'pengguna' || $part == 'kepsek' || $part == 'tahun-ajaran' ? 'menu-open' : '' }}">
+               <a href="#"
+                  class="nav-link {{ $part == 'pengguna' || $part == 'kepsek' || $part == 'tahun-ajaran' ? 'active' : '' }}">
                   <i class="nav-icon fas fa-tools"></i>
                   <p>
                      Administrator
@@ -50,6 +52,13 @@
                   </p>
                </a>
                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                     <a href="/tahun-ajaran/{{ App\Models\TahunAjaran::where('status', '1')->first()->id }}"
+                        class="nav-link {{ $part == 'tahun-ajaran' ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-cabinet-filing"></i>
+                        <p>Tahun Ajaran</p>
+                     </a>
+                  </li>
                   <li class="nav-item">
                      <a href="/pengguna" class="nav-link {{ $part == 'pengguna' ? 'active' : '' }}">
                         <i class="nav-icon fad fa-users"></i>
@@ -160,9 +169,7 @@
                   <li class="nav-item {{ $part == 'komite' || $part == 'bos' ? 'menu-open' : '' }}">
                      <a href="/komite" class="nav-link {{ $part == 'komite' ? 'active' : '' }}">
                         <i class="fas fa-money-check-alt nav-icon"></i>
-                        <p>
-                           Komite
-                        </p>
+                        <p>Komite</p>
                      </a>
                   </li>
                </ul>

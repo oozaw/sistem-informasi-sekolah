@@ -52,7 +52,7 @@ class AdminUserController extends Controller {
             'password' => 'required|min:6'
         ]);
 
-        $validatedData['dec_password'] = $validatedData['password'];
+        $validatedData['dec_password'] = encrypt($validatedData['password']);
         $validatedData['password'] = bcrypt($validatedData['password']);
         $validatedData['last_seen'] = (new \DateTime())->format("Y-m-d H:i:s");
 
@@ -131,7 +131,7 @@ class AdminUserController extends Controller {
         $validatedData = $request->validate($rules);
 
         if ($request->password) {
-            $validatedData['dec_password'] = $validatedData['password'];
+            $validatedData['dec_password'] = encrypt($validatedData['password']);
             $validatedData['password'] = bcrypt($validatedData['password']);
         }
 

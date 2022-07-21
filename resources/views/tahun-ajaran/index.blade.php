@@ -6,21 +6,13 @@
       <section class="content-header">
          <div class="container-fluid">
             <div class="row mb-2">
-               <div class="d-inline-flex">
-                  @if (session()->has('success'))
-                     <div class="successAlert" hidden>{{ session('success') }}</div>
-                  @endif
-                  @if (session()->has('fail'))
-                     <div class="failAlert" hidden>{{ session('fail') }}</div>
-                  @endif
-               </div>
                <div class="col-sm-6">
-                  <h1>Data Pengguna</h1>
+                  <h1>Data Tahun Ajaran</h1>
                </div>
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
                      <li class="breadcrumb-item">Administrator</li>
-                     <li class="breadcrumb-item active">Data Pengguna</li>
+                     <li class="breadcrumb-item active">Tahun Ajaran</li>
                   </ol>
                </div>
             </div>
@@ -35,8 +27,8 @@
                   <div class="card">
                      <div class="card-header">
                         <div class="d-inline-flex">
-                           <a href="/pengguna/create" class="btn btn-success btn-sm mr-1">
-                              <i class="fas fa-file-plus"></i> Tambah Data Pengguna</a>
+                           <a href="/tahun-ajaran/create" class="btn btn-success btn-sm mt-1 mr-1">
+                              <i class="fas fa-layer-plus mr-1"></i> Tahun Ajaran Baru</a>
                            @if (session()->has('success'))
                               <div class="successAlert" hidden>{{ session('success') }}</div>
                            @endif
@@ -47,70 +39,72 @@
                      </div>
                      <!-- /.card-header -->
                      <div class="card-body">
-                        <table id="data_pengguna" class="table table-bordered table-striped">
+                        <table id="data_tahun_ajaran" class="table table-bordered table-striped">
                            <thead>
                               <tr>
                                  <th>No.</th>
-                                 <th>Username</th>
-                                 <th>Role</th>
+                                 <th>Tahun</th>
                                  <th>Status</th>
-                                 <th>Aktivitas Terakhir</th>
+                                 <th>Jumlah Siswa</th>
+                                 <th hidden>Jumlah Siswa Baru</th>
+                                 <th hidden>Jumlah Siswa Lulus</th>
+                                 <th hidden>Jumlah Siswa Keluar</th>
+                                 <th>Jumlah Prestasi</th>
+                                 <th hidden>Jumlah Pegawai</th>
+                                 <th hidden>Jumlah Surat Masuk</th>
+                                 <th hidden>Jumlah Surat Keluar</th>
                                  <th>Aksi</th>
                               </tr>
                            </thead>
                            <tbody>
-                              @foreach ($pengguna as $p)
+                              @foreach ($tahun_ajaran as $ta)
                                  <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $p->username }}</td>
+                                    <td>{{ $ta->tahun_ajaran }}</td>
                                     <td>
-                                       @if ($p->role == 1)
-                                          {{ 'Admin' }}
-                                       @elseif ($p->role == 2)
-                                          {{ 'Guru' }}
-                                       @else
-                                          {{ 'Tata Usaha' }}
-                                       @endif
+                                       <span
+                                          class="box {{ $ta->status == '1' ? 'bg-green' : 'bg-gray' }} btn-sm d-block text-center m-auto">
+                                          {{ $ta->status == '1' ? 'Aktif' : 'Tidak Aktif' }}
+                                       </span>
                                     </td>
-                                    <td>
-                                       @if (Cache::has('user-is-online-' . $p->id))
-                                          <span class="box bg-green btn-xs d-block text-center col-8 m-auto">Online</span>
-                                       @else
-                                          <span class="box bg-gray btn-xs d-block text-center col-8 m-auto">Offline</span>
-                                       @endif
-                                    </td>
-                                    <td>{{ \Carbon\Carbon::parse($p->last_seen)->diffForHumans() }}</td>
+                                    <td>{{ $ta->jml_siswa }}</td>
+                                    <td hidden>{{ $ta->jml_siswa_baru }}</td>
+                                    <td hidden>{{ $ta->jml_siswa_lulus }}</td>
+                                    <td hidden>{{ $ta->jml_siswa_keluar }}</td>
+                                    <td>{{ $ta->jml_prestasi }}</td>
+                                    <td hidden>{{ $ta->jml_pegawai }}</td>
+                                    <td hidden>{{ $ta->jml_surat_masuk }}</td>
+                                    <td hidden>{{ $ta->jml_surat_keluar }}</td>
                                     <td>
                                        <div class="d-inline-flex">
-                                          <a href="/pengguna/{{ $p->id }}" class="btn btn-info btn-sm mr-1">
+                                          <a href="/tahun-ajaran/{{ $ta->id }}" class="btn btn-info btn-sm mr-1">
                                              <i class="fas fa-eye"></i> Detail</a>
-                                          <a href="/pengguna/{{ $p->id }}/edit" class="btn btn-primary btn-sm mr-1"
-                                             {{ $p->role == '1' ? 'hidden' : '' }}>
+                                          <a href="/tahun-ajaran/{{ $ta->id }}/edit"
+                                             class="btn btn-primary btn-sm mr-1">
                                              <i class="fas fa-edit"></i> Edit</a>
                                           <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
-                                             data-target="#modal-delete-{{ $p->id }}"
-                                             {{ $p->role == '1' ? 'hidden' : '' }}>
+                                             data-target="#modal-delete-{{ $ta->id }}">
                                              <i class="fas fa-trash"></i> Hapus</a>
 
-                                          <!-- Modal -->
-                                          <div class="modal fade" id="modal-delete-{{ $p->id }}"
+                                          <!-- Modal Delete-->
+                                          <div class="modal fade" id="modal-delete-{{ $ta->id }}"
                                              style="display: none;" aria-hidden="true">
                                              <div class="modal-dialog">
                                                 <div class="modal-content bg-warning">
                                                    <div class="modal-header">
-                                                      <h4 class="modal-title">Hapus Data Pengguna</h4>
+                                                      <h4 class="modal-title">Hapus Data Tahun Ajaran</h4>
                                                       <button type="button" class="close" data-dismiss="modal"
                                                          aria-label="Close">
                                                          <span aria-hidden="true">×</span>
                                                       </button>
                                                    </div>
                                                    <div class="modal-body">
-                                                      <p>Yakin hapus data {{ $p->username }}?</p>
+                                                      <p>Yakin hapus data tahun ajaran {{ $ta->nama }}?</p>
                                                    </div>
                                                    <div class="modal-footer justify-content-between">
                                                       <button type="button" class="btn btn-outline-dark"
                                                          data-dismiss="modal">Batal</button>
-                                                      <form method="POST" action="/pengguna/{{ $p->id }}">
+                                                      <form method="POST" action="/tahun-ajaran/{{ $ta->id }}">
                                                          @method('delete')
                                                          @csrf
                                                          <button onclick="return true"
@@ -122,7 +116,7 @@
                                              </div>
                                              <!-- /.modal-dialog -->
                                           </div>
-                                          <!-- /.modal -->
+                                          <!-- /.modal delete -->
 
                                        </div>
                                     </td>
@@ -150,6 +144,8 @@
    <script src="/adminlte/plugins/jquery/jquery.min.js"></script>
    <!-- Bootstrap 4 -->
    <script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+   <!-- bs-custom-file-input -->
+   <script src="/adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
    <!-- DataTables  & Plugins -->
    <script src="/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
    <script src="/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -170,36 +166,40 @@
    <!-- Page specific script -->
    <script>
       $(function() {
-         $("#data_pengguna").DataTable({
+         bsCustomFileInput.init();
+      });
+
+      $(function() {
+         $("#data_tahun_ajaran").DataTable({
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
             "buttons": [{
                   extend: 'copy',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
+                     columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                   }
                },
                {
                   extend: 'excel',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
+                     columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                   }
                },
                {
                   extend: 'pdf',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
+                     columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                   }
                },
                {
                   extend: 'print',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
+                     columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
                   }
                }
             ]
-         }).buttons().container().appendTo('#data_pengguna_wrapper .col-md-6:eq(0)');
+         }).buttons().container().appendTo('#data_tahun_ajaran_wrapper .col-md-6:eq(0)');
       });
 
       $(function() {
@@ -212,24 +212,14 @@
                body: $('.successAlert').text()
             });
          }
-         if ($('.warningAlert').length) {
-            $(document).Toasts('create', {
-               class: 'bg-warning',
-               title: 'Toast Title',
-               autohide: true,
-               delay: 5000,
-               subtitle: 'Subtitle',
-               body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-            });
-         }
+
          if ($('.failAlert').length) {
             $(document).Toasts('create', {
-               class: 'bg-danger',
-               title: 'Toast Title',
+               class: 'bg-danger mt-1 mr-1',
+               title: 'Gagal',
                autohide: true,
-               delay: 5000,
-               subtitle: 'Subtitle',
-               body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+               delay: 10000,
+               body: $('.failAlert').text()
             });
          }
       });
