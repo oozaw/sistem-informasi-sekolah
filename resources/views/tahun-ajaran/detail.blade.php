@@ -20,7 +20,7 @@
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
                      <li class="breadcrumb-item">Administrator</li>
-                     <li class="breadcrumb-item active">Tahun Ajaran {{ $ta->status == '1' ? 'Aktif' : '' }}</li>
+                     <li class="breadcrumb-item active">Tahun Pelajaran {{ $ta->status == '1' ? 'Aktif' : '' }}</li>
                   </ol>
                </div>
             </div>
@@ -32,13 +32,13 @@
          <div class="container-fluid">
             <div class="card card-outline card-primary">
                <div class="card-header">
-                  <h3 class="card-title">Data Tahun Ajaran</h3>
+                  <h3 class="card-title">Data Tahun Pelajaran</h3>
                </div>
                <!-- /.card-header -->
                <div class="card-body pb-1">
                   <div class="row">
-                     <div class="col-md-4 text-center" style="margin-top: 2cm">
-                        <h4>Tahun Ajaran</h4>
+                     <div class="col-md-4 text-center my-auto">
+                        <h4>Tahun Pelajaran</h4>
                         <h1>{{ $ta->tahun_ajaran }}</h1>
                         <span class="box {{ $ta->status == '1' ? 'bg-green' : 'bg-gray' }} btn-sm d-block col-3 m-auto">
                            {{ $ta->status == '1' ? 'Aktif' : 'Tidak Aktif' }}
@@ -59,13 +59,13 @@
                                  <div class="modal-dialog">
                                     <div class="modal-content bg-warning">
                                        <div class="modal-header">
-                                          <h4 class="modal-title">Hapus Data Tahun Ajaran</h4>
+                                          <h4 class="modal-title">Hapus Data Tahun Pelajaran</h4>
                                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                              <span aria-hidden="true">×</span>
                                           </button>
                                        </div>
                                        <div class="modal-body">
-                                          <p>Yakin hapus data tahun ajaran {{ $ta->nama }}?</p>
+                                          <p>Yakin hapus data tahun pelajaran {{ $ta->nama }}?</p>
                                        </div>
                                        <div class="modal-footer justify-content-between">
                                           <button type="button" class="btn btn-outline-dark"
@@ -85,9 +85,9 @@
                            @endif
                            <br>
                            <a href="/tahun-ajaran" class="btn btn-info btn-sm">
-                              <i class="fas fa-layer-group mr-1"></i> List Tahun Ajaran</a>
+                              <i class="fas fa-layer-group mr-1"></i> List Tahun Pelajaran</a>
                            <a href="/tahun-ajaran/create" class="btn btn-success btn-sm">
-                              <i class="fas fa-layer-plus mr-1"></i> Tahun Ajaran Baru</a>
+                              <i class="fas fa-layer-plus mr-1"></i> Tahun Pelajaran Baru</a>
                         </div>
                      </div>
                      <div class="col-md-8">

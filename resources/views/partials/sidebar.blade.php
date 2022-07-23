@@ -56,7 +56,7 @@
                      <a href="/tahun-ajaran/{{ App\Models\TahunAjaran::where('status', '1')->first()->id }}"
                         class="nav-link {{ $part == 'tahun-ajaran' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-cabinet-filing"></i>
-                        <p>Tahun Ajaran</p>
+                        <p>Tahun Pelajaran</p>
                      </a>
                   </li>
                   <li class="nav-item">

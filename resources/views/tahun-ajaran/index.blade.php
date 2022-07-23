@@ -7,12 +7,12 @@
          <div class="container-fluid">
             <div class="row mb-2">
                <div class="col-sm-6">
-                  <h1>Data Tahun Ajaran</h1>
+                  <h1>Data Tahun Pelajaran</h1>
                </div>
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
                      <li class="breadcrumb-item">Administrator</li>
-                     <li class="breadcrumb-item active">Tahun Ajaran</li>
+                     <li class="breadcrumb-item active">Tahun Pelajaran</li>
                   </ol>
                </div>
             </div>
@@ -28,7 +28,7 @@
                      <div class="card-header">
                         <div class="d-inline-flex">
                            <a href="/tahun-ajaran/create" class="btn btn-success btn-sm mt-1 mr-1">
-                              <i class="fas fa-layer-plus mr-1"></i> Tahun Ajaran Baru</a>
+                              <i class="fas fa-layer-plus mr-1"></i> Tahun Pelajaran Baru</a>
                            @if (session()->has('success'))
                               <div class="successAlert" hidden>{{ session('success') }}</div>
                            @endif
@@ -58,7 +58,7 @@
                            </thead>
                            <tbody>
                               @foreach ($tahun_ajaran as $ta)
-                                 <tr>
+                                 <tr class="text-center">
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $ta->tahun_ajaran }}</td>
                                     <td>
@@ -92,14 +92,14 @@
                                              <div class="modal-dialog">
                                                 <div class="modal-content bg-warning">
                                                    <div class="modal-header">
-                                                      <h4 class="modal-title">Hapus Data Tahun Ajaran</h4>
+                                                      <h4 class="modal-title">Hapus Data Tahun Pelajaran</h4>
                                                       <button type="button" class="close" data-dismiss="modal"
                                                          aria-label="Close">
                                                          <span aria-hidden="true">×</span>
                                                       </button>
                                                    </div>
                                                    <div class="modal-body">
-                                                      <p>Yakin hapus data tahun ajaran {{ $ta->nama }}?</p>
+                                                      <p>Yakin hapus data tahun pelajaran {{ $ta->nama }}?</p>
                                                    </div>
                                                    <div class="modal-footer justify-content-between">
                                                       <button type="button" class="btn btn-outline-dark"

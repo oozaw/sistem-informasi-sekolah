@@ -12,7 +12,6 @@ use App\Http\Controllers\SuratKeluarController;
 use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\TahunAjaranController;
 use App\Http\Controllers\UserController;
-use App\Models\Pekerja;
 use Illuminate\Support\Facades\Route;
 use phpDocumentor\Reflection\Types\Resource_;
 
@@ -69,6 +68,8 @@ Route::post('/komite-data', [KomiteController::class, 'getDataKomite'])->name('k
 
 // Tahun Ajaran
 Route::resource('/tahun-ajaran', TahunAjaranController::class);
+Route::post('/tahun-ajaran-get-data-form', [TahunAjaranController::class, 'getDataForm'])->name('tahun-ajaran.get-data-form');
+Route::post('/tahun-ajaran-get-siswa-option', [TahunAjaranController::class, 'getSiswaOption'])->name('thaun-ajaran.get-siswa-option');
 
 // User
 Route::get('/profile', [UserController::class, 'index']);
