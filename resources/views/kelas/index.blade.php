@@ -57,7 +57,13 @@
                                     <td>{{ $k->tingkatan }}</td>
                                     <td>{{ $k->nama }}</td>
                                     <td>{{ $k->siswa->count() }}</td>
-                                    <td class="text-left">{{ $k->wali_kelas->nama }}</td>
+                                    <td class="text-left">
+                                       @if ($k->wali_kelas)
+                                          {{ $k->wali_kelas->nama }}
+                                       @else
+                                          -
+                                       @endif
+                                    </td>
                                     <td class="text-left">
                                        <div class="d-inline-flex">
                                           <a href="/kelas/{{ $k->id }}" class="btn btn-info btn-sm mr-1">

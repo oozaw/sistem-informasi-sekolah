@@ -12,6 +12,7 @@ class PrestasiFactory extends Factory {
      */
     public function definition() {
         return [
+            "tahunajaran_id" => $this->faker->randomElement(['1', '2']),
             "nama" => $this->faker->sentence(3, true),
             "jenis" => $this->faker->randomElement(["Individu", "Kelompok"]),
             "capaian" => $this->faker->numerify("Juara #"),

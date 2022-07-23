@@ -14,4 +14,14 @@ class Prestasi extends Model {
     public function siswa() {
         return $this->belongsToMany(Siswa::class, 'perwakilan_prestasi')->using(Perwakilan::class)->withTimestamps();
     }
+
+    public function tahunAjaran() {
+        return $this->belongsTo(TahunAjaran::class, 'tahunajaran_id');
+    }
+
+    public static function updateData() {
+        $id_aktif = TahunAjaran::where('status', 1)->first()->id;
+        $jml = Prestasi::where('tahunajaran_id', $id_aktif)->count();
+        TahunAjaran::where('status', 1)->update(array('jml_prestasi' => $jml));
+    }
 }

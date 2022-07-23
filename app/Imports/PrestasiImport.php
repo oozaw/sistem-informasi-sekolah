@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Prestasi;
+use App\Models\TahunAjaran;
 use Illuminate\Support\Carbon;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithUpserts;
@@ -28,8 +29,10 @@ class PrestasiImport implements ToModel, WithStartRow {
 
         $carbon = new Carbon($row[6]);
         $tahun = $carbon->year;
+        $id_tahunajaran_aktif = TahunAjaran::where('status', 1)->first()->id;
 
         return new Prestasi([
+            "tahunajaran_id" => $id_tahunajaran_aktif,
             "nama" => $row[1],
             "jenis" => $row[5],
             "capaian" => $row[3],

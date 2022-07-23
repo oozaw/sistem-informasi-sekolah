@@ -64,6 +64,7 @@ class SuratMasukController extends Controller {
         }
 
         SuratMasuk::create($validatedData);
+        SuratMasuk::updateData();
 
         return redirect('/surat-masuk')->with('success', "Data Surat Masuk baru telah berhasil ditambahkan!");
     }
@@ -159,6 +160,7 @@ class SuratMasukController extends Controller {
         }
 
         SuratMasuk::destroy($suratMasuk->id);
+        SuratMasuk::updateData();
 
         return redirect('/surat-masuk')->with("success", "Data surat dari $suratMasuk->asal berhasil dihapus!");
     }

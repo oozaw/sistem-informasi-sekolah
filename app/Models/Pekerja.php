@@ -18,4 +18,9 @@ class Pekerja extends Model {
     public function user() {
         return $this->hasOne(User::class, 'pegawai_id');
     }
+
+    public static function updateData() {
+        $jml = Pekerja::all()->count();
+        TahunAjaran::where('status', 1)->update(array('jml_pegawai' => $jml));
+    }
 }

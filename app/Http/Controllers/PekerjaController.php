@@ -89,6 +89,7 @@ class PekerjaController extends Controller {
         }
 
         Pekerja::create($validatedData);
+        Pekerja::updateData();
 
         if ($request->jabatan == "Guru") {
             return redirect('/guru')->with('success', "Data pegawai baru, $request->nama berhasil ditambahkan!");
@@ -211,6 +212,7 @@ class PekerjaController extends Controller {
         }
 
         Pekerja::destroy($pekerja->id);
+        Pekerja::updateData();
 
         if ($pekerja->jabatan == "Guru") {
             return redirect('/guru')->with("success", "Data $pekerja->nama berhasil dihapus!");

@@ -4,16 +4,15 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class SuratMasukFactory extends Factory
-{
+class SuratMasukFactory extends Factory {
     /**
      * Define the model's default state.
      *
      * @return array
      */
-    public function definition()
-    {
+    public function definition() {
         return [
+            "tahunajaran_id" => $this->faker->randomElement(['1', '2']),
             "asal" => $this->faker->words(2, true),
             "nomor" => $this->faker->numerify('###'),
             "kode_tujuan" => "SMAN.5.Mrg",

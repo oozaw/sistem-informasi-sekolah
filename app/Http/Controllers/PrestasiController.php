@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Imports\PrestasiImport;
+use App\Models\TahunAjaran;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -56,7 +57,8 @@ class PrestasiController extends Controller {
             "piagam" => "mimes:pdf|file|max:10000"
         ]);
 
-        dd($request);
+        $tahun_ajaran_id = TahunAjaran::where('status', 1)->first()->id;
+        $validatedData['tahunajaran_id'] = $tahun_ajaran_id;
 
         $carbon = new Carbon($request->tanggal);
         $validatedData["tanggal"] = $carbon->isoFormat('D MMMM Y');
@@ -70,6 +72,7 @@ class PrestasiController extends Controller {
         }
 
         Prestasi::create($validatedData);
+        Prestasi::updateData();
 
         return redirect('/prestasi')->with('success', "Data prestasi baru telah berhasil ditambahkan!");
     }
@@ -155,6 +158,7 @@ class PrestasiController extends Controller {
         }
 
         Prestasi::destroy($prestasi->id);
+        Prestasi::updateData();
 
         return redirect('/prestasi')->with('success', "Data prestasi $prestasi->nama berhasil dihapus!");
     }
@@ -170,6 +174,7 @@ class PrestasiController extends Controller {
             $file = $request->file("file_impor");
 
             Excel::import(new PrestasiImport, $file);
+            Prestasi::updateData();
 
             return redirect('/prestasi')->with('success', "Data prestasi telah berhasil diimpor!");
         }
