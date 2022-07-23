@@ -91,15 +91,32 @@
                                                    </div>
                                                    <div class="modal-body">
                                                       <p>Yakin hapus data {{ $s->nama }}?</p>
+                                                      <span>Alasan:</span>
+                                                      <form method="POST" action="/siswa/{{ $s->id }}">
+                                                         @method('delete')
+                                                         @csrf
+                                                         <div class="form-group">
+                                                            <div class="form-check">
+                                                               <input class="form-check-input" type="radio"
+                                                                  name="alasan" id="keluar" value="keluar" required>
+                                                               <label class="form-check-label">Keluar/Pindah</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                               <input class="form-check-input" type="radio"
+                                                                  name="alasan" id="kesalahan" value="kesalahan">
+                                                               <label class="form-check-label">Kesalahan Data</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                               <input class="form-check-input" type="radio"
+                                                                  name="alasan" id="lainnya" value="lainnya">
+                                                               <label class="form-check-label">Lainnya</label>
+                                                            </div>
+                                                         </div>
                                                    </div>
                                                    <div class="modal-footer justify-content-between">
                                                       <button type="button" class="btn btn-outline-dark"
                                                          data-dismiss="modal">Batal</button>
-                                                      <form method="POST" action="/siswa/{{ $s->id }}">
-                                                         @method('delete')
-                                                         @csrf
-                                                         <button onclick="return true"
-                                                            class="btn btn-danger">Hapus</button>
+                                                      <button onclick="return true" class="btn btn-danger">Hapus</button>
                                                       </form>
                                                    </div>
                                                 </div>
@@ -152,7 +169,8 @@
                                        </div>
                                  </div>
                                  <div class="modal-footer justify-content-between">
-                                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Batal</button>
+                                    <button type="button" class="btn btn-outline-dark"
+                                       data-dismiss="modal">Batal</button>
                                     @csrf
                                     <button type="submit" class="btn btn-primary">Unggah</button>
                                     </form>

@@ -243,7 +243,7 @@ class SiswaController extends Controller {
      * @param  \App\Models\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Siswa $siswa) {
+    public function destroy(Request $request, Siswa $siswa) {
         if ($siswa->foto_profil) {
             Storage::delete($siswa->foto_profil);
         }
@@ -252,6 +252,11 @@ class SiswaController extends Controller {
         Komite::where('siswa_id', $siswa->id)->delete();
 
         // update jumlah data di tahun ajaran aktif
+        if ($request->alasan == 'keluar') {
+            $jml_siswa_keluar = TahunAjaran::where('status', 1)->first()->jml_siswa_keluar;
+            TahunAjaran::where('status', 1)->update(array('jml_siswa_keluar' => $jml_siswa_keluar + 1));
+        }
+
         $jml_seluruh_siswa = Siswa::all()->count();
         TahunAjaran::where('status', 1)->update(array('jml_siswa' => $jml_seluruh_siswa));
         if ($siswa->kelas->tingkatan == 10) {
