@@ -43,20 +43,22 @@
                            <thead>
                               <tr>
                                  <th>No.</th>
+                                 <th>Tingkatan</th>
                                  <th>Kelas</th>
-                                 <th>Siswa</th>
+                                 <th>Jumlah Siswa</th>
                                  <th>Wali Kelas</th>
                                  <th>Aksi</th>
                               </tr>
                            </thead>
                            <tbody>
                               @foreach ($kelas as $k)
-                                 <tr>
+                                 <tr class="text-center">
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $k->tingkatan }}</td>
                                     <td>{{ $k->nama }}</td>
                                     <td>{{ $k->siswa->count() }}</td>
-                                    <td>{{ $k->wali_kelas->nama }}</td>
-                                    <td>
+                                    <td class="text-left">{{ $k->wali_kelas->nama }}</td>
+                                    <td class="text-left">
                                        <div class="d-inline-flex">
                                           <a href="/kelas/{{ $k->id }}" class="btn btn-info btn-sm mr-1">
                                              <i class="fas fa-eye"></i> Daftar Siswa</a>

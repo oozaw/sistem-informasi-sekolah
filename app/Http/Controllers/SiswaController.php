@@ -8,14 +8,12 @@ use App\Models\Prestasi;
 use App\Models\Perwakilan;
 use App\Imports\SiswaImport;
 use App\Models\Komite;
+use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Support\Facades\Validator;
-
-use function PHPUnit\Framework\isEmpty;
-use function PHPUnit\Framework\isNull;
 
 class SiswaController extends Controller {
     /**
@@ -25,8 +23,10 @@ class SiswaController extends Controller {
      */
     public function index() {
         // $existId = Komite::all()->pluck('siswa_id')->toArray();
-        // $idToCreate = Siswa::whereNotIn('id', $existId)->get();
-        // dd($idToCreate);
+        // $id_kelas_10 = Kelas::where('tingkatan', 10)->pluck('id')->toArray();
+        // $idToCreate = Siswa::where('id', 1)->first()->kelas->tingkatan;
+        // $jml_siswa_baru = Siswa::whereIn('kelas_id', $id_kelas_10)->count();
+        // dd($jml_siswa_baru);
         return view('siswa.index', [
             'title' => "Data Siswa",
             'part' => "siswa",
@@ -55,7 +55,6 @@ class SiswaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-
         $validatedDataSiswa = $request->validate([
             "nama" => "required",
             "nis" => "required|unique:siswa|numeric",
@@ -107,6 +106,15 @@ class SiswaController extends Controller {
             '12' => 'Belum Lunas',
         ];
         Komite::create($dataKomite);
+
+        // update jumlah data di tahun ajaran aktif
+        $jml_seluruh_siswa = Siswa::all()->count();
+        TahunAjaran::where('status', 1)->update(array('jml_siswa' => $jml_seluruh_siswa));
+        if ($siswa->kelas->tingkatan == 10) {
+            $id_kelas_10 = Kelas::where('tingkatan', 10)->pluck('id')->toArray();
+            $jml_siswa_baru = Siswa::whereIn('kelas_id', $id_kelas_10)->count();
+            TahunAjaran::where('status', 1)->update(array('jml_siswa_baru' => $jml_siswa_baru));
+        }
 
         return redirect('/siswa')->with("success", "Data siswa baru, $request->nama berhasil ditambahkan!");
     }
@@ -222,6 +230,15 @@ class SiswaController extends Controller {
             }
         }
 
+        // update jumlah data di tahun ajaran aktif
+        $tingkatan = Kelas::where("id", $request->kelas_id)->first()->tingkatan;
+        if ($siswa->kelas->tingkatan != $tingkatan) {
+            // update jml siswa baru
+            $id_kelas_10 = Kelas::where('tingkatan', 10)->pluck('id')->toArray();
+            $jml_siswa_baru = Siswa::whereIn('kelas_id', $id_kelas_10)->count();
+            TahunAjaran::where('status', 1)->update(array('jml_siswa_baru' => $jml_siswa_baru));
+        }
+
         return redirect("/siswa/$siswa->id")->with("success", "Data $siswa->nama berhasil diperbarui!");
     }
 
@@ -238,6 +255,15 @@ class SiswaController extends Controller {
 
         Siswa::destroy($siswa->id);
         Komite::where('siswa_id', $siswa->id)->delete();
+
+        // update jumlah data di tahun ajaran aktif
+        $jml_seluruh_siswa = Siswa::all()->count();
+        TahunAjaran::where('status', 1)->update(array('jml_siswa' => $jml_seluruh_siswa));
+        if ($siswa->kelas->tingkatan == 10) {
+            $id_kelas_10 = Kelas::where('tingkatan', 10)->pluck('id')->toArray();
+            $jml_siswa_baru = Siswa::whereIn('kelas_id', $id_kelas_10)->count();
+            TahunAjaran::where('status', 1)->update(array('jml_siswa_baru' => $jml_siswa_baru));
+        }
 
         return redirect("/siswa")->with("success", "Data $siswa->nama berhasil dihapus!");
     }

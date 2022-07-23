@@ -13,6 +13,7 @@ class CreateKelasTable extends Migration {
     public function up() {
         Schema::create('kelas', function (Blueprint $table) {
             $table->id();
+            $table->string('tingkatan');
             $table->string('nama');
             $table->foreignId('wali_kelas_id')->unique();
             $table->timestamps();

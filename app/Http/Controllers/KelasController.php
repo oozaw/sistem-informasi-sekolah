@@ -48,7 +48,8 @@ class KelasController extends Controller {
     public function store(Request $request) {
         $validatedData = $request->validate([
             "nama" => "required|unique:kelas",
-            "wali_kelas_id" => "required"
+            "wali_kelas_id" => "required",
+            "tingkatan" => "required"
         ]);
 
         Kelas::create($validatedData);
@@ -100,7 +101,8 @@ class KelasController extends Controller {
      */
     public function update(Request $request, Kelas $kela) {
         $rules = [
-            "wali_kelas_id" => "required"
+            "wali_kelas_id" => "required",
+            "tingkatan" => "required"
         ];
 
         if (Str::lower($request->nama) != Str::lower($kela->nama)) {

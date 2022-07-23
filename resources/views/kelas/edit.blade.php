@@ -37,7 +37,30 @@
                         @csrf
                         <div class="card-body pb-0">
                            <div class="form-group">
-                              <label for="NamaKelas">Nama</label>
+                              <label for="tingkatan">Tingkatan</label>
+                              <select class="form-control @error('tingkatan') is-invalid @enderror" name="tingkatan">
+                                 <option selected disabled hidden value="">-- Pilih tingkatan --</option>
+                                 @if (old('tingkatan', $kelas->tingkatan) == 10)
+                                    <option value="10" selected>10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                 @elseif (old('tingkatan', $kelas->tingkatan) == 11)
+                                    <option value="10">10</option>
+                                    <option value="11" selected>11</option>
+                                    <option value="12">12</option>
+                                 @elseif (old('tingkatan', $kelas->tingkatan) == 12)
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12" selected>12</option>
+                                 @else
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                 @endif
+                              </select>
+                           </div>
+                           <div class="form-group">
+                              <label for="nama">Nama</label>
                               <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
                                  name="nama" placeholder="Masukkan nama kelas" value="{{ old('nama', $kelas->nama) }}"
                                  autofocus>

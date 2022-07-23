@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder {
         ]);
         Siswa::factory(20)->create();
         Kelas::create([
+            "tingkatan" => "12",
             "nama" => "12 MIA 2",
             "wali_kelas_id" => "12"
         ]);
