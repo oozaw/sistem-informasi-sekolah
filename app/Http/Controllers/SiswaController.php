@@ -22,11 +22,6 @@ class SiswaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        // $existId = Komite::all()->pluck('siswa_id')->toArray();
-        // $id_kelas_10 = Kelas::where('tingkatan', 10)->pluck('id')->toArray();
-        // $idToCreate = Siswa::where('id', 1)->first()->kelas->tingkatan;
-        // $jml_siswa_baru = Siswa::whereIn('kelas_id', $id_kelas_10)->count();
-        // dd($jml_siswa_baru);
         return view('siswa.index', [
             'title' => "Data Siswa",
             'part' => "siswa",

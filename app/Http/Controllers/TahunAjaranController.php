@@ -30,7 +30,7 @@ class TahunAjaranController extends Controller {
         return view('tahun-ajaran.tambah', [
             "title" => "Tambah Tahun Pelajaran",
             "part" => "tahun-ajaran",
-            "kelas" => Kelas::all(),
+            "kelas" => Kelas::all()->sortBy('tingkatan'),
             "siswa" => Siswa::all()
         ]);
     }
@@ -59,22 +59,31 @@ class TahunAjaranController extends Controller {
         if ($request->status == '1') {
             TahunAjaran::where('status', '1')->update(array('status' => '0'));
 
+            // kenaikan kelas
             $kelas_terdaftar = Siswa::all()->pluck('kelas_id')->toArray();
-            $kelas_non_kosong = Kelas::whereIn('id', $kelas_terdaftar)->get();
+            $kelas_non_kosong = Kelas::whereIn('id', $kelas_terdaftar)->whereNotIn('tingkatan', ['12'])->get();
             foreach ($kelas_non_kosong as $knk) {
                 $kelas_asal = "kelas_asal_$knk->id";
                 $kelas_tujuan = "kelas_tujuan_$knk->id";
                 Siswa::where('kelas_id', $request->$kelas_asal)->update(array('kelas_id' => $request->$kelas_tujuan));
             }
 
+            // tinggal kelas/tidak lulus
+            $id_siswa_tidak_lulus = array('');
             if ($request->jml_siswa_tinggal_kelas != 0) {
                 $jml = $request->jml_siswa_tinggal_kelas;
                 for ($i = 1; $i <= $jml; $i++) {
                     $index_siswa = "siswa_$i";
                     $index_kelas = "kelas_tinggal_$i";
                     Siswa::where('id', $request->$index_siswa)->update(array('kelas_id' => $request->$index_kelas));
+
+                    array_push($id_siswa_tidak_lulus, $request->$index_siswa);
                 }
             }
+
+            // kelulusan
+            $kelas_12 = Kelas::where('tingkatan', 12)->pluck('id')->toArray();
+            Siswa::whereIn('kelas_id', $kelas_12)->whereNotIn('id', $id_siswa_tidak_lulus)->delete();
         }
 
         if (!($request->jml_siswa)) {
@@ -103,6 +112,10 @@ class TahunAjaranController extends Controller {
         }
 
         TahunAjaran::create($validatedData);
+
+        // update jumlah data di tahun ajaran aktif
+        $jml_seluruh_siswa = Siswa::all()->count();
+        TahunAjaran::where('status', 1)->update(array('jml_siswa' => $jml_seluruh_siswa));
 
         return redirect('/tahun-ajaran')->with('success', "Data tahun pelajaran baru, $request->tahun_ajaran berhasil ditambahkan!");
     }
@@ -159,9 +172,9 @@ class TahunAjaranController extends Controller {
             return view('tahun-ajaran.partials.form-data');
         } else {
             $kelas_terdaftar = Siswa::all()->pluck('kelas_id')->toArray();
-            $kelas_non_kosong = Kelas::whereIn('id', $kelas_terdaftar)->get();
+            $kelas_non_kosong = Kelas::whereIn('id', $kelas_terdaftar)->get()->sortBy('tingkatan');
             $data = [
-                "kelas" => Kelas::all(),
+                "kelas" => Kelas::all()->sortBy('tingkatan'),
                 "kelas_non_kosong" => $kelas_non_kosong,
             ];
 
@@ -174,7 +187,7 @@ class TahunAjaranController extends Controller {
             $data = [
                 "jml_siswa" => $request->jml_siswa,
                 "siswa" => Siswa::all(),
-                "kelas" => Kelas::all()
+                "kelas" => Kelas::all()->sortBy('tingkatan')
             ];
 
             return view('tahun-ajaran.partials.siswa-option', $data);
