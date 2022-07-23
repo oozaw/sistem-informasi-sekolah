@@ -48,7 +48,13 @@
                                     <td>{{ $s->nama }}</td>
                                     <td>{{ $s->nis }}</td>
                                     <td>{{ $s->gender }}</td>
-                                    <td>{{ $s->kelas->nama }}</td>
+                                    <td>
+                                       @if ($s->kelas)
+                                          {{ $s->kelas->nama }}
+                                       @else
+                                          -
+                                       @endif
+                                    </td>
                                     <td>
                                        <div class="d-inline-flex">
                                           <a href="/siswa/{{ $s->id }}" class="btn btn-info btn-sm mr-1">

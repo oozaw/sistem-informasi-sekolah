@@ -58,7 +58,11 @@
                         <div class="row justify-content-center">
                            <div class="col-6">
                               <h4 class="text-muted text-center">
-                                 {{ $siswa->kelas->nama }}
+                                 @if ($siswa->kelas)
+                                    {{ $siswa->kelas->nama }}
+                                 @else
+                                    -
+                                 @endif
                               </h4>
                            </div>
                         </div>

@@ -98,8 +98,8 @@
                                                          <span aria-hidden="true">×</span>
                                                       </button>
                                                    </div>
-                                                   <div class="modal-body">
-                                                      <p>Yakin hapus data tahun pelajaran {{ $ta->nama }}?</p>
+                                                   <div class="modal-body text-left">
+                                                      <p>Yakin hapus data tahun pelajaran {{ $ta->tahun_ajaran }}?</p>
                                                    </div>
                                                    <div class="modal-footer justify-content-between">
                                                       <button type="button" class="btn btn-outline-dark"
