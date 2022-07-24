@@ -145,7 +145,11 @@ class TahunAjaranController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(TahunAjaran $tahunAjaran) {
-        //
+        return view('tahun-ajaran.edit', [
+            "title" => "Edit Tahun Pelajaran",
+            "part" => "tahun-ajaran",
+            "ta" => $tahunAjaran
+        ]);
     }
 
     /**
@@ -156,7 +160,60 @@ class TahunAjaranController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, TahunAjaran $tahunAjaran) {
-        //
+        if ($tahunAjaran->status == 1) {
+            $validatedData = $request->validate([
+                "tahun_ajaran" => "required",
+                "status" => "required"
+            ]);
+        } else {
+            $validatedData = $request->validate([
+                "tahun_ajaran" => "required",
+                "status" => "required",
+                "jml_siswa" => "nullable|numeric",
+                "jml_siswa_baru" => "nullable|numeric",
+                "jml_siswa_lulus" => "nullable|numeric",
+                "jml_siswa_keluar" => "nullable|numeric",
+                "jml_prestasi" => "nullable|numeric",
+                "jml_pegawai" => "nullable|numeric",
+                "jml_surat_masuk" => "nullable|numeric",
+                "jml_surat_keluar" => "nullable|numeric",
+            ]);
+
+            if (!($request->jml_siswa)) {
+                $validatedData['jml_siswa'] = 0;
+            }
+            if (!($request->jml_siswa_baru)) {
+                $validatedData['jml_siswa_baru'] = 0;
+            }
+            if (!($request->jml_siswa_lulus)) {
+                $validatedData['jml_siswa_lulus'] = 0;
+            }
+            if (!($request->jml_siswa_keluar)) {
+                $validatedData['jml_siswa_keluar'] = 0;
+            }
+            if (!($request->jml_prestasi)) {
+                $validatedData['jml_prestasi'] = 0;
+            }
+            if (!($request->jml_pegawai)) {
+                $validatedData['jml_pegawai'] = 0;
+            }
+            if (!($request->jml_surat_masuk)) {
+                $validatedData['jml_surat_masuk'] = 0;
+            }
+            if (!($request->jml_surat_keluar)) {
+                $validatedData['jml_surat_keluar'] = 0;
+            }
+        }
+
+        if ($request->status == 'Aktif') {
+            $validatedData['status'] = 1;
+        } else {
+            $validatedData['status'] = 0;
+        }
+
+        TahunAjaran::where('id', $tahunAjaran->id)->update($validatedData);
+
+        return redirect("/tahun-ajaran/$tahunAjaran->id")->with('success', "Data tahun $tahunAjaran->tahunajaran berhasil diperbarui!");
     }
 
     /**

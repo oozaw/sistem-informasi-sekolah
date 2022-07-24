@@ -41,7 +41,7 @@
                         <h4>Tahun Pelajaran</h4>
                         <h1>{{ $ta->tahun_ajaran }}</h1>
                         <span class="box {{ $ta->status == '1' ? 'bg-green' : 'bg-gray' }} btn-sm d-block col-3 m-auto">
-                           {{ $ta->status == '1' ? 'Aktif' : 'Tidak Aktif' }}
+                           {{ $ta->status == 1 ? 'Aktif' : 'Non-Aktif' }}
                         </span>
                         <div class="mt-5 text-center">
                            <a href="{{ URL::previous() }}" class="btn btn-secondary btn-sm mb-1">

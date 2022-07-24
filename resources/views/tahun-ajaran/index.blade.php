@@ -64,7 +64,7 @@
                                     <td>
                                        <span
                                           class="box {{ $ta->status == '1' ? 'bg-green' : 'bg-gray' }} btn-sm d-block text-center m-auto">
-                                          {{ $ta->status == '1' ? 'Aktif' : 'Tidak Aktif' }}
+                                          {{ $ta->status == 1 ? 'Aktif' : 'Non-Aktif' }}
                                        </span>
                                     </td>
                                     <td>{{ $ta->jml_siswa }}</td>
