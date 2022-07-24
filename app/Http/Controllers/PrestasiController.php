@@ -13,6 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
+
 class PrestasiController extends Controller {
     /**
      * Display a listing of the resource.
@@ -23,7 +24,7 @@ class PrestasiController extends Controller {
         return view('prestasi.index', [
             "title" => "Data Prestasi",
             "part" => "prestasi",
-            "prestasi" => Prestasi::all()
+            "prestasi" => Prestasi::all()->sortBy('tanggal', SORT_REGULAR, true)
         ]);
     }
 
@@ -36,7 +37,6 @@ class PrestasiController extends Controller {
         return view('prestasi.tambah', [
             "title" => "Tambah Data Prestasi",
             "part" => "prestasi",
-            "siswa" => Siswa::all()
         ]);
     }
 
@@ -61,7 +61,6 @@ class PrestasiController extends Controller {
         $validatedData['tahunajaran_id'] = $tahun_ajaran_id;
 
         $carbon = new Carbon($request->tanggal);
-        $validatedData["tanggal"] = $carbon->isoFormat('D MMMM Y');
         $validatedData["tahun"] = $carbon->year;
 
         if ($request->file("piagam")) {
@@ -130,7 +129,6 @@ class PrestasiController extends Controller {
         $validatedData = $request->validate($rules);
 
         $carbon = new Carbon($request->tanggal);
-        $validatedData["tanggal"] = $carbon->isoFormat('D MMMM Y');
         $validatedData["tahun"] = $carbon->year;
 
         if ($request->file("piagam")) {

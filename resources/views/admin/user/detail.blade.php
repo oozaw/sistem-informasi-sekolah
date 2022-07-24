@@ -82,7 +82,7 @@
                         </div>
                         <!-- /.row -->
                         <div class="d-flex justify-content-center mb-2 mt-0">
-                           <a href="{{ URL::previous() }}" class="btn btn-secondary btn-sm mr-1">
+                           <a href="/pengguna" class="btn btn-secondary btn-sm mr-1">
                               <i class="fas fa-long-arrow-left"></i> Kembali</a>
                            <a href="/pengguna/{{ $pengguna->id }}/edit" class="btn btn-primary btn-sm mr-1"
                               {{ $pengguna->role == '1' ? 'hidden' : '' }}>

@@ -50,6 +50,8 @@
                                  <th>Capaian</th>
                                  <th>Tingkat</th>
                                  <th>Tahun</th>
+                                 <th hidden>Tanggal</th>
+                                 <th hidden>Bidang</th>
                                  <th hidden>Link Piagam</th>
                                  <th>Aksi</th>
                               </tr>
@@ -62,6 +64,8 @@
                                     <td>{{ $p->capaian }}</td>
                                     <td>{{ $p->tingkat }}</td>
                                     <td>{{ $p->tahun }}</td>
+                                    <td hidden>{{ \Carbon\Carbon::parse($p->tanggal)->isoFormat('DD-MM-Y') }}</td>
+                                    <td hidden>{{ $p->bidang }}</td>
                                     <td hidden>
                                        @if ($p->piagam)
                                           {{ url("/$p->piagam") }}
@@ -73,7 +77,8 @@
                                        <div class="d-inline-flex">
                                           <a href="/prestasi/{{ $p->id }}" class="btn btn-info btn-sm mr-1">
                                              <i class="fas fa-eye"></i> Detail</a>
-                                          <a href="/prestasi/{{ $p->id }}/edit" class="btn btn-primary btn-sm mr-1">
+                                          <a href="/prestasi/{{ $p->id }}/edit"
+                                             class="btn btn-primary btn-sm mr-1">
                                              <i class="fas fa-edit"></i> Edit</a>
                                           <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
                                              data-target="#modal-delete-{{ $p->id }}">
@@ -219,25 +224,25 @@
             "buttons": [{
                   extend: 'copy',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4, 5]
+                     columns: [0, 1, 2, 3, 5, 6, 7]
                   }
                },
                {
                   extend: 'excel',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4, 5]
+                     columns: [0, 1, 2, 3, 5, 6, 7]
                   }
                },
                {
                   extend: 'pdf',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4, 5]
+                     columns: [0, 1, 2, 3, 5, 6, 7]
                   }
                },
                {
                   extend: 'print',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4, 5]
+                     columns: [0, 1, 2, 3, 5, 6, 7]
                   }
                }
             ]

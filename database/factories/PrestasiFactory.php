@@ -16,7 +16,7 @@ class PrestasiFactory extends Factory {
             "nama" => $this->faker->sentence(3, true),
             "jenis" => $this->faker->randomElement(["Individu", "Kelompok"]),
             "capaian" => $this->faker->numerify("Juara #"),
-            "tanggal" => $this->faker->date('d M Y'),
+            "tanggal" => $this->faker->date(),
             "tingkat" => $this->faker->randomElement(["Kabupaten/Kota", "Provinsi", "Nasional", "Internasional"]),
             "bidang" => $this->faker->randomElement(['Akademik', 'Non-Akademik']),
             "tahun" => $this->faker->year(),

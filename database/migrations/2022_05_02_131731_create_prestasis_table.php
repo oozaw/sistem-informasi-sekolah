@@ -18,7 +18,7 @@ class CreatePrestasisTable extends Migration {
             $table->string("nama");
             $table->string("jenis");
             $table->string("capaian");
-            $table->string("tanggal");
+            $table->date("tanggal");
             $table->string("tingkat");
             $table->string("bidang");
             $table->year("tahun");

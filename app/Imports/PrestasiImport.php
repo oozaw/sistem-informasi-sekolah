@@ -27,7 +27,8 @@ class PrestasiImport implements ToModel, WithStartRow {
             return null;
         }
 
-        $carbon = new Carbon($row[6]);
+        $carbon = Carbon::createFromLocaleIsoFormat('D MMMM Y', 'id', $row[6]);
+        $tgl = $carbon->format('Y-m-d');
         $tahun = $carbon->year;
         $id_tahunajaran_aktif = TahunAjaran::where('status', 1)->first()->id;
 
@@ -36,7 +37,7 @@ class PrestasiImport implements ToModel, WithStartRow {
             "nama" => $row[1],
             "jenis" => $row[5],
             "capaian" => $row[3],
-            "tanggal" => $row[6],
+            "tanggal" => $tgl,
             "tingkat" => $row[2],
             "bidang" => $row[4],
             "tahun" => $tahun

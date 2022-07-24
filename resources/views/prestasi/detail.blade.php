@@ -43,7 +43,7 @@
                      <div class="card-body">
                         <div class="row">
                            <div class="d-inline-flex mb-3 ml-2">
-                              <a href="{{ URL::previous() }}" class="btn btn-secondary btn-sm mr-1">
+                              <a href="/prestasi" class="btn btn-secondary btn-sm mr-1">
                                  <i class="fas fa-long-arrow-left"></i> Kembali</a>
                               <a href="/prestasi/{{ $prestasi->id }}/edit" class="btn btn-primary btn-sm mr-1">
                                  <i class="fas fa-edit"></i> Edit</a>
@@ -105,7 +105,7 @@
                                  <tr>
                                     <th>Tanggal</th>
                                     <th>:</th>
-                                    <td>{{ $prestasi->tanggal }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($prestasi->tanggal)->isoFormat('D MMMM Y') }}</td>
                                  </tr>
                                  <tr>
                                     <th>Bidang</th>
