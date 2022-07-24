@@ -59,7 +59,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $sk->tujuan }}</td>
                                     <td>{{ "$sk->nomor/$sk->kode_tujuan/$sk->instansi_asal/$sk->bulan-$sk->tahun" }}</td>
-                                    <td>{{ $sk->tgl_keluar }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($sk->tgl_keluar)->isoFormat('DD-MM-Y') }}</td>
                                     <td>{{ $sk->keterangan }}</td>
                                     <td hidden>{{ url("/$sk->file_surat") }}</td>
                                     <td>

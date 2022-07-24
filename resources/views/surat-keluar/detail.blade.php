@@ -95,7 +95,7 @@
                                  <tr>
                                     <th>Tanggal Keluar</th>
                                     <th>:</th>
-                                    <td>{{ $sk->tgl_keluar }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($sk->tgl_keluar)->isoFormat('D MMMM Y') }}</td>
                                  </tr>
                                  <tr>
                                     <th>Keterangan</th>

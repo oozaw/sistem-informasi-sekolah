@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pekerja;
 use Carbon\Carbon;
+use App\Models\Pekerja;
 use App\Models\SuratKeluar;
+use App\Models\TahunAjaran;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -21,7 +22,7 @@ class SuratKeluarController extends Controller {
         return view('surat-keluar.index', [
             "title" => "Data Surat Keluar",
             "part" => "surat-keluar",
-            "surat_keluar" => SuratKeluar::all()
+            "surat_keluar" => SuratKeluar::all()->sortBy('tgl_keluar', SORT_REGULAR, true)
         ]);
     }
 
@@ -56,8 +57,7 @@ class SuratKeluarController extends Controller {
             "file_surat" => "required|mimes:pdf|file|max:10000"
         ]);
 
-        $carbon = new Carbon($request->tgl_keluar);
-        $validatedData["tgl_keluar"] = $carbon->isoFormat('D MMMM Y');
+        $validatedData['tahunajaran_id'] = TahunAjaran::where('status', 1)->first()->id;
 
         if ($request->file("file_surat")) {
             $file_ext = $request->file('file_surat')->getClientOriginalExtension();
@@ -134,9 +134,6 @@ class SuratKeluarController extends Controller {
         }
 
         $validatedData = $request->validate($rules);
-
-        $carbon = new Carbon($request->tgl_keluar);
-        $validatedData["tgl_keluar"] = $carbon->isoFormat('D MMMM Y');
 
         if ($request->file("file_surat")) {
             $file_ext = $request->file('file_surat')->getClientOriginalExtension();

@@ -95,7 +95,9 @@
                                  <tr>
                                     <th>Tanggal Masuk</th>
                                     <th>:</th>
-                                    <td>{{ $sm->tgl_masuk }}</td>
+                                    <td>
+                                       {{ \Carbon\Carbon::parse($sm->tgl_masuk)->isoFormat('D MMMM Y') }}
+                                    </td>
                                  </tr>
                                  <tr>
                                     <th>Keterangan</th>

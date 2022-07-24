@@ -58,7 +58,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $sm->asal }}</td>
                                     <td>{{ "$sm->nomor/$sm->kode_tujuan/$sm->instansi_asal/$sm->bulan-$sm->tahun" }}</td>
-                                    <td>{{ $sm->tgl_masuk }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($sm->tgl_masuk)->isoFormat('DD-MM-Y') }}</td>
                                     <td>{{ $sm->keterangan }}</td>
                                     <td hidden>{{ url("/$sm->file_surat") }}</td>
                                     <td>
@@ -157,25 +157,25 @@
             "buttons": [{
                   extend: 'copy',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
+                     columns: [0, 1, 2, 3, 4, 5]
                   }
                },
                {
                   extend: 'excel',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
+                     columns: [0, 1, 2, 3, 4, 5]
                   }
                },
                {
                   extend: 'pdf',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
+                     columns: [0, 1, 2, 3, 4, 5]
                   }
                },
                {
                   extend: 'print',
                   exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
+                     columns: [0, 1, 2, 3, 4, 5]
                   }
                }
             ]

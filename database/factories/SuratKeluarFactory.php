@@ -19,7 +19,7 @@ class SuratKeluarFactory extends Factory {
             "instansi_asal" => "SMAN.5.Mrg",
             "bulan" => "II",
             "tahun" => "2021",
-            "tgl_keluar" => $this->faker->date('d M Y'),
+            "tgl_keluar" => $this->faker->date(),
             "keterangan" => $this->faker->sentence(),
             "file_surat" => $this->faker->sentence()
         ];

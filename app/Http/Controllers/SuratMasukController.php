@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SuratMasuk;
+use App\Models\TahunAjaran;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -18,7 +19,7 @@ class SuratMasukController extends Controller {
         return view('surat-masuk.index', [
             "title" => "Surat Masuk",
             "part" => "surat-masuk",
-            "surat_masuk" => SuratMasuk::all()
+            "surat_masuk" => SuratMasuk::all()->sortBy('tgl_masuk', SORT_REGULAR, true)
         ]);
     }
 
@@ -53,8 +54,7 @@ class SuratMasukController extends Controller {
             "file_surat" => "required|mimes:pdf|file|max:10000"
         ]);
 
-        $carbon = new Carbon($request->tgl_masuk);
-        $validatedData["tgl_masuk"] = $carbon->isoFormat('D MMMM Y');
+        $validatedData['tahunajaran_id'] = TahunAjaran::where('status', 1)->first()->id;
 
         if ($request->file("file_surat")) {
             $file_ext = $request->file('file_surat')->getClientOriginalExtension();
@@ -131,9 +131,6 @@ class SuratMasukController extends Controller {
         }
 
         $validatedData = $request->validate($rules);
-
-        $carbon = new Carbon($request->tgl_masuk);
-        $validatedData["tgl_masuk"] = $carbon->isoFormat('D MMMM Y');
 
         if ($request->file("file_surat")) {
             $file_ext = $request->file('file_surat')->getClientOriginalExtension();
