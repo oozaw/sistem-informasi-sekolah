@@ -20,7 +20,7 @@ class PekerjaController extends Controller {
         return view('pekerja.index', [
             "title" => "Data Tenaga Kerja",
             "part" => "pegawai",
-            "pegawai" => Pekerja::all()
+            "pegawai" => Pekerja::all()->sortBy('nama')
         ]);
     }
 
@@ -28,7 +28,7 @@ class PekerjaController extends Controller {
         return view('pekerja.guru.index', [
             "title" => "Data Guru",
             "part" => "guru",
-            "guru" => Pekerja::all()->where('jabatan', "Guru")
+            "guru" => Pekerja::all()->where('jabatan', "Guru")->sortBy('nama')
         ]);
     }
 
@@ -36,7 +36,7 @@ class PekerjaController extends Controller {
         return view('pekerja.tata-usaha.index', [
             "title" => "Data Staf Tata Usaha",
             "part" => "tu",
-            "staf" => Pekerja::all()->where('jabatan', "Staf Tata Usaha")
+            "staf" => Pekerja::all()->where('jabatan', "Staf Tata Usaha")->sortBy('nama')
         ]);
     }
 
@@ -44,7 +44,7 @@ class PekerjaController extends Controller {
         return view('pekerja.pegawai-lain.index', [
             "title" => "Data Staf Lain",
             "part" => "lainnya",
-            "staf" => Pekerja::all()->where('jabatan', "Staf Lainnya")
+            "staf" => Pekerja::all()->where('jabatan', "Staf Lainnya")->sortBy('nama')
         ]);
     }
 
