@@ -26,7 +26,7 @@
                   <!-- small box -->
                   <div class="small-box bg-info">
                      <div class="inner">
-                        <h3>{{ $jumlah_kelas }}</h3>
+                        <h3>{{ $kelas->count() }}</h3>
 
                         <p>Kelas</p>
                      </div>
@@ -41,7 +41,7 @@
                   <!-- small box -->
                   <div class="small-box bg-success">
                      <div class="inner">
-                        <h3>{{ $jumlah_siswa }}</h3>
+                        <h3>{{ $siswa->count() }}</h3>
 
                         <p>Siswa</p>
                      </div>
@@ -56,7 +56,7 @@
                   <!-- small box -->
                   <div class="small-box bg-warning">
                      <div class="inner text-light">
-                        <h3>{{ $jumlah_guru }}</h3>
+                        <h3>{{ $pekerjas->where('jabatan', 'Guru')->count() }}</h3>
 
                         <p>Guru</p>
                      </div>
@@ -72,7 +72,7 @@
                   <!-- small box -->
                   <div class="small-box bg-danger">
                      <div class="inner">
-                        <h3>{{ $jumlah_tu }}</h3>
+                        <h3>{{ $pekerjas->where('jabatan', 'Staf Tata Usaha')->count() }}</h3>
 
                         <p>Staf Tata Usaha</p>
                      </div>
@@ -87,7 +87,7 @@
                   <!-- small box -->
                   <div class="small-box bg-secondary">
                      <div class="inner">
-                        <h3>{{ $jumlah_staf_lain }}</h3>
+                        <h3>{{ $pekerjas->where('jabatan', 'Staf Lainnya')->count() }}</h3>
 
                         <p>Staf Lain</p>
                      </div>
@@ -102,7 +102,7 @@
                   <!-- small box -->
                   <div class="small-box bg-maroon">
                      <div class="inner">
-                        <h3>{{ $jumlah_surat_masuk }}</h3>
+                        <h3>{{ $surat_masuk->count() }}</h3>
 
                         <p>Surat Masuk</p>
                      </div>
@@ -118,7 +118,7 @@
                   <!-- small box -->
                   <div class="small-box bg-purple">
                      <div class="inner">
-                        <h3>{{ $jumlah_surat_keluar }}</h3>
+                        <h3>{{ $surat_keluar->count() }}</h3>
 
                         <p>Surat Keluar</p>
                      </div>
@@ -156,8 +156,8 @@
                         </div>
                      </div>
                      <div class="card-data" style="display: none">
-                        <div id="laki-laki">{{ $jumlah_laki }}</div>
-                        <div id="perempuan">{{ $jumlah_perempuan }}</div>
+                        <div id="laki-laki">{{ $siswa->where('gender', 'Laki-laki')->count() }}</div>
+                        <div id="perempuan">{{ $siswa->where('gender', 'Perempuan')->count() }}</div>
                      </div>
                      <div class="card-body">
                         <div class="chartjs-size-monitor">
@@ -171,12 +171,12 @@
                         <canvas id="siswaChart"
                            style="min-height: 200px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 422px;"
                            width="844" height="500" class="chartjs-render-monitor"></canvas>
-                        <p class="text-center mt-3">Jumlah Keseluruhan Siswa: {{ $jumlah_siswa }}</p>
+                        <p class="text-center mt-3">Jumlah Keseluruhan Siswa: {{ $siswa->count() }}</p>
                      </div>
                   </div>
                </div>
                <div class="col-md-6">
-                  <div class="card card-warning">
+                  <div class="card card-primary">
                      <div class="card-header">
                         <h3 class="card-title">Pegawai Chart</h3>
                         <div class="card-tools">
@@ -186,9 +186,9 @@
                         </div>
                      </div>
                      <div class="card-data" style="display: none">
-                        <div id="guru">{{ $jumlah_guru }}</div>
-                        <div id="tu">{{ $jumlah_tu }}</div>
-                        <div id="staf-lain">{{ $jumlah_staf_lain }}</div>
+                        <div id="guru">{{ $pekerjas->where('jabatan', 'Guru')->count() }}</div>
+                        <div id="tu">{{ $pekerjas->where('jabatan', 'Staf Tata Usaha')->count() }}</div>
+                        <div id="staf-lain">{{ $pekerjas->where('jabatan', 'Staf Lainnya')->count() }}</div>
                      </div>
                      <div class="card-body">
                         <div class="chartjs-size-monitor">
@@ -203,8 +203,181 @@
                            style="min-height: 200px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 422px;"
                            width="844" height="500" class="chartjs-render-monitor"></canvas>
                         <p class="text-center mt-3">Jumlah Keseluruhan Pegawai:
-                           {{ $jumlah_guru + $jumlah_tu + $jumlah_staf_lain }}</p>
+                           {{ $pekerjas->count() }}</p>
                      </div>
+                  </div>
+               </div>
+               <div class="col-md-6">
+                  <div class="card bg-success">
+                     <div class="card-header border-0 ui-sortable-handle" style="cursor: move;">
+                        <h3 class="card-title mt-1">
+                           <i class="fas fa-chart-line mr-1"></i>
+                           Grafik Jumlah Keseluruhan Siswa
+                        </h3>
+                        <div class="card-tools">
+                           <button type="button" class="btn bg-success btn-sm" data-card-widget="collapse">
+                              <i class="fas fa-minus"></i>
+                           </button>
+                        </div>
+                     </div>
+                     <div class="card-body">
+                        <div class="chartjs-size-monitor">
+                           <div class="chartjs-size-monitor-expand">
+                              <div class=""></div>
+                           </div>
+                           <div class="chartjs-size-monitor-shrink">
+                              <div class=""></div>
+                           </div>
+                        </div>
+                        <canvas class="chart chartjs-render-monitor" id="jml-siswa-line-chart"
+                           style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 644px;"
+                           width="1288" height="500"></canvas>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-6">
+                  <div class="card bg-info">
+                     <div class="card-header border-0 ui-sortable-handle" style="cursor: move;">
+                        <h3 class="card-title mt-1">
+                           <i class="fas fa-chart-line mr-1"></i>
+                           Grafik Jumlah Siswa Baru
+                        </h3>
+                        <div class="card-tools">
+                           <button type="button" class="btn bg-info btn-sm" data-card-widget="collapse">
+                              <i class="fas fa-minus"></i>
+                           </button>
+                        </div>
+                     </div>
+                     <div class="card-body">
+                        <div class="chartjs-size-monitor">
+                           <div class="chartjs-size-monitor-expand">
+                              <div class=""></div>
+                           </div>
+                           <div class="chartjs-size-monitor-shrink">
+                              <div class=""></div>
+                           </div>
+                        </div>
+                        <canvas class="chart chartjs-render-monitor" id="jml-siswa-baru-line-chart"
+                           style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 644px;"
+                           width="1288" height="500"></canvas>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-6">
+                  <div class="card bg-warning">
+                     <div class="card-header border-0 ui-sortable-handle" style="cursor: move;">
+                        <h3 class="card-title mt-1">
+                           <i class="fas fa-chart-line mr-1"></i>
+                           Grafik Jumlah Siswa Keluar/Pindah
+                        </h3>
+                        <div class="card-tools">
+                           <button type="button" class="btn bg-warning btn-sm" data-card-widget="collapse">
+                              <i class="fas fa-minus"></i>
+                           </button>
+                        </div>
+                     </div>
+                     <div class="card-body">
+                        <div class="chartjs-size-monitor">
+                           <div class="chartjs-size-monitor-expand">
+                              <div class=""></div>
+                           </div>
+                           <div class="chartjs-size-monitor-shrink">
+                              <div class=""></div>
+                           </div>
+                        </div>
+                        <canvas class="chart chartjs-render-monitor" id="jml-siswa-keluar-line-chart"
+                           style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 644px;"
+                           width="1288" height="500"></canvas>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-6">
+                  <div class="card" style="background-color: #F39237 ">
+                     <div class="card-header border-0 ui-sortable-handle" style="cursor: move;">
+                        <h3 class="card-title mt-1">
+                           <i class="fas fa-chart-line mr-1"></i>
+                           Grafik Jumlah Prestasi
+                        </h3>
+                        <div class="card-tools">
+                           <button type="button" class="btn btn-sm" data-card-widget="collapse"
+                              style="background-color: #F39237">
+                              <i class="fas fa-minus"></i>
+                           </button>
+                        </div>
+                     </div>
+                     <div class="card-body">
+                        <div class="chartjs-size-monitor">
+                           <div class="chartjs-size-monitor-expand">
+                              <div class=""></div>
+                           </div>
+                           <div class="chartjs-size-monitor-shrink">
+                              <div class=""></div>
+                           </div>
+                        </div>
+                        <canvas class="chart chartjs-render-monitor" id="jml-prestasi-line-chart"
+                           style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 644px;"
+                           width="1288" height="500"></canvas>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-6">
+                  <div class="card" style="background-color: #B10F2E ">
+                     <div class="card-header border-0 ui-sortable-handle" style="cursor: move;">
+                        <h3 class="card-title mt-1 text-white">
+                           <i class="fas fa-chart-line mr-1"></i>
+                           Grafik Jumlah Pegawai
+                        </h3>
+                        <div class="card-tools">
+                           <button type="button" class="btn btn-sm text-white" data-card-widget="collapse"
+                              style="background-color: #B10F2E">
+                              <i class="fas fa-minus"></i>
+                           </button>
+                        </div>
+                     </div>
+                     <div class="card-body">
+                        <div class="chartjs-size-monitor">
+                           <div class="chartjs-size-monitor-expand">
+                              <div class=""></div>
+                           </div>
+                           <div class="chartjs-size-monitor-shrink">
+                              <div class=""></div>
+                           </div>
+                        </div>
+                        <canvas class="chart chartjs-render-monitor" id="jml-pegawai-line-chart"
+                           style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 644px;"
+                           width="1288" height="500"></canvas>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-6">
+                  <div class="card bg-dark">
+                     <div class="card-header border-0 ui-sortable-handle" style="cursor: move;">
+                        <h3 class="card-title">
+                           <i class="fas fa-chart-bar mr-1"></i>
+                           Bar Jumlah Surat
+                        </h3>
+                        <div class="card-tools">
+                           <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                              <i class="fas fa-minus"></i>
+                           </button>
+                        </div>
+                     </div>
+                     <div class="card-body">
+                        <div class="chart">
+                           <div class="chartjs-size-monitor">
+                              <div class="chartjs-size-monitor-expand">
+                                 <div class=""></div>
+                              </div>
+                              <div class="chartjs-size-monitor-shrink">
+                                 <div class=""></div>
+                              </div>
+                           </div>
+                           <canvas class="chartjs-render-monitor" id="jml-surat-barChart"
+                              style="min-height: 250px; height: 257px; max-height: 257px; max-width: 100%; display: block; width: 410px;"
+                              width="820" height="500"></canvas>
+                        </div>
+                     </div>
+
                   </div>
                </div>
             </div>
@@ -224,8 +397,6 @@
    <script src="/adminlte/plugins/chart.js/Chart.min.js"></script>
    <!-- AdminLTE App -->
    <script src="/adminlte/dist/js/adminlte.min.js"></script>
-   <!-- AdminLTE for demo purposes -->
-   <script src="/adminlte/dist/js/demo.js"></script>
    <script>
       $(function() {
          /* ChartJS
@@ -286,6 +457,435 @@
             type: 'doughnut',
             data: donutData,
             options: donutOptions
+         })
+
+         //-------------
+         //- JUMLAH SISWA LINE CHART -
+         //-------------
+         var jmlSiswaGraphChartCanvas = $('#jml-siswa-line-chart').get(0).getContext('2d')
+
+         var jmlSiswaGraphChartData = {
+            labels: [
+               @foreach ($tahun_ajaran->sortBy('tahun_ajaran', SORT_REGULAR, true)->take(10)->sortBy('tahun_ajaran') as $ta)
+                  "{{ $ta->tahun_ajaran }}",
+               @endforeach
+            ],
+            datasets: [{
+               label: 'Jumlah Siswa',
+               fill: true,
+               borderWidth: 2,
+               lineTension: 0,
+               spanGaps: true,
+               borderColor: '#efefef',
+               pointRadius: 3,
+               pointHoverRadius: 7,
+               pointColor: '#efefef',
+               pointBackgroundColor: '#efefef',
+               data: [
+                  @foreach ($tahun_ajaran->sortBy('tahun_ajaran') as $ta)
+                     {{ $ta->jml_siswa }},
+                  @endforeach
+               ]
+            }]
+         }
+
+         var jmlSiswaGraphChartOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+            legend: {
+               display: false
+            },
+            scales: {
+               xAxes: [{
+                  ticks: {
+                     fontColor: '#efefef'
+                  },
+                  gridLines: {
+                     display: false,
+                     color: '#efefef',
+                     drawBorder: false
+                  }
+               }],
+               yAxes: [{
+                  ticks: {
+                     stepSize: 50,
+                     fontColor: '#efefef'
+                  },
+                  gridLines: {
+                     display: true,
+                     color: '#efefef',
+                     drawBorder: false
+                  }
+               }]
+            }
+         }
+
+         // This will get the first returned node in the jQuery collection.
+         // eslint-disable-next-line no-unused-vars
+         var jmlSiswaGraphChart = new Chart(jmlSiswaGraphChartCanvas, { // lgtm[js/unused-local-variable]
+            type: 'line',
+            data: jmlSiswaGraphChartData,
+            options: jmlSiswaGraphChartOptions
+         })
+
+         //-------------
+         //- JUMLAH SISWA BARU LINE CHART -
+         //-------------
+         var jmlSiswaBaruGraphChartCanvas = $('#jml-siswa-baru-line-chart').get(0).getContext('2d')
+
+         var jmlSiswaBaruGraphChartData = {
+            labels: [
+               @foreach ($tahun_ajaran->sortBy('tahun_ajaran', SORT_REGULAR, true)->take(10)->sortBy('tahun_ajaran') as $ta)
+                  "{{ $ta->tahun_ajaran }}",
+               @endforeach
+            ],
+            datasets: [{
+               label: 'Jumlah Siswa Baru',
+               fill: true,
+               borderWidth: 2,
+               lineTension: 0,
+               spanGaps: true,
+               borderColor: '#efefef',
+               pointRadius: 3,
+               pointHoverRadius: 7,
+               pointColor: '#efefef',
+               pointBackgroundColor: '#efefef',
+               data: [
+                  @foreach ($tahun_ajaran->sortBy('tahun_ajaran') as $ta)
+                     {{ $ta->jml_siswa_baru }},
+                  @endforeach
+               ]
+            }]
+         }
+
+         var jmlSiswaBaruGraphChartOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+            legend: {
+               display: false
+            },
+            scales: {
+               xAxes: [{
+                  ticks: {
+                     fontColor: '#efefef'
+                  },
+                  gridLines: {
+                     display: false,
+                     color: '#efefef',
+                     drawBorder: false
+                  }
+               }],
+               yAxes: [{
+                  ticks: {
+                     stepSize: 20,
+                     fontColor: '#efefef'
+                  },
+                  gridLines: {
+                     display: true,
+                     color: '#efefef',
+                     drawBorder: false
+                  }
+               }]
+            }
+         }
+
+         // This will get the first returned node in the jQuery collection.
+         // eslint-disable-next-line no-unused-vars
+         var jmlSiswaBaruGraphChart = new Chart(jmlSiswaBaruGraphChartCanvas, { // lgtm[js/unused-local-variable]
+            type: 'line',
+            data: jmlSiswaBaruGraphChartData,
+            options: jmlSiswaBaruGraphChartOptions
+         })
+
+         //-------------
+         //- JUMLAH SISWA KELUAR LINE CHART -
+         //-------------
+         var jmlSiswaKeluarGraphChartCanvas = $('#jml-siswa-keluar-line-chart').get(0).getContext('2d')
+
+         var jmlSiswaKeluarGraphChartData = {
+            labels: [
+               @foreach ($tahun_ajaran->sortBy('tahun_ajaran', SORT_REGULAR, true)->take(10)->sortBy('tahun_ajaran') as $ta)
+                  "{{ $ta->tahun_ajaran }}",
+               @endforeach
+            ],
+            datasets: [{
+               label: 'Jumlah Siswa Keluar',
+               fill: true,
+               borderWidth: 2,
+               lineTension: 0,
+               spanGaps: true,
+               borderColor: '#0E0F19',
+               pointRadius: 3,
+               pointHoverRadius: 7,
+               pointColor: '#0E0F19',
+               pointBackgroundColor: '#0E0F19',
+               data: [
+                  @foreach ($tahun_ajaran->sortBy('tahun_ajaran') as $ta)
+                     {{ $ta->jml_siswa_keluar }},
+                  @endforeach
+               ]
+            }]
+         }
+
+         var jmlSiswaKeluarGraphChartOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+            legend: {
+               display: false
+            },
+            scales: {
+               xAxes: [{
+                  ticks: {
+                     fontColor: '#0E0F19'
+                  },
+                  gridLines: {
+                     display: false,
+                     color: '#0E0F19',
+                     drawBorder: false
+                  }
+               }],
+               yAxes: [{
+                  ticks: {
+                     stepSize: 2,
+                     fontColor: '#0E0F19'
+                  },
+                  gridLines: {
+                     display: true,
+                     color: '#0E0F19',
+                     drawBorder: false
+                  }
+               }]
+            }
+         }
+
+         // This will get the first returned node in the jQuery collection.
+         // eslint-disable-next-line no-unused-vars
+         var jmlSiswaKeluarGraphChart = new Chart(jmlSiswaKeluarGraphChartCanvas, { // lgtm[js/unused-local-variable]
+            type: 'line',
+            data: jmlSiswaKeluarGraphChartData,
+            options: jmlSiswaKeluarGraphChartOptions
+         })
+
+         //-------------
+         //- JUMLAH PRESTASI LINE CHART -
+         //-------------
+         var jmlPrestasiGraphChartCanvas = $('#jml-prestasi-line-chart').get(0).getContext('2d')
+
+         var jmlPrestasiGraphChartData = {
+            labels: [
+               @foreach ($tahun_ajaran->sortBy('tahun_ajaran', SORT_REGULAR, true)->take(10)->sortBy('tahun_ajaran') as $ta)
+                  "{{ $ta->tahun_ajaran }}",
+               @endforeach
+            ],
+            datasets: [{
+               label: 'Jumlah Prestasi',
+               fill: true,
+               borderWidth: 2,
+               lineTension: 0,
+               spanGaps: true,
+               borderColor: '#0E0F19',
+               pointRadius: 3,
+               pointHoverRadius: 7,
+               pointColor: '#0E0F19',
+               pointBackgroundColor: '#0E0F19',
+               data: [
+                  @foreach ($tahun_ajaran->sortBy('tahun_ajaran') as $ta)
+                     {{ $ta->jml_prestasi }},
+                  @endforeach
+               ]
+            }]
+         }
+
+         var jmlPrestasiGraphChartOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+            legend: {
+               display: false
+            },
+            scales: {
+               xAxes: [{
+                  ticks: {
+                     fontColor: '#0E0F19'
+                  },
+                  gridLines: {
+                     display: false,
+                     color: '#0E0F19',
+                     drawBorder: false
+                  }
+               }],
+               yAxes: [{
+                  ticks: {
+                     stepSize: 5,
+                     fontColor: '#0E0F19'
+                  },
+                  gridLines: {
+                     display: true,
+                     color: '#0E0F19',
+                     drawBorder: false
+                  }
+               }]
+            }
+         }
+
+         // This will get the first returned node in the jQuery collection.
+         // eslint-disable-next-line no-unused-vars
+         var jmlPrestasiGraphChart = new Chart(jmlPrestasiGraphChartCanvas, { // lgtm[js/unused-local-variable]
+            type: 'line',
+            data: jmlPrestasiGraphChartData,
+            options: jmlPrestasiGraphChartOptions
+         })
+
+         //-------------
+         //- JUMLAH PEGAWAI LINE CHART -
+         //-------------
+         var jmlPegawaiGraphChartCanvas = $('#jml-pegawai-line-chart').get(0).getContext('2d')
+
+         var jmlPegawaiGraphChartData = {
+            labels: [
+               @foreach ($tahun_ajaran->sortBy('tahun_ajaran', SORT_REGULAR, true)->take(10)->sortBy('tahun_ajaran') as $ta)
+                  "{{ $ta->tahun_ajaran }}",
+               @endforeach
+            ],
+            datasets: [{
+               label: 'Jumlah Pegawai',
+               fill: true,
+               borderWidth: 2,
+               lineTension: 0,
+               spanGaps: true,
+               borderColor: '#efefef',
+               pointRadius: 3,
+               pointHoverRadius: 7,
+               pointColor: '#efefef',
+               pointBackgroundColor: '#efefef',
+               data: [
+                  @foreach ($tahun_ajaran->sortBy('tahun_ajaran') as $ta)
+                     {{ $ta->jml_prestasi }},
+                  @endforeach
+               ]
+            }]
+         }
+
+         var jmlPegawaiGraphChartOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+            legend: {
+               display: false
+            },
+            scales: {
+               xAxes: [{
+                  ticks: {
+                     fontColor: '#efefef'
+                  },
+                  gridLines: {
+                     display: false,
+                     color: '#efefef',
+                     drawBorder: false
+                  }
+               }],
+               yAxes: [{
+                  ticks: {
+                     stepSize: 5,
+                     fontColor: '#efefef'
+                  },
+                  gridLines: {
+                     display: true,
+                     color: '#efefef',
+                     drawBorder: false
+                  }
+               }]
+            }
+         }
+
+         // This will get the first returned node in the jQuery collection.
+         // eslint-disable-next-line no-unused-vars
+         var jmlPegawaiGraphChart = new Chart(jmlPegawaiGraphChartCanvas, { // lgtm[js/unused-local-variable]
+            type: 'line',
+            data: jmlPegawaiGraphChartData,
+            options: jmlPegawaiGraphChartOptions
+         })
+
+         //-------------
+         //- JUMLAH SURAT BAR CHART -
+         //-------------
+         var jmlSuratBarChartCanvas = $('#jml-surat-barChart').get(0).getContext('2d')
+         var jmlSuratBarChartData = {
+            labels: [
+               @foreach ($tahun_ajaran->sortBy('tahun_ajaran', SORT_REGULAR, true)->take(7)->sortBy('tahun_ajaran') as $ta)
+                  "{{ $ta->tahun_ajaran }}",
+               @endforeach
+            ],
+            datasets: [{
+                  label: 'Surat Masuk',
+                  backgroundColor: '#F1E0C5',
+                  borderColor: '#F1E0C5',
+                  pointRadius: false,
+                  pointColor: '#3b8bba',
+                  pointStrokeColor: '#F1E0C5',
+                  pointHighlightFill: '#fff',
+                  pointHighlightStroke: '#F1E0C5',
+                  data: [
+                     @foreach ($tahun_ajaran->sortBy('tahun_ajaran') as $ta)
+                        {{ $ta->jml_surat_masuk }},
+                     @endforeach
+                  ]
+               },
+               {
+                  label: 'Surat Keluar',
+                  backgroundColor: '#17BEBB',
+                  borderColor: '#17BEBB',
+                  pointRadius: false,
+                  pointColor: '#17BEBB',
+                  pointStrokeColor: '#17BEBB',
+                  pointHighlightFill: '#fff',
+                  pointHighlightStroke: '#17BEBB',
+                  data: [
+                     @foreach ($tahun_ajaran->sortBy('tahun_ajaran') as $ta)
+                        {{ $ta->jml_surat_keluar }},
+                     @endforeach
+                  ]
+               },
+            ]
+         }
+
+         var jmlSuratBarChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            datasetFill: false,
+            legend: {
+               display: true,
+               labels: {
+                  fontColor: '#efefef'
+               }
+            },
+            scales: {
+               xAxes: [{
+                  ticks: {
+                     fontColor: '#efefef'
+                  },
+                  gridLines: {
+                     display: false,
+                     color: '#efefef',
+                     drawBorder: false
+                  }
+               }],
+               yAxes: [{
+                  ticks: {
+                     stepSize: 10,
+                     fontColor: '#efefef'
+                  },
+                  gridLines: {
+                     display: true,
+                     color: '#efefef',
+                     drawBorder: false
+                  }
+               }]
+            }
+         }
+
+         new Chart(jmlSuratBarChartCanvas, {
+            type: 'bar',
+            data: jmlSuratBarChartData,
+            options: jmlSuratBarChartOptions
          })
       })
    </script>
