@@ -242,6 +242,7 @@ class SuratKeluarController extends Controller {
         $validatedData['file_surat'] = $path;
 
         SuratKeluar::create($validatedData);
+        SuratKeluar::updateData();
 
         return $pdf->stream($nama_file);
     }

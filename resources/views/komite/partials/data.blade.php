@@ -21,6 +21,7 @@
       <table class="table table-responsive table-borderless">
          <thead>
             <tr class="d-flex">
+               <th class="col-2 text-center">Daftar Ulang</th>
                @if ($semester == 'Ganjil')
                   <th class="col-2 text-center">Januari</th>
                   <th class="col-2 text-center">Februari</th>
@@ -29,6 +30,7 @@
                   <th class="col-2 text-center">Mei</th>
                   <th class="col-2 text-center">Juni</th>
                @else
+                  <th class="col-2 text-center">Komite S1</th>
                   <th class="col-2 text-center">Juli</th>
                   <th class="col-2 text-center">Agustus</th>
                   <th class="col-2 text-center">September</th>
@@ -41,14 +43,32 @@
          <tbody>
             @foreach ($komite as $ko)
                <tr class="d-flex">
+                  <td class="col-2 px-1 py-1" style="margin-bottom: 2px; margin-top: 2px">
+                     <div class="pl-0">
+                        <input type="text" oninput="warnaStatus()"
+                           class="form-control daftar_ulang_{{ $ko->id }}" name="daftar_ulang_{{ $ko->id }}"
+                           id="rupiah_{{ $ko->id }}"
+                           value="{{ $ko->daftar_ulang <= 0 ? 'Lunas' : "Rp. $ko->daftar_ulang" }}">
+                     </div>
+                  </td>
+                  @if ($semester == 'Genap')
+                     <td class="col-2 px-1 py-1" style="margin-bottom: 2px; margin-top: 2px">
+                        <div class="pl-0">
+                           <select class="form-control" name="komite1_{{ $ko->id }}"
+                              id="komite1_{{ $ko->id }}" onchange="warnaStatus()" required>
+                              <option class="" value="Belum Lunas" selected>Belum Lunas</option>
+                              <option value="Lunas">Lunas</option>
+                           </select>
+                        </div>
+                     </td>
+                  @endif
                   @for ($i = $bln_awal; $i <= $bln_awal + 5; $i++)
                      <td class="col-2 px-1 py-1" style="margin-bottom: 2px; margin-top: 2px">
                         <div class="pl-0">
                            <select class="form-control" name="komite_{{ $ko->id }}_{{ $i }}"
                               id="komite_{{ $ko->id }}_{{ $i }}" onchange="warnaStatus()" required>
                               @if ($ko->$i == 'Belum Lunas')
-                                 <option class="" value="Belum Lunas" selected>Belum Lunas
-                                 </option>
+                                 <option class="" value="Belum Lunas" selected>Belum Lunas</option>
                                  <option value="Lunas">Lunas</option>
                               @elseif ($ko->$i == 'Lunas')
                                  <option value="Belum Lunas">Belum Lunas</option>

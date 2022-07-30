@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 use App\Models\Siswa;
+use App\Models\Komite;
 use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
 
@@ -45,6 +46,7 @@ class TahunAjaranController extends Controller {
         $validatedData = $request->validate([
             "tahun_ajaran" => "required",
             "status" => "required",
+            "nominal_daftar_ulang" => "required",
             "jml_siswa" => "nullable|numeric",
             "jml_siswa_baru" => "nullable|numeric",
             "jml_siswa_lulus" => "nullable|numeric",
@@ -55,17 +57,11 @@ class TahunAjaranController extends Controller {
             "jml_surat_keluar" => "nullable|numeric",
         ]);
 
+        $nominalDaftarUlang = str_replace(".", "", explode(" ", $request->nominal_daftar_ulang)[1]);
+        $validatedData['nominal_daftar_ulang'] = $nominalDaftarUlang;
+
         // Merubah ke kelas terbaru
         if ($request->status == '1') {
-            // kenaikan kelas
-            $kelas_terdaftar = Siswa::all()->pluck('kelas_id')->toArray();
-            $kelas_non_kosong = Kelas::whereIn('id', $kelas_terdaftar)->whereNotIn('tingkatan', ['12'])->get();
-            foreach ($kelas_non_kosong as $knk) {
-                $kelas_asal = "kelas_asal_$knk->id";
-                $kelas_tujuan = "kelas_tujuan_$knk->id";
-                Siswa::where('kelas_id', $request->$kelas_asal)->update(array('kelas_id' => $request->$kelas_tujuan));
-            }
-
             // tinggal kelas/tidak lulus
             $id_siswa_tidak_lulus = [];
             if ($request->jml_siswa_tinggal_kelas != 0) {
@@ -84,10 +80,22 @@ class TahunAjaranController extends Controller {
             $jml_siswa_lulus = Siswa::whereIn('kelas_id', $kelas_12)->whereNotIn('id', $id_siswa_tidak_lulus)->count();
             TahunAjaran::where('status', '1')->update(array('jml_siswa_lulus' => $jml_siswa_lulus));
             Siswa::whereIn('kelas_id', $kelas_12)->whereNotIn('id', $id_siswa_tidak_lulus)->delete();
+            $idSiswa = Siswa::all()->pluck('id')->toArray();
+            Komite::whereNotIn('siswa_id', $idSiswa)->delete();
+            Komite::resetKomite($nominalDaftarUlang);
+
+            // kenaikan kelas
+            $kelas_terdaftar = Siswa::all()->pluck('kelas_id')->toArray();
+            $kelas_non_kosong = Kelas::whereIn('id', $kelas_terdaftar)->whereNotIn('tingkatan', ['12'])->get();
+            foreach ($kelas_non_kosong as $knk) {
+                $kelas_asal = "kelas_asal_$knk->id";
+                $kelas_tujuan = "kelas_tujuan_$knk->id";
+                Siswa::where('kelas_id', $request->$kelas_asal)->whereNotIn('id', $id_siswa_tidak_lulus)->update(array('kelas_id' => $request->$kelas_tujuan));
+            }
 
             TahunAjaran::where('status', '1')->update(array('status' => '0'));
         }
-
+        
         if (!($request->jml_siswa)) {
             $validatedData['jml_siswa'] = 0;
         }
@@ -229,7 +237,7 @@ class TahunAjaranController extends Controller {
     }
 
     public function getDataForm(Request $request) {
-        if ($request->status == 2) {
+        if ($request->status == 0) {
             return view('tahun-ajaran.partials.form-data');
         } else {
             $kelas_terdaftar = Siswa::all()->pluck('kelas_id')->toArray();

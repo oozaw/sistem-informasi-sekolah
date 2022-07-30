@@ -22,4 +22,9 @@ class Siswa extends Model {
     public function komite() {
         return $this->hasOne(Komite::class);
     }
+
+    public static function getSiswaKelas($kelas_id) {
+        $jml = Siswa::where('kelas_id', $kelas_id)->get();
+        return $jml;
+    }
 }

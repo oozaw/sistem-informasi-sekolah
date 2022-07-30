@@ -79,7 +79,48 @@ class KomiteController extends Controller {
         $semester = $request->semester;
         $kelas_id = $request->kelas;
 
-        // for ($i = )
+        $idSiswa = Siswa::getSiswaKelas($kelas_id)->pluck('id')->toArray();
+        $semester == 'Ganjil' ? $bln_awal = 1 : $bln_awal = 7;
+        $komite = Komite::whereIn('siswa_id', $idSiswa)->get();
+
+        $rule = [
+            "siswa_id" => "required",
+            "daftar_ulang" => "required",
+            "komite_1" => "required"
+        ];
+
+        if ($semester == 'Ganjil') {
+            $rule = array_merge($rule, [
+                "1" => "required",
+                "2" => "required",
+                "3" => "required",
+                "4" => "required",
+                "5" => "required",
+                "6" => "required",
+            ]);
+        } else {
+            $rule = array_merge($rule, [
+                "7" => "required",
+                "8" => "required",
+                "9" => "required",
+                "10" => "required",
+                "11" => "required",
+                "12" => "required"
+            ]);
+        }
+
+        $validatedData = $request->validate($rule);
+
+        foreach ($komite as $k) {
+            // daftar ulang
+
+            // komite per bulan
+            for ($i = $bln_awal; $i <= $bln_awal + 5; $i++) {
+                $idRequest = 'komite_' . $k->id . '_' . $i;
+                $validatedData[$i] = $request->$idRequest;
+            }
+            Komite::where('id', $k->id)->update($validatedData);
+        }
     }
 
     /**
@@ -98,7 +139,11 @@ class KomiteController extends Controller {
         $request->semester == 'Ganjil' ? $bln_awal = 1 : $bln_awal = 7;
 
         if ($komite->count() == 0) {
-            return view('komite.partials.empty');
+            return response()->json([
+                "status" => 0,
+                "page" => view('komite.partials.empty')->render(),
+                "message" => "gagal generate"
+            ]);
         } else {
             $data = [
                 "semester" => $request->semester,

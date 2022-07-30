@@ -1,4 +1,31 @@
 <div id="kenaikan_kelas">
+   <div class="row">
+      <div class="col-sm-6">
+         <div class="form-group">
+            <label for="nominal_daftar_ulang">Nominal Daftar Ulang</label>
+            <input type="text" class="form-control @error('nominal_daftar_ulang') is-invalid @enderror" id="rupiah"
+               name="nominal_daftar_ulang" placeholder="Masukkan nominal" value="{{ old('nominal_daftar_ulang') }}">
+            @error('nominal_daftar_ulang')
+               <div class="invalid-feedback">
+                  {{ $message }}
+               </div>
+            @enderror
+         </div>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col">
+         <div class="alert alert-danger">
+            <h5><i class="fas fa-exclamation-triangle mr-2"></i><b>Peringatan!</b></h5>
+            <span>
+               1. Data pembayaran komite akan direset setelah tahun pelajaran baru ditambahkan. <br>
+               2. Pastikan file excel pembayaran komite sudah didownload terlebih dahulu sebelum menambah tahun
+               pelajaran
+               baru!
+            </span>
+         </div>
+      </div>
+   </div>
    <hr class="mt-0">
    <label>Data Kenaikan Kelas</label>
    @foreach ($kelas_non_kosong as $knk)
@@ -54,7 +81,7 @@
    <label>Data Siswa Tinggal Kelas / Tidak Lulus</label>
    <div class="form-group row mb-3">
       <label for="jml_siswa_tinggal_kelas" class="col-form-label pr-0 ml-4 mr-3">Jumlah</label>
-      <div class="col-1 pl-0 mr-3">
+      <div class="col-1 ml-1">
          <input type="number" class="form-control" id="jml_siswa_tinggal_kelas" name="jml_siswa_tinggal_kelas"
             placeholder="Jumlah siswa yang tinggal kelas/tidak lulus" value="0" min="0">
       </div>

@@ -36,7 +36,7 @@
                         </div>
                      </div>
                      <!-- /.card-header -->
-                     <form method="POST" action="/tahun-ajaran" enctype="multipart/form-data">
+                     <form method="POST" action="/tahun-ajaran" id="form_tambah" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body pb-0">
                            <div class="row">
@@ -61,13 +61,13 @@
                                        <option selected disabled hidden value="">-- Pilih status --</option>
                                        @if (old('status') == '1')
                                           <option value="1" selected>Baru</option>
-                                          <option value="2">Lama</option>
-                                       @elseif (old('status') == '2')
+                                          <option value="0">Lama</option>
+                                       @elseif (old('status') == '0')
                                           <option value="1">Baru</option>
-                                          <option value="2" selected>Lama</option>
+                                          <option value="0" selected>Lama</option>
                                        @else
                                           <option value="1">Baru</option>
-                                          <option value="2">Lama</option>
+                                          <option value="0">Lama</option>
                                        @endif
                                     </select>
                                     @error('status')
@@ -156,10 +156,36 @@
                         }
                      });
                   });
+
+                  // format form rupiah
+                  var rupiah = document.querySelector("#rupiah");
+                  rupiah.addEventListener("input", function(e) {
+                     // tambahkan 'Rp.' pada saat form di ketik
+                     // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+                     rupiah.value = formatRupiah(this.value, "Rp. ");
+                  });
                }
             });
          });
       });
+
+      /* Fungsi formatRupiah */
+      function formatRupiah(angka, prefix) {
+         var number_string = angka.replace(/[^,\d]/g, "").toString(),
+            split = number_string.split(","),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+         // tambahkan titik jika yang di input sudah menjadi angka ribuan
+         if (ribuan) {
+            separator = sisa ? "." : "";
+            rupiah += separator + ribuan.join(".");
+         }
+
+         rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+         return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
+      }
 
       $(function() {
          bsCustomFileInput.init();

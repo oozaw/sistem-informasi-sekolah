@@ -15,6 +15,8 @@ class CreateKomitesTable extends Migration {
             $table->id();
             $table->timestamps();
             $table->foreignId('siswa_id')->unique();
+            $table->string('daftar_ulang')->default('0');
+            $table->string('komite_1')->default('Belum Lunas');
             $table->string('1')->default('Belum Lunas');
             $table->string('2')->default('Belum Lunas');
             $table->string('3')->default('Belum Lunas');

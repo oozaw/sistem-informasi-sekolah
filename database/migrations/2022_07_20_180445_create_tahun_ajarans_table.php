@@ -16,6 +16,7 @@ class CreateTahunAjaransTable extends Migration {
             $table->timestamps();
             $table->string("tahun_ajaran");
             $table->string("status");
+            $table->string('nominal_daftar_ulang')->default('0');
             $table->string("jml_siswa_baru")->nullable();
             $table->string("jml_siswa")->nullable();
             $table->string("jml_siswa_keluar")->nullable();
