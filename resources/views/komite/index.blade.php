@@ -224,14 +224,14 @@
 
       function getRupiah() {
          @foreach ($komite as $ko)
-            // if (document.getElementById("rupiah_{{ $ko->id }}")) {
-            var rupiah_{{ $ko->id }} = document.getElementById("rupiah_{{ $ko->id }}");
-            rupiah_{{ $ko->id }}.addEventListener("input", function(e) {
-               // tambahkan 'Rp.' pada saat form di ketik
-               // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
-               rupiah_{{ $ko->id }}.value = formatRupiah(this.value, "Rp. ");
-            });
-            // }
+            if (document.getElementById("rupiah_{{ $ko->id }}")) {
+               var rupiah_{{ $ko->id }} = document.getElementById("rupiah_{{ $ko->id }}");
+               rupiah_{{ $ko->id }}.addEventListener("input", function(e) {
+                  // tambahkan 'Rp.' pada saat form di ketik
+                  // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+                  rupiah_{{ $ko->id }}.value = formatRupiah(this.value, "Rp. ");
+               });
+            }
          @endforeach
       }
 
