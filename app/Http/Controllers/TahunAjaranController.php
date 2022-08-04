@@ -57,7 +57,8 @@ class TahunAjaranController extends Controller {
             "jml_surat_keluar" => "nullable|numeric",
         ]);
 
-        $nominalDaftarUlang = str_replace(".", "", explode(" ", $request->nominal_daftar_ulang)[1]);
+        // $nominalDaftarUlang = str_replace(".", "", explode(" ", $request->nominal_daftar_ulang)[1]);
+        $nominalDaftarUlang = $request->nominal_daftar_ulang;
         $validatedData['nominal_daftar_ulang'] = $nominalDaftarUlang;
 
         // Merubah ke kelas terbaru
@@ -95,7 +96,7 @@ class TahunAjaranController extends Controller {
 
             TahunAjaran::where('status', '1')->update(array('status' => '0'));
         }
-        
+
         if (!($request->jml_siswa)) {
             $validatedData['jml_siswa'] = 0;
         }

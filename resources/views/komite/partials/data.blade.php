@@ -48,17 +48,14 @@
                         <input type="text" oninput="warnaStatus()"
                            class="form-control daftar_ulang_{{ $ko->id }}" name="daftar_ulang_{{ $ko->id }}"
                            id="rupiah_{{ $ko->id }}"
-                           value="{{ $ko->daftar_ulang <= 0 ? 'Lunas' : "Rp. $ko->daftar_ulang" }}">
+                           value="{{ $ko->daftar_ulang <= 0 ? 'Lunas' : "$ko->daftar_ulang" }}">
                      </div>
                   </td>
                   @if ($semester == 'Genap')
                      <td class="col-2 px-1 py-1" style="margin-bottom: 2px; margin-top: 2px">
                         <div class="pl-0">
-                           <select class="form-control" name="komite1_{{ $ko->id }}"
-                              id="komite1_{{ $ko->id }}" onchange="warnaStatus()" required>
-                              <option class="" value="Belum Lunas" selected>Belum Lunas</option>
-                              <option value="Lunas">Lunas</option>
-                           </select>
+                           <input type="text" class="form-control" name="komite1_{{ $ko->id }}"
+                              id="komite1_{{ $ko->id }}" value="{{ $ko->komite_1 }}" readonly required>
                         </div>
                      </td>
                   @endif
@@ -88,5 +85,5 @@
          </tbody>
       </table>
    </div>
-   <a href="" id="button_simpan" class="d-block col-auto btn btn-primary ml-auto mr-3">Simpan</a>
+   <a id="button_simpan" class="d-block col-auto btn btn-primary ml-auto mr-3">Simpan</a>
 </div>

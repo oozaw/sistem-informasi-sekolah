@@ -35,32 +35,33 @@
                               <i class="fas fa-file-plus"></i> Input Data Siswa Bebas Komite</a>
                            <a href="/komite" class="btn bg-gradient-purple btn-sm mr-1">
                               <i class="fas fa-file-download"></i> Ekspor Excel Data Pembayaran</a>
-                           <div id="alert">
-                           </div>
+                           <div id="alert"></div>
                         </div>
                      </div>
                      <!-- /.card-header -->
                      <div class="card-body">
-                        <div class="form-group row mb-3">
-                           <label for="semester" class="col-form-label pr-0 mx-2 mr-3">Semester</label>
-                           <div class="col-2 pl-0 mr-3">
-                              <select class="form-control get-data" name="semester" id="semester" required>
-                                 <option value="Ganjil" {{ $tgl->month <= 6 ? 'selected' : '' }}>Ganjil</option>
-                                 <option value="Genap" {{ $tgl->month > 6 ? 'selected' : '' }}>Genap</option>
-                              </select>
+                        <form id="form" method="POST" enctype="multipart/form-data">
+                           <div class="form-group row mb-3">
+                              <label for="semester" class="col-form-label pr-0 mx-2 mr-3">Semester</label>
+                              <div class="col-2 pl-0 mr-3">
+                                 <select class="form-control get-data" name="semester" id="semester" required>
+                                    <option value="Ganjil" {{ $tgl->month <= 6 ? 'selected' : '' }}>Ganjil</option>
+                                    <option value="Genap" {{ $tgl->month > 6 ? 'selected' : '' }}>Genap</option>
+                                 </select>
+                              </div>
+                              <label for="kelas" class="col-form-label pr-0 mx-2 mr-3">Kelas</label>
+                              <div class="col-2 pl-0 mr-3">
+                                 <select class="form-control get-data" name="kelas" id="kelas" required>
+                                    <option value="" selected hidden disabled>-- Pilih Kelas --</option>
+                                    @foreach ($kelas as $k)
+                                       <option value="{{ $k->id }}">{{ $k->nama }}</option>
+                                    @endforeach
+                                 </select>
+                              </div>
                            </div>
-                           <label for="kelas" class="col-form-label pr-0 mx-2 mr-3">Kelas</label>
-                           <div class="col-2 pl-0 mr-3">
-                              <select class="form-control get-data" name="kelas" id="kelas" required>
-                                 <option value="" selected hidden disabled>-- Pilih Kelas --</option>
-                                 @foreach ($kelas as $k)
-                                    <option value="{{ $k->id }}">{{ $k->nama }}</option>
-                                 @endforeach
-                              </select>
-                           </div>
-                        </div>
-                        <div id="data"></div>
-                        <div id="loader"></div>
+                           <div id="data"></div>
+                           <div id="loader"></div>
+                        </form>
                      </div>
                      <!-- /.card-body -->
                   </div>
@@ -131,38 +132,9 @@
                      $("#data").append(result);
                      warnaStatus();
                      getRupiah();
+                     ajaxUpdate();
+
                   }
-               }
-            });
-         });
-
-         $("#button_simpan").on('click', function(e) {
-            var bln_awal = "";
-            if ($("#semester").val() == "Ganjil") {
-               bln_awal = 1;
-            } else {
-               bln_awal = 7;
-            }
-
-            e.preventDefault();
-            $.ajaxSetup({
-               headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-               }
-            });
-
-            $.ajax({
-               url: "{{ url('komite-update') }}",
-               method: 'post',
-               data: {
-                  semester: $("#semester").val(),
-                  kelas: $("#kelas").val()
-               },
-               beforeSend: function() {
-                  $("#alert").text('');
-               },
-               success: function(result) {
-                  $("#alert").append(result);
                }
             });
          });
@@ -221,16 +193,46 @@
          @endforeach
       }
 
+      function ajaxUpdate() {
+         $("#button_simpan").on('click', function(e) {
+            e.preventDefault();
+            $.ajaxSetup({
+               headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               }
+            });
+
+            // data
+            var data = new FormData($("#form")[0]);
+
+            $.ajax({
+               url: "{{ url('komite-update') }}",
+               method: 'post',
+               data: data,
+               processData: false,
+               contentType: false,
+               beforeSend: function() {
+                  $("#alert").text('');
+               },
+               success: function(result) {
+                  $("#alert").append(result.alert);
+                  cekAlert();
+               }
+            });
+         });
+      }
+
       function getRupiah() {
          @foreach ($komite as $ko)
+            // if (document.getElementById("rupiah_{{ $ko->id }}")) {
             var rupiah_{{ $ko->id }} = document.getElementById("rupiah_{{ $ko->id }}");
             rupiah_{{ $ko->id }}.addEventListener("input", function(e) {
                // tambahkan 'Rp.' pada saat form di ketik
                // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
                rupiah_{{ $ko->id }}.value = formatRupiah(this.value, "Rp. ");
             });
+            // }
          @endforeach
-
       }
 
       /* Fungsi formatRupiah */
@@ -251,7 +253,7 @@
          return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
       }
 
-      $(function() {
+      function cekAlert() {
          if ($('.successAlert').length) {
             $(document).Toasts('create', {
                class: 'bg-success mt-1 mr-1',
@@ -279,11 +281,10 @@
                title: 'Toast Title',
                autohide: true,
                delay: 5000,
-               subtitle: 'Subtitle',
                body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
             });
          }
 
-      });
+      };
    </script>
 @endsection

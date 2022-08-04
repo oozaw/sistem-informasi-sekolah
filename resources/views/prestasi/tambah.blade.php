@@ -188,9 +188,5 @@
       $(function() {
          bsCustomFileInput.init();
       });
-
-      function cekJenisLomba() {
-         let
-      }
    </script>
 @endsection

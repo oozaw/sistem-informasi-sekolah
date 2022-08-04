@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kelas;
-use App\Models\Komite;
-use App\Models\Siswa;
 use Carbon\Carbon;
+use App\Models\Kelas;
+use App\Models\Siswa;
+use App\Models\Komite;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KomiteController extends Controller {
     /**
@@ -83,43 +84,37 @@ class KomiteController extends Controller {
         $semester == 'Ganjil' ? $bln_awal = 1 : $bln_awal = 7;
         $komite = Komite::whereIn('siswa_id', $idSiswa)->get();
 
-        $rule = [
-            "siswa_id" => "required",
-            "daftar_ulang" => "required",
-            "komite_1" => "required"
-        ];
-
-        if ($semester == 'Ganjil') {
-            $rule = array_merge($rule, [
-                "1" => "required",
-                "2" => "required",
-                "3" => "required",
-                "4" => "required",
-                "5" => "required",
-                "6" => "required",
-            ]);
-        } else {
-            $rule = array_merge($rule, [
-                "7" => "required",
-                "8" => "required",
-                "9" => "required",
-                "10" => "required",
-                "11" => "required",
-                "12" => "required"
-            ]);
-        }
-
-        $validatedData = $request->validate($rule);
-
         foreach ($komite as $k) {
-            // daftar ulang
+            // index data
+            $indexDaftarUlang = "daftar_ulang_$k->id";
+            $indexKomiteS1 = "komite1_$k->id";
+
+            // proses daftar ulang
+            $daftarUlangDB = Komite::where("id", $k->id)->pluck('daftar_ulang')->first();
+            $daftarUlang = $daftarUlangDB - $request->$indexDaftarUlang;
+
+            $data = [
+                "daftar_ulang" => $daftarUlang,
+                "komite_1" => $request->$indexKomiteS1,
+            ];
 
             // komite per bulan
             for ($i = $bln_awal; $i <= $bln_awal + 5; $i++) {
                 $idRequest = 'komite_' . $k->id . '_' . $i;
-                $validatedData[$i] = $request->$idRequest;
+                $data["$i"] = $request->$idRequest;
             }
-            Komite::where('id', $k->id)->update($validatedData);
+
+            if (Komite::where('id', $k->id)->update($data)) {
+                return response()->json([
+                    "status" => 1,
+                    "alert" => view("komite.partials.alert-success")->render(),
+                ]);
+            } else {
+                return response()->json([
+                    "status" => 0,
+                    "alert" => view("komite.partials.alert-fail")->render(),
+                ]);
+            }
         }
     }
 
@@ -153,5 +148,55 @@ class KomiteController extends Controller {
 
             return view('komite.partials.data', $data);
         }
+    }
+
+    public function updateKomite(Request $request) {
+        $semester = $request->semester;
+        $kelas_id = $request->kelas;
+
+        $idSiswa = Siswa::getSiswaKelas($kelas_id)->pluck('id')->toArray();
+        $semester == 'Ganjil' ? $bln_awal = 1 : $bln_awal = 7;
+        $komite = Komite::whereIn('siswa_id', $idSiswa)->get();
+
+        foreach ($komite as $k) {
+            // index data
+            $indexDaftarUlang = "daftar_ulang_$k->id";
+
+            // proses daftar ulang
+            if ($request->$indexDaftarUlang == "Lunas") {
+                $daftarUlang = 0;
+            } else {
+                $daftarUlang = $request->$indexDaftarUlang;
+            }
+
+            $data = [
+                "daftar_ulang" => $daftarUlang,
+            ];
+
+            // komite semester 1
+            if ($semester == 'Ganjil') {
+                $data["komite_1"] = "Lunas";
+                for ($i = 1; $i <= 6; $i++) {
+                    $idRequest = 'komite_' . $k->id . '_' . $i;
+                    if ($request->$idRequest == "Belum Lunas") {
+                        $data["komite_1"] = "Belum Lunas";
+                        break;
+                    }
+                }
+            }
+
+            // komite per bulan
+            for ($i = $bln_awal; $i <= $bln_awal + 5; $i++) {
+                $idRequest = 'komite_' . $k->id . '_' . $i;
+                $data["$i"] = $request->$idRequest;
+            }
+
+            DB::table('komite')->where('id', $k->id)->update($data);
+        }
+
+        return response()->json([
+            "status" => 1,
+            "alert" => view("komite.partials.alert-success")->render(),
+        ]);
     }
 }
