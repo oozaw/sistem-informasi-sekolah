@@ -65,6 +65,9 @@ Route::post('/prestasi-impor', [PrestasiController::class, 'import'])->name('pre
 Route::resource('/komite', KomiteController::class);
 Route::post('/komite-update', [KomiteController::class, 'updateKomite'])->name('komite.update');
 Route::post('/komite-data', [KomiteController::class, 'getDataKomite'])->name('komite.data');
+Route::get('/bebas-komite', [KomiteController::class, 'indexBebasKomite'])->name('komite.bebas-index');
+Route::post('/get-data-siswa', [KomiteController::class, 'getDataSiswa'])->name('komite.get-siswa');
+Route::put('/update-bebas-komite', [KomiteController::class, 'updateBebasKomite'])->name('komite.bebas-update');
 
 // Tahun Ajaran
 Route::resource('/tahun-ajaran', TahunAjaranController::class);

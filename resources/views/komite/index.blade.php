@@ -31,7 +31,7 @@
                   <div class="card">
                      <div class="card-header">
                         <div class="d-inline-flex">
-                           <a href="/komite" class="btn btn-success btn-sm mr-1">
+                           <a href="/bebas-komite" class="btn btn-success btn-sm mr-1">
                               <i class="fas fa-file-plus"></i> Input Data Siswa Bebas Komite</a>
                            <a href="/komite" class="btn bg-gradient-purple btn-sm mr-1">
                               <i class="fas fa-file-download"></i> Ekspor Excel Data Pembayaran</a>

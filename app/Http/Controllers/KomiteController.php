@@ -199,4 +199,40 @@ class KomiteController extends Controller {
             "alert" => view("komite.partials.alert-success")->render(),
         ]);
     }
+
+    public function indexBebasKomite() {
+        $tgl = new Carbon();
+        $tgl->month <= 6 ? $semester = 1 : $semester = 2;
+        $kelas_terdaftar = Siswa::all()->pluck('kelas_id')->toArray();
+        $kelas_non_kosong = Kelas::whereIn('id', $kelas_terdaftar)->get()->sortBy('tingkatan');
+
+        return view("komite.tambah-bebas-komite", [
+            "title" => "Data Siswa Bebas Komite",
+            "part" => "komite",
+            "komite" => Komite::whereNotIn('bebas1', [0])->orWhereNotIn('bebas2', [0])->get(),
+            "kelas" => $kelas_non_kosong,
+            "tgl" => $tgl
+        ]);
+    }
+
+    public function getDataSiswa(Request $request) {
+        $kelasId = $request->kelas_id;
+        $siswa = Siswa::where('kelas_id', $kelasId)->get()->sortBy('nama');
+
+        return view("komite.partials.data-siswa", [
+            "siswa" => $siswa
+        ]);
+    }
+
+    public function updateBebasKomite(Request $request) {
+        $siswaId = $request->siswa_id;
+        $data = [
+            "bebas1" => $request->bebas1,
+            "bebas2" => $request->bebas2
+        ];
+
+        Komite::where('siswa_id', $siswaId)->update($data);
+
+        return redirect('/bebas-komite')->with('success', "Data penerima beasiswa bebas komite berhasil disimpan!");
+    }
 }

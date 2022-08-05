@@ -256,7 +256,7 @@ class TahunAjaranController extends Controller {
         if ($request->jml_siswa != 0) {
             $data = [
                 "jml_siswa" => $request->jml_siswa,
-                "siswa" => Siswa::all(),
+                "siswa" => Siswa::all()->sortBy('nama'),
                 "kelas" => Kelas::all()->sortBy('tingkatan')
             ];
 
