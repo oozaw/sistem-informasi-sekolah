@@ -6,8 +6,14 @@ use Carbon\Carbon;
 use App\Models\Kelas;
 use App\Models\Siswa;
 use App\Models\Komite;
+use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
+use App\Exports\KomiteExport;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Color;
 
 class KomiteController extends Controller {
     /**
@@ -17,8 +23,8 @@ class KomiteController extends Controller {
      */
     public function index() {
         $tgl = new Carbon();
-        $tgl->month <= 6 ? $semester = 1 : $semester = 2;
-        $semester == 1 ? $bln_awal = 1 : $bln_awal = 7;
+        $tgl->month <= 6 ? $semester = 2 : $semester = 1;
+        $semester == 1 ? $bln_awal = 7 : $bln_awal = 1;
 
         return view('komite.index', [
             "title" => "Pembayaran Komite Siswa",
@@ -77,45 +83,7 @@ class KomiteController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request) {
-        $semester = $request->semester;
-        $kelas_id = $request->kelas;
-
-        $idSiswa = Siswa::getSiswaKelas($kelas_id)->pluck('id')->toArray();
-        $semester == 'Ganjil' ? $bln_awal = 1 : $bln_awal = 7;
-        $komite = Komite::whereIn('siswa_id', $idSiswa)->get();
-
-        foreach ($komite as $k) {
-            // index data
-            $indexDaftarUlang = "daftar_ulang_$k->id";
-            $indexKomiteS1 = "komite1_$k->id";
-
-            // proses daftar ulang
-            $daftarUlangDB = Komite::where("id", $k->id)->pluck('daftar_ulang')->first();
-            $daftarUlang = $daftarUlangDB - $request->$indexDaftarUlang;
-
-            $data = [
-                "daftar_ulang" => $daftarUlang,
-                "komite_1" => $request->$indexKomiteS1,
-            ];
-
-            // komite per bulan
-            for ($i = $bln_awal; $i <= $bln_awal + 5; $i++) {
-                $idRequest = 'komite_' . $k->id . '_' . $i;
-                $data["$i"] = $request->$idRequest;
-            }
-
-            if (Komite::where('id', $k->id)->update($data)) {
-                return response()->json([
-                    "status" => 1,
-                    "alert" => view("komite.partials.alert-success")->render(),
-                ]);
-            } else {
-                return response()->json([
-                    "status" => 0,
-                    "alert" => view("komite.partials.alert-fail")->render(),
-                ]);
-            }
-        }
+        //
     }
 
     /**
@@ -129,24 +97,26 @@ class KomiteController extends Controller {
     }
 
     public function getDataKomite(Request $request) {
-        $siswa = Siswa::where('kelas_id', $request->kelas)->pluck('id')->toArray();
-        $komite = Komite::whereIn('siswa_id', $siswa)->get();
-        $request->semester == 'Ganjil' ? $bln_awal = 1 : $bln_awal = 7;
+        if ($request->kelas != "") {
+            $siswa = Siswa::where('kelas_id', $request->kelas)->pluck('id')->toArray();
+            $komite = Komite::whereIn('siswa_id', $siswa)->get();
+            $request->semester == 'Ganjil' ? $bln_awal = 7 : $bln_awal = 1;
 
-        if ($komite->count() == 0) {
-            return response()->json([
-                "status" => 0,
-                "page" => view('komite.partials.empty')->render(),
-                "message" => "gagal generate"
-            ]);
-        } else {
-            $data = [
-                "semester" => $request->semester,
-                "komite" => $komite,
-                "bln_awal" => $bln_awal
-            ];
+            if ($komite->count() == 0) {
+                return response()->json([
+                    "status" => 0,
+                    "page" => view('komite.partials.empty')->render(),
+                    "message" => "gagal generate"
+                ]);
+            } else {
+                $data = [
+                    "semester" => $request->semester,
+                    "komite" => $komite,
+                    "bln_awal" => $bln_awal
+                ];
 
-            return view('komite.partials.data', $data);
+                return view('komite.partials.data', $data);
+            }
         }
     }
 
@@ -155,7 +125,7 @@ class KomiteController extends Controller {
         $kelas_id = $request->kelas;
 
         $idSiswa = Siswa::getSiswaKelas($kelas_id)->pluck('id')->toArray();
-        $semester == 'Ganjil' ? $bln_awal = 1 : $bln_awal = 7;
+        $semester == 'Ganjil' ? $bln_awal = 7 : $bln_awal = 1;
         $komite = Komite::whereIn('siswa_id', $idSiswa)->get();
 
         foreach ($komite as $k) {
@@ -176,7 +146,7 @@ class KomiteController extends Controller {
             // komite semester 1
             if ($semester == 'Ganjil') {
                 $data["komite_1"] = "Lunas";
-                for ($i = 1; $i <= 6; $i++) {
+                for ($i = 7; $i <= 12; $i++) {
                     $idRequest = 'komite_' . $k->id . '_' . $i;
                     if ($request->$idRequest == "Belum Lunas") {
                         $data["komite_1"] = "Belum Lunas";
@@ -202,7 +172,7 @@ class KomiteController extends Controller {
 
     public function indexBebasKomite() {
         $tgl = new Carbon();
-        $tgl->month <= 6 ? $semester = 1 : $semester = 2;
+        $tgl->month <= 6 ? $semester = 2 : $semester = 1;
         $kelas_terdaftar = Siswa::all()->pluck('kelas_id')->toArray();
         $kelas_non_kosong = Kelas::whereIn('id', $kelas_terdaftar)->get()->sortBy('tingkatan');
 
@@ -234,5 +204,116 @@ class KomiteController extends Controller {
         Komite::where('siswa_id', $siswaId)->update($data);
 
         return redirect('/bebas-komite')->with('success', "Data penerima beasiswa bebas komite berhasil disimpan!");
+    }
+
+    public function exportKomite(Request $request) {
+        $request->semester_hidden == 'Ganjil' ? $templatePath = '/template/Template Pembayaran Komite S1.xlsx' : $templatePath = '/template/Template Pembayaran Komite S2.xlsx';
+        $spreadsheet = IOFactory::load(public_path($templatePath));
+
+        $tahunAjaran = TahunAjaran::where('status', 1)->pluck('tahun_ajaran')->first();
+        $kelas_terdaftar = Siswa::all()->pluck('kelas_id')->toArray();
+        $kelas = Kelas::whereIn('id', $kelas_terdaftar)->get()->sortBy('tingkatan');
+
+        $request->semester_hidden == 'Ganjil' ? $bln_awal = 7 : $bln_awal = 1;
+        if ($request->semester_hidden == 'Ganjil') {
+            $b1 = 1;
+            $b2 = 2;
+            $b3 = 3;
+            $b4 = 4;
+            $b5 = 5;
+            $b6 = 6;
+        } else {
+            $b1 = 7;
+            $b2 = 8;
+            $b3 = 9;
+            $b4 = 10;
+            $b5 = 11;
+            $b6 = 12;
+        }
+
+        foreach ($kelas as $k) {
+            // copy sheet dari template
+            $clonedWorksheet = clone $spreadsheet->getSheetByName('Template');
+            $clonedWorksheet->setTitle("$k->nama");
+            $spreadsheet->addSheet($clonedWorksheet);
+
+            $worksheet = $spreadsheet->getSheetByName("$k->nama");
+            $worksheet->getCell('A2')->setValue("TAHUN AJARAN $tahunAjaran");
+            $worksheet->getCell('A5')->setValue("KELAS $k->nama");
+
+            $counter = 8;
+            $dataKomite = [];
+            foreach ($k->siswa as $s) {
+                $komite = Komite::where('siswa_id', $s->id)->first();
+                $komite->daftar_ulang == 0 ? $daftarUlang = 'Lunas' : $daftarUlang = $komite->daftar_ulang;
+                if ($request->semester_hidden == 'Ganjil') {
+                    array_push($dataKomite, [
+                        $counter - 7, $s->nama, $daftarUlang, $komite->$b1, $komite->$b2, $komite->$b3, $komite->$b4, $komite->$b5, $komite->$b6,
+                    ]);
+                } else {
+                    array_push($dataKomite, [
+                        $counter - 7, $s->nama, $daftarUlang, $komite->komite_1, $komite->$b1, $komite->$b2, $komite->$b3, $komite->$b4, $komite->$b5, $komite->$b6,
+                    ]);
+                }
+                $counter++;
+            }
+            $worksheet->fromArray($dataKomite, null, 'A8');
+            // ganti warna cell kuning untuk yang belum 
+            for ($i = 8; $i <= $k->siswa->count() + 7; $i++) {
+                if ($request->semester_hidden == 'Genap') {
+                    if ($worksheet->getCell("J$i")->getValue() != 'Lunas') {
+                        $worksheet->getStyle("J$i")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB(Color::COLOR_YELLOW);
+                    } else {
+                        $worksheet->getStyle("J$i")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB("99CCFF");
+                    }
+                }
+                if ($worksheet->getCell("C$i")->getValue() != 'Lunas') {
+                    $worksheet->getStyle("C$i")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB(Color::COLOR_YELLOW);
+                } else {
+                    $worksheet->getStyle("C$i")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB("99CCFF");
+                }
+                if ($worksheet->getCell("D$i")->getValue() != 'Lunas') {
+                    $worksheet->getStyle("D$i")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB(Color::COLOR_YELLOW);
+                } else {
+                    $worksheet->getStyle("D$i")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB("99CCFF");
+                }
+                if ($worksheet->getCell("E$i")->getValue() != 'Lunas') {
+                    $worksheet->getStyle("E$i")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB(Color::COLOR_YELLOW);
+                } else {
+                    $worksheet->getStyle("E$i")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB("99CCFF");
+                }
+                if ($worksheet->getCell("F$i")->getValue() != 'Lunas') {
+                    $worksheet->getStyle("F$i")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB(Color::COLOR_YELLOW);
+                } else {
+                    $worksheet->getStyle("F$i")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB("99CCFF");
+                }
+                if ($worksheet->getCell("G$i")->getValue() != 'Lunas') {
+                    $worksheet->getStyle("G$i")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB(Color::COLOR_YELLOW);
+                } else {
+                    $worksheet->getStyle("G$i")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB("99CCFF");
+                }
+                if ($worksheet->getCell("H$i")->getValue() != 'Lunas') {
+                    $worksheet->getStyle("H$i")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB(Color::COLOR_YELLOW);
+                } else {
+                    $worksheet->getStyle("H$i")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB("99CCFF");
+                }
+                if ($worksheet->getCell("I$i")->getValue() != 'Lunas') {
+                    $worksheet->getStyle("I$i")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB(Color::COLOR_YELLOW);
+                } else {
+                    $worksheet->getStyle("I$i")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB("99CCFF");
+                }
+            }
+        }
+        // hapus sheet template
+        $sheetIndex = $spreadsheet->getIndex(
+            $spreadsheet->getSheetByName('Template')
+        );
+        $spreadsheet->removeSheetByIndex($sheetIndex);
+
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $savedPath = "template/Data Pembayaran Komite Semester $request->semester_hidden.xlsx";
+        $writer->save($savedPath);
+
+        return response()->download(public_path($savedPath));
     }
 }

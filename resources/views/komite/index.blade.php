@@ -33,8 +33,13 @@
                         <div class="d-inline-flex">
                            <a href="/bebas-komite" class="btn btn-success btn-sm mr-1">
                               <i class="fas fa-file-plus"></i> Input Data Siswa Bebas Komite</a>
-                           <a href="/komite" class="btn bg-gradient-purple btn-sm mr-1">
-                              <i class="fas fa-file-download"></i> Ekspor Excel Data Pembayaran</a>
+                           <form method="POST" action="/komite-export" target="_blank">
+                              @csrf
+                              <input class="form-control" name="semester_hidden" id="semester_hidden" type="text"
+                                 value="{{ $tgl->month > 6 ? 'Ganjil' : 'Genap' }}" required hidden>
+                              <button type="submit" class="btn bg-gradient-purple btn-sm mr-1" id="export">
+                                 <i class="fas fa-file-download"></i> Ekspor Excel Data Pembayaran</button>
+                           </form>
                            <div id="alert"></div>
                         </div>
                      </div>
@@ -45,8 +50,8 @@
                               <label for="semester" class="col-form-label pr-0 mx-2 mr-3">Semester</label>
                               <div class="col-2 pl-0 mr-3">
                                  <select class="form-control get-data" name="semester" id="semester" required>
-                                    <option value="Ganjil" {{ $tgl->month <= 6 ? 'selected' : '' }}>Ganjil</option>
-                                    <option value="Genap" {{ $tgl->month > 6 ? 'selected' : '' }}>Genap</option>
+                                    <option value="Ganjil" {{ $tgl->month > 6 ? 'selected' : '' }}>Ganjil</option>
+                                    <option value="Genap" {{ $tgl->month <= 6 ? 'selected' : '' }}>Genap</option>
                                  </select>
                               </div>
                               <label for="kelas" class="col-form-label pr-0 mx-2 mr-3">Kelas</label>
@@ -124,6 +129,7 @@
                beforeSend: function() {
                   $("#data").text('');
                   warnaStatus();
+                  copySemesterValue();
                },
                success: function(result) {
                   if (result.status == 0) {
@@ -133,30 +139,54 @@
                      warnaStatus();
                      getRupiah();
                      ajaxUpdate();
-
+                     copySemesterValue();
                   }
                }
             });
          });
+
+         // $("#export").on('click', function(e) {
+         //    e.preventDefault();
+         //    $.ajaxSetup({
+         //       headers: {
+         //          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         //       }
+         //    });
+
+         //    $.ajax({
+         //       url: "{{ url('komite-export') }}",
+         //       method: 'post',
+         //       data: {
+         //          semester: $("#semester").val(),
+         //       },
+         //       success: function(result) {
+         //       }
+         //    });
+         // });
       });
 
       $(document).on({
          ajaxStart: function() {
-            $("body").removeClass("loading");
+            $("body").addClass("loading");
             $("#loader").addClass('overlay');
          },
          ajaxStop: function() {
-            $("body").addClass("loading");
             $("#loader").removeClass('overlay');
+            $("body").removeClass("loading");
          }
       });
+
+      function copySemesterValue() {
+         var value = $("#semester").val();
+         $("#semester_hidden").val(value);
+      }
 
       function warnaStatus() {
          var bln_awal = "";
          if ($("#semester").val() == "Ganjil") {
-            bln_awal = 1;
-         } else {
             bln_awal = 7;
+         } else {
+            bln_awal = 1;
          }
 
          @foreach ($komite as $ko)

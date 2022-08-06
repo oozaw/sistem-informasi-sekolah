@@ -89,6 +89,7 @@ class DatabaseSeeder extends Seeder {
         TahunAjaran::create([
             'tahun_ajaran' => '2022/2023',
             'status' => '1',
+            'nominal_daftar_ulang' => 'Rp. 420.000',
             'jml_siswa' => '420',
             'jml_siswa_baru' => '186',
             'jml_siswa_keluar' => '4',

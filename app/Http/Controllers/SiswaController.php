@@ -87,6 +87,10 @@ class SiswaController extends Controller {
         // tambah data siswa ke komite
         $dataKomite = [
             'siswa_id' => $idSiswa,
+            'bebas1' => '0',
+            'bebas2' => '0',
+            'daftar_ulang' => TahunAjaran::where('status', 1)->pluck('nominal_daftar_ulang')->first(),
+            'komite_1' => "Belum Lunas",
             '1' => 'Belum Lunas',
             '2' => 'Belum Lunas',
             '3' => 'Belum Lunas',
@@ -306,6 +310,10 @@ class SiswaController extends Controller {
             foreach ($idToCreate as $i) {
                 $dataKomite = [
                     'siswa_id' => $i->id,
+                    'bebas1' => '0',
+                    'bebas2' => '0',
+                    'daftar_ulang' => TahunAjaran::where('status', 1)->pluck('nominal_daftar_ulang')->first(),
+                    'komite_1' => "Belum Lunas",
                     '1' => 'Belum Lunas',
                     '2' => 'Belum Lunas',
                     '3' => 'Belum Lunas',

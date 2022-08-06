@@ -22,7 +22,8 @@
          <thead>
             <tr class="d-flex">
                <th class="col-2 text-center">Daftar Ulang</th>
-               @if ($semester == 'Ganjil')
+               @if ($semester == 'Genap')
+                  <th class="col-2 text-center">Komite S1</th>
                   <th class="col-2 text-center">Januari</th>
                   <th class="col-2 text-center">Februari</th>
                   <th class="col-2 text-center">Maret</th>
@@ -30,7 +31,6 @@
                   <th class="col-2 text-center">Mei</th>
                   <th class="col-2 text-center">Juni</th>
                @else
-                  <th class="col-2 text-center">Komite S1</th>
                   <th class="col-2 text-center">Juli</th>
                   <th class="col-2 text-center">Agustus</th>
                   <th class="col-2 text-center">September</th>

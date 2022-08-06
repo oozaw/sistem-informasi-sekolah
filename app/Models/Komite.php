@@ -18,6 +18,8 @@ class Komite extends Model {
 
     public static function resetKomite($daftarUlang) {
         $dataKomite = [
+            "bebas1" => '0',
+            "bebas2" => '0',
             "daftar_ulang" => $daftarUlang,
             "komite_1" => "Belum Lunas",
             "1" => "Belum Lunas",
