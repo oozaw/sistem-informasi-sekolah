@@ -16,6 +16,18 @@ class Komite extends Model {
         return $this->belongsTo(Siswa::class);
     }
 
+    public static function cekKomiteS1(Komite $komite) {
+        $data = [];
+        $data["komite_1"] = "Lunas";
+        for ($i = 7; $i <= 12; $i++) {
+            if ($komite->$i == "Belum Lunas") {
+                $data["komite_1"] = "Belum Lunas";
+                break;
+            }
+        }
+        $komite->update($data);
+    }
+
     public static function resetKomite($daftarUlang) {
         $dataKomite = [
             "bebas1" => '0',

@@ -32,6 +32,8 @@
                   <div class="card">
                      <div class="card-header">
                         <div class="d-inline-flex">
+                           <a href="/komite" class="btn btn-secondary btn-sm mr-1">
+                              <i class="fas fa-long-arrow-left"></i> Kembali</a>
                            <a href="" class="btn btn-success btn-sm mr-1" data-toggle="modal"
                               data-target="#modal-tambah">
                               <i class="fas fa-user-plus"></i> Tambah Siswa Penerima</a>

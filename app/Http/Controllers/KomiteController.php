@@ -200,8 +200,29 @@ class KomiteController extends Controller {
             "bebas1" => $request->bebas1,
             "bebas2" => $request->bebas2
         ];
+        // update sem. 1
+        for ($i = 7; $i <= $request->bebas1 + 6; $i++) {
+            $data["$i"] = 'Lunas';
+        }
+        if ($request->bebas1 != 6) {
+            for ($i = $request->bebas1 + 7; $i <= 12; $i++) {
+                $data["$i"] = 'Belum Lunas';
+            }
+        }
+        // update sem. 2
+        for ($i = 1; $i <= $request->bebas2; $i++) {
+            $data["$i"] = 'Lunas';
+        }
+        if ($request->bebas2 != 6) {
+            for ($i = $request->bebas2 + 1; $i <= 6; $i++) {
+                $data["$i"] = 'Belum Lunas';
+            }
+        }
 
-        Komite::where('siswa_id', $siswaId)->update($data);
+        DB::table('komite')->where('siswa_id', $siswaId)->update($data);
+        // cek data komite sem. 1
+        $komite = Komite::where("siswa_id", $siswaId)->first();
+        Komite::cekKomiteS1($komite);
 
         return redirect('/bebas-komite')->with('success', "Data penerima beasiswa bebas komite berhasil disimpan!");
     }
