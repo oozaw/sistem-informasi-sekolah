@@ -1,1 +1,1 @@
-<div class="successAlert" hidden>Data pembayaran komite berhasil disimpan!</div>
+<div class="successKomiteAlert" hidden>Data pembayaran komite berhasil disimpan!</div>

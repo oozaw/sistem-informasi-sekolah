@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 class KelasController extends Controller {
+    public function __construct() {
+        // membatasi akses kepsek hanya ke method index saja
+        $this->middleware('kepsek')->except(['index']);
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -2,21 +2,44 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Kelas;
 use App\Models\Siswa;
 use App\Models\Pekerja;
 use App\Models\SuratMasuk;
 use App\Models\SuratKeluar;
 use App\Models\TahunAjaran;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\View;
 
 class DashboardController extends Controller {
-    function index() {
-        $t = TahunAjaran::all()->sortBy('tahun_ajaran', SORT_REGULAR, true)->take(2)->sortBy('tahun_ajaran')->pluck('tahun_ajaran')->toArray();
-        // dd($t);
-        // dd(implode('","', $t));
-        // dd(json_encode($t));
+
+    public function index() {
+        // // get nama route sebelumnya
+        // $url = url()->previous();
+        // $route = app('router')->getRoutes($url)->match(app('request')->create($url))->getName();
+
+        // // jika baru saja login maka reset config user
+        // if ($route == 'login') {
+        //     if (auth()->user()->username == 'admin') {
+        //         $pegawaiNama = 'Administrator';
+        //         $foto = 'null';
+        //         $role = 'Admin';
+        //     } else {
+        //         $user = User::where('username', auth()->user()->username)->first();
+        //         $pegawaiNama = $user->pegawai->nama;
+        //         $foto = $user->pegawai->foto_profil;
+        //         if ($user->role == 2) {
+        //             $role = 'Guru';
+        //         } elseif ($user->role == 3) {
+        //             $role = 'Tata Usaha';
+        //         } elseif ($user->role == 4) {
+        //             $role = 'Kepala Sekolah';
+        //         }
+        //     }
+        //     User::updateConfigUser($pegawaiNama, $role, $foto);
+        // }
+
         return view('dashboard.index', [
             "title" => "Dashboard",
             "part" => "dashboard",
@@ -27,5 +50,9 @@ class DashboardController extends Controller {
             "surat_masuk" => SuratMasuk::all(),
             "tahun_ajaran" => TahunAjaran::all()
         ]);
+    }
+
+    public function baseURL() {
+        return redirect('/dashboard');
     }
 }

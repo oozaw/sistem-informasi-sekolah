@@ -144,25 +144,6 @@
                }
             });
          });
-
-         // $("#export").on('click', function(e) {
-         //    e.preventDefault();
-         //    $.ajaxSetup({
-         //       headers: {
-         //          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-         //       }
-         //    });
-
-         //    $.ajax({
-         //       url: "{{ url('komite-export') }}",
-         //       method: 'post',
-         //       data: {
-         //          semester: $("#semester").val(),
-         //       },
-         //       success: function(result) {
-         //       }
-         //    });
-         // });
       });
 
       $(document).on({
@@ -284,7 +265,7 @@
       }
 
       function cekAlert() {
-         if ($('.successAlert').length) {
+         if ($('.successKomiteAlert').length) {
             $(document).Toasts('create', {
                class: 'bg-success mt-1 mr-1',
                title: 'Berhasil',
@@ -294,24 +275,13 @@
             });
          }
 
-         if ($('.warningAlert').length) {
+         if ($('.failKomiteAlert').length) {
             $(document).Toasts('create', {
-               class: 'bg-warning',
-               title: 'Toast Title',
+               class: 'bg-danger mt-1 mr-1',
+               title: 'Gagal',
                autohide: true,
                delay: 5000,
-               subtitle: 'Subtitle',
-               body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-            });
-         }
-
-         if ($('.failAlert').length) {
-            $(document).Toasts('create', {
-               class: 'bg-danger',
-               title: 'Toast Title',
-               autohide: true,
-               delay: 5000,
-               body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+               body: $('.failAlert').text()
             });
          }
 

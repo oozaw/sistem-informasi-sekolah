@@ -6,14 +6,7 @@
       <section class="content-header">
          <div class="container-fluid">
             <div class="row mb-2">
-               <div class="d-inline-flex">
-                  @if (session()->has('success'))
-                     <div class="successAlert" hidden>{{ session('success') }}</div>
-                  @endif
-                  @if (session()->has('fail'))
-                     <div class="failAlert" hidden>{{ session('fail') }}</div>
-                  @endif
-               </div>
+               <div class="d-inline-flex"></div>
                <div class="col-sm-6">
                   <h1>{{ $title }}</h1>
                </div>
@@ -158,37 +151,5 @@
    <!-- AdminLTE for demo purposes -->
    <script src="/adminlte/dist/js/demo.js"></script>
    <!-- Page specific script -->
-   <script>
-      $(function() {
-         if ($('.successAlert').length) {
-            $(document).Toasts('create', {
-               class: 'bg-success mt-1 mr-1',
-               title: 'Berhasil',
-               autohide: true,
-               delay: 5000,
-               body: $('.successAlert').text()
-            });
-         }
-         if ($('.warningAlert').length) {
-            $(document).Toasts('create', {
-               class: 'bg-warning',
-               title: 'Toast Title',
-               autohide: true,
-               delay: 5000,
-               subtitle: 'Subtitle',
-               body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-            });
-         }
-         if ($('.failAlert').length) {
-            $(document).Toasts('create', {
-               class: 'bg-danger',
-               title: 'Toast Title',
-               autohide: true,
-               delay: 5000,
-               subtitle: 'Subtitle',
-               body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-            });
-         }
-      });
-   </script>
+   <script></script>
 @endsection

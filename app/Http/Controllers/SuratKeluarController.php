@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class SuratKeluarController extends Controller {
+    public function __construct() {
+        // membatasi akses kepsek hanya ke method index saja
+        $this->middleware('kepsek')->except(['index']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -114,6 +119,7 @@ class SuratKeluarController extends Controller {
     public function update(Request $request, SuratKeluar $suratKeluar) {
         $rules = [
             "tujuan" => "required",
+            "nomor" => "required",
             "kode_tujuan" => "required",
             "instansi_asal" => "required",
             "bulan" => "required",
@@ -122,12 +128,6 @@ class SuratKeluarController extends Controller {
             "keterangan" => "nullable",
             "file_surat" => "max:1000"
         ];
-
-        if ($request->nomor != $suratKeluar->nomor) {
-            $rules['nomor'] = "required|unique:surat_keluar";
-        } else {
-            $rules['nomor'] = "required";
-        }
 
         if ($request->option_file == "yes") {
             $rules["file_surat"] = "required|mimes:pdf|file|max:10000";
@@ -178,7 +178,7 @@ class SuratKeluarController extends Controller {
             "tujuan" => "required",
             "lampiran" => "nullable",
             "perihal" => "required",
-            "nomor" => "required|unique:surat_keluar",
+            "nomor" => "required",
             "kode_tujuan" => "required",
             "instansi_asal" => "required",
             "bulan" => "required",
@@ -220,7 +220,7 @@ class SuratKeluarController extends Controller {
         $validatedData = $request->all();
 
         $carbon = new Carbon($request->tgl_keluar);
-        $validatedData["tgl_keluar"] = $carbon->isoformat('D MMMM Y');
+        $validatedData["tgl_keluar_pdf"] = $carbon->isoformat('D MMMM Y');
         $validatedData["tgl_hari"] = $carbon->isoformat('dddd, D MMMM Y');
 
         if (!$request->lampiran) {
@@ -240,6 +240,7 @@ class SuratKeluarController extends Controller {
         $path = "surat-keluar/$nama_file";
         Storage::put($path, $content);
         $validatedData['file_surat'] = $path;
+        $validatedData['tahunajaran_id'] = TahunAjaran::where('status', 1)->first()->id;
 
         SuratKeluar::create($validatedData);
         SuratKeluar::updateData();

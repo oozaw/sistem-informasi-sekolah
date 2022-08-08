@@ -26,65 +26,78 @@ use phpDocumentor\Reflection\Types\Resource_;
 |
 */
 
-// Dashboard
-Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::middleware(['auth'])->group(function () {
+   // Dashboard
+   Route::get('/', [DashboardController::class, 'baseURL']);
+   Route::get('/dashboard', [DashboardController::class, 'index']);
 
-// Kelas
-Route::resource('/kelas', KelasController::class);
+   // User
+   Route::get('/profile', [UserController::class, 'index']);
 
-// Siswa
-Route::resource('/siswa', SiswaController::class);
-Route::post('/siswa-impor', [SiswaController::class, 'import'])->name('siswa.impor');
-Route::get('/siswa-format-download', [SiswaController::class, 'downloadFormat'])->name('siswa.download.format');
+   // Admin
+   Route::middleware('admin')->group(function () {
+      // User Control
+      Route::resource('/pengguna', AdminUserController::class)->except(['show', 'edit', 'update', 'destroy']);
+      Route::post('/pengguna-get-pegawai', [AdminUserController::class, 'getPegawai'])->name('pengguna.pegawai');
+      Route::get('/pengguna/{user}', [AdminUserController::class, 'show'])->name('pengguna.show');
+      Route::get('/pengguna/{user}/edit', [AdminUserController::class, 'edit'])->name('pengguna.edit');
+      Route::put('/pengguna/{user}', [AdminUserController::class, 'update'])->name('pengguna.update');
+      Route::delete('/pengguna/{user}', [AdminUserController::class, 'destroy'])->name('pengguna.delete');
 
-// Pekerja
-Route::resource('/pekerja', PekerjaController::class);
-Route::get('/guru', [PekerjaController::class, 'indexGuru'])->name('pekerja.guru.index');
-Route::get('/tata-usaha', [PekerjaController::class, 'indexTu'])->name('pekerja.tata-usaha.index');
-Route::get('/staf-lain', [PekerjaController::class, 'indexLain'])->name('pekerja.staf-lain.index');
-Route::post('/pekerja-impor', [PekerjaController::class, 'import'])->name('pekerja.impor');
-//    Kepala Sekolah
-Route::get('/kepala-sekolah', [PekerjaController::class, 'showKepsek'])->name('pekerja.kepsek.detail');
-Route::get('/kepala-sekolah-edit', [PekerjaController::class, 'editKepsek'])->name('pekerja.kepsek.edit');
+      //    Kepala Sekolah
+      Route::get('/kepala-sekolah', [PekerjaController::class, 'showKepsek'])->name('pekerja.kepsek.detail');
+      Route::get('/kepala-sekolah-edit', [PekerjaController::class, 'editKepsek'])->name('pekerja.kepsek.edit');
 
+      // Tahun Ajaran
+      Route::resource('/tahun-ajaran', TahunAjaranController::class);
+      Route::post('/tahun-ajaran-get-data-form', [TahunAjaranController::class, 'getDataForm'])->name('tahun-ajaran.get-data-form');
+      Route::post('/tahun-ajaran-get-siswa-option', [TahunAjaranController::class, 'getSiswaOption'])->name('thaun-ajaran.get-siswa-option');
+   });
 
-// Surat Keluar
-Route::resource('/surat-keluar', SuratKeluarController::class);
-Route::get('/surat-keluar-new', [SuratKeluarController::class, 'createNewSurat'])->name('surat-keluar.new');
-Route::post('/surat-keluar-preview', [SuratKeluarController::class, 'suratPreview'])->name('surat-keluar.preview');
-Route::post('/surat-keluar-generate', [SuratKeluarController::class, 'generatePDF'])->name('surat-keluar.generate');
+   // Guru
+   Route::middleware(['guru'])->group(function () {
+      // Kelas
+      Route::resource('/kelas', KelasController::class);
 
-// Surat Masuk
-Route::resource('/surat-masuk', SuratMasukController::class);
+      // Siswa
+      Route::resource('/siswa', SiswaController::class);
+      Route::post('/siswa-impor', [SiswaController::class, 'import'])->name('siswa.impor');
+      Route::get('/siswa-format-download', [SiswaController::class, 'downloadFormat'])->name('siswa.download.format');
 
-// Prestasi
-Route::resource('/prestasi', PrestasiController::class);
-Route::post('/prestasi-impor', [PrestasiController::class, 'import'])->name('prestasi.impor');
+      // Prestasi
+      Route::resource('/prestasi', PrestasiController::class);
+      Route::post('/prestasi-impor', [PrestasiController::class, 'import'])->name('prestasi.impor');
+   });
 
-// Komite
-Route::resource('/komite', KomiteController::class);
-Route::post('/komite-update', [KomiteController::class, 'updateKomite'])->name('komite.update');
-Route::post('/komite-data', [KomiteController::class, 'getDataKomite'])->name('komite.data');
-Route::get('/bebas-komite', [KomiteController::class, 'indexBebasKomite'])->name('komite.bebas-index');
-Route::post('/get-data-siswa', [KomiteController::class, 'getDataSiswa'])->name('komite.get-siswa');
-Route::put('/update-bebas-komite', [KomiteController::class, 'updateBebasKomite'])->name('komite.bebas-update');
-Route::post('/komite-export', [KomiteController::class, 'exportKomite'])->name('komite.export');
+   Route::middleware(['tata_usaha'])->group(function () {
+      // Pekerja
+      Route::resource('/pekerja', PekerjaController::class);
+      Route::get('/guru', [PekerjaController::class, 'indexGuru'])->name('pekerja.guru.index');
+      Route::get('/tata-usaha', [PekerjaController::class, 'indexTu'])->name('pekerja.tata-usaha.index');
+      Route::get('/staf-lain', [PekerjaController::class, 'indexLain'])->name('pekerja.staf-lain.index');
+      Route::post('/pekerja-impor', [PekerjaController::class, 'import'])->name('pekerja.impor');
 
-// Tahun Ajaran
-Route::resource('/tahun-ajaran', TahunAjaranController::class);
-Route::post('/tahun-ajaran-get-data-form', [TahunAjaranController::class, 'getDataForm'])->name('tahun-ajaran.get-data-form');
-Route::post('/tahun-ajaran-get-siswa-option', [TahunAjaranController::class, 'getSiswaOption'])->name('thaun-ajaran.get-siswa-option');
+      // Surat Keluar
+      Route::resource('/surat-keluar', SuratKeluarController::class);
+      Route::get('/surat-keluar-new', [SuratKeluarController::class, 'createNewSurat'])->name('surat-keluar.new');
+      Route::post('/surat-keluar-preview', [SuratKeluarController::class, 'suratPreview'])->name('surat-keluar.preview');
+      Route::post('/surat-keluar-generate', [SuratKeluarController::class, 'generatePDF'])->name('surat-keluar.generate');
 
-// User
-Route::get('/profile', [UserController::class, 'index']);
+      // Surat Masuk
+      Route::resource('/surat-masuk', SuratMasukController::class);
 
-// Admin
-Route::resource('/pengguna', AdminUserController::class)->except(['show', 'edit', 'update', 'destroy']);
-Route::post('/pengguna-get-pegawai', [AdminUserController::class, 'getPegawai'])->name('pengguna.pegawai');
-Route::get('/pengguna/{user}', [AdminUserController::class, 'show'])->name('pengguna.show');
-Route::get('/pengguna/{user}/edit', [AdminUserController::class, 'edit'])->name('pengguna.edit');
-Route::put('/pengguna/{user}', [AdminUserController::class, 'update'])->name('pengguna.update');
-Route::delete('/pengguna/{user}', [AdminUserController::class, 'destroy'])->name('pengguna.delete');
+      Route::middleware('kepsek')->group(function () {
+         // Komite
+         Route::resource('/komite', KomiteController::class);
+         Route::post('/komite-update', [KomiteController::class, 'updateKomite'])->name('komite.update');
+         Route::post('/komite-data', [KomiteController::class, 'getDataKomite'])->name('komite.data');
+         Route::get('/bebas-komite', [KomiteController::class, 'indexBebasKomite'])->name('komite.bebas-index');
+         Route::post('/get-data-siswa', [KomiteController::class, 'getDataSiswa'])->name('komite.get-siswa');
+         Route::put('/update-bebas-komite', [KomiteController::class, 'updateBebasKomite'])->name('komite.bebas-update');
+         Route::post('/komite-export', [KomiteController::class, 'exportKomite'])->name('komite.export');
+      });
+   });
+});
 
 // Login/logout
 Route::get('/login', [LoginController::class, 'index'])->name('login');

@@ -33,7 +33,9 @@
          <!-- /.login-logo -->
          <div class="card card-outline card-warning">
             <div class="card-header text-center">
-               <a href="/adminlte/index2.html" class="h1">My<b>SMANEL</b></a>
+               <span class="h1">SIM-<b>SMANEL</b></span><br>
+               <span class=""><small>Sistem Informasi Manajemen SMA Negeri 5
+                     Merangin</small></span>
             </div>
             <div class="card-body">
                <p class="login-box-msg">Silahkan login terlebih dahulu</p>
@@ -71,7 +73,7 @@
                   </div>
                   <div class="row">
                      <div class="col-5 align-content-center ml-auto">
-                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                        <button type="submit" class="btn btn-primary btn-block">Masuk</button>
                      </div>
                      <!-- /.col -->
                   </div>
@@ -102,19 +104,10 @@
                body: $('.successAlert').text()
             });
          }
-         if ($('.warningAlert').length) {
-            $(document).Toasts('create', {
-               class: 'bg-warning',
-               title: 'Toast Title',
-               autohide: true,
-               delay: 5000,
-               subtitle: 'Subtitle',
-               body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-            });
-         }
+
          if ($('.failAlert').length) {
             $(document).Toasts('create', {
-               class: 'bg-danger',
+               class: 'bg-danger mt-1 mr-1',
                title: 'Gagal',
                autohide: true,
                delay: 5000,

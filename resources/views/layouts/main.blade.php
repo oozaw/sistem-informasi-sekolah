@@ -39,6 +39,13 @@
       <!-- Main Sidebar Container -->
       @include('partials.sidebar')
 
+      @if (session()->has('success'))
+         <div class="successAlert" hidden>{{ session('success') }}</div>
+      @endif
+      @if (session()->has('fail'))
+         <div class="failAlert" hidden>{{ session('fail') }}</div>
+      @endif
+
       <!-- Content Wrapper. Contains page content -->
       @yield('container')
       <!-- /.content-wrapper -->
@@ -62,6 +69,29 @@
    <!-- ./wrapper -->
 
    @yield('script')
+   <script>
+      $(function() {
+         if ($('.successAlert').length) {
+            $(document).Toasts('create', {
+               class: 'bg-success mt-1 mr-1',
+               title: 'Berhasil',
+               autohide: true,
+               delay: 5000,
+               body: $('.successAlert').text()
+            });
+         }
+
+         if ($('.failAlert').length) {
+            $(document).Toasts('create', {
+               class: 'bg-danger mt-1 mr-1',
+               title: 'Gagal',
+               autohide: true,
+               delay: 5000,
+               body: $('.failAlert').text()
+            });
+         }
+      });
+   </script>
 
 </body>
 

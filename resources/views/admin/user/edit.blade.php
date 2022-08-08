@@ -59,11 +59,15 @@
                                  @if (old('role', $pengguna->role) == '2')
                                     <option value="2" selected>Guru</option>
                                     <option value="3">Tata Usaha</option>
-                                    <option value="4">Kepala Sekolah</option>
+                                    @if (!$kepsek)
+                                       <option value="4">Kepala Sekolah</option>
+                                    @endif
                                  @elseif (old('role', $pengguna->role) == '3')
                                     <option value="2">Guru</option>
                                     <option value="3" selected>Tata Usaha</option>
-                                    <option value="4">Kepala Sekolah</option>
+                                    @if (!$kepsek)
+                                       <option value="4">Kepala Sekolah</option>
+                                    @endif
                                  @elseif (old('role', $pengguna->role) == '4')
                                     <option value="2">Guru</option>
                                     <option value="3">Tata Usaha</option>
@@ -71,7 +75,9 @@
                                  @else
                                     <option value="2">Guru</option>
                                     <option value="3">Tata Usaha</option>
-                                    <option value="4">Kepala Sekolah</option>
+                                    @if (!$kepsek)
+                                       <option value="4">Kepala Sekolah</option>
+                                    @endif
                                  @endif
                               </select>
                               @error('role')
@@ -111,9 +117,9 @@
                               </div>
                            </div>
                            <div class="form-group" id="reset_password_form" hidden>
-                              <label for="password">Password</label>
+                              <label for="password">Password Baru</label>
                               <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                 id="password" name="password" placeholder="Masukkan password pengguna" autofocus>
+                                 id="password" name="password" placeholder="Masukkan password baru">
                               @error('password')
                                  <div class="invalid-feedback">
                                     {{ $message }}

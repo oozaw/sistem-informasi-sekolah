@@ -16,6 +16,11 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Support\Facades\Validator;
 
 class SiswaController extends Controller {
+    public function __construct() {
+        // membatasi akses kepsek hanya ke method index saja
+        $this->middleware('kepsek')->except(['index']);
+    }
+
     /**
      * Display a listing of the resource.
      *

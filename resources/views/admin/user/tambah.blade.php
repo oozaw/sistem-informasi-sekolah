@@ -58,11 +58,15 @@
                                  @if (old('role') == '2')
                                     <option value="2" selected>Guru</option>
                                     <option value="3">Tata Usaha</option>
-                                    <option value="4">Kepala Sekolah</option>
+                                    @if (!$kepsek)
+                                       <option value="4">Kepala Sekolah</option>
+                                    @endif
                                  @elseif (old('role') == '3')
                                     <option value="2">Guru</option>
                                     <option value="3" selected>Tata Usaha</option>
-                                    <option value="4">Kepala Sekolah</option>
+                                    @if (!$kepsek)
+                                       <option value="4">Kepala Sekolah</option>
+                                    @endif
                                  @elseif (old('role') == '4')
                                     <option value="2">Guru</option>
                                     <option value="3">Tata Usaha</option>
@@ -70,7 +74,9 @@
                                  @else
                                     <option value="2">Guru</option>
                                     <option value="3">Tata Usaha</option>
-                                    <option value="4">Kepala Sekolah</option>
+                                    @if (!$kepsek)
+                                       <option value="4">Kepala Sekolah</option>
+                                    @endif
                                  @endif
                               </select>
                               @error('role')
@@ -101,8 +107,7 @@
                            <div class="form-group">
                               <label for="password">Password</label>
                               <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                 id="password" name="password" placeholder="Masukkan password pengguna" required
-                                 autofocus>
+                                 id="password" name="password" placeholder="Masukkan password pengguna" required>
                               @error('password')
                                  <div class="invalid-feedback">
                                     {{ $message }}
@@ -140,8 +145,6 @@
    <script src="/adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
    <!-- AdminLTE App -->
    <script src="/adminlte/dist/js/adminlte.min.js"></script>
-   <!-- AdminLTE for demo purposes -->
-   <script src="/adminlte/dist/js/demo.js"></script>
    <!-- Page specific script -->
    <script>
       $(document).ready(function() {
@@ -160,7 +163,7 @@
                   role_id: $("#role").val()
                },
                beforeSend: function() {
-                  $("#pegawai").text('');
+                  $("#pegawai").text(' ');
                },
                success: function(result) {
                   $("#pegawai").append(result);

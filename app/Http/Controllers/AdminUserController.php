@@ -30,11 +30,13 @@ class AdminUserController extends Controller {
     public function create() {
         $pegawai_not_available = User::all()->whereNotNull('pegawai_id')->pluck('pegawai_id');
         $pegawai_available = Pekerja::all()->whereNotIn('id', $pegawai_not_available)->all();
+        $cekKepsek = User::where('role', 4)->first();
 
         return view('admin.user.tambah', [
             "title" => "Tambah Data Pengguna",
             "part" => "pengguna",
-            "pegawai" => $pegawai_available
+            "pegawai" => $pegawai_available,
+            "kepsek" => $cekKepsek
         ]);
     }
 
@@ -93,12 +95,14 @@ class AdminUserController extends Controller {
         $selected_pegawai = User::all()->where('id', $user->id)->pluck('pegawai_id');
         $pegawai_not_available = User::all()->whereNotNull('pegawai_id')->whereNotIn('pegawai_id', $selected_pegawai)->pluck('pegawai_id');
         $pegawai_available = Pekerja::all()->where('jabatan', $jabatan)->whereNotIn('id', $pegawai_not_available)->all();
+        $cekKepsek = User::where('role', 4)->first();
 
         return view('admin.user.edit', [
             'title' => "Edit Data Pengguna",
             'part' => "pengguna",
             'pengguna' => $user,
-            'pegawai' => $pegawai_available
+            'pegawai' => $pegawai_available,
+            'kepsek' => $cekKepsek
         ]);
     }
 

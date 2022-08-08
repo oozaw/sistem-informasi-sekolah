@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Artisan;
 
 class LoginController extends Controller {
     public function index() {
@@ -22,7 +25,14 @@ class LoginController extends Controller {
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/dashboard');
+            if ($request->username == 'admin') {
+                $pegawaiNama = 'Administrator';
+            } else {
+                $user = User::where('username', $request->username)->first();
+                $pegawaiNama = $user->pegawai->nama;
+            }
+
+            return redirect()->intended('/dashboard')->with('success', "Selamat datang $pegawaiNama");
         }
 
         return back()->with('loginError', 'Login gagal, silahkan periksa kembali username dan password anda!');

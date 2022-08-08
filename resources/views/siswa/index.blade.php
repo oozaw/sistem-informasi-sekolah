@@ -32,12 +32,6 @@
                            <a href="" class="btn bg-gradient-purple btn-sm mr-1" data-toggle="modal"
                               data-target="#modal-impor">
                               <i class="fas fa-file-upload"></i> Impor Data Siswa</a>
-                           @if (session()->has('success'))
-                              <div class="successAlert" hidden>{{ session('success') }}</div>
-                           @endif
-                           @if (session()->has('fail'))
-                              <div class="failAlert" hidden>{{ session('fail') }}</div>
-                           @endif
                         </div>
                      </div>
                      <!-- /.card-header -->
@@ -264,28 +258,6 @@
                }
             ]
          }).buttons().container().appendTo('#data_siswa_wrapper .col-md-6:eq(0)');
-      });
-
-      $(function() {
-         if ($('.successAlert').length) {
-            $(document).Toasts('create', {
-               class: 'bg-success mt-1 mr-1',
-               title: 'Berhasil',
-               autohide: true,
-               delay: 5000,
-               body: $('.successAlert').text()
-            });
-         }
-
-         if ($('.failAlert').length) {
-            $(document).Toasts('create', {
-               class: 'bg-danger mt-1 mr-1',
-               title: 'Gagal',
-               autohide: true,
-               delay: 10000,
-               body: $('.failAlert').text()
-            });
-         }
       });
    </script>
 @endsection

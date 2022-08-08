@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller {
     public function index() {
+        $user = auth()->user();
         return view('user.profile', [
             "title" => "Profil Pengguna",
-            "part" => ""
+            "part" => "",
+            "user" => $user
         ]);
     }
 

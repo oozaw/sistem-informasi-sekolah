@@ -126,9 +126,5 @@
       $(function() {
          bsCustomFileInput.init();
       });
-
-      function cekWaliKelas() {
-
-      }
    </script>
 @endsection

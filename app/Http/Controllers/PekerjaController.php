@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class PekerjaController extends Controller {
+    public function __construct() {
+        // membatasi akses kepsek hanya ke method index saja
+        $this->middleware('kepsek')->except(['index', 'indexGuru', 'indexTu', 'indexLain']);
+    }
+
     /**
      * Display a listing of the resource.
      *

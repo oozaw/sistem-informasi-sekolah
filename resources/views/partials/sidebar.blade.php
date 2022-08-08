@@ -2,18 +2,38 @@
    <!-- Brand Logo -->
    <a href="" class="brand-link">
       <img src="/img/smanel-logo.png" alt="SMANEL Logo" class="brand-image img-circle elevation-3" style="opacity: 1">
-      <span class="brand-text font-weight-light ml-2">SMA N 5 Merangin</span>
+      <span class="brand-text font-weight-light ml-2">SIM - SMANEL</span>
    </a>
 
    <!-- Sidebar -->
    <div class="sidebar">
       <!-- Sidebar user (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-         <div class="image">
-            <img src="/img/profil-me.png" class="img-circle elevation-2" alt="User Image">
-         </div>
-         <div class="info">
-            <a href="/profile" class="d-block">Admin</a>
+      <div class="user-panel mt-1 pb-1 mb-3 d-flex">
+         @if ($user->pegawai && $user->pegawai->foto_profil)
+            <div class="image pl-1">
+               <img src="/storage/{{ $user->pegawai->foto_profil }}" class="img-circle elevation-2 mt-2"
+                  alt="User Image" style="width: 32px; height: 32px; object-fit: cover; object-position: center">
+            </div>
+         @else
+            <div class="img-circle bg-secondary elevation-2"
+               style="width: 2rem; height: 2rem; margin-top: 9px; margin-left: 3px">
+               <i class="fas fa-user-circle fa-2x" style="margin-top: 1px"></i>
+            </div>
+         @endif
+         <div class="info pl-2">
+            <a href="/profile"
+               class="d-block text-sm">{{ $user->role == 1 ? 'Administrator' : $user->pegawai->nama }}</a>
+            <span class="d-block text-white-50" style="font-size: smaller">
+               @if ($user->role == 1)
+                  {{ 'Admin' }}
+               @elseif ($user->role == 2)
+                  {{ 'Guru' }}
+               @elseif ($user->role == 4)
+                  {{ 'Kepala Sekolah' }}
+               @else
+                  {{ 'Tata Usaha' }}
+               @endif
+            </span>
          </div>
       </div>
 

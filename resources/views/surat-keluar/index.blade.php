@@ -31,12 +31,6 @@
                               <i class="fas fa-file-plus"></i> Tambah Surat Keluar</a>
                            <a href="/surat-keluar-new" class="btn btn-sm mr-1 bg-gradient-purple">
                               <i class="fas fa-file-plus"></i> Buat Surat Baru</a>
-                           @if (session()->has('success'))
-                              <div class="successAlert" hidden>{{ session('success') }}</div>
-                           @endif
-                           @if (session()->has('fail'))
-                              <div class="failAlert" hidden>{{ session('fail') }}</div>
-                           @endif
                         </div>
                      </div>
                      <!-- /.card-header -->
@@ -181,38 +175,6 @@
                }
             ]
          }).buttons().container().appendTo('#data_surat_keluar_wrapper .col-md-6:eq(0)');
-      });
-
-      $(function() {
-         if ($('.successAlert').length) {
-            $(document).Toasts('create', {
-               class: 'bg-success mt-1 mr-1',
-               title: 'Berhasil',
-               autohide: true,
-               delay: 5000,
-               body: $('.successAlert').text()
-            });
-         }
-         if ($('.warningAlert').length) {
-            $(document).Toasts('create', {
-               class: 'bg-warning',
-               title: 'Toast Title',
-               autohide: true,
-               delay: 5000,
-               subtitle: 'Subtitle',
-               body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-            });
-         }
-         if ($('.failAlert').length) {
-            $(document).Toasts('create', {
-               class: 'bg-danger',
-               title: 'Toast Title',
-               autohide: true,
-               delay: 5000,
-               subtitle: 'Subtitle',
-               body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-            });
-         }
       });
    </script>
 @endsection

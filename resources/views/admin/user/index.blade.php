@@ -6,14 +6,7 @@
       <section class="content-header">
          <div class="container-fluid">
             <div class="row mb-2">
-               <div class="d-inline-flex">
-                  @if (session()->has('success'))
-                     <div class="successAlert" hidden>{{ session('success') }}</div>
-                  @endif
-                  @if (session()->has('fail'))
-                     <div class="failAlert" hidden>{{ session('fail') }}</div>
-                  @endif
-               </div>
+               <div class="d-inline-flex"></div>
                <div class="col-sm-6">
                   <h1>Data Pengguna</h1>
                </div>
@@ -37,12 +30,6 @@
                         <div class="d-inline-flex">
                            <a href="/pengguna/create" class="btn btn-success btn-sm mr-1">
                               <i class="fas fa-file-plus"></i> Tambah Data Pengguna</a>
-                           @if (session()->has('success'))
-                              <div class="successAlert" hidden>{{ session('success') }}</div>
-                           @endif
-                           @if (session()->has('fail'))
-                              <div class="failAlert" hidden>{{ session('fail') }}</div>
-                           @endif
                         </div>
                      </div>
                      <!-- /.card-header -->
@@ -50,10 +37,10 @@
                         <table id="data_pengguna" class="table table-bordered table-striped">
                            <thead>
                               <tr>
-                                 <th>No.</th>
+                                 <th class="text-center">No.</th>
                                  <th>Username</th>
-                                 <th>Role</th>
-                                 <th>Status</th>
+                                 <th class="text-center">Role</th>
+                                 <th class="text-center">Status</th>
                                  <th>Aktivitas Terakhir</th>
                                  <th>Aksi</th>
                               </tr>
@@ -61,9 +48,9 @@
                            <tbody>
                               @foreach ($pengguna as $p)
                                  <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
                                     <td>{{ $p->username }}</td>
-                                    <td>
+                                    <td class="text-center">
                                        @if ($p->role == 1)
                                           {{ 'Admin' }}
                                        @elseif ($p->role == 2)
@@ -200,38 +187,6 @@
                }
             ]
          }).buttons().container().appendTo('#data_pengguna_wrapper .col-md-6:eq(0)');
-      });
-
-      $(function() {
-         if ($('.successAlert').length) {
-            $(document).Toasts('create', {
-               class: 'bg-success mt-1 mr-1',
-               title: 'Berhasil',
-               autohide: true,
-               delay: 5000,
-               body: $('.successAlert').text()
-            });
-         }
-         if ($('.warningAlert').length) {
-            $(document).Toasts('create', {
-               class: 'bg-warning',
-               title: 'Toast Title',
-               autohide: true,
-               delay: 5000,
-               subtitle: 'Subtitle',
-               body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-            });
-         }
-         if ($('.failAlert').length) {
-            $(document).Toasts('create', {
-               class: 'bg-danger',
-               title: 'Toast Title',
-               autohide: true,
-               delay: 5000,
-               subtitle: 'Subtitle',
-               body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-            });
-         }
       });
    </script>
 @endsection

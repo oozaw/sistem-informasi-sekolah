@@ -68,14 +68,7 @@
                   <div class="card card-outline card-primary">
                      <div class="card-header">
                         <h3 class="card-title">Data Kepala Sekolah</h3>
-                        <div class="d-inline-flex">
-                           @if (session()->has('success'))
-                              <div class="successAlert" hidden>{{ session('success') }}</div>
-                           @endif
-                           @if (session()->has('fail'))
-                              <div class="failAlert" hidden>{{ session('fail') }}</div>
-                           @endif
-                        </div>
+                        <div class="d-inline-flex"></div>
                      </div>
                      <!-- /.card-header -->
                      <div class="card-body pb-1">
@@ -119,27 +112,5 @@
    <!-- AdminLTE for demo purposes -->
    <script src="/adminlte/dist/js/demo.js"></script>
    <!-- Page specific script -->
-   <script>
-      $(function() {
-         if ($('.successAlert').length) {
-            $(document).Toasts('create', {
-               class: 'bg-success mt-1 mr-1',
-               title: 'Berhasil',
-               autohide: true,
-               delay: 5000,
-               body: $('.successAlert').text()
-            });
-         }
-
-         if ($('.failAlert').length) {
-            $(document).Toasts('create', {
-               class: 'bg-danger',
-               title: 'Gagal',
-               autohide: true,
-               delay: 10000,
-               body: $('.failAlert').text()
-            });
-         }
-      });
-   </script>
+   <script></script>
 @endsection

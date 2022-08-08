@@ -32,12 +32,6 @@
                            <a href="" class="btn bg-gradient-purple btn-sm mr-1" data-toggle="modal"
                               data-target="#modal-impor">
                               <i class="fas fa-file-upload"></i> Impor Data Prestasi</a>
-                           @if (session()->has('success'))
-                              <div class="successAlert" hidden>{{ session('success') }}</div>
-                           @endif
-                           @if (session()->has('fail'))
-                              <div class="failAlert" hidden>{{ session('fail') }}</div>
-                           @endif
                         </div>
                      </div>
                      <!-- /.card-header -->
@@ -77,8 +71,7 @@
                                        <div class="d-inline-flex">
                                           <a href="/prestasi/{{ $p->id }}" class="btn btn-info btn-sm mr-1">
                                              <i class="fas fa-eye"></i> Detail</a>
-                                          <a href="/prestasi/{{ $p->id }}/edit"
-                                             class="btn btn-primary btn-sm mr-1">
+                                          <a href="/prestasi/{{ $p->id }}/edit" class="btn btn-primary btn-sm mr-1">
                                              <i class="fas fa-edit"></i> Edit</a>
                                           <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
                                              data-target="#modal-delete-{{ $p->id }}">
@@ -247,28 +240,6 @@
                }
             ]
          }).buttons().container().appendTo('#data_prestasi_wrapper .col-md-6:eq(0)');
-      });
-
-      $(function() {
-         if ($('.successAlert').length) {
-            $(document).Toasts('create', {
-               class: 'bg-success mt-1 mr-1',
-               title: 'Berhasil',
-               autohide: true,
-               delay: 5000,
-               body: $('.successAlert').text()
-            });
-         }
-
-         if ($('.failAlert').length) {
-            $(document).Toasts('create', {
-               class: 'bg-danger',
-               title: 'Gagal',
-               autohide: true,
-               delay: 10000,
-               body: $('.failAlert').text()
-            });
-         }
       });
    </script>
 @endsection

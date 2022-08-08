@@ -3,10 +3,10 @@
    <tbody>
       <tr>
          <td colspan="3">
-            <img src="http://si-sekolah.test/img/logo-dinas-pendidikan.png" alt="logo-dinas-pendidikan-jambi"
+            <img src="/img/logo-dinas-pendidikan.png" alt="logo-dinas-pendidikan-jambi"
                style=" width: 65px; height: auto; margin-left: 4px" class="rounded float-left position-absolute">
-            <img src="http://si-sekolah.test/img/smanel-logo.png" alt="logo-smanel"
-               style="width: 70px; height: auto; margin-left: 15cm" class="rounded  position-absolute">
+            <img src="/img/smanel-logo.png" alt="logo-smanel" style="width: 70px; height: auto; margin-left: 15cm"
+               class="rounded  position-absolute">
             <div align="center" style=" margin-bottom: 0px; line-height: 25px" class="mx-auto">
                <span style="font-family: 'Times New Roman'; font-size: larger;">
                   <b>PEMERINTAH PROVINSI JAMBI</b></span><br>
@@ -128,7 +128,7 @@
                <span style="font-size: medium;">Kepala Sekolah, </span>
                <div align="left" style="margin-top: 80px">
                   <span style="font-size: medium"><b> {{ $kepsek->nama }}</b></span>
-                  <hr style="margin-top: 0px; margin-bottom: 1px; height: 1px; background-color: black" width="220px"
+                  <hr style="margin-top: 0px; margin-bottom: 1px; height: 1px; background-color: black" width="246px"
                      align="left">
                   <span style="font-size: medium"><b> NIP. {{ $kepsek->nip }}</b></span>
                </div>

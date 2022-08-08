@@ -21,9 +21,9 @@
 </head>
 
 <body style="line-height: 1.3rem">
-   <img src="http://si-sekolah.test/img/logo-dinas-pendidikan.png" alt="logo-dinas-pendidikan-jambi"
+   <img src="{{ public_path('/img/logo-dinas-pendidikan.png') }}" alt="logo-dinas-pendidikan-jambi"
       style="position: absolute; width: 65px; height: auto; margin-left: 4px; margin-top: 8px">
-   <img src="http://si-sekolah.test/img/smanel-logo.png" alt="logo-smanel" align="right"
+   <img src="{{ public_path('/img/smanel-logo.png') }}" alt="logo-smanel" align="right"
       style="position: absolute; width: 70px; height: auto; margin-right: 3px;  margin-top: 8px">
    <table align="center" border="0" cellpadding="0"
       style="width: 100%; border-collapse: collapse; font-family: 'Times New Roman">
@@ -136,14 +136,14 @@
          <tr>
             <td valign="top" colspan="3">
                <div align="left" style="margin-left: 380px">
-                  <span style="font-size: medium">Renah Pamenang, {{ $tgl_keluar }}
+                  <span style="font-size: medium">Renah Pamenang, {{ $tgl_keluar_pdf }}
                      <br></span>
                   {{-- <span style="font-size: medium;">Mengetahui</span> --}}
                   <span style="font-size: medium;">Kepala Sekolah, </span>
                   <div align="left" style="margin-top: 80px">
                      <span style="font-size: medium"><b> {{ $kepsek->nama }}</b></span>
                      <hr style="margin-left: 0px; margin-top: 0px; margin-bottom: 1px; height: 0.6px; background-color: black"
-                        width="222px">
+                        width="248px">
                      <span style="font-size: medium"><b> NIP. {{ $kepsek->nip }}</b></span>
                   </div>
                </div>
