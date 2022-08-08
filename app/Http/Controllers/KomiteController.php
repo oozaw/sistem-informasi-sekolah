@@ -16,6 +16,11 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 
 class KomiteController extends Controller {
+    public function __construct() {
+        // membatasi akses kepsek hanya ke method index saja
+        $this->middleware('is-kepsek')->except(['index', 'getDataKomite', 'exportKomite']);
+    }
+
     /**
      * Display a listing of the resource.
      *

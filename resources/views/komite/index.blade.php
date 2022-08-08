@@ -31,15 +31,17 @@
                   <div class="card">
                      <div class="card-header">
                         <div class="d-inline-flex">
-                           <a href="/bebas-komite" class="btn btn-success btn-sm mr-1">
-                              <i class="fas fa-file-plus"></i> Input Data Siswa Bebas Komite</a>
-                           <form method="POST" action="/komite-export" target="_blank">
-                              @csrf
-                              <input class="form-control" name="semester_hidden" id="semester_hidden" type="text"
-                                 value="{{ $tgl->month > 6 ? 'Ganjil' : 'Genap' }}" required hidden>
-                              <button type="submit" class="btn bg-gradient-purple btn-sm mr-1" id="export">
-                                 <i class="fas fa-file-download"></i> Ekspor Excel Data Pembayaran</button>
-                           </form>
+                           @can('tata-usaha')
+                              <a href="/bebas-komite" class="btn btn-success btn-sm mr-1">
+                                 <i class="fas fa-file-plus"></i> Input Data Siswa Bebas Komite</a>
+                              <form method="POST" action="/komite-export" target="_blank">
+                                 @csrf
+                                 <input class="form-control" name="semester_hidden" id="semester_hidden" type="text"
+                                    value="{{ $tgl->month > 6 ? 'Ganjil' : 'Genap' }}" required hidden>
+                                 <button type="submit" class="btn bg-gradient-purple btn-sm mr-1" id="export">
+                                    <i class="fas fa-file-download"></i> Ekspor Excel Data Pembayaran</button>
+                              </form>
+                           @endcan
                            <div id="alert"></div>
                         </div>
                      </div>
@@ -170,6 +172,11 @@
             bln_awal = 1;
          }
 
+         // disabled jika user merupakan kepsek
+         @if ($user->role == 4)
+            $(".data").attr('disabled', true);
+         @endif
+
          @foreach ($komite as $ko)
             var status = $(".daftar_ulang_{{ $ko->id }}");
             if (status.val() == "Lunas" || status.val() == "0" || status.val() == "Rp. 0") {
@@ -271,7 +278,7 @@
                title: 'Berhasil',
                autohide: true,
                delay: 5000,
-               body: $('.successAlert').text()
+               body: $('.successKomiteAlert').text()
             });
          }
 
@@ -281,7 +288,7 @@
                title: 'Gagal',
                autohide: true,
                delay: 5000,
-               body: $('.failAlert').text()
+               body: $('.failKomiteAlert').text()
             });
          }
 

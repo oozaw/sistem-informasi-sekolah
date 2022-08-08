@@ -27,11 +27,13 @@
                   <div class="card">
                      <div class="card-header">
                         <div class="d-inline-flex">
-                           <a href="/siswa/create" class="btn btn-success btn-sm mr-1">
-                              <i class="fas fa-file-plus"></i> Tambah Data Siswa</a>
-                           <a href="" class="btn bg-gradient-purple btn-sm mr-1" data-toggle="modal"
-                              data-target="#modal-impor">
-                              <i class="fas fa-file-upload"></i> Impor Data Siswa</a>
+                           @can('admin')
+                              <a href="/siswa/create" class="btn btn-success btn-sm mr-1">
+                                 <i class="fas fa-file-plus"></i> Tambah Data Siswa</a>
+                              <a href="" class="btn bg-gradient-purple btn-sm mr-1" data-toggle="modal"
+                                 data-target="#modal-impor">
+                                 <i class="fas fa-file-upload"></i> Impor Data Siswa</a>
+                           @endcan
                         </div>
                      </div>
                      <!-- /.card-header -->
@@ -71,61 +73,62 @@
                                        <div class="d-inline-flex">
                                           <a href="/siswa/{{ $s->id }}" class="btn btn-info btn-sm mr-1">
                                              <i class="fas fa-eye"></i> Detail</a>
-                                          <a href="/siswa/{{ $s->id }}/edit" class="btn btn-primary btn-sm mr-1">
-                                             <i class="fas fa-edit"></i> Edit</a>
-                                          <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
-                                             data-target="#modal-delete-{{ $s->id }}">
-                                             <i class="fas fa-trash"></i> Hapus</a>
+                                          @can('admin')
+                                             <a href="/siswa/{{ $s->id }}/edit" class="btn btn-primary btn-sm mr-1">
+                                                <i class="fas fa-edit"></i> Edit</a>
+                                             <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
+                                                data-target="#modal-delete-{{ $s->id }}">
+                                                <i class="fas fa-trash"></i> Hapus</a>
 
-                                          <!-- Modal Delete-->
-                                          <div class="modal fade" id="modal-delete-{{ $s->id }}"
-                                             style="display: none;" aria-hidden="true">
-                                             <div class="modal-dialog">
-                                                <div class="modal-content bg-warning">
-                                                   <div class="modal-header">
-                                                      <h4 class="modal-title">Hapus Data Siswa</h4>
-                                                      <button type="button" class="close" data-dismiss="modal"
-                                                         aria-label="Close">
-                                                         <span aria-hidden="true">×</span>
-                                                      </button>
-                                                   </div>
-                                                   <div class="modal-body">
-                                                      <p>Yakin hapus data {{ $s->nama }}?</p>
-                                                      <span>Alasan:</span>
-                                                      <form method="POST" action="/siswa/{{ $s->id }}">
-                                                         @method('delete')
-                                                         @csrf
-                                                         <div class="form-group">
-                                                            <div class="form-check">
-                                                               <input class="form-check-input" type="radio"
-                                                                  name="alasan" id="keluar" value="keluar" required>
-                                                               <label class="form-check-label">Keluar/Pindah</label>
+                                             <!-- Modal Delete-->
+                                             <div class="modal fade" id="modal-delete-{{ $s->id }}"
+                                                style="display: none;" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                   <div class="modal-content bg-warning">
+                                                      <div class="modal-header">
+                                                         <h4 class="modal-title">Hapus Data Siswa</h4>
+                                                         <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                         </button>
+                                                      </div>
+                                                      <div class="modal-body">
+                                                         <p>Yakin hapus data {{ $s->nama }}?</p>
+                                                         <span>Alasan:</span>
+                                                         <form method="POST" action="/siswa/{{ $s->id }}">
+                                                            @method('delete')
+                                                            @csrf
+                                                            <div class="form-group">
+                                                               <div class="form-check">
+                                                                  <input class="form-check-input" type="radio"
+                                                                     name="alasan" id="keluar" value="keluar" required>
+                                                                  <label class="form-check-label">Keluar/Pindah</label>
+                                                               </div>
+                                                               <div class="form-check">
+                                                                  <input class="form-check-input" type="radio"
+                                                                     name="alasan" id="kesalahan" value="kesalahan">
+                                                                  <label class="form-check-label">Kesalahan Data</label>
+                                                               </div>
+                                                               <div class="form-check">
+                                                                  <input class="form-check-input" type="radio"
+                                                                     name="alasan" id="lainnya" value="lainnya">
+                                                                  <label class="form-check-label">Lainnya</label>
+                                                               </div>
                                                             </div>
-                                                            <div class="form-check">
-                                                               <input class="form-check-input" type="radio"
-                                                                  name="alasan" id="kesalahan" value="kesalahan">
-                                                               <label class="form-check-label">Kesalahan Data</label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                               <input class="form-check-input" type="radio"
-                                                                  name="alasan" id="lainnya" value="lainnya">
-                                                               <label class="form-check-label">Lainnya</label>
-                                                            </div>
-                                                         </div>
+                                                      </div>
+                                                      <div class="modal-footer justify-content-between">
+                                                         <button type="button" class="btn btn-outline-dark"
+                                                            data-dismiss="modal">Batal</button>
+                                                         <button onclick="return true" class="btn btn-danger">Hapus</button>
+                                                         </form>
+                                                      </div>
                                                    </div>
-                                                   <div class="modal-footer justify-content-between">
-                                                      <button type="button" class="btn btn-outline-dark"
-                                                         data-dismiss="modal">Batal</button>
-                                                      <button onclick="return true" class="btn btn-danger">Hapus</button>
-                                                      </form>
-                                                   </div>
+                                                   <!-- /.modal-content -->
                                                 </div>
-                                                <!-- /.modal-content -->
+                                                <!-- /.modal-dialog -->
                                              </div>
-                                             <!-- /.modal-dialog -->
-                                          </div>
-                                          <!-- /.modal delete -->
-
+                                             <!-- /.modal delete -->
+                                          @endcan
                                        </div>
                                     </td>
                                  </tr>

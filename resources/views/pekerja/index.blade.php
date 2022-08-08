@@ -27,11 +27,62 @@
                   <div class="card">
                      <div class="card-header">
                         <div class="d-inline-flex">
-                           <a href="/pekerja/create" class="btn btn-success btn-sm mr-1">
-                              <i class="fas fa-file-plus"></i> Tambah Data Pegawai</a>
-                           <a href="" class="btn bg-gradient-purple btn-sm mr-1" data-toggle="modal"
-                              data-target="#modal-impor">
-                              <i class="fas fa-file-upload"></i> Impor Data Pegawai</a>
+                           @can('admin')
+                              <a href="/pekerja/create" class="btn btn-success btn-sm mr-1">
+                                 <i class="fas fa-file-plus"></i> Tambah Data Pegawai</a>
+                              <a href="" class="btn bg-gradient-purple btn-sm mr-1" data-toggle="modal"
+                                 data-target="#modal-impor">
+                                 <i class="fas fa-file-upload"></i> Impor Data Pegawai</a>
+                              <!-- Modal Impor-->
+                              <div class="modal fade" id="modal-impor" style="display: none;" aria-hidden="true">
+                                 <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                       <div class="modal-header">
+                                          <h4 class="modal-title">Impor Data Pegawai</h4>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                             <span aria-hidden="true">×</span>
+                                          </button>
+                                       </div>
+                                       <div class="modal-body">
+                                          <div class="alert alert-danger">
+                                             <h5><i class="fas fa-info-circle mr-1"></i> Petunjuk!</h5>
+                                             <span>
+                                                1. Unduh terlebih dahulu format file excel. <br>
+                                                2. Masukkan data siswa ke dalam file excel tersebut. <br>
+                                                3. Unggah file excel berisikan data pegawai melalui unggah file di bawah.
+                                             </span>
+                                             <a href="/template/Impor Data Pegawai.xlsx" target="_blank" download
+                                                class="btn btn-block btn-success col-4 mt-2 text-decoration-none align-content-end">
+                                                <i class="fas fa-file-download mr-1"></i> Unduh Format File Excel</a>
+                                          </div>
+                                          <form method="POST" action="/pekerja-impor" enctype="multipart/form-data">
+                                             <div class="custom-file mb-2">
+                                                <input type="file" class="custom-file-input" id="file_impor"
+                                                   name="file_impor">
+                                                <label for="file_impor" class="custom-file-label" data-browse="Pilih file">
+                                                   Pilih file data pegawai (*.xlsx)</label>
+                                                <span class="text-orange ml-1">
+                                                   <small>
+                                                      *File harus berupa spreadsheet hasil unduhan format file di atas
+                                                   </small>
+                                                </span>
+                                             </div>
+                                       </div>
+                                       <div class="modal-footer justify-content-between">
+                                          <button type="button" class="btn btn-outline-dark"
+                                             data-dismiss="modal">Batal</button>
+                                          @csrf
+                                          <button type="submit" class="btn btn-primary">Unggah</button>
+                                          </form>
+                                       </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+
+                                 </div>
+                                 <!-- /.modal-dialog -->
+                              </div>
+                              <!-- /.modal impor -->
+                           @endcan
                         </div>
                      </div>
                      <!-- /.card-header -->
@@ -65,43 +116,45 @@
                                        <div class="d-inline-flex">
                                           <a href="/pekerja/{{ $p->id }}" class="btn btn-info btn-sm mr-1">
                                              <i class="fas fa-eye"></i> Detail</a>
-                                          <a href="/pekerja/{{ $p->id }}/edit" class="btn btn-primary btn-sm mr-1">
-                                             <i class="fas fa-edit"></i> Edit</a>
-                                          <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
-                                             data-target="#modal-delete-{{ $p->id }}">
-                                             <i class="fas fa-trash"></i> Hapus</a>
+                                          @can('admin')
+                                             <a href="/pekerja/{{ $p->id }}/edit" class="btn btn-primary btn-sm mr-1">
+                                                <i class="fas fa-edit"></i> Edit</a>
+                                             <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
+                                                data-target="#modal-delete-{{ $p->id }}">
+                                                <i class="fas fa-trash"></i> Hapus</a>
 
-                                          <!-- Modal -->
-                                          <div class="modal fade" id="modal-delete-{{ $p->id }}"
-                                             style="display: none;" aria-hidden="true">
-                                             <div class="modal-dialog">
-                                                <div class="modal-content bg-warning">
-                                                   <div class="modal-header">
-                                                      <h4 class="modal-title">Hapus Data Pegawai</h4>
-                                                      <button type="button" class="close" data-dismiss="modal"
-                                                         aria-label="Close">
-                                                         <span aria-hidden="true">×</span>
-                                                      </button>
+                                             <!-- Modal -->
+                                             <div class="modal fade" id="modal-delete-{{ $p->id }}"
+                                                style="display: none;" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                   <div class="modal-content bg-warning">
+                                                      <div class="modal-header">
+                                                         <h4 class="modal-title">Hapus Data Pegawai</h4>
+                                                         <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                         </button>
+                                                      </div>
+                                                      <div class="modal-body">
+                                                         <p>Yakin hapus data pegawai {{ $p->nama }}?</p>
+                                                      </div>
+                                                      <div class="modal-footer justify-content-between">
+                                                         <button type="button" class="btn btn-outline-dark"
+                                                            data-dismiss="modal">Batal</button>
+                                                         <form method="POST" action="/pekerja/{{ $p->id }}">
+                                                            @method('delete')
+                                                            @csrf
+                                                            <button onclick="return true"
+                                                               class="btn btn-danger">Hapus</button>
+                                                         </form>
+                                                      </div>
                                                    </div>
-                                                   <div class="modal-body">
-                                                      <p>Yakin hapus data pegawai {{ $p->nama }}?</p>
-                                                   </div>
-                                                   <div class="modal-footer justify-content-between">
-                                                      <button type="button" class="btn btn-outline-dark"
-                                                         data-dismiss="modal">Batal</button>
-                                                      <form method="POST" action="/pekerja/{{ $p->id }}">
-                                                         @method('delete')
-                                                         @csrf
-                                                         <button onclick="return true"
-                                                            class="btn btn-danger">Hapus</button>
-                                                      </form>
-                                                   </div>
+                                                   <!-- /.modal-content -->
                                                 </div>
-                                                <!-- /.modal-content -->
+                                                <!-- /.modal-dialog -->
                                              </div>
-                                             <!-- /.modal-dialog -->
-                                          </div>
-                                          <!-- /.modal -->
+                                             <!-- /.modal -->
+                                          @endcan
 
                                        </div>
                                     </td>
@@ -110,54 +163,6 @@
                            </tbody>
                         </table>
 
-                        <!-- Modal Impor-->
-                        <div class="modal fade" id="modal-impor" style="display: none;" aria-hidden="true">
-                           <div class="modal-dialog modal-lg">
-                              <div class="modal-content">
-                                 <div class="modal-header">
-                                    <h4 class="modal-title">Impor Data Pegawai</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                       <span aria-hidden="true">×</span>
-                                    </button>
-                                 </div>
-                                 <div class="modal-body">
-                                    <div class="alert alert-danger">
-                                       <h5><i class="fas fa-info-circle mr-1"></i> Petunjuk!</h5>
-                                       <span>
-                                          1. Unduh terlebih dahulu format file excel. <br>
-                                          2. Masukkan data siswa ke dalam file excel tersebut. <br>
-                                          3. Unggah file excel berisikan data pegawai melalui unggah file di bawah.
-                                       </span>
-                                       <a href="/template/Impor Data Pegawai.xlsx" target="_blank" download
-                                          class="btn btn-block btn-success col-4 mt-2 text-decoration-none align-content-end">
-                                          <i class="fas fa-file-download mr-1"></i> Unduh Format File Excel</a>
-                                    </div>
-                                    <form method="POST" action="/pekerja-impor" enctype="multipart/form-data">
-                                       <div class="custom-file mb-2">
-                                          <input type="file" class="custom-file-input" id="file_impor"
-                                             name="file_impor">
-                                          <label for="file_impor" class="custom-file-label" data-browse="Pilih file">
-                                             Pilih file data pegawai (*.xlsx)</label>
-                                          <span class="text-orange ml-1">
-                                             <small>
-                                                *File harus berupa spreadsheet hasil unduhan format file di atas
-                                             </small>
-                                          </span>
-                                       </div>
-                                 </div>
-                                 <div class="modal-footer justify-content-between">
-                                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Batal</button>
-                                    @csrf
-                                    <button type="submit" class="btn btn-primary">Unggah</button>
-                                    </form>
-                                 </div>
-                              </div>
-                              <!-- /.modal-content -->
-
-                           </div>
-                           <!-- /.modal-dialog -->
-                        </div>
-                        <!-- /.modal impor -->
                      </div>
                      <!-- /.card-body -->
                   </div>

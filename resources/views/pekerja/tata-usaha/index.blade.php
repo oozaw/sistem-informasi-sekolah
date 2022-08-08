@@ -28,8 +28,10 @@
                   <div class="card">
                      <div class="card-header">
                         <div class="d-inline-flex">
-                           <a href="/pekerja/create" class="btn btn-success btn-sm mr-1">
-                              <i class="fas fa-file-plus"></i> Tambah Data Pegawai</a>
+                           @can('admin')
+                              <a href="/pekerja/create" class="btn btn-success btn-sm mr-1">
+                                 <i class="fas fa-file-plus"></i> Tambah Data Pegawai</a>
+                           @endcan
                         </div>
                      </div>
                      <!-- /.card-header -->
@@ -63,44 +65,44 @@
                                        <div class="d-inline-flex">
                                           <a href="/pekerja/{{ $s->id }}" class="btn btn-info btn-sm mr-1">
                                              <i class="fas fa-eye"></i> Detail</a>
-                                          <a href="/pekerja/{{ $s->id }}/edit" class="btn btn-primary btn-sm mr-1">
-                                             <i class="fas fa-edit"></i> Edit</a>
-                                          <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
-                                             data-target="#modal-delete-{{ $s->id }}">
-                                             <i class="fas fa-trash"></i> Hapus</a>
-
-                                          <!-- Modal -->
-                                          <div class="modal fade" id="modal-delete-{{ $s->id }}"
-                                             style="display: none;" aria-hidden="true">
-                                             <div class="modal-dialog">
-                                                <div class="modal-content bg-warning">
-                                                   <div class="modal-header">
-                                                      <h4 class="modal-title">Hapus Data Tata Usaha</h4>
-                                                      <button type="button" class="close" data-dismiss="modal"
-                                                         aria-label="Close">
-                                                         <span aria-hidden="true">×</span>
-                                                      </button>
+                                          @can('admin')
+                                             <a href="/pekerja/{{ $s->id }}/edit" class="btn btn-primary btn-sm mr-1">
+                                                <i class="fas fa-edit"></i> Edit</a>
+                                             <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
+                                                data-target="#modal-delete-{{ $s->id }}">
+                                                <i class="fas fa-trash"></i> Hapus</a>
+                                             <!-- Modal -->
+                                             <div class="modal fade" id="modal-delete-{{ $s->id }}"
+                                                style="display: none;" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                   <div class="modal-content bg-warning">
+                                                      <div class="modal-header">
+                                                         <h4 class="modal-title">Hapus Data Tata Usaha</h4>
+                                                         <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                         </button>
+                                                      </div>
+                                                      <div class="modal-body">
+                                                         <p>Yakin hapus data {{ $s->nama }}?</p>
+                                                      </div>
+                                                      <div class="modal-footer justify-content-between">
+                                                         <button type="button" class="btn btn-outline-dark"
+                                                            data-dismiss="modal">Batal</button>
+                                                         <form method="POST" action="/pekerja/{{ $s->id }}">
+                                                            @method('delete')
+                                                            @csrf
+                                                            <button onclick="return true"
+                                                               class="btn btn-danger">Hapus</button>
+                                                         </form>
+                                                      </div>
                                                    </div>
-                                                   <div class="modal-body">
-                                                      <p>Yakin hapus data {{ $s->nama }}?</p>
-                                                   </div>
-                                                   <div class="modal-footer justify-content-between">
-                                                      <button type="button" class="btn btn-outline-dark"
-                                                         data-dismiss="modal">Batal</button>
-                                                      <form method="POST" action="/pekerja/{{ $s->id }}">
-                                                         @method('delete')
-                                                         @csrf
-                                                         <button onclick="return true"
-                                                            class="btn btn-danger">Hapus</button>
-                                                      </form>
-                                                   </div>
+                                                   <!-- /.modal-content -->
                                                 </div>
-                                                <!-- /.modal-content -->
+                                                <!-- /.modal-dialog -->
                                              </div>
-                                             <!-- /.modal-dialog -->
-                                          </div>
-                                          <!-- /.modal -->
-
+                                             <!-- /.modal -->
+                                          @endcan
                                        </div>
                                     </td>
                                  </tr>

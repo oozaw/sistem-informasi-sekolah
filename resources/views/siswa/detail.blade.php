@@ -63,40 +63,43 @@
                         <div class="d-flex justify-content-center mb-2 mt-2">
                            <a href="/siswa" class="btn btn-secondary btn-sm mr-1">
                               <i class="fas fa-long-arrow-left"></i> Kembali</a>
-                           <a href="/siswa/{{ $siswa->id }}/edit" class="btn btn-primary btn-sm mr-1">
-                              <i class="fas fa-edit"></i> Edit Profil</a>
-                           <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
-                              data-target="#modal-delete-{{ $siswa->id }}">
-                              <i class="fas fa-trash"></i> Hapus</a>
-                           <!-- Modal -->
-                           <div class="modal fade" id="modal-delete-{{ $siswa->id }}" style="display: none;"
-                              aria-hidden="true">
-                              <div class="modal-dialog">
-                                 <div class="modal-content bg-warning">
-                                    <div class="modal-header">
-                                       <h4 class="modal-title">Hapus Data Siswa</h4>
-                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">×</span>
-                                       </button>
+                           @can('admin')
+                              <a href="/siswa/{{ $siswa->id }}/edit" class="btn btn-primary btn-sm mr-1">
+                                 <i class="fas fa-edit"></i> Edit Profil</a>
+                              <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
+                                 data-target="#modal-delete-{{ $siswa->id }}">
+                                 <i class="fas fa-trash"></i> Hapus</a>
+
+                              <!-- Modal -->
+                              <div class="modal fade" id="modal-delete-{{ $siswa->id }}" style="display: none;"
+                                 aria-hidden="true">
+                                 <div class="modal-dialog">
+                                    <div class="modal-content bg-warning">
+                                       <div class="modal-header">
+                                          <h4 class="modal-title">Hapus Data Siswa</h4>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                             <span aria-hidden="true">×</span>
+                                          </button>
+                                       </div>
+                                       <div class="modal-body">
+                                          <p>Yakin hapus data siswa {{ $siswa->nama }}?</p>
+                                       </div>
+                                       <div class="modal-footer justify-content-between">
+                                          <button type="button" class="btn btn-outline-dark"
+                                             data-dismiss="modal">Batal</button>
+                                          <form method="POST" action="/siswa/{{ $siswa->id }}">
+                                             @method('delete')
+                                             @csrf
+                                             <button onclick="return true" class="btn btn-danger">Hapus</button>
+                                          </form>
+                                       </div>
                                     </div>
-                                    <div class="modal-body">
-                                       <p>Yakin hapus data siswa {{ $siswa->nama }}?</p>
-                                    </div>
-                                    <div class="modal-footer justify-content-between">
-                                       <button type="button" class="btn btn-outline-dark"
-                                          data-dismiss="modal">Batal</button>
-                                       <form method="POST" action="/siswa/{{ $siswa->id }}">
-                                          @method('delete')
-                                          @csrf
-                                          <button onclick="return true" class="btn btn-danger">Hapus</button>
-                                       </form>
-                                    </div>
+                                    <!-- /.modal-content -->
                                  </div>
-                                 <!-- /.modal-content -->
+                                 <!-- /.modal-dialog -->
                               </div>
-                              <!-- /.modal-dialog -->
-                           </div>
-                           <!-- /.modal -->
+                              <!-- /.modal -->
+                           @endcan
                         </div>
                      </div>
                      <!-- /.widget-user -->

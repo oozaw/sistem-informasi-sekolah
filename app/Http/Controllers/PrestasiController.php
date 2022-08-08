@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Validator;
 
 class PrestasiController extends Controller {
     public function __construct() {
-        // membatasi akses kepsek hanya ke method index saja
-        $this->middleware('kepsek')->except(['index']);
+        // membatasi akses kepsek hanya ke method index dan show saja
+        $this->middleware('kepsek')->except(['index', 'show']);
     }
 
     /**

@@ -54,97 +54,99 @@
                <!-- ./col -->
                <div class="col-lg-3 col-6">
                   <!-- small box -->
-                  <div class="small-box bg-warning">
-                     <div class="inner text-light">
-                        <h3>{{ $pekerjas->where('jabatan', 'Guru')->count() }}</h3>
-
-                        <p>Guru</p>
-                     </div>
-                     <div class="icon">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                     </div>
-                     <a href="/guru" class="small-box-footer" style="color: #FFFFFF !important;">More info <i
-                           class="fas fa-arrow-circle-right"></i></a>
-                  </div>
-               </div>
-               <!-- ./col -->
-               <div class="col-lg-3 col-6">
-                  <!-- small box -->
-                  <div class="small-box bg-danger">
-                     <div class="inner">
-                        <h3>{{ $pekerjas->where('jabatan', 'Staf Tata Usaha')->count() }}</h3>
-
-                        <p>Staf Tata Usaha</p>
-                     </div>
-                     <div class="icon">
-                        <i class="fas fa-users-cog"></i>
-                     </div>
-                     <a href="/tata-usaha" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                  </div>
-               </div>
-               <!-- ./col -->
-               <div class="col-lg-3 col-6">
-                  <!-- small box -->
-                  <div class="small-box bg-secondary">
-                     <div class="inner">
-                        <h3>{{ $pekerjas->where('jabatan', 'Staf Lainnya')->count() }}</h3>
-
-                        <p>Staf Lain</p>
-                     </div>
-                     <div class="icon">
-                        <i class="fas fa-user-friends"></i>
-                     </div>
-                     <a href="/staf-lain" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                  </div>
-               </div>
-               <!-- ./col -->
-               <div class="col-lg-3 col-6">
-                  <!-- small box -->
-                  <div class="small-box bg-maroon">
-                     <div class="inner">
-                        <h3>{{ $surat_masuk->count() }}</h3>
-
-                        <p>Surat Masuk</p>
-                     </div>
-                     <div class="icon">
-                        <i class="fas fa-inbox-in"></i>
-                     </div>
-                     <a href="/surat-masuk" class="small-box-footer">More info <i
-                           class="fas fa-arrow-circle-right"></i></a>
-                  </div>
-               </div>
-               <!-- ./col -->
-               <div class="col-lg-3 col-6">
-                  <!-- small box -->
-                  <div class="small-box bg-purple">
-                     <div class="inner">
-                        <h3>{{ $surat_keluar->count() }}</h3>
-
-                        <p>Surat Keluar</p>
-                     </div>
-                     <div class="icon">
-                        <i class="fas fa-inbox-out"></i>
-                     </div>
-                     <a href="/surat-keluar" class="small-box-footer">More info <i
-                           class="fas fa-arrow-circle-right"></i></a>
-                  </div>
-               </div>
-               <!-- ./col -->
-               <div class="col-lg-3 col-6">
-                  <!-- small box -->
                   <div class="small-box bg-primary">
                      <div class="inner">
-                        <h3>8</h3>
+                        <h3>{{ $prestasi->count() }}</h3>
 
                         <p>Surat Keluar</p>
                      </div>
                      <div class="icon">
-                        <i class="fas fa-users-cog"></i>
+                        <i class="fas fa-trophy"></i>
                      </div>
-                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                     <a href="/prestasi" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                   </div>
                </div>
                <!-- ./col -->
+               @cannot('guru')
+                  <div class="col-lg-3 col-6">
+                     <!-- small box -->
+                     <div class="small-box bg-warning">
+                        <div class="inner text-light">
+                           <h3>{{ $pekerjas->where('jabatan', 'Guru')->count() }}</h3>
+
+                           <p>Guru</p>
+                        </div>
+                        <div class="icon">
+                           <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <a href="/guru" class="small-box-footer" style="color: #FFFFFF !important;">More info <i
+                              class="fas fa-arrow-circle-right"></i></a>
+                     </div>
+                  </div>
+                  <!-- ./col -->
+                  <div class="col-lg-3 col-6">
+                     <!-- small box -->
+                     <div class="small-box bg-danger">
+                        <div class="inner">
+                           <h3>{{ $pekerjas->where('jabatan', 'Staf Tata Usaha')->count() }}</h3>
+
+                           <p>Staf Tata Usaha</p>
+                        </div>
+                        <div class="icon">
+                           <i class="fas fa-users-cog"></i>
+                        </div>
+                        <a href="/tata-usaha" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                     </div>
+                  </div>
+                  <!-- ./col -->
+                  <div class="col-lg-3 col-6">
+                     <!-- small box -->
+                     <div class="small-box bg-secondary">
+                        <div class="inner">
+                           <h3>{{ $pekerjas->where('jabatan', 'Staf Lainnya')->count() }}</h3>
+
+                           <p>Staf Lain</p>
+                        </div>
+                        <div class="icon">
+                           <i class="fas fa-user-friends"></i>
+                        </div>
+                        <a href="/staf-lain" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                     </div>
+                  </div>
+                  <!-- ./col -->
+                  <div class="col-lg-3 col-6">
+                     <!-- small box -->
+                     <div class="small-box bg-maroon">
+                        <div class="inner">
+                           <h3>{{ $surat_masuk->count() }}</h3>
+
+                           <p>Surat Masuk</p>
+                        </div>
+                        <div class="icon">
+                           <i class="fas fa-inbox-in"></i>
+                        </div>
+                        <a href="/surat-masuk" class="small-box-footer">More info <i
+                              class="fas fa-arrow-circle-right"></i></a>
+                     </div>
+                  </div>
+                  <!-- ./col -->
+                  <div class="col-lg-3 col-6">
+                     <!-- small box -->
+                     <div class="small-box bg-purple">
+                        <div class="inner">
+                           <h3>{{ $surat_keluar->count() }}</h3>
+
+                           <p>Surat Keluar</p>
+                        </div>
+                        <div class="icon">
+                           <i class="fas fa-inbox-out"></i>
+                        </div>
+                        <a href="/surat-keluar" class="small-box-footer">More info <i
+                              class="fas fa-arrow-circle-right"></i></a>
+                     </div>
+                  </div>
+                  <!-- ./col -->
+               @endcannot
                <div class="col-md-6">
                   <div class="card card-success">
                      <div class="card-header">

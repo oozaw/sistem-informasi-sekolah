@@ -61,38 +61,40 @@
                   <p>Dashboard</p>
                </a>
             </li>
-            <li
-               class="nav-item {{ $part == 'pengguna' || $part == 'kepsek' || $part == 'tahun-ajaran' ? 'menu-open' : '' }}">
-               <a href="#"
-                  class="nav-link {{ $part == 'pengguna' || $part == 'kepsek' || $part == 'tahun-ajaran' ? 'active' : '' }}">
-                  <i class="nav-icon fas fa-tools"></i>
-                  <p>
-                     Administrator
-                     <i class="fas fa-angle-left right"></i>
-                  </p>
-               </a>
-               <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                     <a href="/tahun-ajaran/{{ App\Models\TahunAjaran::where('status', '1')->first()->id }}"
-                        class="nav-link {{ $part == 'tahun-ajaran' ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-cabinet-filing"></i>
-                        <p>Tahun Pelajaran</p>
-                     </a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="/pengguna" class="nav-link {{ $part == 'pengguna' ? 'active' : '' }}">
-                        <i class="nav-icon fad fa-users"></i>
-                        <p>Data Pengguna</p>
-                     </a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="/kepala-sekolah" class="nav-link {{ $part == 'kepsek' ? 'active' : '' }}">
-                        <i class="fas fa-user-crown nav-icon"></i>
-                        <p>Data Kepala Sekolah</p>
-                     </a>
-                  </li>
-               </ul>
-            </li>
+            @can('admin')
+               <li
+                  class="nav-item {{ $part == 'pengguna' || $part == 'kepsek' || $part == 'tahun-ajaran' ? 'menu-open' : '' }}">
+                  <a href="#"
+                     class="nav-link {{ $part == 'pengguna' || $part == 'kepsek' || $part == 'tahun-ajaran' ? 'active' : '' }}">
+                     <i class="nav-icon fas fa-tools"></i>
+                     <p>
+                        Administrator
+                        <i class="fas fa-angle-left right"></i>
+                     </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                     <li class="nav-item">
+                        <a href="/tahun-ajaran/{{ App\Models\TahunAjaran::where('status', '1')->first()->id }}"
+                           class="nav-link {{ $part == 'tahun-ajaran' ? 'active' : '' }}">
+                           <i class="nav-icon fas fa-cabinet-filing"></i>
+                           <p>Tahun Pelajaran</p>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="/pengguna" class="nav-link {{ $part == 'pengguna' ? 'active' : '' }}">
+                           <i class="nav-icon fad fa-users"></i>
+                           <p>Data Pengguna</p>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="/kepala-sekolah" class="nav-link {{ $part == 'kepsek' ? 'active' : '' }}">
+                           <i class="fas fa-user-crown nav-icon"></i>
+                           <p>Data Kepala Sekolah</p>
+                        </a>
+                     </li>
+                  </ul>
+               </li>
+            @endcan
             <li class="nav-item {{ $part == 'kelas' || $part == 'siswa' || $part == 'prestasi' ? 'menu-open' : '' }}">
                <a href="#"
                   class="nav-link {{ $part == 'kelas' || $part == 'siswa' || $part == 'prestasi' ? 'active' : '' }}">
@@ -123,77 +125,79 @@
                   </li>
                </ul>
             </li>
-            <li
-               class="nav-item {{ $part == 'guru' || $part == 'tu' || $part == 'lainnya' || $part == 'kepegawaian' || $part == 'pegawai' ? 'menu-open' : '' }}">
-               <a href="#"
-                  class="nav-link {{ $part == 'guru' || $part == 'tu' || $part == 'lainnya' || $part == 'kepegawaian' || $part == 'pegawai' ? 'active' : '' }}">
-                  <i class="nav-icon fas fa-briefcase"></i>
-                  <p>
-                     Kepegawaian
-                     <i class="fas fa-angle-left right"></i>
-                  </p>
-               </a>
-               <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                     <a href="/pekerja" class="nav-link {{ $part == 'pegawai' ? 'active' : '' }}">
-                        <i class="fas fa-users nav-icon"></i>
-                        <p>Data Seluruh Pegawai</p>
-                     </a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="/guru"
-                        class="nav-link {{ $part == 'guru' ? 'active' : '' }} @if (isset($pekerja)) {{ $pekerja->jabatan == 'Guru' ? 'active' : '' }} @endif">
-                        <i class="fas fa-chalkboard-teacher nav-icon"></i>
-                        <p>Data Guru</p>
-                     </a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="/tata-usaha"
-                        class="nav-link {{ $part == 'tu' ? 'active' : '' }} @if (isset($pekerja)) {{ $pekerja->jabatan == 'Staf Tata Usaha' ? 'active' : '' }} @endif">
-                        <i class="fas fa-users-cog nav-icon"></i>
-                        <p>Data Staf Tata Usaha</p>
-                     </a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="/staf-lain"
-                        class="nav-link {{ $part == 'lainnya' ? 'active' : '' }} @if (isset($pekerja)) {{ $pekerja->jabatan == 'Staf Lainnya' ? 'active' : '' }} @endif">
-                        <i class="fas fa-user-friends nav-icon"></i>
-                        <p>Data Pegawai Lain</p>
-                     </a>
-                  </li>
-               </ul>
-            </li>
-            <li
-               class="nav-item {{ $part == 'surat-masuk' || $part == 'surat-keluar' || $part == 'keuangan' || $part == 'komite' || $part == 'bos' ? 'menu-open' : '' }}">
-               <a href="#"
-                  class="nav-link {{ $part == 'surat-masuk' || $part == 'surat-keluar' || $part == 'keuangan' || $part == 'komite' || $part == 'bos' ? 'active' : '' }}">
-                  <i class="nav-icon fas fa-paste"></i>
-                  <p>
-                     Tata Usaha
-                     <i class="fas fa-angle-left right"></i>
-                  </p>
-               </a>
-               <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                     <a href="/surat-masuk" class="nav-link {{ $part == 'surat-masuk' ? 'active' : '' }}">
-                        <i class="fas fa-inbox-in nav-icon"></i>
-                        <p>Surat Masuk</p>
-                     </a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="/surat-keluar" class="nav-link {{ $part == 'surat-keluar' ? 'active' : '' }}">
-                        <i class="fas fa-inbox-out nav-icon"></i>
-                        <p>Surat Keluar</p>
-                     </a>
-                  </li>
-                  <li class="nav-item {{ $part == 'komite' || $part == 'bos' ? 'menu-open' : '' }}">
-                     <a href="/komite" class="nav-link {{ $part == 'komite' ? 'active' : '' }}">
-                        <i class="fas fa-money-check-alt nav-icon"></i>
-                        <p>Komite</p>
-                     </a>
-                  </li>
-               </ul>
-            </li>
+            @cannot('guru')
+               <li
+                  class="nav-item {{ $part == 'guru' || $part == 'tu' || $part == 'lainnya' || $part == 'kepegawaian' || $part == 'pegawai' ? 'menu-open' : '' }}">
+                  <a href="#"
+                     class="nav-link {{ $part == 'guru' || $part == 'tu' || $part == 'lainnya' || $part == 'kepegawaian' || $part == 'pegawai' ? 'active' : '' }}">
+                     <i class="nav-icon fas fa-briefcase"></i>
+                     <p>
+                        Kepegawaian
+                        <i class="fas fa-angle-left right"></i>
+                     </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                     <li class="nav-item">
+                        <a href="/pekerja" class="nav-link {{ $part == 'pegawai' ? 'active' : '' }}">
+                           <i class="fas fa-users nav-icon"></i>
+                           <p>Data Seluruh Pegawai</p>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="/guru"
+                           class="nav-link {{ $part == 'guru' ? 'active' : '' }} @if (isset($pekerja)) {{ $pekerja->jabatan == 'Guru' ? 'active' : '' }} @endif">
+                           <i class="fas fa-chalkboard-teacher nav-icon"></i>
+                           <p>Data Guru</p>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="/tata-usaha"
+                           class="nav-link {{ $part == 'tu' ? 'active' : '' }} @if (isset($pekerja)) {{ $pekerja->jabatan == 'Staf Tata Usaha' ? 'active' : '' }} @endif">
+                           <i class="fas fa-users-cog nav-icon"></i>
+                           <p>Data Staf Tata Usaha</p>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="/staf-lain"
+                           class="nav-link {{ $part == 'lainnya' ? 'active' : '' }} @if (isset($pekerja)) {{ $pekerja->jabatan == 'Staf Lainnya' ? 'active' : '' }} @endif">
+                           <i class="fas fa-user-friends nav-icon"></i>
+                           <p>Data Pegawai Lain</p>
+                        </a>
+                     </li>
+                  </ul>
+               </li>
+               <li
+                  class="nav-item {{ $part == 'surat-masuk' || $part == 'surat-keluar' || $part == 'keuangan' || $part == 'komite' || $part == 'bos' ? 'menu-open' : '' }}">
+                  <a href="#"
+                     class="nav-link {{ $part == 'surat-masuk' || $part == 'surat-keluar' || $part == 'keuangan' || $part == 'komite' || $part == 'bos' ? 'active' : '' }}">
+                     <i class="nav-icon fas fa-paste"></i>
+                     <p>
+                        Tata Usaha
+                        <i class="fas fa-angle-left right"></i>
+                     </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                     <li class="nav-item">
+                        <a href="/surat-masuk" class="nav-link {{ $part == 'surat-masuk' ? 'active' : '' }}">
+                           <i class="fas fa-inbox-in nav-icon"></i>
+                           <p>Surat Masuk</p>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="/surat-keluar" class="nav-link {{ $part == 'surat-keluar' ? 'active' : '' }}">
+                           <i class="fas fa-inbox-out nav-icon"></i>
+                           <p>Surat Keluar</p>
+                        </a>
+                     </li>
+                     <li class="nav-item {{ $part == 'komite' || $part == 'bos' ? 'menu-open' : '' }}">
+                        <a href="/komite" class="nav-link {{ $part == 'komite' ? 'active' : '' }}">
+                           <i class="fas fa-money-check-alt nav-icon"></i>
+                           <p>Komite</p>
+                        </a>
+                     </li>
+                  </ul>
+               </li>
+            @endcannot
          </ul>
       </nav>
       <!-- /.sidebar-menu -->

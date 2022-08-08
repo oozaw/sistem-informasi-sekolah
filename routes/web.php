@@ -13,7 +13,6 @@ use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\TahunAjaranController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-use phpDocumentor\Reflection\Types\Resource_;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,16 +85,14 @@ Route::middleware(['auth'])->group(function () {
       // Surat Masuk
       Route::resource('/surat-masuk', SuratMasukController::class);
 
-      Route::middleware('kepsek')->group(function () {
-         // Komite
-         Route::resource('/komite', KomiteController::class);
-         Route::post('/komite-update', [KomiteController::class, 'updateKomite'])->name('komite.update');
-         Route::post('/komite-data', [KomiteController::class, 'getDataKomite'])->name('komite.data');
-         Route::get('/bebas-komite', [KomiteController::class, 'indexBebasKomite'])->name('komite.bebas-index');
-         Route::post('/get-data-siswa', [KomiteController::class, 'getDataSiswa'])->name('komite.get-siswa');
-         Route::put('/update-bebas-komite', [KomiteController::class, 'updateBebasKomite'])->name('komite.bebas-update');
-         Route::post('/komite-export', [KomiteController::class, 'exportKomite'])->name('komite.export');
-      });
+      // Komite
+      Route::resource('/komite', KomiteController::class);
+      Route::post('/komite-update', [KomiteController::class, 'updateKomite'])->name('komite.update');
+      Route::post('/komite-data', [KomiteController::class, 'getDataKomite'])->name('komite.data');
+      Route::get('/bebas-komite', [KomiteController::class, 'indexBebasKomite'])->name('komite.bebas-index');
+      Route::post('/get-data-siswa', [KomiteController::class, 'getDataSiswa'])->name('komite.get-siswa');
+      Route::put('/update-bebas-komite', [KomiteController::class, 'updateBebasKomite'])->name('komite.bebas-update');
+      Route::post('/komite-export', [KomiteController::class, 'exportKomite'])->name('komite.export');
    });
 });
 
