@@ -28,7 +28,7 @@
                   <!-- Widget: user widget style 1 -->
                   <div class="card card-widget widget-user">
                      <!-- Add the bg color to the header using any of the bg-* classes -->
-                     <div class="widget-user-header bg-orange">
+                     <div class="widget-user-header bg-primary">
                         <h3 class="widget-user-username"><b>{{ $kepsek->nama }}</b></h3>
                      </div>
                      <div class="widget-user-image">

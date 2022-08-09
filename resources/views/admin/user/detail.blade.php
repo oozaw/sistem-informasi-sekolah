@@ -29,7 +29,7 @@
                   <!-- Widget: user widget style 1 -->
                   <div class="card card-widget widget-user">
                      <!-- Add the bg color to the header using any of the bg-* classes -->
-                     <div class="widget-user-header bg-info">
+                     <div class="widget-user-header bg-primary">
                         <h3 class="widget-user-username">{{ $pengguna->username }}</h3>
                      </div>
                      <div class="widget-user-image">
@@ -120,7 +120,7 @@
                </div>
                <!-- /.col -->
                <div class="col-md-8">
-                  <div class="card card-outline card-info">
+                  <div class="card card-outline card-primary">
                      <div class="card-header">
                         <h3 class="card-title">Data Pengguna</h3>
                      </div>
@@ -147,7 +147,7 @@
                         <strong><i class="fas fa-phone-alt mr-1"></i> No. Telepon</strong>
                         <p class="text-muted">{{ $pengguna->role == '1' ? '-' : $profil->no_hp }}</p>
                         <hr>
-                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Tempat Tinggal</strong>
+                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Alamat</strong>
                         <p class="text-muted">{{ $pengguna->role == '1' ? '-' : $profil->tempat_tinggal }}</p>
                      </div>
                      <!-- /.card-body -->

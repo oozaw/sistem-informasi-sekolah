@@ -54,9 +54,11 @@
                         </div>
                         <!-- /.row -->
                         <div class="d-flex justify-content-center mt-1 mb-2">
-                           <div class="col-6">
-                              <a href="#" class="btn btn-warning btn-block"><b>Edit Profil</b></a>
-                           </div>
+                           {{-- @can('admin')
+                              <div class="col-6">
+                                 <a href="/" class="btn btn-warning btn-block"><b>Edit Profil</b></a>
+                              </div>
+                           @endcan --}}
                         </div>
                      </div>
                      <!-- /.widget-user -->
@@ -89,11 +91,20 @@
                         <strong><i class="fas fa-book mr-1"></i> Nama</strong>
                         <p class="text-muted">{{ $user->pegawai->nama }}</p>
                         <hr>
+                        <strong><i class="far fa-file-alt mr-1"></i> NIP</strong>
+                        <p class="text-muted">{{ $user->role == '1' ? '-' : $user->pegawai->nip }}</p>
+                        <hr>
+                        <strong><i class="far fa-venus-mars"></i> Jenis Kelamin</strong>
+                        <p class="text-muted">{{ $user->pegawai->gender }}</p>
+                        <hr>
                         <strong><i class="far fa-envelope mr-1"></i> Email</strong>
                         <p class="text-muted">{{ $user->pegawai->email }}</p>
                         <hr>
                         <strong><i class="fas fa-phone-alt mr-1"></i> No. Telepon</strong>
                         <p class="text-muted">{{ $user->pegawai->no_hp }}</p>
+                        <hr>
+                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Alamat</strong>
+                        <p class="text-muted">{{ $user->pegawai->tempat_tinggal }}</p>
                      </div>
                      <!-- /.card-body -->
                   </div>

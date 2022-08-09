@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Prestasi;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -31,6 +32,12 @@ class AppServiceProvider extends ServiceProvider {
             } else {
                 $view->with('user', null);
             }
+        });
+
+        // membagikan data notifikasi prestasi yang piagamnya belum lengkap
+        View::composer('*', function ($view) {
+            $emptyPiagam = Prestasi::getEmptyPiagam();
+            $view->with('piagamKosong', $emptyPiagam);
         });
 
         // Gate

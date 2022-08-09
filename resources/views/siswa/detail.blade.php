@@ -28,7 +28,7 @@
                   <!-- Widget: user widget style 1 -->
                   <div class="card card-widget widget-user">
                      <!-- Add the bg color to the header using any of the bg-* classes -->
-                     <div class="widget-user-header bg-info">
+                     <div class="widget-user-header bg-primary">
                         <h3 class="widget-user-username">{{ $siswa->nama }}</h3>
                      </div>
                      <div class="widget-user-image">
@@ -107,7 +107,7 @@
                </div>
                <!-- /.col -->
                <div class="col-md-8">
-                  <div class="card card-outline card-info">
+                  <div class="card card-outline card-primary">
                      <div class="card-header">
                         <h3 class="card-title">Data Diri</h3>
                      </div>

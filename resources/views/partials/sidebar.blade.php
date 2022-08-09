@@ -21,8 +21,13 @@
             </div>
          @endif
          <div class="info pl-2">
-            <a href="/profile"
-               class="d-block text-sm">{{ $user->role == 1 ? 'Administrator' : $user->pegawai->nama }}</a>
+            @if ($user->role == 1)
+               <span class="d-block text-sm"
+                  style="color: #c2c7d0">{{ $user->role == 1 ? 'Administrator' : $user->pegawai->nama }}</span>
+            @else
+               <a href="/profile"
+                  class="d-block text-sm">{{ $user->role == 1 ? 'Administrator' : $user->pegawai->nama }}</a>
+            @endif
             <span class="d-block text-white-50" style="font-size: smaller">
                @if ($user->role == 1)
                   {{ 'Admin' }}

@@ -58,7 +58,7 @@
                      <div class="inner">
                         <h3>{{ $prestasi->count() }}</h3>
 
-                        <p>Surat Keluar</p>
+                        <p>Prestasi</p>
                      </div>
                      <div class="icon">
                         <i class="fas fa-trophy"></i>
