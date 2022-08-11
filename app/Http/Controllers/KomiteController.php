@@ -205,22 +205,31 @@ class KomiteController extends Controller {
             "bebas1" => $request->bebas1,
             "bebas2" => $request->bebas2
         ];
-        // update sem. 1
-        for ($i = 7; $i <= $request->bebas1 + 6; $i++) {
-            $data["$i"] = 'Lunas';
-        }
-        if ($request->bebas1 != 6) {
-            for ($i = $request->bebas1 + 7; $i <= 12; $i++) {
-                $data["$i"] = 'Belum Lunas';
+        $oldKomite = Komite::where('siswa_id', $siswaId)->first();
+        $oldBebas1 = $oldKomite->bebas1;
+        $oldBebas2 = $oldKomite->bebas2;
+
+        if ($oldBebas1 != $request->bebas1) {
+            // update sem. 1
+            for ($i = 7; $i <= $request->bebas1 + 6; $i++) {
+                $data["$i"] = 'Lunas';
+            }
+            if ($request->bebas1 != 6) {
+                for ($i = $request->bebas1 + 7; $i <= 12; $i++) {
+                    $data["$i"] = 'Belum Lunas';
+                }
             }
         }
-        // update sem. 2
-        for ($i = 1; $i <= $request->bebas2; $i++) {
-            $data["$i"] = 'Lunas';
-        }
-        if ($request->bebas2 != 6) {
-            for ($i = $request->bebas2 + 1; $i <= 6; $i++) {
-                $data["$i"] = 'Belum Lunas';
+
+        if ($oldBebas2 != $request->bebas2) {
+            // update sem. 2
+            for ($i = 1; $i <= $request->bebas2; $i++) {
+                $data["$i"] = 'Lunas';
+            }
+            if ($request->bebas2 != 6) {
+                for ($i = $request->bebas2 + 1; $i <= 6; $i++) {
+                    $data["$i"] = 'Belum Lunas';
+                }
             }
         }
 
