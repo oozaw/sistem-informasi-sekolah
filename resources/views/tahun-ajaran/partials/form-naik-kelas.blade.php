@@ -4,7 +4,8 @@
          <div class="form-group">
             <label for="nominal_daftar_ulang">Nominal Daftar Ulang</label>
             <input type="text" class="form-control @error('nominal_daftar_ulang') is-invalid @enderror" id="rupiah"
-               name="nominal_daftar_ulang" placeholder="Masukkan nominal" value="{{ old('nominal_daftar_ulang') }}">
+               name="nominal_daftar_ulang" placeholder="Masukkan nominal" value="{{ old('nominal_daftar_ulang') }}"
+               required>
             @error('nominal_daftar_ulang')
                <div class="invalid-feedback">
                   {{ $message }}

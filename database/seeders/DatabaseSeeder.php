@@ -37,12 +37,13 @@ class DatabaseSeeder extends Seeder {
         Kelas::factory(4)->create();
         Pekerja::factory(15)->create();
         Pekerja::create([
-            'nama' => 'Kepala Sekolah',
+            'nama' => 'HENANG PRIYANTO, S.Pd., M.Si.',
+            'nip' => '19830210 200501 1005',
             'email' => '',
             'no_hp' => '',
             'jabatan' => 'Kepala Sekolah',
-            'gender' => '',
-            'tempat_tinggal' => '',
+            'gender' => 'Laki-laki',
+            'tempat_tinggal' => 'Desa Meranti',
             'foto_profil' => ''
         ]);
         SuratKeluar::factory(20)->create();

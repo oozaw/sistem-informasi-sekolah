@@ -46,7 +46,7 @@ class TahunAjaranController extends Controller {
         $validatedData = $request->validate([
             "tahun_ajaran" => "required",
             "status" => "required",
-            "nominal_daftar_ulang" => "required",
+            "nominal_daftar_ulang" => "nullable",
             "jml_siswa" => "nullable|numeric",
             "jml_siswa_baru" => "nullable|numeric",
             "jml_siswa_lulus" => "nullable|numeric",
@@ -57,12 +57,12 @@ class TahunAjaranController extends Controller {
             "jml_surat_keluar" => "nullable|numeric",
         ]);
 
-        // $nominalDaftarUlang = str_replace(".", "", explode(" ", $request->nominal_daftar_ulang)[1]);
-        $nominalDaftarUlang = $request->nominal_daftar_ulang;
-        $validatedData['nominal_daftar_ulang'] = $nominalDaftarUlang;
-
         // Merubah ke kelas terbaru
         if ($request->status == '1') {
+            // $nominalDaftarUlang = str_replace(".", "", explode(" ", $request->nominal_daftar_ulang)[1]);
+            $nominalDaftarUlang = $request->nominal_daftar_ulang;
+            $validatedData['nominal_daftar_ulang'] = $nominalDaftarUlang;
+
             // tinggal kelas/tidak lulus
             $id_siswa_tidak_lulus = [];
             if ($request->jml_siswa_tinggal_kelas != 0) {
@@ -97,6 +97,9 @@ class TahunAjaranController extends Controller {
             TahunAjaran::where('status', '1')->update(array('status' => '0'));
         }
 
+        if (!($request->nominal_daftar_ulang)) {
+            $validatedData['nominal_daftar_ulang'] = 0;
+        }
         if (!($request->jml_siswa)) {
             $validatedData['jml_siswa'] = 0;
         }

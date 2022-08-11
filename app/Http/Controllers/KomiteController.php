@@ -242,19 +242,19 @@ class KomiteController extends Controller {
 
         $request->semester_hidden == 'Ganjil' ? $bln_awal = 7 : $bln_awal = 1;
         if ($request->semester_hidden == 'Ganjil') {
-            $b1 = 1;
-            $b2 = 2;
-            $b3 = 3;
-            $b4 = 4;
-            $b5 = 5;
-            $b6 = 6;
-        } else {
             $b1 = 7;
             $b2 = 8;
             $b3 = 9;
             $b4 = 10;
             $b5 = 11;
             $b6 = 12;
+        } else {
+            $b1 = 1;
+            $b2 = 2;
+            $b3 = 3;
+            $b4 = 4;
+            $b5 = 5;
+            $b6 = 6;
         }
 
         foreach ($kelas as $k) {
@@ -293,7 +293,7 @@ class KomiteController extends Controller {
                         $worksheet->getStyle("J$i")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB("99CCFF");
                     }
                 }
-                if ($worksheet->getCell("C$i")->getValue() != 'Lunas') {
+                if ($worksheet->getCell("C$i")->getValue() != 'Lunas' && $worksheet->getCell("C$i")->getValue() != 'Rp. 0') {
                     $worksheet->getStyle("C$i")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB(Color::COLOR_YELLOW);
                 } else {
                     $worksheet->getStyle("C$i")->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setARGB("99CCFF");

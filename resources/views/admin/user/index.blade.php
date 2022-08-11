@@ -55,8 +55,10 @@
                                           {{ 'Admin' }}
                                        @elseif ($p->role == 2)
                                           {{ 'Guru' }}
-                                       @else
+                                       @elseif ($p->role == 3)
                                           {{ 'Tata Usaha' }}
+                                       @else
+                                          {{ 'Kepala Sekolah' }}
                                        @endif
                                     </td>
                                     <td>
