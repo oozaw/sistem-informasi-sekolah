@@ -79,7 +79,7 @@
                   </a>
                   <ul class="nav nav-treeview">
                      <li class="nav-item">
-                        <a href="/tahun-ajaran/{{ App\Models\TahunAjaran::where('status', '1')->first()->id }}"
+                        <a href="/tahun-ajaran{{ App\Models\TahunAjaran::where('status', '1')->first() != null ? '/' . App\Models\TahunAjaran::where('status', '1')->first()->id : '' }}"
                            class="nav-link {{ $part == 'tahun-ajaran' ? 'active' : '' }}">
                            <i class="nav-icon fas fa-cabinet-filing"></i>
                            <p>Tahun Pelajaran</p>
