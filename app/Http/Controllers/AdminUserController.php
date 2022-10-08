@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pekerja;
-use App\Models\User;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Pekerja;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class AdminUserController extends Controller {
     /**
@@ -151,9 +152,13 @@ class AdminUserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user) {
-        User::destroy($user->id);
+        if (Cache::has('user-is-online-' . $user->id)) {
+            return redirect('/pengguna')->with('fail', "Data pengguna aktif tidak bisa dihapus!");
+        } else {
+            User::destroy($user->id);
 
-        return redirect('/pengguna')->with('success', "Data $user->username berhasil dihapus!");
+            return redirect('/pengguna')->with('success', "Data $user->username berhasil dihapus!");
+        }
     }
 
     public function getPegawai(Request $request) {

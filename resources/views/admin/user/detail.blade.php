@@ -80,39 +80,43 @@
                            <a href="/pengguna/{{ $pengguna->id }}/edit" class="btn btn-primary btn-sm mr-1"
                               {{ $pengguna->role == '1' ? 'hidden' : '' }}>
                               <i class="fas fa-edit"></i> Edit Profil</a>
-                           <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
-                              data-target="#modal-delete-{{ $pengguna->id }}"
-                              {{ $pengguna->role == '1' ? 'hidden' : '' }}>
-                              <i class="fas fa-trash"></i> Hapus</a>
-                           <!-- Modal -->
-                           <div class="modal fade" id="modal-delete-{{ $pengguna->id }}" style="display: none;"
-                              aria-hidden="true">
-                              <div class="modal-dialog">
-                                 <div class="modal-content bg-warning">
-                                    <div class="modal-header">
-                                       <h4 class="modal-title">Hapus Data Pengguna</h4>
-                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">×</span>
-                                       </button>
+                           @if (!Cache::has('user-is-online-' . $pengguna->id))
+                              <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
+                                 data-target="#modal-delete-{{ $pengguna->id }}"
+                                 {{ $pengguna->role == '1' ? 'hidden' : '' }}>
+                                 <i class="fas fa-trash"></i> Hapus</a>
+
+                              <!-- Modal -->
+                              <div class="modal fade" id="modal-delete-{{ $pengguna->id }}" style="display: none;"
+                                 aria-hidden="true">
+                                 <div class="modal-dialog">
+                                    <div class="modal-content bg-warning">
+                                       <div class="modal-header">
+                                          <h4 class="modal-title">Hapus Data Pengguna</h4>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                             <span aria-hidden="true">×</span>
+                                          </button>
+                                       </div>
+                                       <div class="modal-body">
+                                          <p>Yakin hapus Data Pengguna {{ $pengguna->nama }}?</p>
+                                       </div>
+                                       <div class="modal-footer justify-content-between">
+                                          <button type="button" class="btn btn-outline-dark"
+                                             data-dismiss="modal">Batal</button>
+                                          <form method="POST" action="/pengguna/{{ $pengguna->id }}">
+                                             @method('delete')
+                                             @csrf
+                                             <button onclick="return true" class="btn btn-danger">Hapus</button>
+                                          </form>
+                                       </div>
                                     </div>
-                                    <div class="modal-body">
-                                       <p>Yakin hapus Data Pengguna {{ $pengguna->nama }}?</p>
-                                    </div>
-                                    <div class="modal-footer justify-content-between">
-                                       <button type="button" class="btn btn-outline-dark"
-                                          data-dismiss="modal">Batal</button>
-                                       <form method="POST" action="/pengguna/{{ $pengguna->id }}">
-                                          @method('delete')
-                                          @csrf
-                                          <button onclick="return true" class="btn btn-danger">Hapus</button>
-                                       </form>
-                                    </div>
+                                    <!-- /.modal-content -->
                                  </div>
-                                 <!-- /.modal-content -->
+                                 <!-- /.modal-dialog -->
                               </div>
-                              <!-- /.modal-dialog -->
-                           </div>
-                           <!-- /.modal -->
+                              <!-- /.modal -->
+                           @endif
+
                         </div>
                      </div>
                      <!-- /.widget-user -->
