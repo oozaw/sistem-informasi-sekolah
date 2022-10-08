@@ -27,7 +27,7 @@
                   <div class="card">
                      <div class="card-header">
                         <div class="d-inline-flex">
-                           @can('admin')
+                           @can('tata-usaha')
                               <a href="/pekerja/create" class="btn btn-success btn-sm mr-1">
                                  <i class="fas fa-file-plus"></i> Tambah Data Pegawai</a>
                               <a href="" class="btn bg-gradient-purple btn-sm mr-1" data-toggle="modal"
@@ -116,44 +116,46 @@
                                        <div class="d-inline-flex">
                                           <a href="/pekerja/{{ $p->id }}" class="btn btn-info btn-sm mr-1">
                                              <i class="fas fa-eye"></i> Detail</a>
-                                          @can('admin')
+                                          @can('tata-usaha')
                                              <a href="/pekerja/{{ $p->id }}/edit" class="btn btn-primary btn-sm mr-1">
                                                 <i class="fas fa-edit"></i> Edit</a>
-                                             <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
-                                                data-target="#modal-delete-{{ $p->id }}">
-                                                <i class="fas fa-trash"></i> Hapus</a>
+                                             @if ($p->jabatan != 'Kepala Sekolah')
+                                                <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
+                                                   data-target="#modal-delete-{{ $p->id }}">
+                                                   <i class="fas fa-trash"></i> Hapus</a>
 
-                                             <!-- Modal -->
-                                             <div class="modal fade" id="modal-delete-{{ $p->id }}"
-                                                style="display: none;" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                   <div class="modal-content bg-warning">
-                                                      <div class="modal-header">
-                                                         <h4 class="modal-title">Hapus Data Pegawai</h4>
-                                                         <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">×</span>
-                                                         </button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="modal-delete-{{ $p->id }}"
+                                                   style="display: none;" aria-hidden="true">
+                                                   <div class="modal-dialog">
+                                                      <div class="modal-content bg-warning">
+                                                         <div class="modal-header">
+                                                            <h4 class="modal-title">Hapus Data Pegawai</h4>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                               aria-label="Close">
+                                                               <span aria-hidden="true">×</span>
+                                                            </button>
+                                                         </div>
+                                                         <div class="modal-body">
+                                                            <p>Yakin hapus data pegawai {{ $p->nama }}?</p>
+                                                         </div>
+                                                         <div class="modal-footer justify-content-between">
+                                                            <button type="button" class="btn btn-outline-dark"
+                                                               data-dismiss="modal">Batal</button>
+                                                            <form method="POST" action="/pekerja/{{ $p->id }}">
+                                                               @method('delete')
+                                                               @csrf
+                                                               <button onclick="return true"
+                                                                  class="btn btn-danger">Hapus</button>
+                                                            </form>
+                                                         </div>
                                                       </div>
-                                                      <div class="modal-body">
-                                                         <p>Yakin hapus data pegawai {{ $p->nama }}?</p>
-                                                      </div>
-                                                      <div class="modal-footer justify-content-between">
-                                                         <button type="button" class="btn btn-outline-dark"
-                                                            data-dismiss="modal">Batal</button>
-                                                         <form method="POST" action="/pekerja/{{ $p->id }}">
-                                                            @method('delete')
-                                                            @csrf
-                                                            <button onclick="return true"
-                                                               class="btn btn-danger">Hapus</button>
-                                                         </form>
-                                                      </div>
+                                                      <!-- /.modal-content -->
                                                    </div>
-                                                   <!-- /.modal-content -->
+                                                   <!-- /.modal-dialog -->
                                                 </div>
-                                                <!-- /.modal-dialog -->
-                                             </div>
-                                             <!-- /.modal -->
+                                                <!-- /.modal -->
+                                             @endif
                                           @endcan
 
                                        </div>

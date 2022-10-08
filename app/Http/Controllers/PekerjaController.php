@@ -212,19 +212,23 @@ class PekerjaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Pekerja $pekerja) {
-        if ($pekerja->foto_profil) {
-            Storage::delete($pekerja->foto_profil);
-        }
-
-        Pekerja::destroy($pekerja->id);
-        Pekerja::updateData();
-
-        if ($pekerja->jabatan == "Guru") {
-            return redirect('/guru')->with("success", "Data $pekerja->nama berhasil dihapus!");
-        } elseif ($pekerja->jabatan == "Staf Tata Usaha") {
-            return redirect('/tata-usaha')->with("success", "Data $pekerja->nama berhasil dihapus!");
+        if ($pekerja->jabatan == "Kepala Sekolah") {
+            return redirect('/pekerja')->with("fail", "Data Kepala Sekolah tidak bisa dihapus!");
         } else {
-            return redirect('/pegawai-lain')->with("success", "Data $pekerja->nama berhasil dihapus!");
+            if ($pekerja->foto_profil) {
+                Storage::delete($pekerja->foto_profil);
+            }
+
+            Pekerja::destroy($pekerja->id);
+            Pekerja::updateData();
+
+            if ($pekerja->jabatan == "Guru") {
+                return redirect('/guru')->with("success", "Data $pekerja->nama berhasil dihapus!");
+            } elseif ($pekerja->jabatan == "Staf Tata Usaha") {
+                return redirect('/tata-usaha')->with("success", "Data $pekerja->nama berhasil dihapus!");
+            } else {
+                return redirect('/pegawai-lain')->with("success", "Data $pekerja->nama berhasil dihapus!");
+            }
         }
     }
 
