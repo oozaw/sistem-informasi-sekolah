@@ -28,7 +28,7 @@
                   <div class="card">
                      <div class="card-header">
                         <div class="d-inline-flex">
-                           @can('admin')
+                           @can('tata-usaha')
                               <a href="/pekerja/create" class="btn btn-success btn-sm mr-1">
                                  <i class="fas fa-file-plus"></i> Tambah Data Pegawai</a>
                            @endcan
@@ -65,7 +65,7 @@
                                        <div class="d-inline-flex">
                                           <a href="/pekerja/{{ $s->id }}" class="btn btn-info btn-sm mr-1">
                                              <i class="fas fa-eye"></i> Detail</a>
-                                          @can('admin')
+                                          @can('tata-usaha')
                                              <a href="/pekerja/{{ $s->id }}/edit" class="btn btn-primary btn-sm mr-1">
                                                 <i class="fas fa-edit"></i> Edit</a>
                                              <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"

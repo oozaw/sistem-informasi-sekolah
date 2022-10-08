@@ -27,7 +27,7 @@
                   <div class="card">
                      <div class="card-header">
                         <div class="d-inline-flex">
-                           @can('admin')
+                           @can('tata-usaha')
                               <a href="/prestasi/create" class="btn btn-success btn-sm mr-1">
                                  <i class="fas fa-file-plus"></i> Tambah Data Prestasi</a>
                               <a href="" class="btn bg-gradient-purple btn-sm mr-1" data-toggle="modal"
@@ -73,7 +73,7 @@
                                        <div class="d-inline-flex">
                                           <a href="/prestasi/{{ $p->id }}" class="btn btn-info btn-sm mr-1">
                                              <i class="fas fa-eye"></i> Detail</a>
-                                          @can('admin')
+                                          @can('tata-usaha')
                                              <a href="/prestasi/{{ $p->id }}/edit" class="btn btn-primary btn-sm mr-1">
                                                 <i class="fas fa-edit"></i> Edit</a>
                                              <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"

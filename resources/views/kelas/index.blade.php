@@ -27,7 +27,7 @@
                   <div class="card">
                      <div class="card-header">
                         <div class="d-inline-flex">
-                           @can('admin')
+                           @can('tata-usaha')
                               <a href="/kelas/create" class="btn btn-success btn-sm mr-1">
                                  <i class="fas fa-file-plus"></i> Tambah Data Kelas</a>
                            @endcan
@@ -64,7 +64,7 @@
                                        <div class="d-inline-flex">
                                           <a href="/kelas/{{ $k->id }}" class="btn btn-info btn-sm mr-1">
                                              <i class="fas fa-eye"></i> Daftar Siswa</a>
-                                          @can('admin')
+                                          @can('tata-usaha')
                                              <a href="/kelas/{{ $k->id }}/edit" class="btn btn-primary btn-sm mr-1">
                                                 <i class="fas fa-edit"></i> Edit</a>
                                              @if ($k->siswa()->get()->count() == 0)
