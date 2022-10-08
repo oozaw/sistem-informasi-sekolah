@@ -227,7 +227,7 @@ class PekerjaController extends Controller {
             } elseif ($pekerja->jabatan == "Staf Tata Usaha") {
                 return redirect('/tata-usaha')->with("success", "Data $pekerja->nama berhasil dihapus!");
             } else {
-                return redirect('/pegawai-lain')->with("success", "Data $pekerja->nama berhasil dihapus!");
+                return redirect('/staf-lain')->with("success", "Data $pekerja->nama berhasil dihapus!");
             }
         }
     }
