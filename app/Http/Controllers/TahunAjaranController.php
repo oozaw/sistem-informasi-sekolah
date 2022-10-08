@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kelas;
 use App\Models\Siswa;
 use App\Models\Komite;
+use App\Models\Pekerja;
 use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
 
@@ -129,7 +130,9 @@ class TahunAjaranController extends Controller {
 
         // update jumlah data di tahun ajaran aktif
         $jml_seluruh_siswa = Siswa::all()->count();
-        TahunAjaran::where('status', 1)->update(array('jml_siswa' => $jml_seluruh_siswa));
+        $jml_pegawai = Pekerja::all()->count();
+        TahunAjaran::where('status', 1)->update(array('jml_siswa' => $jml_seluruh_siswa, 'jml_pegawai' => $jml_pegawai));
+
 
         return redirect('/tahun-ajaran')->with('success', "Data tahun pelajaran baru, $request->tahun_ajaran berhasil ditambahkan!");
     }
