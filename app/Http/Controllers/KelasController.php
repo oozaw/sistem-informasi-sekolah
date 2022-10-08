@@ -130,8 +130,13 @@ class KelasController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Kelas $kela) {
-        Kelas::destroy($kela->id);
+        $jml_siswa = $kela->siswa()->get()->count();
+        if ($jml_siswa != 0) {
+            return redirect('/kelas')->with('fail', "Kelas berisi siswa tidak bisa dihapus!");
+        } else {
+            Kelas::destroy($kela->id);
 
-        return redirect('/kelas')->with('success', "Kelas $kela->nama berhasil dihapus!");
+            return redirect('/kelas')->with('success', "Kelas $kela->nama berhasil dihapus!");
+        }
     }
 }

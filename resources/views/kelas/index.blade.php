@@ -67,41 +67,43 @@
                                           @can('admin')
                                              <a href="/kelas/{{ $k->id }}/edit" class="btn btn-primary btn-sm mr-1">
                                                 <i class="fas fa-edit"></i> Edit</a>
-                                             <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
-                                                data-target="#modal-delete-{{ $k->id }}">
-                                                <i class="fas fa-trash"></i> Hapus</a>
+                                             @if ($k->siswa()->get()->count() == 0)
+                                                <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
+                                                   data-target="#modal-delete-{{ $k->id }}">
+                                                   <i class="fas fa-trash"></i> Hapus</a>
 
-                                             <!-- Modal -->
-                                             <div class="modal fade" id="modal-delete-{{ $k->id }}"
-                                                style="display: none;" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                   <div class="modal-content bg-warning">
-                                                      <div class="modal-header">
-                                                         <h4 class="modal-title">Hapus Data Kelas</h4>
-                                                         <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">×</span>
-                                                         </button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="modal-delete-{{ $k->id }}"
+                                                   style="display: none;" aria-hidden="true">
+                                                   <div class="modal-dialog">
+                                                      <div class="modal-content bg-warning">
+                                                         <div class="modal-header">
+                                                            <h4 class="modal-title">Hapus Data Kelas</h4>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                               aria-label="Close">
+                                                               <span aria-hidden="true">×</span>
+                                                            </button>
+                                                         </div>
+                                                         <div class="modal-body">
+                                                            <p>Yakin hapus data kelas {{ $k->nama }}?</p>
+                                                         </div>
+                                                         <div class="modal-footer justify-content-between">
+                                                            <button type="button" class="btn btn-outline-dark"
+                                                               data-dismiss="modal">Batal</button>
+                                                            <form method="POST" action="/kelas/{{ $k->id }}">
+                                                               @method('delete')
+                                                               @csrf
+                                                               <button onclick="return true"
+                                                                  class="btn btn-danger">Hapus</button>
+                                                            </form>
+                                                         </div>
                                                       </div>
-                                                      <div class="modal-body">
-                                                         <p>Yakin hapus data kelas {{ $k->nama }}?</p>
-                                                      </div>
-                                                      <div class="modal-footer justify-content-between">
-                                                         <button type="button" class="btn btn-outline-dark"
-                                                            data-dismiss="modal">Batal</button>
-                                                         <form method="POST" action="/kelas/{{ $k->id }}">
-                                                            @method('delete')
-                                                            @csrf
-                                                            <button onclick="return true"
-                                                               class="btn btn-danger">Hapus</button>
-                                                         </form>
-                                                      </div>
+                                                      <!-- /.modal-content -->
                                                    </div>
-                                                   <!-- /.modal-content -->
+                                                   <!-- /.modal-dialog -->
                                                 </div>
-                                                <!-- /.modal-dialog -->
-                                             </div>
-                                             <!-- /.modal -->
+                                                <!-- /.modal -->
+                                             @endif
                                           @endcan
 
                                        </div>
