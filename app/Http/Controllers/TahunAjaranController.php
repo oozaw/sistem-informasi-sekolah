@@ -235,9 +235,13 @@ class TahunAjaranController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(TahunAjaran $tahunAjaran) {
-        TahunAjaran::destroy($tahunAjaran->id);
+        if ($tahunAjaran->status == '1') {
+            return redirect("/tahun-ajaran")->with("fail", "Data tahun pelajaran aktif tidak bisa dihapus!");
+        } else {
+            TahunAjaran::destroy($tahunAjaran->id);
 
-        return redirect("/tahun-ajaran")->with("success", "Data $tahunAjaran->tahun_ajaran berhasil dihapus!");
+            return redirect("/tahun-ajaran")->with("success", "Data $tahunAjaran->tahun_ajaran berhasil dihapus!");
+        }
     }
 
     public function getDataForm(Request $request) {

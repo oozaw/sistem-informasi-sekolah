@@ -76,41 +76,44 @@
                                           <a href="/tahun-ajaran/{{ $ta->id }}/edit"
                                              class="btn btn-primary btn-sm mr-1">
                                              <i class="fas fa-edit"></i> Edit</a>
-                                          <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
-                                             data-target="#modal-delete-{{ $ta->id }}">
-                                             <i class="fas fa-trash"></i> Hapus</a>
+                                          @if ($ta->status != '1')
+                                             <a href="" class="btn btn-danger btn-sm mr-1" data-toggle="modal"
+                                                data-target="#modal-delete-{{ $ta->id }}">
+                                                <i class="fas fa-trash"></i> Hapus</a>
 
-                                          <!-- Modal Delete-->
-                                          <div class="modal fade" id="modal-delete-{{ $ta->id }}"
-                                             style="display: none;" aria-hidden="true">
-                                             <div class="modal-dialog">
-                                                <div class="modal-content bg-warning">
-                                                   <div class="modal-header">
-                                                      <h4 class="modal-title">Hapus Data Tahun Pelajaran</h4>
-                                                      <button type="button" class="close" data-dismiss="modal"
-                                                         aria-label="Close">
-                                                         <span aria-hidden="true">×</span>
-                                                      </button>
+                                             <!-- Modal Delete-->
+                                             <div class="modal fade" id="modal-delete-{{ $ta->id }}"
+                                                style="display: none;" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                   <div class="modal-content bg-warning">
+                                                      <div class="modal-header">
+                                                         <h4 class="modal-title">Hapus Data Tahun Pelajaran</h4>
+                                                         <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                         </button>
+                                                      </div>
+                                                      <div class="modal-body text-left">
+                                                         <p>Yakin hapus data tahun pelajaran {{ $ta->tahun_ajaran }}?</p>
+                                                      </div>
+                                                      <div class="modal-footer justify-content-between">
+                                                         <button type="button" class="btn btn-outline-dark"
+                                                            data-dismiss="modal">Batal</button>
+                                                         <form method="POST" action="/tahun-ajaran/{{ $ta->id }}">
+                                                            @method('delete')
+                                                            @csrf
+                                                            <button onclick="return true"
+                                                               class="btn btn-danger">Hapus</button>
+                                                         </form>
+                                                      </div>
                                                    </div>
-                                                   <div class="modal-body text-left">
-                                                      <p>Yakin hapus data tahun pelajaran {{ $ta->tahun_ajaran }}?</p>
-                                                   </div>
-                                                   <div class="modal-footer justify-content-between">
-                                                      <button type="button" class="btn btn-outline-dark"
-                                                         data-dismiss="modal">Batal</button>
-                                                      <form method="POST" action="/tahun-ajaran/{{ $ta->id }}">
-                                                         @method('delete')
-                                                         @csrf
-                                                         <button onclick="return true"
-                                                            class="btn btn-danger">Hapus</button>
-                                                      </form>
-                                                   </div>
+                                                   <!-- /.modal-content -->
                                                 </div>
-                                                <!-- /.modal-content -->
+                                                <!-- /.modal-dialog -->
                                              </div>
-                                             <!-- /.modal-dialog -->
-                                          </div>
-                                          <!-- /.modal delete -->
+                                             <!-- /.modal delete -->
+                                          @endif
+
 
                                        </div>
                                     </td>
