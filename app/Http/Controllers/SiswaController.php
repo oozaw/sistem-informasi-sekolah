@@ -71,9 +71,9 @@ class SiswaController extends Controller {
             $validatedDataSiswa["foto_profil"] = $request->file("foto_profil")->storeAs("profil-siswa", "$request->nisn.$file_ext");
         }
 
-        if (!($request->no_telp)) {
-            $validatedDataSiswa["no_telp"] = "-";
-        }
+        // if (!($request->no_telp)) {
+        //     $validatedDataSiswa["no_telp"] = "-";
+        // }
 
         $siswa = Siswa::create($validatedDataSiswa);
 
