@@ -87,6 +87,7 @@ Route::middleware(['auth'])->group(function () {
 
       // Komite
       Route::resource('/komite', KomiteController::class);
+      Route::post('/komite-refresh', [KomiteController::class, 'refreshData'])->name('komite.refresh');
       Route::post('/komite-update', [KomiteController::class, 'updateKomite'])->name('komite.update');
       Route::post('/komite-data', [KomiteController::class, 'getDataKomite'])->name('komite.data');
       Route::get('/bebas-komite', [KomiteController::class, 'indexBebasKomite'])->name('komite.bebas-index');

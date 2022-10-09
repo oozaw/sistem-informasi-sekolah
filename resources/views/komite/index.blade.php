@@ -30,7 +30,7 @@
                <div class="col-12">
                   <div class="card">
                      <div class="card-header">
-                        <div class="d-inline-flex">
+                        <div class="d-inline-flex w-100">
                            @can('tata-usaha')
                               <a href="/bebas-komite" class="btn btn-success btn-sm mr-1">
                                  <i class="fas fa-file-plus"></i> Input Data Siswa Bebas Komite</a>
@@ -41,6 +41,8 @@
                                  <button type="submit" class="btn bg-gradient-purple btn-sm mr-1" id="export">
                                     <i class="fas fa-file-download"></i> Ekspor Excel Data Pembayaran</button>
                               </form>
+                              <a id="refresh_data" class="btn btn-secondary btn-sm ml-auto">
+                                 <i class="fas fa-sync-alt"></i> Refresh Data</a>
                            @endcan
                            <div id="alert"></div>
                         </div>
@@ -113,6 +115,7 @@
    <!-- Page specific script -->
    <script>
       $(document).ready(function() {
+         ajaxRefreshKomite();
          $(".get-data").on('change', function(e) {
             e.preventDefault();
             $.ajaxSetup({
@@ -235,6 +238,32 @@
                success: function(result) {
                   $("#alert").append(result.alert);
                   cekAlert();
+               }
+            });
+         });
+      }
+
+      function ajaxRefreshKomite() {
+         $("#refresh_data").on('click', function(e) {
+            e.preventDefault();
+            $.ajaxSetup({
+               headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               }
+            });
+
+            $.ajax({
+               url: "{{ url('komite-refresh') }}",
+               method: 'post',
+               processData: false,
+               contentType: false,
+               beforeSend: function() {
+                  $("#alert").text('');
+               },
+               success: function(result) {
+                  window.location.href = window.location.href
+                  $("#alert").append(result.alert);
+                  // cekAlert();
                }
             });
          });

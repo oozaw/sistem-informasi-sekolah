@@ -12,6 +12,6 @@ class SiswaSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        Siswa::factory(20)->create();
+        Siswa::factory(2)->create();
     }
 }

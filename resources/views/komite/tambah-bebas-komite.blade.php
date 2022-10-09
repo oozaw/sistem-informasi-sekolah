@@ -101,7 +101,7 @@
                                                             <input
                                                                class="form-control @error('bebas1') is-invalid @enderror"
                                                                type="number" name="bebas1" id="bebas1" min="0"
-                                                               max="6" value="0">
+                                                               max="6" value="0" required>
                                                          </div>
                                                          <div class="col-sm-3">
                                                             <span>
@@ -122,7 +122,7 @@
                                                             <input
                                                                class="form-control @error('bebas2') is-invalid @enderror"
                                                                type="number" name="bebas2" id="bebas2" min="0"
-                                                               max="6" value="0">
+                                                               max="6" value="0" required>
                                                          </div>
                                                          <div class="col-sm-3">
                                                             <span>

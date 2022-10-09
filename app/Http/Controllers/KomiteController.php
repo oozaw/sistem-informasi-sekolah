@@ -169,7 +169,7 @@ class KomiteController extends Controller {
 
         return response()->json([
             "status" => 1,
-            "alert" => view("komite.partials.alert-success")->render(),
+            "alert" => view("komite.partials.alert-success", ['message' => "Data pembayaran komite berhasil disimpan!"])->render(),
         ]);
     }
 
@@ -348,5 +348,37 @@ class KomiteController extends Controller {
         $writer->save($savedPath);
 
         return response()->download(public_path($savedPath));
+    }
+
+    public function refreshData() {
+        $existId = Komite::all()->pluck('siswa_id')->toArray();
+        $idToCreate = Siswa::whereNotIn('id', $existId)->get();
+        foreach ($idToCreate as $i) {
+            $dataKomite = [
+                'siswa_id' => $i->id,
+                'bebas1' => '0',
+                'bebas2' => '0',
+                'daftar_ulang' => TahunAjaran::where('status', 1)->pluck('nominal_daftar_ulang')->first(),
+                'komite_1' => "Belum Lunas",
+                '1' => 'Belum Lunas',
+                '2' => 'Belum Lunas',
+                '3' => 'Belum Lunas',
+                '4' => 'Belum Lunas',
+                '5' => 'Belum Lunas',
+                '6' => 'Belum Lunas',
+                '7' => 'Belum Lunas',
+                '8' => 'Belum Lunas',
+                '9' => 'Belum Lunas',
+                '10' => 'Belum Lunas',
+                '11' => 'Belum Lunas',
+                '12' => 'Belum Lunas',
+            ];
+            Komite::create($dataKomite);
+        }
+
+        return response()->json([
+            "status" => 1,
+            "alert" => view("komite.partials.alert-success", ['message' => "Data komite berhasil diperbarui!"])->render(),
+        ]);
     }
 }
