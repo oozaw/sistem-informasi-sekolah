@@ -142,7 +142,7 @@
                            </div>
                            @if ($prestasi->piagam)
                               <div class="form-group row mb-1">
-                                 <label for="option_file" class="col-form-label pr-0 mx-2 mr-3">Unggah File Baru:</label>
+                                 <label for="option_file" class="col-form-label pr-0 mx-2 mr-3">Unggah Berkas Baru:</label>
                                  <div class="col-2 pl-0">
                                     <select class="form-control" name="option_file" id="option_file"
                                        onchange="cekUnggahPiagam()" required>
@@ -158,11 +158,12 @@
                               </div>
                            @endif
                            <div id="form_unggah_file" @if ($prestasi->piagam) hidden @endif>
-                              <label for="piagam">File Piagam</label>
+                              <label for="piagam">Berkas Piagam</label>
                               <div class="custom-file mb-2">
                                  <input type="file" class="custom-file-input @error('piagam') is-invalid @enderror"
                                     id="piagam" name="piagam">
-                                 <label class="custom-file-label" for="piagam" data-browse="Pilih file">Unggah file
+                                 <label class="custom-file-label" for="piagam" data-browse="Pilih berkas">Unggah
+                                    berkas
                                     piagam
                                     (*.pdf)</label>
                                  @error('piagam')

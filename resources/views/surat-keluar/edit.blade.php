@@ -292,7 +292,8 @@
                               @enderror
                            </div>
                            <div class="form-group row mb-1">
-                              <label for="option_file" class="col-form-label pr-0 mx-2 mr-3">Unggah File Baru:</label>
+                              <label for="option_file" class="col-form-label pr-0 mx-2 mr-3">Unggah Berkas Surat
+                                 Baru:</label>
                               <div class="col-2 pl-0">
                                  <select class="form-control" name="option_file" id="option_file"
                                     onchange="cekUnggahSurat()" required>
@@ -309,12 +310,13 @@
                            <div id="form_unggah_file"
                               @error('file_surat') @else
                            hidden @enderror>
-                              <label for="file_surat">File Surat</label>
+                              <label for="file_surat">Berkas Surat</label>
                               <div class="custom-file mb-2">
                                  <input type="file"
                                     class="custom-file-input @error('file_surat') is-invalid @enderror" id="file_surat"
                                     name="file_surat">
-                                 <label class="custom-file-label" for="file_surat" data-browse="Pilih file">Unggah file
+                                 <label class="custom-file-label" for="file_surat" data-browse="Pilih berkas">Unggah
+                                    berkas
                                     surat
                                     (*.pdf)</label>
                                  @error('file_surat')

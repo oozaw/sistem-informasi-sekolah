@@ -164,7 +164,7 @@
                            <div class="custom-file mb-2">
                               <input type="file" class="custom-file-input @error('foto_profil') is-invalid @enderror"
                                  id="foto_profil" name="foto_profil">
-                              <label class="custom-file-label" for="foto_profil" data-browse="Pilih file">Unggah foto
+                              <label class="custom-file-label" for="foto_profil" data-browse="Pilih berkas">Unggah foto
                                  profil</label>
                               @error('foto_profil')
                                  <div class="invalid-feedback">

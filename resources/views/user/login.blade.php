@@ -38,17 +38,17 @@
                      Merangin</small></span>
             </div>
             <div class="card-body">
-               <p class="login-box-msg">Silahkan login terlebih dahulu</p>
+               <p class="login-box-msg">Silahkan masuk terlebih dahulu</p>
 
                <form action="/login" method="post">
                   @csrf
                   <div class="input-group mb-3">
                      <input type="text" id="username" name="username"
-                        class="form-control @error('username') is-invalid @enderror" placeholder=" Username" required
-                        autofocus value="{{ old('username') }}">
+                        class="form-control @error('username') is-invalid @enderror" placeholder=" Nama pengguna"
+                        required autofocus value="{{ old('username') }}">
                      <div class="input-group-append">
                         <div class="input-group-text">
-                           <span class="fas fa-envelope"></span>
+                           <span class="fas fa-hashtag"></span>
                         </div>
                      </div>
                      @error('username')
@@ -59,7 +59,7 @@
                   </div>
                   <div class="input-group mb-3">
                      <input type="password" id="password" name="password"
-                        class="form-control @error('password') is-invalid @enderror" placeholder=" Password" required>
+                        class="form-control @error('password') is-invalid @enderror" placeholder=" Kata sandi" required>
                      <div class="input-group-append">
                         <div class="input-group-text">
                            <span class="fas fa-lock"></span>

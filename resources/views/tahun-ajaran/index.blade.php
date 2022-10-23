@@ -28,7 +28,7 @@
                      <div class="card-header">
                         <div class="d-inline-flex">
                            <a href="/tahun-ajaran/create" class="btn btn-success btn-sm mt-1 mr-1">
-                              <i class="fas fa-layer-plus mr-1"></i> Tahun Pelajaran Baru</a>
+                              <i class="fas fa-layer-plus mr-1"></i> Tambah Tahun Pelajaran</a>
                         </div>
                      </div>
                      <!-- /.card-header -->
@@ -58,7 +58,7 @@
                                     <td>
                                        <span
                                           class="box {{ $ta->status == '1' ? 'bg-green' : 'bg-gray' }} btn-sm d-block text-center m-auto">
-                                          {{ $ta->status == 1 ? 'Aktif' : 'Non-Aktif' }}
+                                          {{ $ta->status == 1 ? 'Aktif' : 'Non-aktif' }}
                                        </span>
                                     </td>
                                     <td>{{ $ta->jml_siswa }}</td>
@@ -72,7 +72,7 @@
                                     <td>
                                        <div class="d-inline-flex">
                                           <a href="/tahun-ajaran/{{ $ta->id }}" class="btn btn-info btn-sm mr-1">
-                                             <i class="fas fa-eye"></i> Detail</a>
+                                             <i class="fas fa-eye"></i> Lihat</a>
                                           <a href="/tahun-ajaran/{{ $ta->id }}/edit"
                                              class="btn btn-primary btn-sm mr-1">
                                              <i class="fas fa-edit"></i> Edit</a>
@@ -162,41 +162,88 @@
    <script src="/adminlte/dist/js/demo.js"></script>
    <!-- Page specific script -->
    <script>
+      $(document).ready(function() {
+         var table = $('#data_tahun_ajaran').DataTable({
+            language: {
+               url: "{{ url('/json/dataTable-id.json') }}"
+            },
+            responsive: true,
+            lengthChange: false,
+            autoWidth: false,
+            initComplete: function() {
+               var api = this.api();
+
+               new $.fn.dataTable.Buttons(api, {
+                  buttons: [{
+                        extend: 'copy',
+                        exportOptions: {
+                           columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                        }
+                     },
+                     {
+                        extend: 'excel',
+                        exportOptions: {
+                           columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                        }
+                     },
+                     {
+                        extend: 'pdf',
+                        exportOptions: {
+                           columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                        }
+                     },
+                     {
+                        extend: 'print',
+                        exportOptions: {
+                           columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                        }
+                     }
+                  ]
+               });
+
+               api.buttons().container().appendTo('#data_tahun_ajaran_wrapper .col-md-6:eq(0)');
+            }
+         });
+      });
+
       $(function() {
          bsCustomFileInput.init();
       });
 
-      $(function() {
-         $("#data_tahun_ajaran").DataTable({
-            "responsive": true,
-            "lengthChange": false,
-            "autoWidth": false,
-            "buttons": [{
-                  extend: 'copy',
-                  exportOptions: {
-                     columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                  }
-               },
-               {
-                  extend: 'excel',
-                  exportOptions: {
-                     columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                  }
-               },
-               {
-                  extend: 'pdf',
-                  exportOptions: {
-                     columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                  }
-               },
-               {
-                  extend: 'print',
-                  exportOptions: {
-                     columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                  }
-               }
-            ]
-         }).buttons().container().appendTo('#data_tahun_ajaran_wrapper .col-md-6:eq(0)');
-      });
+      // $(function() {
+      //    $("#data_tahun_ajaran").DataTable({
+      //       "language": {
+      //          "url": "{{ url('/json/dataTable-id.json') }}"
+      //       },
+      //       "responsive": true,
+      //       "lengthChange": false,
+      //       "autoWidth": false,
+      //       "buttons": [{
+      //             extend: 'copy',
+      //             exportOptions: {
+      //                columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      //             }
+      //          },
+      //          {
+      //             extend: 'excel',
+      //             exportOptions: {
+      //                columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      //             }
+      //          },
+      //          {
+      //             extend: 'pdf',
+      //             exportOptions: {
+      //                columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      //             }
+      //          },
+      //          {
+      //             extend: 'print',
+      //             exportOptions: {
+      //                columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      //             }
+      //          }
+      //       ]
+      //    }).buttons().container().appendTo('#data_tahun_ajaran_wrapper .col-md-6:eq(0)');
+      // });
    </script>
 @endsection

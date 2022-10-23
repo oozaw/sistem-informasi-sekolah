@@ -41,9 +41,9 @@
                         @csrf
                         <div class="card-body pb-0">
                            <div class="form-group">
-                              <label for="username">Username</label>
+                              <label for="username">Nama Pengguna</label>
                               <input type="text" class="form-control @error('username') is-invalid @enderror"
-                                 id="username" name="username" placeholder="Masukkan username"
+                                 id="username" name="username" placeholder="Masukkan nama pengguna"
                                  value="{{ old('username', $pengguna->username) }}" required autofocus>
                               @error('username')
                                  <div class="invalid-feedback">
@@ -52,10 +52,10 @@
                               @enderror
                            </div>
                            <div class="form-group">
-                              <label for="role">Role</label>
+                              <label for="role">Tipe Pengguna</label>
                               <select class="form-control @error('role') is-invalid @enderror" name="role"
                                  id="role" required>
-                                 <option selected disabled hidden value="">-- Pilih role pengguna --</option>
+                                 <option selected disabled hidden value="">-- Pilih tipe pengguna --</option>
                                  @if (old('role', $pengguna->role) == '2')
                                     <option value="2" selected>Guru</option>
                                     <option value="3">Tata Usaha</option>
@@ -106,8 +106,8 @@
                               @enderror
                            </div>
                            <div class="form-group row mt-4 mb-3">
-                              <label for="option_reset_password" class="col-form-label pr-0 mx-2 mr-3">Reset
-                                 Password?</label>
+                              <label for="option_reset_password" class="col-form-label pr-0 mx-2 mr-3">Atur Ulang Kata
+                                 Sandi?</label>
                               <div class="col-2 pl-0 mr-3">
                                  <select class="form-control" name="option_reset_password" id="option_reset_password"
                                     onchange="cekResetPassword()" required>
@@ -117,9 +117,9 @@
                               </div>
                            </div>
                            <div class="form-group" id="reset_password_form" hidden>
-                              <label for="password">Password Baru</label>
+                              <label for="password">Kata Sandi Baru</label>
                               <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                 id="password" name="password" placeholder="Masukkan password baru">
+                                 id="password" name="password" placeholder="Masukkan kata sandi baru">
                               @error('password')
                                  <div class="invalid-feedback">
                                     {{ $message }}

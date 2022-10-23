@@ -31,7 +31,7 @@
          <form action="/logout" method="POST">
             @csrf
             <button type="submit" class="btn bg-transparent nav-link">
-               <span>Logout <i class="ml-1 fas fa-sign-out"></i></span>
+               <span>Keluar <i class="ml-1 fas fa-sign-out"></i></span>
             </button>
          </form>
       </li>

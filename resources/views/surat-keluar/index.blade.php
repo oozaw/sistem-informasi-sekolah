@@ -7,7 +7,7 @@
          <div class="container-fluid">
             <div class="row mb-2">
                <div class="col-sm-6">
-                  <h1>Surat Keluar</h1>
+                  <h1>Data Surat Keluar</h1>
                </div>
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
@@ -45,7 +45,7 @@
                                  <th>No. Surat</th>
                                  <th>Tanggal Keluar</th>
                                  <th>Keterangan</th>
-                                 <th hidden>Link File</th>
+                                 <th hidden>Tautan Berkas</th>
                                  <th>Aksi</th>
                               </tr>
                            </thead>
@@ -61,7 +61,7 @@
                                     <td>
                                        <div class="d-inline-flex">
                                           <a href="/surat-keluar/{{ $sk->id }}" class="btn btn-info btn-sm mr-1">
-                                             <i class="fas fa-eye"></i> Detail</a>
+                                             <i class="fas fa-eye"></i> Lihat</a>
                                           @can('tata-usaha')
                                              <a href="/surat-keluar/{{ $sk->id }}/edit"
                                                 class="btn btn-primary btn-sm mr-1">
@@ -146,37 +146,81 @@
    <script src="/adminlte/dist/js/demo.js"></script>
    <!-- Page specific script -->
    <script>
-      $(function() {
-         $("#data_surat_keluar").DataTable({
-            "responsive": true,
-            "lengthChange": false,
-            "autoWidth": false,
-            "buttons": [{
-                  extend: 'copy',
-                  exportOptions: {
-                     columns: [0, 1, 2, 3, 4, 5]
-                  }
-               },
-               {
-                  extend: 'excel',
-                  exportOptions: {
-                     columns: [0, 1, 2, 3, 4, 5]
-                  }
-               },
-               {
-                  extend: 'pdf',
-                  exportOptions: {
-                     columns: [0, 1, 2, 3, 4, 5]
-                  }
-               },
-               {
-                  extend: 'print',
-                  exportOptions: {
-                     columns: [0, 1, 2, 3, 4, 5]
-                  }
-               }
-            ]
-         }).buttons().container().appendTo('#data_surat_keluar_wrapper .col-md-6:eq(0)');
+      $(document).ready(function() {
+         var table = $('#data_surat_keluar').DataTable({
+            language: {
+               url: "{{ url('/json/dataTable-id.json') }}"
+            },
+            responsive: true,
+            lengthChange: false,
+            autoWidth: false,
+            initComplete: function() {
+               var api = this.api();
+
+               new $.fn.dataTable.Buttons(api, {
+                  buttons: [{
+                        extend: 'copy',
+                        exportOptions: {
+                           columns: [0, 1, 2, 3, 4, 5]
+                        }
+                     },
+                     {
+                        extend: 'excel',
+                        exportOptions: {
+                           columns: [0, 1, 2, 3, 4, 5]
+                        }
+                     },
+                     {
+                        extend: 'pdf',
+                        exportOptions: {
+                           columns: [0, 1, 2, 3, 4, 5]
+                        }
+                     },
+                     {
+                        extend: 'print',
+                        exportOptions: {
+                           columns: [0, 1, 2, 3, 4, 5]
+                        }
+                     }
+                  ]
+               });
+
+               api.buttons().container().appendTo('#data_surat_keluar_wrapper .col-md-6:eq(0)');
+            }
+         });
       });
+
+      // $(function() {
+      //    $("#data_surat_keluar").DataTable({
+      //       "responsive": true,
+      //       "lengthChange": false,
+      //       "autoWidth": false,
+      //       "buttons": [{
+      //             extend: 'copy',
+      //             exportOptions: {
+      //                columns: [0, 1, 2, 3, 4, 5]
+      //             }
+      //          },
+      //          {
+      //             extend: 'excel',
+      //             exportOptions: {
+      //                columns: [0, 1, 2, 3, 4, 5]
+      //             }
+      //          },
+      //          {
+      //             extend: 'pdf',
+      //             exportOptions: {
+      //                columns: [0, 1, 2, 3, 4, 5]
+      //             }
+      //          },
+      //          {
+      //             extend: 'print',
+      //             exportOptions: {
+      //                columns: [0, 1, 2, 3, 4, 5]
+      //             }
+      //          }
+      //       ]
+      //    }).buttons().container().appendTo('#data_surat_keluar_wrapper .col-md-6:eq(0)');
+      // });
    </script>
 @endsection

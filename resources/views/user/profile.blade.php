@@ -68,7 +68,7 @@
                <div class="col-md-8">
                   <div class="card card-outline card-primary">
                      <div class="card-header">
-                        <h3 class="card-title">About Me</h3>
+                        <h3 class="card-title">Profil Saya</h3>
                      </div>
                      <!-- /.card-header -->
                      <div class="card-body pb-1">
@@ -85,7 +85,7 @@
                            @endif
                         </p>
                         <hr>
-                        <strong><i class="fas fa-hashtag mr-1"></i> Username</strong>
+                        <strong><i class="fas fa-hashtag mr-1"></i> Nama Pengguna</strong>
                         <p class="text-muted">{{ $user->username }}</p>
                         <hr>
                         <strong><i class="fas fa-book mr-1"></i> Nama</strong>

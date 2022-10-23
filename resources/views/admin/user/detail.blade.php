@@ -63,9 +63,9 @@
                            <div class="col-6">
                               <p class="text-muted text-center">
                                  @if (Cache::has('user-is-online-' . $pengguna->id))
-                                    <span class="box bg-green btn-xs d-block text-center col-6 m-auto">Online</span>
+                                    <span class="box bg-green btn-xs d-block text-center col-6 m-auto">Aktif</span>
                                  @else
-                                    <span class="box bg-gray btn-xs d-block text-center col-6 m-auto">Offline</span>
+                                    <span class="box bg-gray btn-xs d-block text-center col-6 m-auto">Non-aktif</span>
                                  @endif
                                  <small>
                                     {{ \Carbon\Carbon::parse($pengguna->last_seen)->diffForHumans() }}
@@ -130,13 +130,13 @@
                      </div>
                      <!-- /.card-header -->
                      <div class="card-body pb-1">
-                        <strong><i class="fas fa-hashtag mr-1"></i> Username</strong>
+                        <strong><i class="fas fa-hashtag mr-1"></i> Nama Pengguna</strong>
                         <p class="text-muted">{{ $pengguna->username }}</p>
                         <hr>
                         <strong><i class="fas fa-book mr-1"></i> Nama</strong>
                         <p class="text-muted">{{ $pengguna->role == '1' ? 'Admin' : $profil->nama }}</p>
                         <hr>
-                        <strong><i class="fas fa-key"></i> Password</strong>
+                        <strong><i class="fas fa-key"></i> Kata Sandi</strong>
                         <p class="text-muted">{{ decrypt($pengguna->dec_password) }}</p>
                         <hr>
                         <strong><i class="far fa-venus-mars"></i> Jenis Kelamin</strong>

@@ -40,9 +40,9 @@
                         @csrf
                         <div class="card-body pb-0">
                            <div class="form-group">
-                              <label for="username">Username</label>
+                              <label for="username">Nama Pengguna</label>
                               <input type="text" class="form-control @error('username') is-invalid @enderror"
-                                 id="username" name="username" placeholder="Masukkan username"
+                                 id="username" name="username" placeholder="Masukkan nama pengguna"
                                  value="{{ old('username') }}" required autofocus>
                               @error('username')
                                  <div class="invalid-feedback">
@@ -51,10 +51,10 @@
                               @enderror
                            </div>
                            <div class="form-group">
-                              <label for="role">Role</label>
+                              <label for="role">Tipe Pengguna</label>
                               <select class="form-control @error('role') is-invalid @enderror" name="role"
                                  id="role" required>
-                                 <option selected disabled hidden value="">-- Pilih role pengguna --</option>
+                                 <option selected disabled hidden value="">-- Pilih tipe pengguna --</option>
                                  @if (old('role') == '2')
                                     <option value="2" selected>Guru</option>
                                     <option value="3">Tata Usaha</option>
@@ -105,9 +105,9 @@
                               @enderror
                            </div>
                            <div class="form-group">
-                              <label for="password">Password</label>
+                              <label for="password">Kata Sandi</label>
                               <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                 id="password" name="password" placeholder="Masukkan password pengguna" required>
+                                 id="password" name="password" placeholder="Masukkan kata sandi pengguna" required>
                               @error('password')
                                  <div class="invalid-feedback">
                                     {{ $message }}

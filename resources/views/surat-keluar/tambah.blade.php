@@ -306,11 +306,11 @@
                                  </div>
                               @enderror
                            </div>
-                           <label for="file_surat">File Surat</label>
+                           <label for="file_surat">Berkas Surat</label>
                            <div class="custom-file mb-2">
                               <input type="file" class="custom-file-input @error('file_surat') is-invalid @enderror"
                                  id="file_surat" name="file_surat" required>
-                              <label class="custom-file-label" for="file_surat" data-browse="Pilih file">Unggah file
+                              <label class="custom-file-label" for="file_surat" data-browse="Pilih berkas">Unggah berkas
                                  surat
                                  (*.pdf)</label>
                               @error('file_surat')

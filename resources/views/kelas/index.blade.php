@@ -63,7 +63,7 @@
                                     <td class="text-left">
                                        <div class="d-inline-flex">
                                           <a href="/kelas/{{ $k->id }}" class="btn btn-info btn-sm mr-1">
-                                             <i class="fas fa-eye"></i> Daftar Siswa</a>
+                                             <i class="fas fa-eye"></i> Lihat Daftar Siswa</a>
                                           @can('tata-usaha')
                                              <a href="/kelas/{{ $k->id }}/edit" class="btn btn-primary btn-sm mr-1">
                                                 <i class="fas fa-edit"></i> Edit</a>
@@ -155,37 +155,81 @@
    <script src="/adminlte/dist/js/demo.js"></script>
    <!-- Page specific script -->
    <script>
-      $(function() {
-         $("#table_kelas").DataTable({
-            "responsive": true,
-            "lengthChange": false,
-            "autoWidth": false,
-            "buttons": [{
-                  extend: 'copy',
-                  exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
-                  }
-               },
-               {
-                  extend: 'excel',
-                  exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
-                  }
-               },
-               {
-                  extend: 'pdf',
-                  exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
-                  }
-               },
-               {
-                  extend: 'print',
-                  exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
-                  }
-               }
-            ]
-         }).buttons().container().appendTo('#table_kelas_wrapper .col-md-6:eq(0)');
+      $(document).ready(function() {
+         var table = $('#table_kelas').DataTable({
+            language: {
+               url: "{{ url('/json/dataTable-id.json') }}"
+            },
+            responsive: true,
+            lengthChange: false,
+            autoWidth: false,
+            initComplete: function() {
+               var api = this.api();
+
+               new $.fn.dataTable.Buttons(api, {
+                  buttons: [{
+                        extend: 'copy',
+                        exportOptions: {
+                           columns: [0, 1, 2, 3, 4]
+                        }
+                     },
+                     {
+                        extend: 'excel',
+                        exportOptions: {
+                           columns: [0, 1, 2, 3, 4]
+                        }
+                     },
+                     {
+                        extend: 'pdf',
+                        exportOptions: {
+                           columns: [0, 1, 2, 3, 4]
+                        }
+                     },
+                     {
+                        extend: 'print',
+                        exportOptions: {
+                           columns: [0, 1, 2, 3, 4]
+                        }
+                     }
+                  ]
+               });
+
+               api.buttons().container().appendTo('#table_kelas_wrapper .col-md-6:eq(0)');
+            }
+         });
       });
+
+      // $(function() {
+      //    $("#table_kelas").DataTable({
+      //       "responsive": true,
+      //       "lengthChange": false,
+      //       "autoWidth": false,
+      //       "buttons": [{
+      //             extend: 'copy',
+      //             exportOptions: {
+      //                columns: [0, 1, 2, 3, 4]
+      //             }
+      //          },
+      //          {
+      //             extend: 'excel',
+      //             exportOptions: {
+      //                columns: [0, 1, 2, 3, 4]
+      //             }
+      //          },
+      //          {
+      //             extend: 'pdf',
+      //             exportOptions: {
+      //                columns: [0, 1, 2, 3, 4]
+      //             }
+      //          },
+      //          {
+      //             extend: 'print',
+      //             exportOptions: {
+      //                columns: [0, 1, 2, 3, 4]
+      //             }
+      //          }
+      //       ]
+      //    }).buttons().container().appendTo('#table_kelas_wrapper .col-md-6:eq(0)');
+      // });
    </script>
 @endsection

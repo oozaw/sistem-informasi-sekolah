@@ -38,8 +38,8 @@
                            <thead>
                               <tr>
                                  <th class="text-center">No.</th>
-                                 <th>Username</th>
-                                 <th class="text-center">Role</th>
+                                 <th>Nama Pengguna</th>
+                                 <th class="text-center">Tipe Pengguna</th>
                                  <th class="text-center">Status</th>
                                  <th>Aktivitas Terakhir</th>
                                  <th>Aksi</th>
@@ -63,16 +63,17 @@
                                     </td>
                                     <td>
                                        @if (Cache::has('user-is-online-' . $p->id))
-                                          <span class="box bg-green btn-xs d-block text-center col-8 m-auto">Online</span>
+                                          <span class="box bg-green btn-xs d-block text-center col-8 m-auto">Aktif</span>
                                        @else
-                                          <span class="box bg-gray btn-xs d-block text-center col-8 m-auto">Offline</span>
+                                          <span
+                                             class="box bg-gray btn-xs d-block text-center col-8 m-auto">Non-aktif</span>
                                        @endif
                                     </td>
                                     <td>{{ \Carbon\Carbon::parse($p->last_seen)->diffForHumans() }}</td>
                                     <td>
                                        <div class="d-inline-flex">
                                           <a href="/pengguna/{{ $p->id }}" class="btn btn-info btn-sm mr-1">
-                                             <i class="fas fa-eye"></i> Detail</a>
+                                             <i class="fas fa-eye"></i> Lihat</a>
                                           <a href="/pengguna/{{ $p->id }}/edit" class="btn btn-primary btn-sm mr-1"
                                              {{ $p->role == '1' ? 'hidden' : '' }}>
                                              <i class="fas fa-edit"></i> Edit</a>
@@ -160,37 +161,81 @@
    <script src="/adminlte/dist/js/demo.js"></script>
    <!-- Page specific script -->
    <script>
-      $(function() {
-         $("#data_pengguna").DataTable({
-            "responsive": true,
-            "lengthChange": false,
-            "autoWidth": false,
-            "buttons": [{
-                  extend: 'copy',
-                  exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
-                  }
-               },
-               {
-                  extend: 'excel',
-                  exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
-                  }
-               },
-               {
-                  extend: 'pdf',
-                  exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
-                  }
-               },
-               {
-                  extend: 'print',
-                  exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
-                  }
-               }
-            ]
-         }).buttons().container().appendTo('#data_pengguna_wrapper .col-md-6:eq(0)');
+      $(document).ready(function() {
+         var table = $('#data_pengguna').DataTable({
+            language: {
+               url: "{{ url('/json/dataTable-id.json') }}"
+            },
+            responsive: true,
+            lengthChange: false,
+            autoWidth: false,
+            initComplete: function() {
+               var api = this.api();
+
+               new $.fn.dataTable.Buttons(api, {
+                  buttons: [{
+                        extend: 'copy',
+                        exportOptions: {
+                           columns: [0, 1, 2, 3, 4]
+                        }
+                     },
+                     {
+                        extend: 'excel',
+                        exportOptions: {
+                           columns: [0, 1, 2, 3, 4]
+                        }
+                     },
+                     {
+                        extend: 'pdf',
+                        exportOptions: {
+                           columns: [0, 1, 2, 3, 4]
+                        }
+                     },
+                     {
+                        extend: 'print',
+                        exportOptions: {
+                           columns: [0, 1, 2, 3, 4]
+                        }
+                     }
+                  ]
+               });
+
+               api.buttons().container().appendTo('#data_pengguna_wrapper .col-md-6:eq(0)');
+            }
+         });
       });
+
+      // $(function() {
+      //    $("#data_pengguna").DataTable({
+      //       "responsive": true,
+      //       "lengthChange": false,
+      //       "autoWidth": false,
+      //       "buttons": [{
+      //             extend: 'copy',
+      //             exportOptions: {
+      //                columns: [0, 1, 2, 3, 4]
+      //             }
+      //          },
+      //          {
+      //             extend: 'excel',
+      //             exportOptions: {
+      //                columns: [0, 1, 2, 3, 4]
+      //             }
+      //          },
+      //          {
+      //             extend: 'pdf',
+      //             exportOptions: {
+      //                columns: [0, 1, 2, 3, 4]
+      //             }
+      //          },
+      //          {
+      //             extend: 'print',
+      //             exportOptions: {
+      //                columns: [0, 1, 2, 3, 4]
+      //             }
+      //          }
+      //       ]
+      //    }).buttons().container().appendTo('#data_pengguna_wrapper .col-md-6:eq(0)');
+      // });
    </script>
 @endsection

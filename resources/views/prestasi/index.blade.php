@@ -66,13 +66,13 @@
                                        @if ($p->piagam)
                                           {{ url("/$p->piagam") }}
                                        @else
-                                          Belum diupload
+                                          Belum diunggah
                                        @endif
                                     </td>
                                     <td>
                                        <div class="d-inline-flex">
                                           <a href="/prestasi/{{ $p->id }}" class="btn btn-info btn-sm mr-1">
-                                             <i class="fas fa-eye"></i> Detail</a>
+                                             <i class="fas fa-eye"></i> Lihat</a>
                                           @can('tata-usaha')
                                              <a href="/prestasi/{{ $p->id }}/edit" class="btn btn-primary btn-sm mr-1">
                                                 <i class="fas fa-edit"></i> Edit</a>
@@ -93,7 +93,7 @@
                                                          </button>
                                                       </div>
                                                       <div class="modal-body">
-                                                         <p>Yakin hapus data {{ $p->nama }}?</p>
+                                                         <p>Yakin hapus data prestasi{{ $p->nama }}?</p>
                                                       </div>
                                                       <div class="modal-footer justify-content-between">
                                                          <button type="button" class="btn btn-outline-dark"
@@ -135,23 +135,23 @@
                                     <div class="alert alert-danger">
                                        <h5><i class="fas fa-info-circle mr-1"></i> Petunjuk!</h5>
                                        <span>
-                                          1. Unduh terlebih dahulu format file excel. <br>
-                                          2. Masukkan data prestasi ke dalam file excel tersebut. <br>
-                                          3. Unggah file excel berisikan data prestasi melalui unggah file di bawah.
+                                          1. Unduh terlebih dahulu format berkas excel. <br>
+                                          2. Masukkan data prestasi ke dalam berkas excel tersebut. <br>
+                                          3. Unggah berkas excel berisikan data prestasi melalui unggah berkas di bawah.
                                        </span>
                                        <a href="/template/Impor Data Prestasi.xlsx" target="_blank" download
                                           class="btn btn-block btn-success col-4 mt-2 text-decoration-none align-content-end">
-                                          <i class="fas fa-file-download mr-1"></i> Unduh Format File Excel</a>
+                                          <i class="fas fa-file-download mr-1"></i> Unduh Format Berkas Excel</a>
                                     </div>
                                     <form method="POST" action="/prestasi-impor" enctype="multipart/form-data">
                                        <div class="custom-file mb-2">
                                           <input type="file" class="custom-file-input" id="file_impor"
                                              name="file_impor">
-                                          <label for="file_impor" class="custom-file-label" data-browse="Pilih file">
-                                             Pilih file data prestasi (*.xlsx)</label>
+                                          <label for="file_impor" class="custom-file-label" data-browse="Pilih berkas">
+                                             Pilih berkas data prestasi (*.xlsx)</label>
                                           <span class="text-orange ml-1">
                                              <small>
-                                                *File harus berupa spreadsheet hasil unduhan format file di atas
+                                                *Berkas harus berupa spreadsheet hasil unduhan format berkas di atas
                                              </small>
                                           </span>
                                        </div>
@@ -210,41 +210,85 @@
    <script src="/adminlte/dist/js/demo.js"></script>
    <!-- Page specific script -->
    <script>
+      $(document).ready(function() {
+         var table = $('#data_prestasi').DataTable({
+            language: {
+               url: "{{ url('/json/dataTable-id.json') }}"
+            },
+            responsive: true,
+            lengthChange: false,
+            autoWidth: false,
+            initComplete: function() {
+               var api = this.api();
+
+               new $.fn.dataTable.Buttons(api, {
+                  buttons: [{
+                        extend: 'copy',
+                        exportOptions: {
+                           columns: [0, 1, 2, 3, 5, 6, 7]
+                        }
+                     },
+                     {
+                        extend: 'excel',
+                        exportOptions: {
+                           columns: [0, 1, 2, 3, 5, 6, 7]
+                        }
+                     },
+                     {
+                        extend: 'pdf',
+                        exportOptions: {
+                           columns: [0, 1, 2, 3, 5, 6, 7]
+                        }
+                     },
+                     {
+                        extend: 'print',
+                        exportOptions: {
+                           columns: [0, 1, 2, 3, 5, 6, 7]
+                        }
+                     }
+                  ]
+               });
+
+               api.buttons().container().appendTo('#data_prestasi_wrapper .col-md-6:eq(0)');
+            }
+         });
+      });
+
       $(function() {
          bsCustomFileInput.init();
       });
 
-      $(function() {
-         $("#data_prestasi").DataTable({
-            "responsive": true,
-            "lengthChange": false,
-            "autoWidth": false,
-            "buttons": [{
-                  extend: 'copy',
-                  exportOptions: {
-                     columns: [0, 1, 2, 3, 5, 6, 7]
-                  }
-               },
-               {
-                  extend: 'excel',
-                  exportOptions: {
-                     columns: [0, 1, 2, 3, 5, 6, 7]
-                  }
-               },
-               {
-                  extend: 'pdf',
-                  exportOptions: {
-                     columns: [0, 1, 2, 3, 5, 6, 7]
-                  }
-               },
-               {
-                  extend: 'print',
-                  exportOptions: {
-                     columns: [0, 1, 2, 3, 5, 6, 7]
-                  }
-               }
-            ]
-         }).buttons().container().appendTo('#data_prestasi_wrapper .col-md-6:eq(0)');
-      });
+      // $(function() {
+      //    $("#data_prestasi").DataTable({
+      //       "responsive": true,
+      //       "lengthChange": false,
+      //       "autoWidth": false,
+      //       "buttons": [{
+      //             extend: 'copy',
+      //             exportOptions: {
+      //                columns: [0, 1, 2, 3, 5, 6, 7]
+      //             }
+      //          },
+      //          {
+      //             extend: 'excel',
+      //             exportOptions: {
+      //                columns: [0, 1, 2, 3, 5, 6, 7]
+      //             }
+      //          },
+      //          {
+      //             extend: 'pdf',
+      //             exportOptions: {
+      //                columns: [0, 1, 2, 3, 5, 6, 7]
+      //             }
+      //          },
+      //          {
+      //             extend: 'print',
+      //             exportOptions: {
+      //                columns: [0, 1, 2, 3, 5, 6, 7]
+      //             }
+      //          }
+      //       ]
+      //    }).buttons().container().appendTo('#data_prestasi_wrapper .col-md-6:eq(0)');
+      // });
    </script>
 @endsection

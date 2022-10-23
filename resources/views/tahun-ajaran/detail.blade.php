@@ -34,7 +34,7 @@
                         <h4>Tahun Pelajaran</h4>
                         <h1>{{ $ta->tahun_ajaran }}</h1>
                         <span class="box {{ $ta->status == '1' ? 'bg-green' : 'bg-gray' }} btn-sm d-block col-3 m-auto">
-                           {{ $ta->status == 1 ? 'Aktif' : 'Non-Aktif' }}
+                           {{ $ta->status == 1 ? 'Aktif' : 'Non-aktif' }}
                         </span>
                         <div class="mt-5 text-center">
                            <a href="{{ URL::previous() }}" class="btn btn-secondary btn-sm mb-1">
@@ -78,9 +78,9 @@
                            @endif
                            <br>
                            <a href="/tahun-ajaran" class="btn btn-info btn-sm">
-                              <i class="fas fa-layer-group mr-1"></i> List Tahun Pelajaran</a>
+                              <i class="fas fa-layer-group mr-1"></i> Daftar Tahun Pelajaran</a>
                            <a href="/tahun-ajaran/create" class="btn btn-success btn-sm">
-                              <i class="fas fa-layer-plus mr-1"></i> Tahun Pelajaran Baru</a>
+                              <i class="fas fa-layer-plus mr-1"></i> Tambah Tahun Pelajaran</a>
                         </div>
                      </div>
                      <div class="col-md-8">

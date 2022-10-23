@@ -112,7 +112,7 @@
                                     <th>:</th>
                                     <td class="text-warning">
                                        @if ($prestasi->piagam == null)
-                                          <b>Belum diupload</b>
+                                          <b>Belum diunggah</b>
                                        @endif
                                     </td>
                                  </tr>

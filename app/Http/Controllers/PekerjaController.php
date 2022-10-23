@@ -60,7 +60,7 @@ class PekerjaController extends Controller {
      */
     public function create() {
         return view('pekerja.tambah', [
-            "title" => "Tambah Data Tenaga Kerja",
+            "title" => "Tambah Data Pegawai",
             "part" => "pegawai",
         ]);
     }
@@ -112,11 +112,25 @@ class PekerjaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Pekerja $pekerja) {
-        return view('pekerja.detail', [
-            "title" => "Detail Pegawai",
-            "part" => "kepegawaian",
-            "pekerja" => $pekerja
-        ]);
+        if ($pekerja->jabatan == 'Kepala Sekolah') {
+            if (auth()->user()->role == 1) {
+                $part = 'kepsek';
+            } else {
+                $part = 'pegawai';
+            }
+            $view = view('pekerja.kepsek.detail', [
+                "title" => "Detail Pegawai",
+                "part" => $part,
+                "kepsek" => Pekerja::where('jabatan', 'Kepala Sekolah')->first()
+            ]);
+        } else {
+            $view = view('pekerja.detail', [
+                "title" => "Detail Pegawai",
+                "part" => "kepegawaian",
+                "pekerja" => $pekerja
+            ]);
+        }
+        return $view;
     }
 
     public function showKepsek() {

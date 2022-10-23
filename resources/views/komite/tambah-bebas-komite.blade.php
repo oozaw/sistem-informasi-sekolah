@@ -416,43 +416,90 @@
                }
             });
          });
+
+         var table = $('#table_bebas_komite').DataTable({
+            language: {
+               url: "{{ url('/json/dataTable-id.json') }}"
+            },
+            responsive: true,
+            lengthChange: false,
+            autoWidth: false,
+            initComplete: function() {
+               var api = this.api();
+
+               new $.fn.dataTable.Buttons(api, {
+                  buttons: [{
+                        extend: 'copy',
+                        exportOptions: {
+                           columns: [0, 1, 2, 3, 4]
+                        }
+                     },
+                     {
+                        extend: 'excel',
+                        exportOptions: {
+                           columns: [0, 1, 2, 3, 4]
+                        }
+                     },
+                     {
+                        extend: 'pdf',
+                        customize: function(doc) {
+                           doc.content[1].table.widths =
+                              Array(doc.content[1].table.body[0].length + 1).join('*').split(
+                                 '');
+                        },
+                        exportOptions: {
+                           columns: [0, 1, 2, 3, 4]
+                        }
+                     },
+                     {
+                        extend: 'print',
+                        exportOptions: {
+                           columns: [0, 1, 2, 3, 4]
+                        }
+                     }
+                  ]
+               });
+
+               api.buttons().container().appendTo('#table_bebas_komite_wrapper .col-md-6:eq(0)');
+            }
+         });
       });
 
-      $(function() {
-         $("#table_bebas_komite").DataTable({
-            "responsive": false,
-            "lengthChange": false,
-            "autoWidth": false,
-            "buttons": [{
-                  extend: 'copy',
-                  exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
-                  }
-               },
-               {
-                  extend: 'excel',
-                  exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
-                  }
-               },
-               {
-                  extend: 'pdf',
-                  customize: function(doc) {
-                     doc.content[1].table.widths =
-                        Array(doc.content[1].table.body[0].length + 1).join('*').split('');
-                  },
-                  exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
-                  }
-               },
-               {
-                  extend: 'print',
-                  exportOptions: {
-                     columns: [0, 1, 2, 3, 4]
-                  }
-               }
-            ]
-         }).buttons().container().appendTo('#table_bebas_komite_wrapper .col-md-6:eq(0)');
-      });
+      // $(function() {
+      //    $("#table_bebas_komite").DataTable({
+      //       "responsive": false,
+      //       "lengthChange": false,
+      //       "autoWidth": false,
+      //       "buttons": [{
+      //             extend: 'copy',
+      //             exportOptions: {
+      //                columns: [0, 1, 2, 3, 4]
+      //             }
+      //          },
+      //          {
+      //             extend: 'excel',
+      //             exportOptions: {
+      //                columns: [0, 1, 2, 3, 4]
+      //             }
+      //          },
+      //          {
+      //             extend: 'pdf',
+      //             customize: function(doc) {
+      //                doc.content[1].table.widths =
+      //                   Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+      //             },
+      //             exportOptions: {
+      //                columns: [0, 1, 2, 3, 4]
+      //             }
+      //          },
+      //          {
+      //             extend: 'print',
+      //             exportOptions: {
+      //                columns: [0, 1, 2, 3, 4]
+      //             }
+      //          }
+      //       ]
+      //    }).buttons().container().appendTo('#table_bebas_komite_wrapper .col-md-6:eq(0)');
+      // });
    </script>
 @endsection

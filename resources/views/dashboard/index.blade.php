@@ -33,7 +33,7 @@
                      <div class="icon">
                         <i class="fas fa-chalkboard"></i>
                      </div>
-                     <a href="/kelas" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                     <a href="/kelas" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
                   </div>
                </div>
                <!-- ./col -->
@@ -48,7 +48,7 @@
                      <div class="icon">
                         <i class="fas fa-users"></i>
                      </div>
-                     <a href="/siswa" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                     <a href="/siswa" class="small-box-footer">Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
                   </div>
                </div>
                <!-- ./col -->
@@ -63,7 +63,8 @@
                      <div class="icon">
                         <i class="fas fa-trophy"></i>
                      </div>
-                     <a href="/prestasi" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                     <a href="/prestasi" class="small-box-footer">Selengkapnya <i
+                           class="fas fa-arrow-circle-right"></i></a>
                   </div>
                </div>
                <!-- ./col -->
@@ -79,7 +80,7 @@
                         <div class="icon">
                            <i class="fas fa-chalkboard-teacher"></i>
                         </div>
-                        <a href="/guru" class="small-box-footer" style="color: #FFFFFF !important;">More info <i
+                        <a href="/guru" class="small-box-footer" style="color: #FFFFFF !important;">Selengkapnya <i
                               class="fas fa-arrow-circle-right"></i></a>
                      </div>
                   </div>
@@ -95,7 +96,8 @@
                         <div class="icon">
                            <i class="fas fa-users-cog"></i>
                         </div>
-                        <a href="/tata-usaha" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="/tata-usaha" class="small-box-footer">Selengkapnya <i
+                              class="fas fa-arrow-circle-right"></i></a>
                      </div>
                   </div>
                   <!-- ./col -->
@@ -110,7 +112,8 @@
                         <div class="icon">
                            <i class="fas fa-user-friends"></i>
                         </div>
-                        <a href="/staf-lain" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="/staf-lain" class="small-box-footer">Selengkapnya <i
+                              class="fas fa-arrow-circle-right"></i></a>
                      </div>
                   </div>
                   <!-- ./col -->
@@ -125,7 +128,7 @@
                         <div class="icon">
                            <i class="fas fa-inbox-in"></i>
                         </div>
-                        <a href="/surat-masuk" class="small-box-footer">More info <i
+                        <a href="/surat-masuk" class="small-box-footer">Selengkapnya <i
                               class="fas fa-arrow-circle-right"></i></a>
                      </div>
                   </div>
@@ -141,7 +144,7 @@
                         <div class="icon">
                            <i class="fas fa-inbox-out"></i>
                         </div>
-                        <a href="/surat-keluar" class="small-box-footer">More info <i
+                        <a href="/surat-keluar" class="small-box-footer">Selengkapnya <i
                               class="fas fa-arrow-circle-right"></i></a>
                      </div>
                   </div>
