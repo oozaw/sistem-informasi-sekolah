@@ -160,12 +160,12 @@
                                  </div>
                               @enderror
                            </div>
-                           <label for="foto_profil">Foto Profil</label>
+                           <label for="foto_profil">Foto Profil (maks. 10MB)</label>
                            <div class="custom-file mb-2">
                               <input type="file" class="custom-file-input @error('foto_profil') is-invalid @enderror"
                                  id="foto_profil" name="foto_profil">
                               <label class="custom-file-label" for="foto_profil" data-browse="Pilih berkas">Unggah foto
-                                 profil</label>
+                                 profil (.jpg, .png, .jpeg)</label>
                               @error('foto_profil')
                                  <div class="invalid-feedback">
                                     {{ $message }}

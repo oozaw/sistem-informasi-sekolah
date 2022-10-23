@@ -60,7 +60,7 @@
                                                 <input type="file" class="custom-file-input" id="file_impor"
                                                    name="file_impor">
                                                 <label for="file_impor" class="custom-file-label" data-browse="Pilih berkas">
-                                                   Pilih berkas data pegawai (*.xlsx)</label>
+                                                   Pilih berkas data pegawai (.xlsx)</label>
                                                 <span class="text-orange ml-1">
                                                    <small>
                                                       *Berkas harus berupa spreadsheet hasil unduhan format berkas di atas

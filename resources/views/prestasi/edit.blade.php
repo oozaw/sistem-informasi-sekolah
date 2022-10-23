@@ -158,14 +158,14 @@
                               </div>
                            @endif
                            <div id="form_unggah_file" @if ($prestasi->piagam) hidden @endif>
-                              <label for="piagam">Berkas Piagam</label>
+                              <label for="piagam">Berkas Piagam (maks. 10MB)</label>
                               <div class="custom-file mb-2">
                                  <input type="file" class="custom-file-input @error('piagam') is-invalid @enderror"
                                     id="piagam" name="piagam">
                                  <label class="custom-file-label" for="piagam" data-browse="Pilih berkas">Unggah
                                     berkas
                                     piagam
-                                    (*.pdf)</label>
+                                    (.pdf)</label>
                                  @error('piagam')
                                     <div class="invalid-feedback">
                                        {{ $message }}

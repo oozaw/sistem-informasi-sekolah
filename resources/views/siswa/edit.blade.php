@@ -142,8 +142,7 @@
                                  <label for="prestasi{{ $loop->iteration }}"
                                     class="{{ $loop->iteration != 1 ? 'mt-3' : '' }}">Prestasi
                                     {{ $loop->iteration }}</label><select class="form-control"
-                                    name="prestasi{{ $loop->iteration }}" id="prestasi{{ $loop->iteration }}"
-                                    required>
+                                    name="prestasi{{ $loop->iteration }}" id="prestasi{{ $loop->iteration }}" required>
                                     <option value="kosong">-- Tidak ada --</option>
                                     @foreach ($prestasi as $p)
                                        @if ($p->id == $ps->prestasi_id)
@@ -184,12 +183,12 @@
                                  </div>
                               @enderror
                            </div>
-                           <label for="foto_profil">Foto Profil</label>
+                           <label for="foto_profil">Foto Profil (maks. 10MB)</label>
                            <div class="custom-file mb-2">
                               <input type="file" class="custom-file-input @error('foto_profil') is-invalid @enderror"
                                  id="foto_profil" name="foto_profil">
-                              <label class="custom-file-label" for="foto_profil" data-browse="Pilih file">Unggah foto
-                                 profil</label>
+                              <label class="custom-file-label" for="foto_profil" data-browse="Pilih berkas">Unggah foto
+                                 profil (.jpg, .png, .jpeg)</label>
                               @error('foto_profil')
                                  <div class="invalid-feedback">
                                     {{ $message }}

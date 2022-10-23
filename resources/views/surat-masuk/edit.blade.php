@@ -311,7 +311,7 @@
                            <div id="form_unggah_file"
                               @error('file_surat') @else
                            hidden @enderror>
-                              <label for="file_surat">Berkas Surat</label>
+                              <label for="file_surat">Berkas Surat (maks. 10MB)</label>
                               <div class="custom-file mb-2">
                                  <input type="file"
                                     class="custom-file-input @error('file_surat') is-invalid @enderror" id="file_surat"
