@@ -115,7 +115,7 @@
                                     <td>
                                        <div class="d-inline-flex">
                                           <a href="/pekerja/{{ $p->id }}" class="btn btn-info btn-sm mr-1">
-                                             <i class="fas fa-eye"></i> Detail</a>
+                                             <i class="fas fa-eye"></i> Lihat</a>
                                           @can('tata-usaha')
                                              <a href="/pekerja/{{ $p->id }}/edit" class="btn btn-primary btn-sm mr-1">
                                                 <i class="fas fa-edit"></i> Edit</a>

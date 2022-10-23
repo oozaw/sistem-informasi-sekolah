@@ -7,7 +7,7 @@
          <div class="container-fluid">
             <div class="row mb-2">
                <div class="col-sm-6">
-                  <h1>Data Pegawai</h1>
+                  <h1>Data Staf Tata Usaha</h1>
                </div>
                <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
@@ -64,7 +64,7 @@
                                     <td>
                                        <div class="d-inline-flex">
                                           <a href="/pekerja/{{ $s->id }}" class="btn btn-info btn-sm mr-1">
-                                             <i class="fas fa-eye"></i> Detail</a>
+                                             <i class="fas fa-eye"></i> Lihat</a>
                                           @can('tata-usaha')
                                              <a href="/pekerja/{{ $s->id }}/edit" class="btn btn-primary btn-sm mr-1">
                                                 <i class="fas fa-edit"></i> Edit</a>

@@ -23,7 +23,7 @@ class PekerjaController extends Controller {
      */
     public function index() {
         return view('pekerja.index', [
-            "title" => "Data Tenaga Kerja",
+            "title" => "Data Pegawai",
             "part" => "pegawai",
             "pegawai" => Pekerja::all()->sortBy('nama')
         ]);
@@ -47,7 +47,7 @@ class PekerjaController extends Controller {
 
     public function indexLain() {
         return view('pekerja.pegawai-lain.index', [
-            "title" => "Data Staf Lain",
+            "title" => "Data Pegawai Lain",
             "part" => "lainnya",
             "staf" => Pekerja::all()->where('jabatan', "Staf Lainnya")->sortBy('nama')
         ]);
