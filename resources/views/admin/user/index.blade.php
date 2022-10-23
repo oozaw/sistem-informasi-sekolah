@@ -48,9 +48,9 @@
                            <tbody>
                               @foreach ($pengguna as $p)
                                  <tr>
-                                    <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td>{{ $p->username }}</td>
-                                    <td class="text-center">
+                                    <td class="text-center align-middle">{{ $loop->iteration }}</td>
+                                    <td class="align-middle">{{ $p->username }}</td>
+                                    <td class="text-center align-middle">
                                        @if ($p->role == 1)
                                           {{ 'Admin' }}
                                        @elseif ($p->role == 2)
@@ -61,15 +61,20 @@
                                           {{ 'Kepala Sekolah' }}
                                        @endif
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                        @if (Cache::has('user-is-online-' . $p->id))
-                                          <span class="box bg-green btn-xs d-block text-center col-8 m-auto">Aktif</span>
+                                          <span data-tooltip="Online"><img src="/img/active-user.png" alt="online"
+                                                style="width: 35px; height: 35px"></span>
+                                          {{-- <span class="box bg-green btn-xs d-block text-center col-8 m-auto">Aktif</span> --}}
                                        @else
-                                          <span
-                                             class="box bg-gray btn-xs d-block text-center col-8 m-auto">Non-aktif</span>
+                                          <span data-tooltip="Offline"><img src="/img/non-active-user.png" alt="offline"
+                                                style="width: 35px; height: 35px"></span>
+                                          {{-- <span
+                                             class="box bg-gray btn-xs d-block text-center col-8 m-auto">Non-aktif</span> --}}
                                        @endif
                                     </td>
-                                    <td>{{ \Carbon\Carbon::parse($p->last_seen)->diffForHumans() }}</td>
+                                    <td class="align-middle">{{ \Carbon\Carbon::parse($p->last_seen)->diffForHumans() }}
+                                    </td>
                                     <td>
                                        <div class="d-inline-flex">
                                           <a href="/pengguna/{{ $p->id }}" class="btn btn-info btn-sm mr-1">

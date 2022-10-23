@@ -33,9 +33,9 @@
                      <div class="col-md-4 text-center mt-4">
                         <h4>Tahun Pelajaran</h4>
                         <h1>{{ $ta->tahun_ajaran }}</h1>
-                        <span class="box {{ $ta->status == '1' ? 'bg-green' : 'bg-gray' }} btn-sm d-block col-3 m-auto">
-                           {{ $ta->status == 1 ? 'Aktif' : 'Non-aktif' }}
-                        </span>
+                        <span class="text-bold">Status: </span>
+                        <span class="text-bold {{ $ta->status == '1' ? 'text-success' : 'text-secondary' }}">
+                           {{ $ta->status == 1 ? 'Aktif' : 'Non-aktif' }}</span>
                         <div class="mt-5 text-center">
                            <a href="{{ URL::previous() }}" class="btn btn-secondary btn-sm mb-1">
                               <i class="fas fa-long-arrow-left mr-1"></i> Kembali</a>
@@ -58,7 +58,7 @@
                                           </button>
                                        </div>
                                        <div class="modal-body">
-                                          <p>Yakin hapus data tahun pelajaran {{ $ta->nama }}?</p>
+                                          <p>Yakin hapus data tahun pelajaran {{ $ta->tahun_ajaran }}?</p>
                                        </div>
                                        <div class="modal-footer justify-content-between">
                                           <button type="button" class="btn btn-outline-dark"

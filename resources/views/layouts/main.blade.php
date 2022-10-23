@@ -24,6 +24,8 @@
    <link rel="stylesheet" href="/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
    {{-- Loader Spin --}}
    <link rel="stylesheet" href="/css/load-spinner.css">
+   {{-- Tooltip --}}
+   <link rel="stylesheet" href="/css/tooltip.css">
    @yield('head')
 
 </head>

@@ -57,9 +57,12 @@
                                     <td>{{ $ta->tahun_ajaran }}</td>
                                     <td>
                                        <span
+                                          class="text-bold {{ $ta->status == '1' ? 'text-success' : 'text-secondary' }}">
+                                          {{ $ta->status == 1 ? 'Aktif' : 'Non-aktif' }}</span>
+                                       {{-- <span
                                           class="box {{ $ta->status == '1' ? 'bg-green' : 'bg-gray' }} btn-sm d-block text-center m-auto">
                                           {{ $ta->status == 1 ? 'Aktif' : 'Non-aktif' }}
-                                       </span>
+                                       </span> --}}
                                     </td>
                                     <td>{{ $ta->jml_siswa }}</td>
                                     <td hidden>{{ $ta->jml_siswa_baru }}</td>
