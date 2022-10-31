@@ -34,6 +34,7 @@ class Komite extends Model {
             "bebas2" => '0',
             "daftar_ulang" => $daftarUlang,
             "komite_1" => "Belum Lunas",
+            "kartu" => null,
             "1" => "Belum Lunas",
             "2" => "Belum Lunas",
             "3" => "Belum Lunas",

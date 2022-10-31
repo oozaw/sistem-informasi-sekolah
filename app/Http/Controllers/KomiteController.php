@@ -146,6 +146,12 @@ class KomiteController extends Controller {
                 "daftar_ulang" => $daftarUlang,
             ];
 
+            // kartu komite
+            if ($request->file("kartu_$k->id")) {
+                $file_ext = $request->file("kartu_$k->id")->getClientOriginalExtension();
+                $data["kartu"] = $request->file("kartu_$k->id")->storeAs("kartu-komite", "$k->id.$file_ext");
+            }
+
             // komite semester 1
             if ($semester == 'Ganjil') {
                 $data["komite_1"] = "Lunas";
@@ -360,6 +366,7 @@ class KomiteController extends Controller {
                 'bebas2' => '0',
                 'daftar_ulang' => TahunAjaran::where('status', 1)->pluck('nominal_daftar_ulang')->first(),
                 'komite_1' => "Belum Lunas",
+                'kartu' => null,
                 '1' => 'Belum Lunas',
                 '2' => 'Belum Lunas',
                 '3' => 'Belum Lunas',

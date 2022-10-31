@@ -108,6 +108,8 @@
    <script src="/adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
    <!-- SweetAlert2 -->
    <script src="/adminlte/plugins/sweetalert2/sweetalert2.min.js"></script>
+   <!-- bs-custom-file-input -->
+   <script src="/adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
    <!-- Toastr -->
    <script src="/adminlte/plugins/toastr/toastr.min.js"></script>
    <!-- AdminLTE App -->
@@ -145,6 +147,9 @@
                      getRupiah();
                      ajaxUpdate();
                      copySemesterValue();
+                     $(function() {
+                        bsCustomFileInput.init();
+                     });
                   }
                }
             });

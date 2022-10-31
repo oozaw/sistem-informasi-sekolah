@@ -38,6 +38,7 @@
                   <th class="col-2 text-center">November</th>
                   <th class="col-2 text-center">Desember</th>
                @endif
+               <th class="col-6 text-center">Kartu Komite (*maks. 10MB)</th>
             </tr>
          </thead>
          <tbody>
@@ -80,6 +81,52 @@
                         </div>
                      </td>
                   @endfor
+                  <td class="col-6 px-1 py-1 d-inline-flex" style="margin-bottom: 2px; margin-top: 2px">
+                     <div class="col-10 custom-file mb-2">
+                        <input type="file"
+                           class="custom-file-input @error('kartu_{{ $ko->id }}') is-invalid @enderror"
+                           id="kartu_{{ $ko->id }}" name="kartu_{{ $ko->id }}">
+                        <label class="custom-file-label" for="kartu_{{ $ko->id }}" data-browse="Pilih">Unggah
+                           kartu
+                           komite (.jpg, .png, .jpeg)</label>
+                        @error('kartu_{{ $ko->id }}')
+                           <div class="invalid-feedback">
+                              {{ $message }}
+                           </div>
+                        @enderror
+                     </div>
+                     <div class="col-2">
+                        <a class="btn btn-info btn-sm mt-1" data-toggle="modal"
+                           data-target="#modal-kartu-{{ $ko->id }}">
+                           <i class="fas fa-eye"></i></a>
+
+                        <!-- Modal View Kartu Komite-->
+                        <div class="modal fade" id="modal-kartu-{{ $ko->id }}" style="display: none;"
+                           aria-hidden="true">
+                           <div class="modal-dialog modal-lg">
+                              <div class="modal-content">
+                                 <div class="modal-header text-center">
+                                    <h4 class="modal-title">Kartu Komite {{ $ko->siswa->nama }}</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                       <span aria-hidden="true">×</span>
+                                    </button>
+                                 </div>
+                                 <div class="modal-body">
+                                    @if ($ko->kartu != null)
+                                       <img class="col-12" src="/storage/{{ $ko->kartu }}"
+                                          alt="kartu-komite-{{ $ko->siswa->nama }}">
+                                    @else
+                                       <p>Kartu komite belum diunggah!</p>
+                                    @endif
+                                 </div>
+                              </div>
+                              <!-- /.modal-content -->
+                           </div>
+                           <!-- /.modal-dialog -->
+                        </div>
+                        <!-- /.modal view kartu komite -->
+                     </div>
+                  </td>
                </tr>
             @endforeach
          </tbody>
