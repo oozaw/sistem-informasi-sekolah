@@ -26,6 +26,8 @@
    <link rel="stylesheet" href="/css/load-spinner.css">
    {{-- Tooltip --}}
    <link rel="stylesheet" href="/css/tooltip.css">
+   {{-- Eye Blink --}}
+   <link rel="stylesheet" href="/css/eye-blink.css">
    @yield('head')
 
 </head>

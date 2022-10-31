@@ -73,4 +73,8 @@ class User extends Authenticatable {
         Config::set('user.role', $role);
         Config::set('user.foto', $foto);
     }
+
+    public static function getAdmin() {
+        return User::where('role', 1)->first();
+    }
 }

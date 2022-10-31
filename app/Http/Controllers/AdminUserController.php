@@ -177,4 +177,13 @@ class AdminUserController extends Controller {
 
         return view('admin.user.partials.pegawai-list', $data);
     }
+
+    public function isAdmin(Request $request) {
+        $admin = User::getAdmin();
+        $status = decrypt($admin->dec_password) == $request->password;
+
+        return response()->json([
+            "status" => $status
+        ]);
+    }
 }

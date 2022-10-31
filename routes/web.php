@@ -42,8 +42,9 @@ Route::middleware(['auth'])->group(function () {
       Route::get('/pengguna/{user}/edit', [AdminUserController::class, 'edit'])->name('pengguna.edit');
       Route::put('/pengguna/{user}', [AdminUserController::class, 'update'])->name('pengguna.update');
       Route::delete('/pengguna/{user}', [AdminUserController::class, 'destroy'])->name('pengguna.delete');
+      Route::post('/is-admin', [AdminUserController::class, 'isAdmin'])->name('is.admin');
 
-      //    Kepala Sekolah
+      // Kepala Sekolah
       Route::get('/kepala-sekolah', [PekerjaController::class, 'showKepsek'])->name('pekerja.kepsek.detail');
       Route::get('/kepala-sekolah-edit', [PekerjaController::class, 'editKepsek'])->name('pekerja.kepsek.edit');
 
