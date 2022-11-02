@@ -140,7 +140,10 @@ class PrestasiController extends Controller {
             $file_ext = $request->file('piagam')->getClientOriginalExtension();
             $nama_without_space = Str::slug("$request->nama-$carbon->year-$request->capaian-$request->tingkat");
             $nama_file = "$nama_without_space.$file_ext";
-            Storage::delete($prestasi->piagam);
+            if ($prestasi->piagam != null || $prestasi != "") {
+                Storage::delete($prestasi->piagam);
+                clearstatcache();
+            }
             $validatedData['piagam'] = $request->file('piagam')->storeAs('prestasi', $nama_file);
         }
 

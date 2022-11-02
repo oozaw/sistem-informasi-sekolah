@@ -140,6 +140,7 @@ class SuratKeluarController extends Controller {
             $nama =  Str::slug("$request->nomor-$request->kode_tujuan-$request->instansi_asal-$request->bulan-$request->tahun");
             $nama_file = "$nama.$file_ext";
             Storage::delete($suratKeluar->file_surat);
+            clearstatcache();
             $validatedData['file_surat'] = $request->file('file_surat')->storeAs('surat-keluar', $nama_file);
         }
 

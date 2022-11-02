@@ -15,6 +15,11 @@ class Siswa extends Model {
         return $this->belongsTo(Kelas::class);
     }
 
+    public static function getProfil($id) {
+        $profile = Siswa::where('id', $id)->pluck('foto_profil')->first();
+        return $profile;
+    }
+
     public function prestasi() {
         return $this->belongsToMany(Prestasi::class, 'perwakilan_prestasi')->using(Perwakilan::class)->withTimestamps();
     }

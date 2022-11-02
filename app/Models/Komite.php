@@ -16,13 +16,9 @@ class Komite extends Model {
         return $this->belongsTo(Siswa::class);
     }
 
-    public static function isKartuExist($id) {
+    public static function getKartu($id) {
         $kartu = Komite::where('id', $id)->pluck('kartu')->first();
-        if ($kartu == null) {
-            return false;
-        } else {
-            return true;
-        }
+        return $kartu;
     }
 
     public static function cekKomiteS1(Komite $komite) {

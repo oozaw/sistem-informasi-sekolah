@@ -150,8 +150,10 @@ class KomiteController extends Controller {
             // kartu komite
             if ($request->file("kartu_$k->id")) {
                 $file_ext = $request->file("kartu_$k->id")->getClientOriginalExtension();
-                if (Komite::isKartuExist($k->id)) {
-                    Storage::delete("$k->id.$file_ext");
+                $kartu = Komite::getKartu($k->id);
+                if ($kartu != null) {
+                    Storage::delete($kartu);
+                    clearstatcache();
                 }
                 $data["kartu"] = $request->file("kartu_$k->id")->storeAs("kartu-komite", "$k->id.$file_ext");
             }

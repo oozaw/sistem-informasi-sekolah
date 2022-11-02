@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
    <!-- Brand Logo -->
-   <a href="" class="brand-link">
+   <a href="/dashboard" class="brand-link">
       <img src="/img/smanel-logo.png" alt="SMANEL Logo" class="brand-image img-circle elevation-3" style="opacity: 1">
       <span class="brand-text font-weight-light ml-2">SIM - SMANEL</span>
    </a>

@@ -204,7 +204,11 @@ class SiswaController extends Controller {
 
         if ($request->file("foto_profil")) {
             $file_ext = $request->file('foto_profil')->getClientOriginalExtension();
-            Storage::delete("$request->nisn.$file_ext");
+            $foto_profil = Siswa::getProfil($siswa->id);
+            if ($foto_profil != null || $foto_profil != "") {
+                Storage::delete($foto_profil);
+                clearstatcache();
+            }
             $validatedData["foto_profil"] = $request->file("foto_profil")->storeAs("profil-siswa", "$request->nisn.$file_ext");
         }
 

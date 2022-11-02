@@ -206,7 +206,10 @@ class PekerjaController extends Controller {
         if ($request->file("foto_profil")) {
             $file_ext = $request->file('foto_profil')->getClientOriginalExtension();
             $nama_file = Str::slug($request->nama);
-            Storage::delete($request->foto_profil);
+            if ($pekerja->foto_profil != null || $pekerja->foto_profil != "") {
+                Storage::delete($request->foto_profil);
+                clearstatcache();
+            }
             $validatedData["foto_profil"] = $request->file("foto_profil")->storeAs("profil-pekerja", "$nama_file.$file_ext");
         }
 
