@@ -9,6 +9,7 @@ use App\Models\Komite;
 use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Color;
@@ -149,6 +150,9 @@ class KomiteController extends Controller {
             // kartu komite
             if ($request->file("kartu_$k->id")) {
                 $file_ext = $request->file("kartu_$k->id")->getClientOriginalExtension();
+                if (Komite::isKartuExist($k->id)) {
+                    Storage::delete("$k->id.$file_ext");
+                }
                 $data["kartu"] = $request->file("kartu_$k->id")->storeAs("kartu-komite", "$k->id.$file_ext");
             }
 
