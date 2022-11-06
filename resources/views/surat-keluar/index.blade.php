@@ -40,13 +40,13 @@
                         <table id="data_surat_keluar" class="table table-bordered table-striped">
                            <thead>
                               <tr>
-                                 <th>No.</th>
-                                 <th>Tujuan</th>
-                                 <th>No. Surat</th>
-                                 <th>Tanggal Keluar</th>
-                                 <th>Keterangan</th>
-                                 <th hidden>Tautan Berkas</th>
-                                 <th>Aksi</th>
+                                 <th id="thead_0">No.</th>
+                                 <th id="thead_1">Tujuan</th>
+                                 <th id="thead_2">No. Surat</th>
+                                 <th id="thead_3">Tanggal Keluar</th>
+                                 <th id="thead_4">Keterangan</th>
+                                 <th id="thead_5" hidden>Tautan Berkas</th>
+                                 <th id="thead_6">Aksi</th>
                               </tr>
                            </thead>
                            <tbody>
@@ -140,6 +140,7 @@
    <script src="/adminlte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
    <script src="/adminlte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
    <script src="/adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+   <script src="/js/dataTables.export.js"></script>
    <!-- AdminLTE App -->
    <script src="/adminlte/dist/js/adminlte.min.js"></script>
    <!-- AdminLTE for demo purposes -->
@@ -168,6 +169,28 @@
                         extend: 'excel',
                         exportOptions: {
                            columns: [0, 1, 2, 3, 4, 5]
+                        }
+                     },
+                     {
+                        text: 'Word',
+                        action: function(e, dt, node, config) {
+                           var date = new Date();
+                           var time = date.toLocaleString();
+                           $.fn.DataTable.Export.word(dt, {
+                              filename: $("#title").text(),
+                              title: $("#title").text(),
+                              message: 'Di ekspor pada ' + time,
+                              header: [
+                                 $("#thead_0").text(),
+                                 $("#thead_1").text(),
+                                 $("#thead_2").text(),
+                                 $("#thead_3").text(),
+                                 $("#thead_4").text(),
+                                 $("#thead_5").text(),
+                              ],
+                              fields: [0, 1, 2, 3, 4, 5],
+                              orientation: 'landscape'
+                           });
                         }
                      },
                      {

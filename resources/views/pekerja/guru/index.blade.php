@@ -38,15 +38,15 @@
                         <table id="data_guru" class="table table-bordered table-striped">
                            <thead>
                               <tr>
-                                 <th>No.</th>
-                                 <th>Nama</th>
-                                 <th>Jabatan</th>
-                                 <th>NIP</th>
-                                 <th hidden>Jenis Kelamin</th>
-                                 <th hidden>No. Telepon</th>
-                                 <th hidden>Email</th>
-                                 <th>Tempat Tinggal</th>
-                                 <th>Aksi</th>
+                                 <th id="thead_0">No.</th>
+                                 <th id="thead_1">Nama</th>
+                                 <th id="thead_2">Jabatan</th>
+                                 <th id="thead_3">NIP</th>
+                                 <th id="thead_4" hidden>Jenis Kelamin</th>
+                                 <th id="thead_5" hidden>No. Telepon</th>
+                                 <th id="thead_6" hidden>Email</th>
+                                 <th id="thead_7">Tempat Tinggal</th>
+                                 <th id="thead_8">Aksi</th>
                               </tr>
                            </thead>
                            <tbody>
@@ -141,6 +141,7 @@
    <script src="/adminlte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
    <script src="/adminlte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
    <script src="/adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+   <script src="/js/dataTables.export.js"></script>
    <!-- AdminLTE App -->
    <script src="/adminlte/dist/js/adminlte.min.js"></script>
    <!-- AdminLTE for demo purposes -->
@@ -169,6 +170,30 @@
                         extend: 'excel',
                         exportOptions: {
                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                        }
+                     },
+                     {
+                        text: 'Word',
+                        action: function(e, dt, node, config) {
+                           var date = new Date();
+                           var time = date.toLocaleString();
+                           $.fn.DataTable.Export.word(dt, {
+                              filename: $("#title").text(),
+                              title: $("#title").text(),
+                              message: 'Di ekspor pada ' + time,
+                              header: [
+                                 $("#thead_0").text(),
+                                 $("#thead_1").text(),
+                                 $("#thead_2").text(),
+                                 $("#thead_3").text(),
+                                 $("#thead_4").text(),
+                                 $("#thead_5").text(),
+                                 $("#thead_6").text(),
+                                 $("#thead_7").text(),
+                              ],
+                              fields: [0, 1, 2, 3, 4, 5, 6, 7],
+                              orientation: 'landscape'
+                           });
                         }
                      },
                      {

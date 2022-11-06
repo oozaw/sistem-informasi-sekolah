@@ -38,12 +38,12 @@
                         <table id="table_kelas" class="table table-bordered table-striped">
                            <thead>
                               <tr>
-                                 <th>No.</th>
-                                 <th>Tingkatan</th>
-                                 <th>Kelas</th>
-                                 <th>Jumlah Siswa</th>
-                                 <th>Wali Kelas</th>
-                                 <th>Aksi</th>
+                                 <th id="thead_0">No.</th>
+                                 <th id="thead_1">Tingkatan</th>
+                                 <th id="thead_2">Kelas</th>
+                                 <th id="thead_3">Jumlah Siswa</th>
+                                 <th id="thead_4">Wali Kelas</th>
+                                 <th id="thead_5">Aksi</th>
                               </tr>
                            </thead>
                            <tbody>
@@ -145,6 +145,7 @@
    <script src="/adminlte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
    <script src="/adminlte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
    <script src="/adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+   <script src="/js/dataTables.export.js"></script>
    <!-- SweetAlert2 -->
    <script src="/adminlte/plugins/sweetalert2/sweetalert2.min.js"></script>
    <!-- Toastr -->
@@ -177,6 +178,26 @@
                         extend: 'excel',
                         exportOptions: {
                            columns: [0, 1, 2, 3, 4]
+                        }
+                     },
+                     {
+                        text: 'Word',
+                        action: function(e, dt, node, config) {
+                           var date = new Date();
+                           var time = date.toLocaleString();
+                           $.fn.DataTable.Export.word(dt, {
+                              filename: $("#title").text(),
+                              title: $("#title").text(),
+                              message: 'Di ekspor pada ' + time,
+                              header: [
+                                 $("#thead_0").text(),
+                                 $("#thead_1").text(),
+                                 $("#thead_2").text(),
+                                 $("#thead_3").text(),
+                                 $("#thead_4").text(),
+                              ],
+                              fields: [0, 1, 2, 3, 4]
+                           });
                         }
                      },
                      {

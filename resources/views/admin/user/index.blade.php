@@ -33,7 +33,7 @@
                         </div>
                      </div>
                      <!-- /.card-header -->
-                     <div class="card-body">
+                     <div id="docx" class="card-body WordSection1">
                         <table id="data_pengguna" class="table table-bordered table-striped">
                            <thead>
                               <tr>
@@ -41,6 +41,7 @@
                                  <th>Nama Pengguna</th>
                                  <th class="text-center">Tipe Pengguna</th>
                                  <th class="text-center">Status</th>
+                                 <th class="text-center" hidden>Status</th>
                                  <th>Aktivitas Terakhir</th>
                                  <th>Aksi</th>
                               </tr>
@@ -71,6 +72,13 @@
                                                 style="width: 35px; height: 35px"></span>
                                           {{-- <span
                                              class="box bg-gray btn-xs d-block text-center col-8 m-auto">Non-aktif</span> --}}
+                                       @endif
+                                    </td>
+                                    <td class="text-center" hidden>
+                                       @if (Cache::has('user-is-online-' . $p->id))
+                                          <span>Aktif</span>
+                                       @else
+                                          <span>Non-aktif</span>
                                        @endif
                                     </td>
                                     <td class="align-middle">{{ \Carbon\Carbon::parse($p->last_seen)->diffForHumans() }}
@@ -160,6 +168,7 @@
    <script src="/adminlte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
    <script src="/adminlte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
    <script src="/adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+   <script src="/js/dataTables.export.js"></script>
    <!-- AdminLTE App -->
    <script src="/adminlte/dist/js/adminlte.min.js"></script>
    <!-- AdminLTE for demo purposes -->
@@ -167,6 +176,9 @@
    <!-- Page specific script -->
    <script>
       $(document).ready(function() {
+         var date = new Date();
+         console.log(date.toLocaleString());
+
          var table = $('#data_pengguna').DataTable({
             language: {
                url: "{{ url('/json/dataTable-id.json') }}"
@@ -181,25 +193,45 @@
                   buttons: [{
                         extend: 'copy',
                         exportOptions: {
-                           columns: [0, 1, 2, 3, 4]
+                           columns: [0, 1, 2, 4, 5]
                         }
                      },
                      {
                         extend: 'excel',
                         exportOptions: {
-                           columns: [0, 1, 2, 3, 4]
+                           columns: [0, 1, 2, 4, 5]
+                        }
+                     },
+                     {
+                        text: 'Word',
+                        action: function(e, dt, node, config) {
+                           var date = new Date();
+                           var time = date.toLocaleString();
+                           $.fn.DataTable.Export.word(dt, {
+                              filename: $("#title").text(),
+                              title: $("#title").text(),
+                              message: 'Di ekspor pada ' + time,
+                              header: [
+                                 'No.',
+                                 'Nama Pengguna',
+                                 'Tipe Pengguna',
+                                 'Status',
+                                 'Aktivitas Terakhir'
+                              ],
+                              fields: [0, 1, 2, 4, 5]
+                           });
                         }
                      },
                      {
                         extend: 'pdf',
                         exportOptions: {
-                           columns: [0, 1, 2, 3, 4]
+                           columns: [0, 1, 2, 4, 5]
                         }
                      },
                      {
                         extend: 'print',
                         exportOptions: {
-                           columns: [0, 1, 2, 3, 4]
+                           columns: [0, 1, 2, 4, 5]
                         }
                      }
                   ]
