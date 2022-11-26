@@ -502,6 +502,11 @@
             },
             scales: {
                xAxes: [{
+                  scaleLabel: {
+                     display: true,
+                     fontColor: '#efefef',
+                     labelString: 'Tahun Pelajaran'
+                  },
                   ticks: {
                      fontColor: '#efefef'
                   },
@@ -512,6 +517,11 @@
                   }
                }],
                yAxes: [{
+                  scaleLabel: {
+                     display: true,
+                     fontColor: '#efefef',
+                     labelString: 'Jumlah Siswa'
+                  },
                   ticks: {
                      stepSize: 50,
                      fontColor: '#efefef'
@@ -571,6 +581,11 @@
             },
             scales: {
                xAxes: [{
+                  scaleLabel: {
+                     display: true,
+                     fontColor: '#efefef',
+                     labelString: 'Tahun Pelajaran'
+                  },
                   ticks: {
                      fontColor: '#efefef'
                   },
@@ -581,6 +596,11 @@
                   }
                }],
                yAxes: [{
+                  scaleLabel: {
+                     display: true,
+                     fontColor: '#efefef',
+                     labelString: 'Jumlah Siswa'
+                  },
                   ticks: {
                      stepSize: 20,
                      fontColor: '#efefef'
@@ -640,6 +660,11 @@
             },
             scales: {
                xAxes: [{
+                  scaleLabel: {
+                     display: true,
+                     fontColor: '#efefef',
+                     labelString: 'Tahun Pelajaran'
+                  },
                   ticks: {
                      fontColor: '#efefef'
                   },
@@ -650,6 +675,11 @@
                   }
                }],
                yAxes: [{
+                  scaleLabel: {
+                     display: true,
+                     fontColor: '#efefef',
+                     labelString: 'Jumlah Siswa'
+                  },
                   ticks: {
                      stepSize: 2,
                      fontColor: '#efefef'
@@ -709,6 +739,11 @@
             },
             scales: {
                xAxes: [{
+                  scaleLabel: {
+                     display: true,
+                     fontColor: '#FFFFFF',
+                     labelString: 'Tahun Pelajaran'
+                  },
                   ticks: {
                      fontColor: '#FFFFFF'
                   },
@@ -719,6 +754,11 @@
                   }
                }],
                yAxes: [{
+                  scaleLabel: {
+                     display: true,
+                     fontColor: '#FFFFFF',
+                     labelString: 'Jumlah Prestasi'
+                  },
                   ticks: {
                      stepSize: 5,
                      fontColor: '#FFFFFF'
@@ -778,6 +818,11 @@
             },
             scales: {
                xAxes: [{
+                  scaleLabel: {
+                     display: true,
+                     fontColor: '#efefef',
+                     labelString: 'Tahun Pelajaran'
+                  },
                   ticks: {
                      fontColor: '#efefef'
                   },
@@ -788,6 +833,11 @@
                   }
                }],
                yAxes: [{
+                  scaleLabel: {
+                     display: true,
+                     fontColor: '#efefef',
+                     labelString: 'Jumlah Pegawai'
+                  },
                   ticks: {
                      stepSize: 5,
                      fontColor: '#efefef'
@@ -864,6 +914,11 @@
             },
             scales: {
                xAxes: [{
+                  scaleLabel: {
+                     display: true,
+                     fontColor: '#efefef',
+                     labelString: 'Tahun Pelajaran'
+                  },
                   ticks: {
                      fontColor: '#efefef'
                   },
@@ -874,6 +929,11 @@
                   }
                }],
                yAxes: [{
+                  scaleLabel: {
+                     display: true,
+                     fontColor: '#efefef',
+                     labelString: 'Jumlah Surat'
+                  },
                   ticks: {
                      stepSize: 10,
                      fontColor: '#efefef'
