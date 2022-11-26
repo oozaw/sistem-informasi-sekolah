@@ -804,7 +804,7 @@
                pointBackgroundColor: '#efefef',
                data: [
                   @foreach ($tahun_ajaran->sortBy('tahun_ajaran') as $ta)
-                     {{ $ta->jml_prestasi }},
+                     {{ $ta->jml_pegawai }},
                   @endforeach
                ]
             }]
