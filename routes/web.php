@@ -29,6 +29,8 @@ Route::middleware(['auth'])->group(function () {
    // Dashboard
    Route::get('/', [DashboardController::class, 'baseURL']);
    Route::get('/dashboard', [DashboardController::class, 'index']);
+   Route::post('/chart-data', [DashboardController::class, 'getChartData']);
+   Route::get('/chart-view', [DashboardController::class, 'getChartView']);
 
    // User
    Route::get('/profile', [UserController::class, 'index']);

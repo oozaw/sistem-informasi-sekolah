@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('head')
+   <meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
+
 @section('container')
    <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -212,164 +216,54 @@
                      </div>
                   </div>
                </div>
-               <div class="col-md-6">
-                  <div class="card bg-success">
-                     <div class="card-header border-0 ui-sortable-handle" style="cursor: move;">
-                        <h3 class="card-title mt-1">
-                           <i class="fas fa-chart-line mr-1"></i>
-                           Grafik Jumlah Siswa Per Tahun Pelajaran
-                        </h3>
-                        <div class="card-tools">
-                           <button type="button" class="btn bg-success btn-sm" data-card-widget="collapse">
-                              <i class="fas fa-minus"></i>
-                           </button>
-                        </div>
-                     </div>
-                     <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                           <div class="chartjs-size-monitor-expand">
-                              <div class=""></div>
-                           </div>
-                           <div class="chartjs-size-monitor-shrink">
-                              <div class=""></div>
-                           </div>
-                        </div>
-                        <canvas class="chart chartjs-render-monitor" id="jml-siswa-line-chart"
-                           style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 644px;"
-                           width="1288" height="500"></canvas>
-                     </div>
+               <div class="row col-md-12 my-3">
+                  <label class="col-form-label pr-0 mx-2 mr-3 ml-4">Pilih rentang data:</label>
+                  <div class="col-2 pl-0 mr-3">
+                     <select class="form-control get-data" name="awal" id="awal" required>
+                        @foreach ($tahun_ajaran->sortBy('tahun_ajaran', SORT_REGULAR, true)->take(5)->sortBy('tahun_ajaran') as $ta)
+                           @if ($loop->first)
+                              <option value="{{ $ta->tahun_ajaran }}" selected>{{ $ta->tahun_ajaran }}
+                              </option>
+                           @else
+                              <option value="{{ $ta->tahun_ajaran }}">{{ $ta->tahun_ajaran }}
+                              </option>
+                           @endif
+                        @endforeach
+                     </select>
                   </div>
-               </div>
-               <div class="col-md-6">
-                  {{-- <div class="card" style="background-color: #12822E"> --}}
-                  <div class="card bg-success">
-                     <div class="card-header border-0 ui-sortable-handle" style="cursor: move;">
-                        <h3 class="card-title mt-1 text-white">
-                           <i class="fas fa-chart-line mr-1"></i>
-                           Grafik Jumlah Siswa Baru Per Tahun Pelajaran
-                        </h3>
-                        <div class="card-tools">
-                           <button type="button" class="btn btn-sm bg-success" data-card-widget="collapse">
-                              <i class="fas fa-minus"></i>
-                           </button>
-                        </div>
-                     </div>
-                     <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                           <div class="chartjs-size-monitor-expand">
-                              <div class=""></div>
-                           </div>
-                           <div class="chartjs-size-monitor-shrink">
-                              <div class=""></div>
-                           </div>
-                        </div>
-                        <canvas class="chart chartjs-render-monitor" id="jml-siswa-baru-line-chart"
-                           style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 644px;"
-                           width="1288" height="500"></canvas>
-                     </div>
+                  <label class="col-form-label pr-0 mr-4">-</label>
+                  <div class="col-2 pl-0 mr-3">
+                     <select class="form-control get-data" name="akhir" id="akhir" required>
+                        @foreach ($tahun_ajaran->sortBy('tahun_ajaran', SORT_REGULAR, true)->take(5)->sortBy('tahun_ajaran') as $ta)
+                           @if ($loop->last)
+                              <option value="{{ $ta->tahun_ajaran }}" selected>{{ $ta->tahun_ajaran }}
+                              </option>
+                           @else
+                              <option value="{{ $ta->tahun_ajaran }}">{{ $ta->tahun_ajaran }}
+                              </option>
+                           @endif
+                        @endforeach
+                     </select>
                   </div>
+                  <label class="col-form-label align-text-bottom ">
+                     <small class="col-2 text-danger">Maksimal rentang data 5 tahun</small>
+                  </label>
                </div>
-               <div class="col-md-6">
-                  {{-- <div class="card" style="background-color: #16C21C"> --}}
-                  <div class="card bg-success">
-                     <div class="card-header border-0 ui-sortable-handle" style="cursor: move;">
-                        <h3 class="card-title mt-1">
-                           <i class="fas fa-chart-line mr-1"></i>
-                           Grafik Jumlah Siswa Keluar/Pindah Per Tahun Pelajaran
-                        </h3>
-                        <div class="card-tools">
-                           <button type="button" class="btn btn-sm bg-success" data-card-widget="collapse">
-                              <i class="fas fa-minus"></i>
-                           </button>
-                        </div>
-                     </div>
-                     <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                           <div class="chartjs-size-monitor-expand">
-                              <div class=""></div>
-                           </div>
-                           <div class="chartjs-size-monitor-shrink">
-                              <div class=""></div>
+               <div id="initial_data" class="row">
+                  <div class="col-md-6">
+                     <div class="card bg-success">
+                        <div class="card-header border-0 ui-sortable-handle" style="cursor: move;">
+                           <h3 class="card-title mt-1">
+                              <i class="fas fa-chart-line mr-1"></i>
+                              Grafik Jumlah Siswa Per Tahun Pelajaran
+                           </h3>
+                           <div class="card-tools">
+                              <button type="button" class="btn bg-success btn-sm" data-card-widget="collapse">
+                                 <i class="fas fa-minus"></i>
+                              </button>
                            </div>
                         </div>
-                        <canvas class="chart chartjs-render-monitor" id="jml-siswa-keluar-line-chart"
-                           style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 644px;"
-                           width="1288" height="500"></canvas>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-md-6">
-                  <div class="card bg-primary">
-                     <div class="card-header border-0 ui-sortable-handle" style="cursor: move;">
-                        <h3 class="card-title mt-1">
-                           <i class="fas fa-chart-line mr-1"></i>
-                           Grafik Jumlah Prestasi Per Tahun Pelajaran
-                        </h3>
-                        <div class="card-tools">
-                           <button type="button" class="btn btn-sm bg-primary" data-card-widget="collapse">
-                              <i class="fas fa-minus"></i>
-                           </button>
-                        </div>
-                     </div>
-                     <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                           <div class="chartjs-size-monitor-expand">
-                              <div class=""></div>
-                           </div>
-                           <div class="chartjs-size-monitor-shrink">
-                              <div class=""></div>
-                           </div>
-                        </div>
-                        <canvas class="chart chartjs-render-monitor" id="jml-prestasi-line-chart"
-                           style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 644px;"
-                           width="1288" height="500"></canvas>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-md-6">
-                  <div class="card" style="background-color: #B10F2E ">
-                     <div class="card-header border-0 ui-sortable-handle" style="cursor: move;">
-                        <h3 class="card-title mt-1 text-white">
-                           <i class="fas fa-chart-line mr-1"></i>
-                           Grafik Jumlah Pegawai Per Tahun Pelajaran
-                        </h3>
-                        <div class="card-tools">
-                           <button type="button" class="btn btn-sm bg-red" data-card-widget="collapse"
-                              style="background-color: #B10F2E !important">
-                              <i class="fas fa-minus"></i>
-                           </button>
-                        </div>
-                     </div>
-                     <div class="card-body">
-                        <div class="chartjs-size-monitor">
-                           <div class="chartjs-size-monitor-expand">
-                              <div class=""></div>
-                           </div>
-                           <div class="chartjs-size-monitor-shrink">
-                              <div class=""></div>
-                           </div>
-                        </div>
-                        <canvas class="chart chartjs-render-monitor" id="jml-pegawai-line-chart"
-                           style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 644px;"
-                           width="1288" height="500"></canvas>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-md-6">
-                  <div class="card bg-dark">
-                     <div class="card-header border-0 ui-sortable-handle" style="cursor: move;">
-                        <h3 class="card-title">
-                           <i class="fas fa-chart-bar mr-1"></i>
-                           Perbandingan Jumlah Surat Per Tahun Pelajaran
-                        </h3>
-                        <div class="card-tools">
-                           <button type="button" class="btn btn-sm bg-dark" data-card-widget="collapse">
-                              <i class="fas fa-minus"></i>
-                           </button>
-                        </div>
-                     </div>
-                     <div class="card-body">
-                        <div class="chart">
+                        <div class="card-body">
                            <div class="chartjs-size-monitor">
                               <div class="chartjs-size-monitor-expand">
                                  <div class=""></div>
@@ -378,13 +272,160 @@
                                  <div class=""></div>
                               </div>
                            </div>
-                           <canvas class="chartjs-render-monitor" id="jml-surat-barChart"
-                              style="min-height: 250px; height: 257px; max-height: 257px; max-width: 100%; display: block; width: 410px;"
-                              width="820" height="500"></canvas>
+                           <canvas class="chart chartjs-render-monitor" id="jml-siswa-line-chart-initial"
+                              style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 644px;"
+                              width="1288" height="500"></canvas>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     {{-- <div class="card" style="background-color: #12822E"> --}}
+                     <div class="card bg-success">
+                        <div class="card-header border-0 ui-sortable-handle" style="cursor: move;">
+                           <h3 class="card-title mt-1 text-white">
+                              <i class="fas fa-chart-line mr-1"></i>
+                              Grafik Jumlah Siswa Baru Per Tahun Pelajaran
+                           </h3>
+                           <div class="card-tools">
+                              <button type="button" class="btn btn-sm bg-success" data-card-widget="collapse">
+                                 <i class="fas fa-minus"></i>
+                              </button>
+                           </div>
+                        </div>
+                        <div class="card-body">
+                           <div class="chartjs-size-monitor">
+                              <div class="chartjs-size-monitor-expand">
+                                 <div class=""></div>
+                              </div>
+                              <div class="chartjs-size-monitor-shrink">
+                                 <div class=""></div>
+                              </div>
+                           </div>
+                           <canvas class="chart chartjs-render-monitor" id="jml-siswa-baru-line-chart-initial"
+                              style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 644px;"
+                              width="1288" height="500"></canvas>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     {{-- <div class="card" style="background-color: #16C21C"> --}}
+                     <div class="card bg-success">
+                        <div class="card-header border-0 ui-sortable-handle" style="cursor: move;">
+                           <h3 class="card-title mt-1">
+                              <i class="fas fa-chart-line mr-1"></i>
+                              Grafik Jumlah Siswa Keluar/Pindah Per Tahun Pelajaran
+                           </h3>
+                           <div class="card-tools">
+                              <button type="button" class="btn btn-sm bg-success" data-card-widget="collapse">
+                                 <i class="fas fa-minus"></i>
+                              </button>
+                           </div>
+                        </div>
+                        <div class="card-body">
+                           <div class="chartjs-size-monitor">
+                              <div class="chartjs-size-monitor-expand">
+                                 <div class=""></div>
+                              </div>
+                              <div class="chartjs-size-monitor-shrink">
+                                 <div class=""></div>
+                              </div>
+                           </div>
+                           <canvas class="chart chartjs-render-monitor" id="jml-siswa-keluar-line-chart-initial"
+                              style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 644px;"
+                              width="1288" height="500"></canvas>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="card bg-primary">
+                        <div class="card-header border-0 ui-sortable-handle" style="cursor: move;">
+                           <h3 class="card-title mt-1">
+                              <i class="fas fa-chart-line mr-1"></i>
+                              Grafik Jumlah Prestasi Per Tahun Pelajaran
+                           </h3>
+                           <div class="card-tools">
+                              <button type="button" class="btn btn-sm bg-primary" data-card-widget="collapse">
+                                 <i class="fas fa-minus"></i>
+                              </button>
+                           </div>
+                        </div>
+                        <div class="card-body">
+                           <div class="chartjs-size-monitor">
+                              <div class="chartjs-size-monitor-expand">
+                                 <div class=""></div>
+                              </div>
+                              <div class="chartjs-size-monitor-shrink">
+                                 <div class=""></div>
+                              </div>
+                           </div>
+                           <canvas class="chart chartjs-render-monitor" id="jml-prestasi-line-chart-initial"
+                              style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 644px;"
+                              width="1288" height="500"></canvas>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="card" style="background-color: #B10F2E ">
+                        <div class="card-header border-0 ui-sortable-handle" style="cursor: move;">
+                           <h3 class="card-title mt-1 text-white">
+                              <i class="fas fa-chart-line mr-1"></i>
+                              Grafik Jumlah Pegawai Per Tahun Pelajaran
+                           </h3>
+                           <div class="card-tools">
+                              <button type="button" class="btn btn-sm bg-red" data-card-widget="collapse"
+                                 style="background-color: #B10F2E !important">
+                                 <i class="fas fa-minus"></i>
+                              </button>
+                           </div>
+                        </div>
+                        <div class="card-body">
+                           <div class="chartjs-size-monitor">
+                              <div class="chartjs-size-monitor-expand">
+                                 <div class=""></div>
+                              </div>
+                              <div class="chartjs-size-monitor-shrink">
+                                 <div class=""></div>
+                              </div>
+                           </div>
+                           <canvas class="chart chartjs-render-monitor" id="jml-pegawai-line-chart-initial"
+                              style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 644px;"
+                              width="1288" height="500"></canvas>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="card bg-dark">
+                        <div class="card-header border-0 ui-sortable-handle" style="cursor: move;">
+                           <h3 class="card-title">
+                              <i class="fas fa-chart-bar mr-1"></i>
+                              Perbandingan Jumlah Surat Per Tahun Pelajaran
+                           </h3>
+                           <div class="card-tools">
+                              <button type="button" class="btn btn-sm bg-dark" data-card-widget="collapse">
+                                 <i class="fas fa-minus"></i>
+                              </button>
+                           </div>
+                        </div>
+                        <div class="card-body">
+                           <div class="chart">
+                              <div class="chartjs-size-monitor">
+                                 <div class="chartjs-size-monitor-expand">
+                                    <div class=""></div>
+                                 </div>
+                                 <div class="chartjs-size-monitor-shrink">
+                                    <div class=""></div>
+                                 </div>
+                              </div>
+                              <canvas class="chartjs-render-monitor" id="jml-surat-barChart-initial"
+                                 style="min-height: 250px; height: 257px; max-height: 257px; max-width: 100%; display: block; width: 410px;"
+                                 width="820" height="500"></canvas>
+                           </div>
                         </div>
                      </div>
                   </div>
                </div>
+               <div id="data" class="row"></div>
+               <div id="loader"></div>
             </div>
          </div>
 
@@ -403,7 +444,52 @@
    <!-- AdminLTE App -->
    <script src="/adminlte/dist/js/adminlte.min.js"></script>
    <script>
-      $(function() {
+      $(document).ready(function() {
+         $("#data").hide();
+         chart();
+         $(".get-data").on('change', function(e) {
+            e.preventDefault();
+            $.ajaxSetup({
+               headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               }
+            });
+
+            $.ajax({
+               url: "{{ url('chart-data') }}",
+               method: 'post',
+               data: {
+                  awal: $("#awal").val(),
+                  akhir: $("#akhir").val()
+               },
+               beforeSend: function() {
+                  $("#initial_data").hide();
+                  $("#data").text('');
+               },
+               success: function(result) {
+                  if (result.status == 0) {
+                     $("#initial_data").show();
+                  } else {
+                     $("#data").append(result);
+                     $("#data").show();
+                  }
+               }
+            });
+         });
+      });
+
+      $(document).on({
+         ajaxStart: function() {
+            $("body").addClass("loading");
+            $("#loader").addClass('overlay');
+         },
+         ajaxStop: function() {
+            $("#loader").removeClass('overlay');
+            $("body").removeClass("loading");
+         }
+      });
+
+      function chart() {
          /* ChartJS
           * -------
           * Here we will create a few charts using ChartJS
@@ -467,11 +553,11 @@
          //-------------
          //- JUMLAH SISWA LINE CHART -
          //-------------
-         var jmlSiswaGraphChartCanvas = $('#jml-siswa-line-chart').get(0).getContext('2d')
+         var jmlSiswaGraphChartInititalCanvas = $('#jml-siswa-line-chart-initial').get(0).getContext('2d')
 
-         var jmlSiswaGraphChartData = {
+         var jmlSiswaGraphChartInititalData = {
             labels: [
-               @foreach ($tahun_ajaran->sortBy('tahun_ajaran', SORT_REGULAR, true)->take(10)->sortBy('tahun_ajaran') as $ta)
+               @foreach ($tahun_ajaran->sortBy('tahun_ajaran', SORT_REGULAR, true)->take(5)->sortBy('tahun_ajaran') as $ta)
                   "{{ $ta->tahun_ajaran }}",
                @endforeach
             ],
@@ -494,7 +580,7 @@
             }]
          }
 
-         var jmlSiswaGraphChartOptions = {
+         var jmlSiswaGraphChartInititalOptions = {
             maintainAspectRatio: false,
             responsive: true,
             legend: {
@@ -537,20 +623,20 @@
 
          // This will get the first returned node in the jQuery collection.
          // eslint-disable-next-line no-unused-vars
-         var jmlSiswaGraphChart = new Chart(jmlSiswaGraphChartCanvas, { // lgtm[js/unused-local-variable]
+         var jmlSiswaGraphChartInitital = new Chart(jmlSiswaGraphChartInititalCanvas, { // lgtm[js/unused-local-variable]
             type: 'line',
-            data: jmlSiswaGraphChartData,
-            options: jmlSiswaGraphChartOptions
+            data: jmlSiswaGraphChartInititalData,
+            options: jmlSiswaGraphChartInititalOptions
          })
 
          //-------------
          //- JUMLAH SISWA BARU LINE CHART -
          //-------------
-         var jmlSiswaBaruGraphChartCanvas = $('#jml-siswa-baru-line-chart').get(0).getContext('2d')
+         var jmlSiswaBaruGraphChartInititalCanvas = $('#jml-siswa-baru-line-chart-initial').get(0).getContext('2d')
 
-         var jmlSiswaBaruGraphChartData = {
+         var jmlSiswaBaruGraphChartInititalData = {
             labels: [
-               @foreach ($tahun_ajaran->sortBy('tahun_ajaran', SORT_REGULAR, true)->take(10)->sortBy('tahun_ajaran') as $ta)
+               @foreach ($tahun_ajaran->sortBy('tahun_ajaran', SORT_REGULAR, true)->take(5)->sortBy('tahun_ajaran') as $ta)
                   "{{ $ta->tahun_ajaran }}",
                @endforeach
             ],
@@ -573,7 +659,7 @@
             }]
          }
 
-         var jmlSiswaBaruGraphChartOptions = {
+         var jmlSiswaBaruGraphChartInititalOptions = {
             maintainAspectRatio: false,
             responsive: true,
             legend: {
@@ -616,20 +702,21 @@
 
          // This will get the first returned node in the jQuery collection.
          // eslint-disable-next-line no-unused-vars
-         var jmlSiswaBaruGraphChart = new Chart(jmlSiswaBaruGraphChartCanvas, { // lgtm[js/unused-local-variable]
-            type: 'line',
-            data: jmlSiswaBaruGraphChartData,
-            options: jmlSiswaBaruGraphChartOptions
-         })
+         var jmlSiswaBaruGraphChartInitital = new Chart(
+            jmlSiswaBaruGraphChartInititalCanvas, { // lgtm[js/unused-local-variable]
+               type: 'line',
+               data: jmlSiswaBaruGraphChartInititalData,
+               options: jmlSiswaBaruGraphChartInititalOptions
+            })
 
          //-------------
          //- JUMLAH SISWA KELUAR LINE CHART -
          //-------------
-         var jmlSiswaKeluarGraphChartCanvas = $('#jml-siswa-keluar-line-chart').get(0).getContext('2d')
+         var jmlSiswaKeluarGraphChartInititalCanvas = $('#jml-siswa-keluar-line-chart-initial').get(0).getContext('2d')
 
-         var jmlSiswaKeluarGraphChartData = {
+         var jmlSiswaKeluarGraphChartInititalData = {
             labels: [
-               @foreach ($tahun_ajaran->sortBy('tahun_ajaran', SORT_REGULAR, true)->take(10)->sortBy('tahun_ajaran') as $ta)
+               @foreach ($tahun_ajaran->sortBy('tahun_ajaran', SORT_REGULAR, true)->take(5)->sortBy('tahun_ajaran') as $ta)
                   "{{ $ta->tahun_ajaran }}",
                @endforeach
             ],
@@ -652,7 +739,7 @@
             }]
          }
 
-         var jmlSiswaKeluarGraphChartOptions = {
+         var jmlSiswaKeluarGraphChartInititalOptions = {
             maintainAspectRatio: false,
             responsive: true,
             legend: {
@@ -695,20 +782,21 @@
 
          // This will get the first returned node in the jQuery collection.
          // eslint-disable-next-line no-unused-vars
-         var jmlSiswaKeluarGraphChart = new Chart(jmlSiswaKeluarGraphChartCanvas, { // lgtm[js/unused-local-variable]
-            type: 'line',
-            data: jmlSiswaKeluarGraphChartData,
-            options: jmlSiswaKeluarGraphChartOptions
-         })
+         var jmlSiswaKeluarGraphChartInitital = new Chart(
+            jmlSiswaKeluarGraphChartInititalCanvas, { // lgtm[js/unused-local-variable]
+               type: 'line',
+               data: jmlSiswaKeluarGraphChartInititalData,
+               options: jmlSiswaKeluarGraphChartInititalOptions
+            })
 
          //-------------
          //- JUMLAH PRESTASI LINE CHART -
          //-------------
-         var jmlPrestasiGraphChartCanvas = $('#jml-prestasi-line-chart').get(0).getContext('2d')
+         var jmlPrestasiGraphChartInititalCanvas = $('#jml-prestasi-line-chart-initial').get(0).getContext('2d')
 
-         var jmlPrestasiGraphChartData = {
+         var jmlPrestasiGraphChartInititalData = {
             labels: [
-               @foreach ($tahun_ajaran->sortBy('tahun_ajaran', SORT_REGULAR, true)->take(10)->sortBy('tahun_ajaran') as $ta)
+               @foreach ($tahun_ajaran->sortBy('tahun_ajaran', SORT_REGULAR, true)->take(5)->sortBy('tahun_ajaran') as $ta)
                   "{{ $ta->tahun_ajaran }}",
                @endforeach
             ],
@@ -731,7 +819,7 @@
             }]
          }
 
-         var jmlPrestasiGraphChartOptions = {
+         var jmlPrestasiGraphChartInititalOptions = {
             maintainAspectRatio: false,
             responsive: true,
             legend: {
@@ -774,20 +862,21 @@
 
          // This will get the first returned node in the jQuery collection.
          // eslint-disable-next-line no-unused-vars
-         var jmlPrestasiGraphChart = new Chart(jmlPrestasiGraphChartCanvas, { // lgtm[js/unused-local-variable]
-            type: 'line',
-            data: jmlPrestasiGraphChartData,
-            options: jmlPrestasiGraphChartOptions
-         })
+         var jmlPrestasiGraphChartInitital = new Chart(
+            jmlPrestasiGraphChartInititalCanvas, { // lgtm[js/unused-local-variable]
+               type: 'line',
+               data: jmlPrestasiGraphChartInititalData,
+               options: jmlPrestasiGraphChartInititalOptions
+            })
 
          //-------------
          //- JUMLAH PEGAWAI LINE CHART -
          //-------------
-         var jmlPegawaiGraphChartCanvas = $('#jml-pegawai-line-chart').get(0).getContext('2d')
+         var jmlPegawaiGraphChartInititalCanvas = $('#jml-pegawai-line-chart-initial').get(0).getContext('2d')
 
-         var jmlPegawaiGraphChartData = {
+         var jmlPegawaiGraphChartInititalData = {
             labels: [
-               @foreach ($tahun_ajaran->sortBy('tahun_ajaran', SORT_REGULAR, true)->take(10)->sortBy('tahun_ajaran') as $ta)
+               @foreach ($tahun_ajaran->sortBy('tahun_ajaran', SORT_REGULAR, true)->take(5)->sortBy('tahun_ajaran') as $ta)
                   "{{ $ta->tahun_ajaran }}",
                @endforeach
             ],
@@ -810,7 +899,7 @@
             }]
          }
 
-         var jmlPegawaiGraphChartOptions = {
+         var jmlPegawaiGraphChartInititalOptions = {
             maintainAspectRatio: false,
             responsive: true,
             legend: {
@@ -853,19 +942,20 @@
 
          // This will get the first returned node in the jQuery collection.
          // eslint-disable-next-line no-unused-vars
-         var jmlPegawaiGraphChart = new Chart(jmlPegawaiGraphChartCanvas, { // lgtm[js/unused-local-variable]
-            type: 'line',
-            data: jmlPegawaiGraphChartData,
-            options: jmlPegawaiGraphChartOptions
-         })
+         var jmlPegawaiGraphChartInitital = new Chart(
+            jmlPegawaiGraphChartInititalCanvas, { // lgtm[js/unused-local-variable]
+               type: 'line',
+               data: jmlPegawaiGraphChartInititalData,
+               options: jmlPegawaiGraphChartInititalOptions
+            })
 
          //-------------
          //- JUMLAH SURAT BAR CHART -
          //-------------
-         var jmlSuratBarChartCanvas = $('#jml-surat-barChart').get(0).getContext('2d')
+         var jmlSuratBarChartCanvas = $('#jml-surat-barChart-initial').get(0).getContext('2d')
          var jmlSuratBarChartData = {
             labels: [
-               @foreach ($tahun_ajaran->sortBy('tahun_ajaran', SORT_REGULAR, true)->take(7)->sortBy('tahun_ajaran') as $ta)
+               @foreach ($tahun_ajaran->sortBy('tahun_ajaran', SORT_REGULAR, true)->take(5)->sortBy('tahun_ajaran') as $ta)
                   "{{ $ta->tahun_ajaran }}",
                @endforeach
             ],
@@ -952,6 +1042,6 @@
             data: jmlSuratBarChartData,
             options: jmlSuratBarChartOptions
          })
-      })
+      }
    </script>
 @endsection
