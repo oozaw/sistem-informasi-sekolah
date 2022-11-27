@@ -7,6 +7,7 @@ use App\Http\Controllers\KomiteController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PekerjaController;
 use App\Http\Controllers\PrestasiController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\SuratKeluarController;
 use App\Http\Controllers\SuratMasukController;
@@ -100,7 +101,17 @@ Route::middleware(['auth'])->group(function () {
    });
 });
 
-// Login/logout
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/login', [LoginController::class, 'authenticate']);
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+// Logout
+Route::post('/logout', [LoginController::class, 'logout'])->name('log_out');
+
+Route::middleware(['guest'])->group(function () {
+   // Login
+   Route::get('/login', [LoginController::class, 'index'])->name('login');
+   Route::post('/login', [LoginController::class, 'authenticate']);
+
+   // Reset Password
+   Route::get('/forgot-password', [ResetPasswordController::class, 'index'])->name('password.request');
+   Route::post('/forgot-password', [ResetPasswordController::class, 'sendLink'])->name('password.email');
+   Route::get('/reset-password/{token}', [ResetPasswordController::class, 'indexResetPassword'])->name('password.reset');
+   Route::post('/reset-password', [ResetPasswordController::class, 'submitNewPassword'])->name('password.update');
+});

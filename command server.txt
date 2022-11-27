@@ -1,0 +1,4 @@
+cd D:Code\applications\si-sekolah
+php artisan serve --host 192.168.18.53 --port 8719
+
+C:\Windows\System32\cmd.exe /k cd /d D:Code\applications\si-sekolah && php artisan serve --host 192.168.18.53 --port 8719

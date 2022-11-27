@@ -21,11 +21,8 @@
 </head>
 
 <body>
-   @if (session()->has('success'))
-      <div class="successAlert" hidden>{{ session('success') }}</div>
-   @endif
-   @if (session()->has('fail'))
-      <div class="failAlert" hidden>{{ session('fail') }}</div>
+   @if (session()->has('loginError'))
+      <div class="failAlert" hidden>{{ session('loginError') }}</div>
    @endif
    <div class="hold-transition login-page"
       style="background-image: url('{{ asset('/img/background-login.jpg') }}'); background-size: cover; background-attachment: fixed;">
@@ -33,7 +30,6 @@
          <img src="/img/smanel-logo.png" alt="" class="" style="height: 130px; width: 115px">
       </div>
       <div class="login-box mb-5">
-         <!-- /.login-logo -->
          <div class="card card-outline card-warning">
             <div class="card-header text-center">
                <span class="h1">SIM-<b>SMANEL</b></span><br>
@@ -41,28 +37,33 @@
                      Merangin</small></span>
             </div>
             <div class="card-body">
-               <p class="login-box-msg">Silahkan masuk terlebih dahulu</p>
-
-               <form action="/login" method="post">
+               <p class="login-box-msg">
+                  Buat kata sandi baru
+               </p>
+               <form action="/reset-password" method="post">
                   @csrf
+                  <!-- Password Reset Token -->
+                  <input type="hidden" name="token" value="{{ $request->route('token') }}">
+
                   <div class="input-group mb-3">
-                     <input type="text" id="username" name="username"
-                        class="form-control @error('username') is-invalid @enderror" placeholder=" Nama pengguna"
-                        required autofocus value="{{ old('username') }}">
+                     <input type="email" id="email" name="email"
+                        class="form-control @error('email') is-invalid @enderror" placeholder="Email"
+                        value="{{ old('email', $request->email) }}" readonly>
                      <div class="input-group-append">
                         <div class="input-group-text">
-                           <span class="fas fa-hashtag"></span>
+                           <span class="fas fa-envelope"></span>
                         </div>
                      </div>
-                     @error('username')
+                     @error('email')
                         <div class="invalid-feedback">
                            {{ $message }}
                         </div>
                      @enderror
                   </div>
-                  <div class="input-group mb-1">
+                  <div class="input-group mb-3">
                      <input type="password" id="password" name="password"
-                        class="form-control @error('password') is-invalid @enderror" placeholder=" Kata sandi" required>
+                        class="form-control @error('password') is-invalid @enderror" placeholder="Kata sandi baru"
+                        autofocus required>
                      <div class="input-group-append">
                         <div class="input-group-text">
                            <span class="fas fa-lock"></span>
@@ -74,20 +75,33 @@
                         </div>
                      @enderror
                   </div>
-                  <p class="mb-3 d-flex justify-content-end mr-2">
-                     <a href="/forgot-password">Lupa kata sandi?</a>
-                  </p>
-                  <div class="row">
-                     <div class="col-12 align-content-center ml-auto">
-                        <button type="submit" class="btn btn-primary btn-block">Masuk</button>
+                  <div class="input-group mb-3">
+                     <input type="password" id="password_confirmation" name="password_confirmation"
+                        class="form-control @error('password_confirmation') is-invalid @enderror"
+                        placeholder="Konfirmasi kata sandi baru" required>
+                     <div class="input-group-append">
+                        <div class="input-group-text">
+                           <span class="fas fa-lock"></span>
+                        </div>
                      </div>
-                     <!-- /.col -->
+                     @error('password_confirmation')
+                        <div class="invalid-feedback">
+                           {{ $message }}
+                        </div>
+                     @enderror
+                  </div>
+                  <div class="row">
+                     <div class="col-12">
+                        <button type="submit" class="btn btn-primary btn-block">Ubah kata sandi</button>
+                     </div>
+
                   </div>
                </form>
+               <p class="ml-1 mt-3 mb-1">
+                  <a href="/login">Login</a>
+               </p>
             </div>
-            <!-- /.card-body -->
          </div>
-         <!-- /.card -->
       </div>
       <!-- /.login-box -->
    </div>

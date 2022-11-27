@@ -15,24 +15,6 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller {
 
     public function index() {
-
-        // $test = TahunAjaran::where('id', 1)->first()->tahun_ajaran;
-        // dd($test  >= '2019/2020');
-
-        // $tahunAjaran = TahunAjaran::all();
-        // $data = [];
-
-        // foreach ($tahunAjaran as $ta) {
-        //     if ($ta->tahun_ajaran >= '2020/2021' && $ta->tahun_ajaran <= '2022/2023') {
-        //         array_push($data, $ta);
-        //     }
-        // }
-
-        // $collection = collect($data);
-
-        // $test = $collection->sortBy('tahun_ajaran', SORT_REGULAR, true)->take(5)->sortBy('tahun_ajaran');
-        // dd($ta);
-
         return view('dashboard.index', [
             "title" => "Dashboard",
             "part" => "dashboard",

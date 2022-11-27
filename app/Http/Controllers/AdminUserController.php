@@ -59,6 +59,10 @@ class AdminUserController extends Controller {
         $validatedData['password'] = bcrypt($validatedData['password']);
         $validatedData['last_seen'] = (new \DateTime())->format("Y-m-d H:i:s");
 
+        $pekerja = Pekerja::where('id', $request->pegawai_id)->first();
+
+        $validatedData['email'] = $pekerja->email;
+
         User::create($validatedData);
 
         return redirect('/pengguna')->with('success', 'Data pengguna baru berhasil ditambahkan!');
@@ -125,6 +129,9 @@ class AdminUserController extends Controller {
 
         if ($request->pegawai_id != $user->pegawai_id) {
             $rules['pegawai_id'] = 'required|unique:users';
+
+            $pekerja = Pekerja::where('id', $request->pegawai_id)->first();
+            $validatedData['email'] = $pekerja->email;
         } else {
             $rules['pegawai_id'] = 'required';
         }
@@ -135,11 +142,15 @@ class AdminUserController extends Controller {
 
         $validatedData = $request->validate($rules);
 
+        $pekerja = Pekerja::where('id', $request->pegawai_id)->first();
+        $validatedData['email'] = $pekerja->email;
+
         if ($request->password) {
             $validatedData['dec_password'] = encrypt($validatedData['password']);
             $validatedData['password'] = bcrypt($validatedData['password']);
         }
 
+        // dd($validatedData);
         User::where('id', $user->id)->update($validatedData);
 
         return redirect("/pengguna/$user->id")->with('success', "Data $user->username berhasil diperbarui!");

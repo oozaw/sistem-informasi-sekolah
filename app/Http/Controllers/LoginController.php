@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Artisan;
 
@@ -35,7 +36,7 @@ class LoginController extends Controller {
             return redirect()->intended('/dashboard')->with('success', "Selamat datang $pegawaiNama");
         }
 
-        return back()->with('loginError', 'Login gagal, silahkan periksa kembali username dan password anda!');
+        return back()->with('fail', 'Login gagal, silahkan periksa kembali username dan password anda!');
     }
 
     public function logout(Request $request) {
