@@ -241,6 +241,7 @@
                   $("#alert").text('');
                },
                success: function(result) {
+                  refreshData();
                   $("#alert").append(result.alert);
                   cekAlert();
                }
@@ -271,6 +272,42 @@
                   // cekAlert();
                }
             });
+         });
+      }
+
+      function refreshData() {
+         $.ajaxSetup({
+            headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+         });
+
+         $.ajax({
+            url: "{{ url('komite-data') }}",
+            method: 'post',
+            data: {
+               semester: $("#semester").val(),
+               kelas: $("#kelas").val()
+            },
+            beforeSend: function() {
+               $("#data").text('');
+               warnaStatus();
+               copySemesterValue();
+            },
+            success: function(result) {
+               if (result.status == 0) {
+                  $("#data").append(result.page);
+               } else {
+                  $("#data").append(result);
+                  warnaStatus();
+                  getRupiah();
+                  ajaxUpdate();
+                  copySemesterValue();
+                  $(function() {
+                     bsCustomFileInput.init();
+                  });
+               }
+            }
          });
       }
 
