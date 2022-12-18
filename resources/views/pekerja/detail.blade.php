@@ -50,7 +50,7 @@
                            </div>
                         </div>
                         <div class="row justify-content-center">
-                           <div class="col-6">
+                           <div class="col-12">
                               <p class="text-muted text-center">
                                  {{ $pekerja->email }}
                               </p>
