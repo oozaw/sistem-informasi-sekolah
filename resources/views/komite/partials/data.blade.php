@@ -82,7 +82,7 @@
                      </td>
                   @endfor
                   <td class="col-6 px-1 py-1 d-inline-flex" style="margin-bottom: 2px; margin-top: 2px">
-                     <div class="col-10 custom-file mb-2">
+                     <div class="col-10 custom-file">
                         <input type="file"
                            class="custom-file-input @error('kartu_{{ $ko->id }}') is-invalid @enderror"
                            id="kartu_{{ $ko->id }}" name="kartu_{{ $ko->id }}">
