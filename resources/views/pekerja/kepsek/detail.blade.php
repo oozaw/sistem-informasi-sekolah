@@ -33,8 +33,7 @@
                      </div>
                      <div class="widget-user-image">
                         @if ($kepsek->foto_profil)
-                           <img class="img-circle elevation-2"
-                              style="width: 90px; height: 90px; object-fit: cover; object-position: center"
+                           <img class="img-circle elevation-2" style="width: 90px; height: 90px; object-position: center"
                               src="/storage/{{ $kepsek->foto_profil }}" alt="Foto profil siswa">
                         @else
                            <div class="img-circle bg-secondary elevation-1">

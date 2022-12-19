@@ -25,7 +25,7 @@
          <div class="container-fluid">
             <div class="row">
                <div class="col">
-                  <div class="card card-orange">
+                  <div class="card card-primary">
                      <div class="card-header">
                         <div class="d-inline-flex">
                            <h4 class="m-0">Data Kepala Sekolah</h4>

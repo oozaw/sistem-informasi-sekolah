@@ -220,7 +220,7 @@
                   <label class="col-form-label pr-0 mx-2 mr-3 ml-4">Pilih rentang data:</label>
                   <div class="col-2 pl-0 mr-3">
                      <select class="form-control get-data" name="awal" id="awal" required>
-                        @foreach ($tahun_ajaran->sortBy('tahun_ajaran', SORT_REGULAR, true)->take(5)->sortBy('tahun_ajaran') as $ta)
+                        @foreach ($tahun_ajaran->sortBy('tahun_ajaran', SORT_REGULAR, true)->sortBy('tahun_ajaran') as $ta)
                            @if ($loop->first)
                               <option value="{{ $ta->tahun_ajaran }}" selected>{{ $ta->tahun_ajaran }}
                               </option>
@@ -234,7 +234,7 @@
                   <label class="col-form-label pr-0 mr-4">-</label>
                   <div class="col-2 pl-0 mr-3">
                      <select class="form-control get-data" name="akhir" id="akhir" required>
-                        @foreach ($tahun_ajaran->sortBy('tahun_ajaran', SORT_REGULAR, true)->take(5)->sortBy('tahun_ajaran') as $ta)
+                        @foreach ($tahun_ajaran->sortBy('tahun_ajaran', SORT_REGULAR, true)->sortBy('tahun_ajaran') as $ta)
                            @if ($loop->last)
                               <option value="{{ $ta->tahun_ajaran }}" selected>{{ $ta->tahun_ajaran }}
                               </option>

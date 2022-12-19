@@ -34,8 +34,7 @@
                      </div>
                      <div class="widget-user-image">
                         @if ($pekerja->foto_profil)
-                           <img class="img-circle elevation-2"
-                              style="width: 90px; height: 90px; object-fit: cover; object-position: center"
+                           <img class="img-circle elevation-2" style="width: 90px; height: 90px; object-position: center"
                               src="/storage/{{ $pekerja->foto_profil }}" alt="Foto profil pekerja">
                         @else
                            <div class="img-circle bg-secondary elevation-1">
