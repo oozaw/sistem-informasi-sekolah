@@ -48,7 +48,7 @@
                                              <h5><i class="fas fa-info-circle mr-1"></i> Petunjuk!</h5>
                                              <span>
                                                 1. Unduh terlebih dahulu format berkas excel. <br>
-                                                2. Masukkan data siswa ke dalam berkas excel tersebut. <br>
+                                                2. Masukkan data pegawai ke dalam berkas excel tersebut. <br>
                                                 3. Unggah berkas excel berisikan data pegawai melalui unggah berkas di bawah.
                                              </span>
                                              <a href="/template/Impor Data Pegawai.xlsx" target="_blank" download

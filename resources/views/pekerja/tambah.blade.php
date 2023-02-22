@@ -41,7 +41,7 @@
                                     <label for="nama">Nama</label>
                                     <input type="text" class="form-control @error('nama') is-invalid @enderror"
                                        id="nama" name="nama" placeholder="Masukkan nama"
-                                       value="{{ old('nama') }}" autofocus required>
+                                       value="{{ old('nama') }}" autofocus>
                                     @error('nama')
                                        <div class="invalid-feedback">
                                           {{ $message }}
@@ -77,8 +77,7 @@
                               <div class="col-md-6">
                                  <div class="form-group">
                                     <label>Jabatan</label>
-                                    <select class="form-control @error('jabatan') is-invalid @enderror" name="jabatan"
-                                       required>
+                                    <select class="form-control @error('jabatan') is-invalid @enderror" name="jabatan">
                                        <option selected disabled hidden value="">-- Pilih jabatan --</option>
                                        @if (old('jabatan') == 'Guru')
                                           <option value="Guru" selected>Guru</option>
@@ -125,7 +124,7 @@
                                     <label for="email">Email</label>
                                     <input type="email" class="form-control @error('email') is-invalid @enderror"
                                        id="email" name="email" placeholder="Masukkan email"
-                                       value="{{ old('email') }}" required>
+                                       value="{{ old('email') }}">
                                     @error('email')
                                        <div class="invalid-feedback">
                                           {{ $message }}
@@ -138,7 +137,7 @@
                                     <label for="no_hp">No. Telepon</label>
                                     <input type="text" class="form-control @error('no_hp') is-invalid @enderror"
                                        id="no_hp" name="no_hp" placeholder="Masukkan no HP"
-                                       value="{{ old('no_hp') }}" required>
+                                       value="{{ old('no_hp') }}">
                                     @error('no_hp')
                                        <div class="invalid-feedback">
                                           {{ $message }}
@@ -151,7 +150,7 @@
                               <label for="tempat_tinggal">Tempat Tinggal</label>
                               <input type="text" class="form-control @error('tempat_tinggal') is-invalid @enderror"
                                  id="tempat_tinggal" name="tempat_tinggal" placeholder="Masukkan tempat tinggal"
-                                 value="{{ old('tempat_tinggal') }}" required>
+                                 value="{{ old('tempat_tinggal') }}">
                               @error('tempat_tinggal')
                                  <div class="invalid-feedback">
                                     {{ $message }}
