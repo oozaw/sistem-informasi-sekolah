@@ -136,7 +136,7 @@
                                  </div>
                                  <div class="form-group col-md-2 mb-0">
                                     <input type="text" class="form-control @error('instansi_asal') is-invalid @enderror"
-                                       name="instansi_asal" id="instansi_asal" value="SMAN.5.Mrg" readonly>
+                                       name="instansi_asal" id="instansi_asal" value="SMAN.X.Xxx">
                                     <span><small class="text-danger error-text instansi_asal_error ml-1"
                                           hidden></small></span>
                                     @error('instansi_asal')

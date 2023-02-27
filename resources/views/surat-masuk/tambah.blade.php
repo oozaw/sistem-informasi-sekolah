@@ -64,8 +64,8 @@
                                  </div>
                                  <div class="form-group col-md-2 mb-0">
                                     <input type="text" class="form-control @error('kode_tujuan') is-invalid @enderror"
-                                       name="kode_tujuan" id="kode_tujuan" placeholder="Kode Tujuan" value="SMAN.5.Mrg"
-                                       readonly required>
+                                       name="kode_tujuan" id="kode_tujuan" placeholder="Kode Tujuan" value="SMAN.X.Xxx"
+                                       required>
                                     @error('kode_tujuan')
                                        <div class="invalid-feedback">
                                           {{ $message }}

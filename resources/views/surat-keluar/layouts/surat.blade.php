@@ -3,33 +3,33 @@
    <tbody>
       <tr>
          <td colspan="3">
-            <img src="/img/logo-dinas-pendidikan.png" alt="logo-dinas-pendidikan-jambi"
+            <img src="/img/dikbud_logo.png" alt="logo dinas pendidikan daerah"
                style=" width: 65px; height: auto; margin-left: 4px" class="rounded float-left position-absolute">
-            <img src="/img/smanel-logo.png" alt="logo-smanel" style="width: 70px; height: auto; margin-left: 15cm"
+            <img src="/img/dikbud_logo.png" alt="logo-sekolah" style="width: 70px; height: auto; margin-left: 15cm"
                class="rounded  position-absolute">
             <div align="center" style=" margin-bottom: 0px; line-height: 25px" class="mx-auto">
                <span style="font-family: 'Times New Roman'; font-size: larger;">
-                  <b>PEMERINTAH PROVINSI JAMBI</b></span><br>
+                  <b>PEMERINTAH PROVINSI XXXXXX</b></span><br>
                <span style="font-family: 'Times New Roman', Arial; font-size: larger;"><b>DINAS
                      PENDIDIKAN</b></span><br>
                <span style="font-family: 'Times New Roman', Times, serif; font-size: x-large;"><b>SMA
-                     NEGERI 5
-                     MERANGIN</b></span><br>
+                     NEGERI X
+                     XXXXXXXXX</b></span><br>
             </div>
             <div align="center" style="margin-top: -4px; margin-bottom: -20px">
                <span style="font-family: Arial, Helvetica, sans-serif; font-size: x-small;">Jl.
-                  Pahlawan No. 1 Desa Meranti Kec. Renah Pamenang Kode Pos 37352</span><br>
+                  Pahlawan No. 123 Desa Contoh Kec. Nama Kecamatan Kode Pos XXXXX</span><br>
             </div>
          </td>
       </tr>
       <tr>
          <td>
             <span style=" font-family: Arial, Helvetica, sans-serif; font-size: xx-small;">NSS.
-               30.1.10.06.10.002</span>
+               XX.X.XX.XX.XX.XXX</span>
          </td>
          <td colspan="2" align="right">
             <span style="font-family: Arial, Helvetica, sans-serif; font-size: xx-small;">NPSN.
-               10505055</span>
+               XXXXXXXX</span>
          </td>
       </tr>
       <tr>

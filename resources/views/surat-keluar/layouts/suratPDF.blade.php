@@ -21,9 +21,9 @@
 </head>
 
 <body style="line-height: 1.3rem">
-   <img src="{{ public_path('/img/logo-dinas-pendidikan.png') }}" alt="logo-dinas-pendidikan-jambi"
+   <img src="{{ public_path('/img/dikbud_logo.png') }}" alt="logo-dinas-pendidikan-daerah"
       style="position: absolute; width: 65px; height: auto; margin-left: 4px; margin-top: 8px">
-   <img src="{{ public_path('/img/smanel-logo.png') }}" alt="logo-smanel" align="right"
+   <img src="{{ public_path('/img/dikbud_logo.png') }}" alt="logo-sekolah" align="right"
       style="position: absolute; width: 70px; height: auto; margin-right: 3px;  margin-top: 8px">
    <table align="center" border="0" cellpadding="0"
       style="width: 100%; border-collapse: collapse; font-family: 'Times New Roman">
@@ -32,27 +32,27 @@
             <td colspan="3">
                <div align="center" style="margin-left: 70px; margin-bottom: 0px; line-height: 28px">
                   <span style="font-family: 'Times New Roman'; font-size: larger;">
-                     <b>PEMERINTAH PROVINSI JAMBI</b></span><br>
+                     <b>PEMERINTAH PROVINSI XXXXXX</b></span><br>
                   <span style="font-family: 'Times New Roman', Arial; font-size: larger;"><b>DINAS
                         PENDIDIKAN</b></span><br>
                   <span style="font-family: 'Times New Roman', Times, serif; font-size: x-large;"><b>SMA
-                        NEGERI 5
-                        MERANGIN</b></span><br>
+                        NEGERI X
+                        XXXXXXXX</b></span><br>
                </div>
                <div align="center" style="margin-top: -4px; margin-bottom: -10px; margin-left: 70px">
                   <span style="font-family: Arial, Helvetica, sans-serif; font-size: x-small;">Jl.
-                     Pahlawan No. 1 Desa Meranti Kec. Renah Pamenang Kode Pos 37352</span><br>
+                     Pahlawan No. 123 Desa Contoh Kec. Nama Kecamatan Kode Pos XXXXX</span><br>
                </div>
             </td>
          </tr>
          <tr>
             <td>
                <span style=" font-family: Arial, Helvetica, sans-serif; font-size: xx-small;">NSS.
-                  30.1.10.06.10.002</span>
+                  XX.X.XX.XX.XX.XXX</span>
             </td>
             <td colspan="2" align="right">
                <span style="font-family: Arial, Helvetica, sans-serif; font-size: xx-small;">NPSN.
-                  10505055</span>
+                  XXXXXXXX</span>
             </td>
          </tr>
          <tr>

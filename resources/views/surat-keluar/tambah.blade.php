@@ -77,7 +77,7 @@
                                  </div>
                                  <div class="form-group col-md-2 mb-0">
                                     <input type="text" class="form-control @error('instansi_asal') is-invalid @enderror"
-                                       name="instansi_asal" id="instansi_asal" value="SMAN.5.Mrg" readonly required>
+                                       name="instansi_asal" id="instansi_asal" value="SMAN.X.Xxx" required>
                                     @error('instansi_asal')
                                        <div class="invalid-feedback">
                                           {{ $message }}
