@@ -7,7 +7,7 @@
    <title>{{ $title }}</title>
 
    {{-- Icon --}}
-   <link rel="icon" type="image/gif/png" href="/img/smanel-logo.png">
+   <link rel="icon" type="image/gif/png" href="/img/dikbud_logo.png">
 
    <!-- Google Font: Source Sans Pro -->
    <link rel="stylesheet"
@@ -27,14 +27,13 @@
    <div class="hold-transition login-page"
       style="background-image: url('{{ asset('/img/background-login.jpg') }}'); background-size: cover; background-attachment: fixed;">
       <div class="mb-4">
-         <img src="/img/smanel-logo.png" alt="" class="" style="height: 130px; width: 115px">
+         <img src="/img/dikbud_logo.png" alt="" class="" style="height: 130px;">
       </div>
       <div class="login-box mb-5">
          <div class="card card-outline card-warning">
             <div class="card-header text-center">
-               <span class="h1">SIM-<b>SMANEL</b></span><br>
-               <span class=""><small>Sistem Informasi Manajemen SMA Negeri 5
-                     Merangin</small></span>
+               <span class="h1">SIM-<b>Sekolah</b></span><br>
+               <span class=""><small>Sistem Informasi Manajemen Sekolah</small></span>
             </div>
             <div class="card-body">
                <p class="login-box-msg">
