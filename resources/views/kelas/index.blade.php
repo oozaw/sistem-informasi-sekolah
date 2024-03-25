@@ -165,7 +165,6 @@
             lengthChange: false,
             autoWidth: false,
             initComplete: function() {
-               var api = this.api();
 
                new $.fn.dataTable.Buttons(api, {
                   buttons: [{
